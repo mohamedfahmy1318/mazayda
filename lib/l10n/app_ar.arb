@@ -1,0 +1,110 @@
+{
+  "@@locale": "ar",
+  "appName": "مزايدة",
+
+  "navHome": "الرئيسية",
+  "navMyAuctions": "مزايداتي",
+  "navPayments": "المدفوعات",
+  "navProfile": "حسابي",
+
+  "splashTagline": "المنصة الوطنية للمزادات الحكومية",
+
+  "login": "تسجيل الدخول",
+  "loginButton": "دخول",
+  "register": "إنشاء حساب",
+  "noAccountRegister": "ليس لديك حساب؟ إنشاء حساب",
+  "ninOrEmail": "رقم التعريف أو البريد",
+  "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "nin": "رقم التعريف الوطني (NIN)",
+  "firstName": "الاسم",
+  "lastName": "اللقب",
+  "phone": "رقم الهاتف",
+  "email": "البريد الإلكتروني",
+  "nextVerify": "التالي — التحقق",
+
+  "verifyEmailTitle": "تأكيد البريد الإلكتروني",
+  "otpHint": "أدخل الرمز المكوّن من 6 أرقام المرسل إلى بريدك",
+  "confirm": "تأكيد",
+  "resendCode": "إعادة إرسال الرمز",
+  "resendIn": "إعادة الإرسال خلال {seconds} ثانية",
+  "@resendIn": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+
+  "activeAuctions": "المزادات النشطة",
+  "noAuctions": "لا توجد مزادات حاليًا",
+  "currentPrice": "السعر الحالي",
+  "openingPrice": "السعر الافتتاحي",
+  "highestBid": "أعلى مزايدة",
+  "depositRequired": "التأمين المطلوب",
+  "bidders": "{count} مزايد",
+  "@bidders": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "live": "مباشر",
+  "comingSoon": "قريبًا",
+  "description": "الوصف",
+
+  "registerAndPay": "تسجيل ودفع",
+  "bid": "مزايدة",
+  "liveBidding": "المزاد المباشر",
+  "bidHistory": "سجل المزايدات",
+  "noBidsYet": "لا توجد مزايدات بعد",
+  "youAreHighest": "أنت صاحب أعلى مزايدة",
+  "placeBidAmount": "زايد بـ {amount}",
+  "@placeBidAmount": {
+    "placeholders": { "amount": { "type": "String" } }
+  },
+
+  "kycTitle": "التحقق من الهوية (KYC)",
+  "kycWarning": "أكمل النموذج خلال 30 يومًا وإلا سيُعلَّق الحساب",
+  "requiredDocuments": "المستندات المطلوبة",
+  "personalData": "البيانات الشخصية",
+  "finishVerification": "إنهاء التحقق",
+  "uploadDocsFirst": "ارفع المستندات الثلاثة المطلوبة أولًا",
+
+  "myAuctionsActive": "نشطة",
+  "myAuctionsWon": "رابحة",
+  "myAuctionsLost": "خاسرة",
+  "myAuctionsUpcoming": "قادمة",
+
+  "notifications": "الإشعارات",
+  "markAllRead": "تعليم الكل",
+  "noNotifications": "لا توجد إشعارات",
+
+  "profile": "الملف الشخصي",
+  "verifiedKyc": "موثّق — KYC مكتمل",
+  "changePassword": "تغيير كلمة المرور",
+  "language": "اللغة",
+  "privacy": "الخصوصية",
+  "logout": "تسجيل الخروج",
+  "save": "حفظ",
+  "edit": "تعديل",
+  "profession": "المهنة",
+  "address": "العنوان",
+  "postalCode": "الرمز البريدي",
+
+  "languageArabic": "العربية",
+  "languageFrench": "الفرنسية",
+  "languageEnglish": "الإنجليزية",
+  "chooseLanguage": "اختر اللغة",
+
+  "retry": "إعادة المحاولة",
+  "errorGeneric": "حدث خطأ، حاول مجددًا",
+  "errorNetwork": "تحقق من اتصالك بالإنترنت",
+  "paymentSuccess": "تم الدفع بنجاح",
+  "paymentCancelled": "تم إلغاء الدفع",
+  "securePayment": "الدفع الآمن",
+
+  "valRequired": "هذا الحقل مطلوب",
+  "valEmailInvalid": "بريد إلكتروني غير صالح",
+  "valPasswordShort": "كلمة المرور 12 حرفًا على الأقل",
+  "valPasswordMismatch": "كلمتا المرور غير متطابقتين",
+  "valNinInvalid": "رقم التعريف يجب أن يكون 18 رقمًا",
+  "valPhoneInvalid": "رقم هاتف غير صالح (10 أرقام تبدأ بـ 0)",
+  "valNameShort": "الاسم قصير جدًا",
+
+  "offlineBanner": "لا يوجد اتصال بالإنترنت",
+  "backOnline": "تم استعادة الاتصال"
+}

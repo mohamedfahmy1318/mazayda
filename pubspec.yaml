@@ -1,0 +1,96 @@
+name: mazayada
+description: تطبيق منصة مزايدة — المزادات الحكومية الجزائرية
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.5
+  bloc: ^8.1.4
+
+  # Functional / Models
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  equatable: ^2.0.5
+  dartz: ^0.10.1 # Either<Failure, Success>
+
+  # Networking
+  dio: ^5.4.3+1
+  dio_smart_retry: ^6.0.0 # إعادة محاولة الطلبات الفاشلة تلقائيًا
+  pretty_dio_logger: ^1.4.0
+
+  # Dependency Injection
+  get_it: ^7.7.0
+  injectable: ^2.4.1
+
+  # Local storage (tokens)
+  flutter_secure_storage: ^9.2.2
+
+  # UI
+  flutter_screenutil: ^5.9.3
+  cached_network_image: ^3.3.1
+  gap: ^3.0.1 # مسافات نظيفة بدل SizedBox
+  skeletonizer: ^1.4.2 # shimmer loading جاهز
+  flutter_animate: ^4.5.0 # أنيميشن وميكرو-إنتراكشن بسطر واحد
+  shimmer: ^3.0.0
+
+  # Routing
+  go_router: ^14.2.7 # تنقّل مركزي بدل MaterialPageRoute المبعثر
+
+  # Forms & validation
+  formz: ^0.7.0 # تحقق نظيف للحقول
+
+  # Media / Files
+  image_picker: ^1.1.2 # تصوير/اختيار مستندات الـ KYC
+  url_launcher: ^6.3.0 # فتح بوابة الدفع / الروابط
+  webview_flutter: ^4.8.0 # بوابة الدفع داخل التطبيق
+
+  # Connectivity
+  connectivity_plus: ^6.0.5 # فحص الاتصال قبل الطلبات
+
+  # Realtime & Notifications
+  pusher_channels_flutter: ^2.2.1 # المزايدة اللحظية (broadcasting)
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3 # Push notifications من السيرفر
+  flutter_local_notifications: ^17.2.3 # عرض الإشعار والتطبيق مفتوح
+
+  # Utils
+  intl: ^0.20.2
+  logger: ^2.4.0 # لوج منظّم
+  flutter_gen: ^5.14.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # Code generation
+  build_runner: ^2.4.11
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  injectable_generator: ^2.6.1
+
+flutter:
+  uses-material-design: true
+  generate: true # تفعيل توليد الترجمة (gen-l10n)
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/logo/
+
+  fonts:
+    # خط Cairo متغيّر (variable font) يغطّي كل الأوزان 200–1000.
+    # Flutter يختار الوزن المطلوب تلقائيًا حسب FontWeight.
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-VariableFont.ttf

@@ -1,0 +1,110 @@
+{
+  "@@locale": "fr",
+  "appName": "Mazayada",
+
+  "navHome": "Accueil",
+  "navMyAuctions": "Mes enchères",
+  "navPayments": "Paiements",
+  "navProfile": "Profil",
+
+  "splashTagline": "Plateforme Nationale des Enchères Publiques",
+
+  "login": "Connexion",
+  "loginButton": "Se connecter",
+  "register": "Créer un compte",
+  "noAccountRegister": "Pas de compte ? Créer un compte",
+  "ninOrEmail": "NIN ou e-mail",
+  "password": "Mot de passe",
+  "confirmPassword": "Confirmer le mot de passe",
+  "nin": "Numéro d'identification national (NIN)",
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "phone": "Numéro de téléphone",
+  "email": "E-mail",
+  "nextVerify": "Suivant — Vérification",
+
+  "verifyEmailTitle": "Vérification de l'e-mail",
+  "otpHint": "Saisissez le code à 6 chiffres envoyé à votre e-mail",
+  "confirm": "Confirmer",
+  "resendCode": "Renvoyer le code",
+  "resendIn": "Renvoyer dans {seconds} s",
+  "@resendIn": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+
+  "activeAuctions": "Enchères actives",
+  "noAuctions": "Aucune enchère pour le moment",
+  "currentPrice": "Prix actuel",
+  "openingPrice": "Prix de départ",
+  "highestBid": "Meilleure offre",
+  "depositRequired": "Caution requise",
+  "bidders": "{count} enchérisseurs",
+  "@bidders": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "live": "En direct",
+  "comingSoon": "Bientôt",
+  "description": "Description",
+
+  "registerAndPay": "S'inscrire et payer",
+  "bid": "Enchérir",
+  "liveBidding": "Enchère en direct",
+  "bidHistory": "Historique des offres",
+  "noBidsYet": "Aucune offre pour l'instant",
+  "youAreHighest": "Vous avez la meilleure offre",
+  "placeBidAmount": "Enchérir à {amount}",
+  "@placeBidAmount": {
+    "placeholders": { "amount": { "type": "String" } }
+  },
+
+  "kycTitle": "Vérification d'identité (KYC)",
+  "kycWarning": "Complétez le formulaire sous 30 jours, sinon le compte sera suspendu",
+  "requiredDocuments": "Documents requis",
+  "personalData": "Données personnelles",
+  "finishVerification": "Terminer la vérification",
+  "uploadDocsFirst": "Téléversez d'abord les trois documents requis",
+
+  "myAuctionsActive": "Actives",
+  "myAuctionsWon": "Gagnées",
+  "myAuctionsLost": "Perdues",
+  "myAuctionsUpcoming": "À venir",
+
+  "notifications": "Notifications",
+  "markAllRead": "Tout marquer",
+  "noNotifications": "Aucune notification",
+
+  "profile": "Profil",
+  "verifiedKyc": "Vérifié — KYC complété",
+  "changePassword": "Changer le mot de passe",
+  "language": "Langue",
+  "privacy": "Confidentialité",
+  "logout": "Déconnexion",
+  "save": "Enregistrer",
+  "edit": "Modifier",
+  "profession": "Profession",
+  "address": "Adresse",
+  "postalCode": "Code postal",
+
+  "languageArabic": "Arabe",
+  "languageFrench": "Français",
+  "languageEnglish": "Anglais",
+  "chooseLanguage": "Choisir la langue",
+
+  "retry": "Réessayer",
+  "errorGeneric": "Une erreur s'est produite, réessayez",
+  "errorNetwork": "Vérifiez votre connexion Internet",
+  "paymentSuccess": "Paiement réussi",
+  "paymentCancelled": "Paiement annulé",
+  "securePayment": "Paiement sécurisé",
+
+  "valRequired": "Ce champ est requis",
+  "valEmailInvalid": "E-mail invalide",
+  "valPasswordShort": "Mot de passe : 12 caractères minimum",
+  "valPasswordMismatch": "Les mots de passe ne correspondent pas",
+  "valNinInvalid": "Le NIN doit comporter 18 chiffres",
+  "valPhoneInvalid": "Numéro invalide (10 chiffres commençant par 0)",
+  "valNameShort": "Nom trop court",
+
+  "offlineBanner": "Pas de connexion Internet",
+  "backOnline": "Connexion rétablie"
+}

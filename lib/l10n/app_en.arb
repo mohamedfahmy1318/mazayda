@@ -1,0 +1,110 @@
+{
+  "@@locale": "en",
+  "appName": "Mazayada",
+
+  "navHome": "Home",
+  "navMyAuctions": "My Auctions",
+  "navPayments": "Payments",
+  "navProfile": "Profile",
+
+  "splashTagline": "National Public Auctions Platform",
+
+  "login": "Login",
+  "loginButton": "Sign in",
+  "register": "Create Account",
+  "noAccountRegister": "No account? Create one",
+  "ninOrEmail": "NIN or email",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "nin": "National ID Number (NIN)",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "phone": "Phone number",
+  "email": "Email",
+  "nextVerify": "Next — Verify",
+
+  "verifyEmailTitle": "Email Verification",
+  "otpHint": "Enter the 6-digit code sent to your email",
+  "confirm": "Confirm",
+  "resendCode": "Resend code",
+  "resendIn": "Resend in {seconds}s",
+  "@resendIn": {
+    "placeholders": { "seconds": { "type": "int" } }
+  },
+
+  "activeAuctions": "Active Auctions",
+  "noAuctions": "No auctions available",
+  "currentPrice": "Current price",
+  "openingPrice": "Opening price",
+  "highestBid": "Highest bid",
+  "depositRequired": "Deposit required",
+  "bidders": "{count} bidders",
+  "@bidders": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "live": "Live",
+  "comingSoon": "Soon",
+  "description": "Description",
+
+  "registerAndPay": "Register & Pay",
+  "bid": "Bid",
+  "liveBidding": "Live Bidding",
+  "bidHistory": "Bid history",
+  "noBidsYet": "No bids yet",
+  "youAreHighest": "You have the highest bid",
+  "placeBidAmount": "Bid {amount}",
+  "@placeBidAmount": {
+    "placeholders": { "amount": { "type": "String" } }
+  },
+
+  "kycTitle": "Identity Verification (KYC)",
+  "kycWarning": "Complete the form within 30 days or your account will be suspended",
+  "requiredDocuments": "Required documents",
+  "personalData": "Personal data",
+  "finishVerification": "Finish verification",
+  "uploadDocsFirst": "Upload the three required documents first",
+
+  "myAuctionsActive": "Active",
+  "myAuctionsWon": "Won",
+  "myAuctionsLost": "Lost",
+  "myAuctionsUpcoming": "Upcoming",
+
+  "notifications": "Notifications",
+  "markAllRead": "Mark all",
+  "noNotifications": "No notifications",
+
+  "profile": "Profile",
+  "verifiedKyc": "Verified — KYC complete",
+  "changePassword": "Change password",
+  "language": "Language",
+  "privacy": "Privacy",
+  "logout": "Logout",
+  "save": "Save",
+  "edit": "Edit",
+  "profession": "Profession",
+  "address": "Address",
+  "postalCode": "Postal code",
+
+  "languageArabic": "Arabic",
+  "languageFrench": "French",
+  "languageEnglish": "English",
+  "chooseLanguage": "Choose language",
+
+  "retry": "Retry",
+  "errorGeneric": "An error occurred, please try again",
+  "errorNetwork": "Check your internet connection",
+  "paymentSuccess": "Payment successful",
+  "paymentCancelled": "Payment cancelled",
+  "securePayment": "Secure payment",
+
+  "valRequired": "This field is required",
+  "valEmailInvalid": "Invalid email",
+  "valPasswordShort": "Password must be at least 12 characters",
+  "valPasswordMismatch": "Passwords do not match",
+  "valNinInvalid": "NIN must be 18 digits",
+  "valPhoneInvalid": "Invalid phone (10 digits starting with 0)",
+  "valNameShort": "Name too short",
+
+  "offlineBanner": "No internet connection",
+  "backOnline": "Connection restored"
+}
