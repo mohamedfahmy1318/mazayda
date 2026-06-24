@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,11 +56,18 @@ class _LoginView extends StatelessWidget {
               children: [
                 SizedBox(height: 30.h),
                 const AuthCircleBadge(
-                  icon: Icons.gavel,
-                  color: AppColors.white,
-                  backgroundColor: AppColors.primary,
-                  radius: 36,
-                ),
+                      icon: Icons.gavel,
+                      color: AppColors.white,
+                      backgroundColor: AppColors.primary,
+                      radius: 36,
+                    )
+                    .animate()
+                    .fadeIn(duration: 400.ms)
+                    .scale(
+                      begin: const Offset(0.8, 0.8),
+                      end: const Offset(1, 1),
+                      curve: Curves.easeOutBack,
+                    ),
                 SizedBox(height: 24.h),
                 AppTextField(
                   label: t.ninOrEmail,

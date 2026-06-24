@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -68,10 +69,17 @@ class _OtpViewState extends State<_OtpView> {
               children: [
                 SizedBox(height: 20.h),
                 const AuthCircleBadge(
-                  icon: Icons.mark_email_read_outlined,
-                  color: AppColors.success,
-                  backgroundColor: AppColors.successBg,
-                ),
+                      icon: Icons.mark_email_read_outlined,
+                      color: AppColors.success,
+                      backgroundColor: AppColors.successBg,
+                    )
+                    .animate()
+                    .fadeIn(duration: 400.ms)
+                    .scale(
+                      begin: const Offset(0.8, 0.8),
+                      end: const Offset(1, 1),
+                      curve: Curves.easeOutBack,
+                    ),
                 SizedBox(height: 12.h),
                 Text(
                   t.otpHint,

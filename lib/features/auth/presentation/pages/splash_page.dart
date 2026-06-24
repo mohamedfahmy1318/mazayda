@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
@@ -40,21 +41,31 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 96.w,
-              height: 96.w,
-              decoration: BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.circular(28.r),
-              ),
-              clipBehavior: Clip.antiAlias,
-              // اللوجو من assets — لو الملف لسه مش متحط، يظهر أيقونة بديلة
-              child: Image.asset(
-                AppAssets.logo,
-                fit: BoxFit.contain,
-                errorBuilder: (_, _, _) =>
-                    Icon(Icons.gavel, size: 52.sp, color: AppColors.primary),
-              ),
-            ),
+                  width: 96.w,
+                  height: 96.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.background,
+                    borderRadius: BorderRadius.circular(28.r),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  // اللوجو من assets — لو الملف لسه مش متحط، يظهر أيقونة بديلة
+                  child: Image.asset(
+                    AppAssets.logo,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, _, _) => Icon(
+                      Icons.gavel,
+                      size: 52.sp,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 500.ms)
+                .scale(
+                  begin: const Offset(0.85, 0.85),
+                  end: const Offset(1, 1),
+                  curve: Curves.easeOutBack,
+                ),
             SizedBox(height: 20.h),
             Text(
               t.appName,
@@ -63,12 +74,12 @@ class _SplashPageState extends State<SplashPage> {
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),
-            ),
+            ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
             SizedBox(height: 6.h),
             Text(
               t.splashTagline,
               style: TextStyle(fontSize: 13.sp, color: Colors.white70),
-            ),
+            ).animate().fadeIn(delay: 350.ms, duration: 400.ms),
           ],
         ),
       ),
