@@ -10,6 +10,7 @@ import '../../../../core/widgets/primary_button.dart';
 import '../cubit/login_cubit.dart';
 import '../formz/auth_inputs.dart';
 import '../widgets/app_text_field.dart';
+import '../widgets/auth_circle_badge.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -53,10 +54,11 @@ class _LoginView extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 30.h),
-                CircleAvatar(
-                  radius: 36.r,
+                const AuthCircleBadge(
+                  icon: Icons.gavel,
+                  color: AppColors.white,
                   backgroundColor: AppColors.primary,
-                  child: Icon(Icons.gavel, size: 36.sp, color: Colors.white),
+                  radius: 36,
                 ),
                 SizedBox(height: 24.h),
                 AppTextField(
@@ -64,8 +66,8 @@ class _LoginView extends StatelessWidget {
                   hint: t.ninOrEmail,
                   icon: Icons.person_outline,
                   onChanged: cubit.identifierChanged,
-                  errorText: state.identifier.isNotValid &&
-                          !state.identifier.isPure
+                  errorText:
+                      state.identifier.isNotValid && !state.identifier.isPure
                       ? t.valRequired
                       : null,
                 ),

@@ -66,7 +66,8 @@ class _RegisterView extends StatelessWidget {
                         label: t.firstName,
                         hint: t.firstName,
                         onChanged: cubit.firstNameChanged,
-                        errorText: _nameErr(state.firstName, t) ??
+                        errorText:
+                            _nameErr(state.firstName, t) ??
                             srv?['first_name_ar']?.first,
                       ),
                     ),
@@ -76,7 +77,8 @@ class _RegisterView extends StatelessWidget {
                         label: t.lastName,
                         hint: t.lastName,
                         onChanged: cubit.lastNameChanged,
-                        errorText: _nameErr(state.lastName, t) ??
+                        errorText:
+                            _nameErr(state.lastName, t) ??
                             srv?['last_name_ar']?.first,
                       ),
                     ),

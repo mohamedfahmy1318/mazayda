@@ -39,7 +39,7 @@ class ConfirmPasswordInput extends FormzInput<String, ConfirmPasswordError> {
 
   const ConfirmPasswordInput.pure({this.password = ''}) : super.pure('');
   const ConfirmPasswordInput.dirty({this.password = '', String value = ''})
-      : super.dirty(value);
+    : super.dirty(value);
 
   @override
   ConfirmPasswordError? validator(String value) {
