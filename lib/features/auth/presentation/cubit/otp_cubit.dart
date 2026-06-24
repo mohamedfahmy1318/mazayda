@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/errors/failures.dart';
 import '../../domain/usecases/verify_otp.dart';
 
 part 'otp_cubit.freezed.dart';
@@ -20,8 +19,7 @@ class OtpCubit extends Cubit<OtpState> {
   final VerifyOtp _verifyOtp;
   final ResendOtp _resendOtp;
 
-  OtpCubit(this._verifyOtp, this._resendOtp)
-      : super(const OtpState.initial());
+  OtpCubit(this._verifyOtp, this._resendOtp) : super(const OtpState.initial());
 
   Timer? _timer;
 
@@ -47,31 +45,19 @@ class OtpCubit extends Cubit<OtpState> {
     String deviceName = 'mobile',
   }) async {
     emit(const OtpState.verifying());
-    final result = await _verifyOtp(VerifyOtpParams(
-      userId: userId,
-      otp: otp,
-      deviceName: deviceName,
-    ));
+    final result = await _verifyOtp(
+      VerifyOtpParams(userId: userId, otp: otp, deviceName: deviceName),
+    );
     result.fold(
-      (f) => emit(OtpState.error(_msg(f))),
+      (f) => emit(OtpState.error(f.message)),
       (_) => emit(const OtpState.verified()),
     );
   }
 
   Future<void> resend(String userId) async {
     final result = await _resendOtp(userId);
-    result.fold(
-      (f) => emit(OtpState.error(_msg(f))),
-      (_) => startCooldown(),
-    );
+    result.fold((f) => emit(OtpState.error(f.message)), (_) => startCooldown());
   }
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 
   @override
   Future<void> close() {

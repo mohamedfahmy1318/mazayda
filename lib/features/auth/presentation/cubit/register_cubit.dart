@@ -51,7 +51,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(s.copyWith(isValid: valid, status: RegisterStatus.idle));
   }
 
-  void ninChanged(String v) => _revalidate(state.copyWith(nin: NinInput.dirty(v)));
+  void ninChanged(String v) =>
+      _revalidate(state.copyWith(nin: NinInput.dirty(v)));
   void firstNameChanged(String v) =>
       _revalidate(state.copyWith(firstName: NameInput.dirty(v)));
   void lastNameChanged(String v) =>
@@ -67,57 +68,59 @@ class RegisterCubit extends Cubit<RegisterState> {
       value: state.confirmPassword.value,
     );
     _revalidate(
-      state.copyWith(password: PasswordInput.dirty(v), confirmPassword: confirm),
+      state.copyWith(
+        password: PasswordInput.dirty(v),
+        confirmPassword: confirm,
+      ),
     );
   }
 
   void confirmPasswordChanged(String v) => _revalidate(
-        state.copyWith(
-          confirmPassword: ConfirmPasswordInput.dirty(
-            password: state.password.value,
-            value: v,
-          ),
-        ),
-      );
+    state.copyWith(
+      confirmPassword: ConfirmPasswordInput.dirty(
+        password: state.password.value,
+        value: v,
+      ),
+    ),
+  );
 
   Future<void> submit({
     String birthDate = '2000-01-01',
     String deviceName = 'mobile',
   }) async {
     if (!state.isValid) return;
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         status: RegisterStatus.submitting,
         errorMessage: null,
-        serverErrors: null));
+        serverErrors: null,
+      ),
+    );
 
-    final result = await _registerUser(RegisterParams(
-      nin: state.nin.value,
-      firstNameAr: state.firstName.value,
-      lastNameAr: state.lastName.value,
-      phone: state.phone.value,
-      email: state.email.value,
-      birthDate: birthDate,
-      password: state.password.value,
-      deviceName: deviceName,
-    ));
+    final result = await _registerUser(
+      RegisterParams(
+        nin: state.nin.value,
+        firstNameAr: state.firstName.value,
+        lastNameAr: state.lastName.value,
+        phone: state.phone.value,
+        email: state.email.value,
+        birthDate: birthDate,
+        password: state.password.value,
+        deviceName: deviceName,
+      ),
+    );
 
     result.fold(
-      (f) => emit(state.copyWith(
-        status: RegisterStatus.failure,
-        errorMessage: _msg(f),
-        serverErrors: f is ServerFailure ? f.errors : null,
-      )),
-      (r) => emit(state.copyWith(
-        status: RegisterStatus.success,
-        userId: r.userId,
-      )),
+      (f) => emit(
+        state.copyWith(
+          status: RegisterStatus.failure,
+          errorMessage: f.message,
+          serverErrors: f is ServerFailure ? f.errors : null,
+        ),
+      ),
+      (r) => emit(
+        state.copyWith(status: RegisterStatus.success, userId: r.userId),
+      ),
     );
   }
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 }
