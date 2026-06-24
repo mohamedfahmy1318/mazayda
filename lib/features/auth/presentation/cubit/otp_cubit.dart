@@ -30,6 +30,12 @@ class OtpCubit extends Cubit<OtpState> {
     emit(OtpState.initial(cooldown: remaining));
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
       remaining--;
+      // الـ cooldown ما يكتبش فوق أي حالة تانية (تحقق/خطأ/نجاح).
+      // الخطأ ياخد الأولوية في العرض؛ العدّاد يكمل بصمت.
+      if (state is! OtpInitial) {
+        if (remaining <= 0) t.cancel();
+        return;
+      }
       if (remaining <= 0) {
         t.cancel();
         emit(const OtpState.initial(cooldown: 0));
