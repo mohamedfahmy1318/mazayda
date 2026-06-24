@@ -17,6 +17,7 @@
   "password": "Password",
   "confirmPassword": "Confirm password",
   "nin": "National ID Number (NIN)",
+  "ninHint": "18 digits",
   "firstName": "First name",
   "lastName": "Last name",
   "phone": "Phone number",

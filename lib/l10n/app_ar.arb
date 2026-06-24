@@ -17,6 +17,7 @@
   "password": "كلمة المرور",
   "confirmPassword": "تأكيد كلمة المرور",
   "nin": "رقم التعريف الوطني (NIN)",
+  "ninHint": "18 رقم",
   "firstName": "الاسم",
   "lastName": "اللقب",
   "phone": "رقم الهاتف",

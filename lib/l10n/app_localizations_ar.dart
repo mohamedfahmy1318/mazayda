@@ -51,6 +51,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get nin => 'رقم التعريف الوطني (NIN)';
 
   @override
+  String get ninHint => '18 رقم';
+
+  @override
   String get firstName => 'الاسم';
 
   @override

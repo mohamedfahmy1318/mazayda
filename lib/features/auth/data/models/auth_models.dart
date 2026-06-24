@@ -39,11 +39,11 @@ class AuthUserModel with _$AuthUserModel {
       _$AuthUserModelFromJson(json);
 
   AuthUser toEntity() => AuthUser(
-        id: id,
-        firstNameAr: firstNameAr,
-        lastNameAr: lastNameAr,
-        email: email,
-        phone: phone,
-        kycStatus: kycStatus,
-      );
+    id: id,
+    firstNameAr: firstNameAr,
+    lastNameAr: lastNameAr,
+    email: email,
+    phone: phone,
+    kycStatus: kycStatus,
+  );
 }

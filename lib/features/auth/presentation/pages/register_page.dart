@@ -7,7 +7,7 @@ import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../cubit/register_cubit.dart';
-import '../formz/auth_inputs.dart';
+import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -51,12 +51,12 @@ class _RegisterView extends StatelessWidget {
               children: [
                 AppTextField(
                   label: t.nin,
-                  hint: '18 رقم',
+                  hint: t.ninHint,
                   icon: Icons.badge_outlined,
                   keyboardType: TextInputType.number,
                   maxLength: 18,
                   onChanged: cubit.ninChanged,
-                  errorText: _ninErr(state.nin, t) ?? srv?['nin']?.first,
+                  errorText: state.nin.errorText(t) ?? srv?['nin']?.first,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class _RegisterView extends StatelessWidget {
                         hint: t.firstName,
                         onChanged: cubit.firstNameChanged,
                         errorText:
-                            _nameErr(state.firstName, t) ??
+                            state.firstName.errorText(t) ??
                             srv?['first_name_ar']?.first,
                       ),
                     ),
@@ -78,7 +78,7 @@ class _RegisterView extends StatelessWidget {
                         hint: t.lastName,
                         onChanged: cubit.lastNameChanged,
                         errorText:
-                            _nameErr(state.lastName, t) ??
+                            state.lastName.errorText(t) ??
                             srv?['last_name_ar']?.first,
                       ),
                     ),
@@ -91,7 +91,7 @@ class _RegisterView extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   maxLength: 10,
                   onChanged: cubit.phoneChanged,
-                  errorText: _phoneErr(state.phone, t) ?? srv?['phone']?.first,
+                  errorText: state.phone.errorText(t) ?? srv?['phone']?.first,
                 ),
                 AppTextField(
                   label: t.email,
@@ -99,7 +99,7 @@ class _RegisterView extends StatelessWidget {
                   icon: Icons.mail_outline,
                   keyboardType: TextInputType.emailAddress,
                   onChanged: cubit.emailChanged,
-                  errorText: _emailErr(state.email, t) ?? srv?['email']?.first,
+                  errorText: state.email.errorText(t) ?? srv?['email']?.first,
                 ),
                 AppTextField(
                   label: t.password,
@@ -108,7 +108,7 @@ class _RegisterView extends StatelessWidget {
                   obscure: true,
                   onChanged: cubit.passwordChanged,
                   errorText:
-                      _passErr(state.password, t) ?? srv?['password']?.first,
+                      state.password.errorText(t) ?? srv?['password']?.first,
                 ),
                 AppTextField(
                   label: t.confirmPassword,
@@ -116,7 +116,7 @@ class _RegisterView extends StatelessWidget {
                   icon: Icons.lock_outline,
                   obscure: true,
                   onChanged: cubit.confirmPasswordChanged,
-                  errorText: _confirmPassErr(state.confirmPassword, t),
+                  errorText: state.confirmPassword.errorText(t),
                 ),
                 SizedBox(height: 12.h),
                 PrimaryButton(
@@ -131,59 +131,5 @@ class _RegisterView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  String? _ninErr(NinInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      NinError.empty => t.valRequired,
-      NinError.invalid => t.valNinInvalid,
-      _ => null,
-    };
-  }
-
-  String? _nameErr(NameInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      NameError.empty => t.valRequired,
-      NameError.tooShort => t.valNameShort,
-      _ => null,
-    };
-  }
-
-  String? _phoneErr(PhoneInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      PhoneError.empty => t.valRequired,
-      PhoneError.invalid => t.valPhoneInvalid,
-      _ => null,
-    };
-  }
-
-  String? _emailErr(EmailInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      EmailError.empty => t.valRequired,
-      EmailError.invalid => t.valEmailInvalid,
-      _ => null,
-    };
-  }
-
-  String? _passErr(PasswordInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      PasswordError.empty => t.valRequired,
-      PasswordError.tooShort => t.valPasswordShort,
-      _ => null,
-    };
-  }
-
-  String? _confirmPassErr(ConfirmPasswordInput i, AppLocalizations t) {
-    if (i.isPure || i.isValid) return null;
-    return switch (i.error) {
-      ConfirmPasswordError.empty => t.valRequired,
-      ConfirmPasswordError.mismatch => t.valPasswordMismatch,
-      _ => null,
-    };
   }
 }

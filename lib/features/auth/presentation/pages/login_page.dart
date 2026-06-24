@@ -8,7 +8,7 @@ import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../cubit/login_cubit.dart';
-import '../formz/auth_inputs.dart';
+import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/auth_circle_badge.dart';
 
@@ -66,10 +66,7 @@ class _LoginView extends StatelessWidget {
                   hint: t.ninOrEmail,
                   icon: Icons.person_outline,
                   onChanged: cubit.identifierChanged,
-                  errorText:
-                      state.identifier.isNotValid && !state.identifier.isPure
-                      ? t.valRequired
-                      : null,
+                  errorText: state.identifier.errorText(t),
                 ),
                 AppTextField(
                   label: t.password,
@@ -77,7 +74,7 @@ class _LoginView extends StatelessWidget {
                   icon: Icons.lock_outline,
                   obscure: true,
                   onChanged: cubit.passwordChanged,
-                  errorText: _passwordError(state.password, t),
+                  errorText: state.password.errorText(t),
                 ),
                 SizedBox(height: 12.h),
                 PrimaryButton(
@@ -98,14 +95,5 @@ class _LoginView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  String? _passwordError(PasswordInput input, AppLocalizations t) {
-    if (input.isPure || input.isValid) return null;
-    return switch (input.error) {
-      PasswordError.empty => t.valRequired,
-      PasswordError.tooShort => t.valPasswordShort,
-      _ => null,
-    };
   }
 }

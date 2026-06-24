@@ -184,6 +184,12 @@ abstract class AppLocalizations {
   /// **'رقم التعريف الوطني (NIN)'**
   String get nin;
 
+  /// No description provided for @ninHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'18 رقم'**
+  String get ninHint;
+
   /// No description provided for @firstName.
   ///
   /// In ar, this message translates to:

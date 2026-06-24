@@ -51,6 +51,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nin => 'National ID Number (NIN)';
 
   @override
+  String get ninHint => '18 digits';
+
+  @override
   String get firstName => 'First name';
 
   @override

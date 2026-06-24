@@ -94,8 +94,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       // حالة: نجاح — التوكنات قد تكون متداخلة تحت "tokens"
-      final tokensJson =
-          (data['tokens'] ?? data) as Map<String, dynamic>;
+      final tokensJson = (data['tokens'] ?? data) as Map<String, dynamic>;
       final tokens = AuthTokensModel.fromJson(tokensJson);
       await tokenStorage.saveTokens(
         accessToken: tokens.accessToken,
@@ -138,11 +137,13 @@ class AuthRepositoryImpl implements AuthRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }
