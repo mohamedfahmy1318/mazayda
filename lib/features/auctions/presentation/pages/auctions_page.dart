@@ -361,19 +361,24 @@ class _FilterButton extends StatelessWidget {
             if (active) ...[
               SizedBox(width: 6.w),
               Container(
-                width: 18.w,
+                constraints: BoxConstraints(minWidth: 18.w),
                 height: 18.w,
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
                 alignment: Alignment.center,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.white,
-                  shape: BoxShape.circle,
+                  borderRadius: BorderRadius.circular(9.w),
                 ),
-                child: Text(
-                  '$count',
-                  style: TextStyle(
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '$count',
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                      height: 1,
+                    ),
                   ),
                 ),
               ),

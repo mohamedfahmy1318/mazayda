@@ -171,6 +171,8 @@ class _KycViewState extends State<_KycView> {
                     error: errors?['mother_surname']?.first),
                 _field('المهنة', _profession,
                     error: errors?['profession']?.first),
+                _field('العنوان', _address,
+                    error: errors?['address']?.first),
 
                 // الولاية
                 _dropdownWilaya(state, cubit),

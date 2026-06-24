@@ -84,51 +84,7 @@ class _ProfileView extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         color: Colors.white)),
                 SizedBox(height: 6.h),
-                if (profile.isVerified)
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.successBg,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.verified,
-                            size: 14.sp, color: AppColors.success),
-                        SizedBox(width: 5.w),
-                        Text(t.verifiedKyc,
-                            style: TextStyle(
-                                fontSize: 11.sp,
-                                color: AppColors.success)),
-                      ],
-                    ),
-                  )
-                else
-                  GestureDetector(
-                    onTap: () => context.push(Routes.kyc),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 12.w, vertical: 4.h),
-                      decoration: BoxDecoration(
-                        color: AppColors.warningBg,
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.warning_amber_rounded,
-                              size: 14.sp, color: AppColors.warning),
-                          SizedBox(width: 5.w),
-                          Text('أكمل التحقق من الهوية',
-                              style: TextStyle(
-                                  fontSize: 11.sp,
-                                  color: AppColors.warning)),
-                        ],
-                      ),
-                    ),
-                  ),
+                _kycBadge(context, t, profile.kycStatus),
               ],
             ),
           ),
@@ -175,6 +131,75 @@ class _ProfileView extends StatelessWidget {
       ),
     );
   }
+
+  /// شارة حالة التحقق — ثلاث حالات: موثّق / قيد المراجعة / يحتاج تحقق.
+  Widget _kycBadge(BuildContext context, AppLocalizations t, String status) {
+    // موثّق — أخضر، غير قابل للضغط
+    if (status == 'VERIFIED') {
+      return _badgePill(
+        icon: Icons.verified,
+        label: t.verifiedKyc,
+        fg: AppColors.success,
+        bg: AppColors.successBg,
+      );
+    }
+    // قيد المراجعة — أزرق، يفتح صفحة الحالة
+    if (status == 'UNDER_REVIEW') {
+      return GestureDetector(
+        onTap: () => context.push(Routes.kyc),
+        child: _badgePill(
+          icon: Icons.hourglass_top_rounded,
+          label: 'قيد المراجعة',
+          fg: AppColors.info,
+          bg: AppColors.infoBg,
+        ),
+      );
+    }
+    // مرفوض — أحمر، يفتح النموذج لإعادة التقديم
+    if (status == 'REJECTED') {
+      return GestureDetector(
+        onTap: () => context.push(Routes.kyc),
+        child: _badgePill(
+          icon: Icons.error_outline_rounded,
+          label: 'مرفوض — أعد التحقق',
+          fg: AppColors.danger,
+          bg: AppColors.dangerBg,
+        ),
+      );
+    }
+    // PENDING أو غير ذلك — تحذير، يفتح النموذج
+    return GestureDetector(
+      onTap: () => context.push(Routes.kyc),
+      child: _badgePill(
+        icon: Icons.warning_amber_rounded,
+        label: 'أكمل التحقق من الهوية',
+        fg: AppColors.warning,
+        bg: AppColors.warningBg,
+      ),
+    );
+  }
+
+  Widget _badgePill({
+    required IconData icon,
+    required String label,
+    required Color fg,
+    required Color bg,
+  }) =>
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14.sp, color: fg),
+            SizedBox(width: 5.w),
+            Text(label, style: TextStyle(fontSize: 11.sp, color: fg)),
+          ],
+        ),
+      );
 
   Widget _languageSwitcher(BuildContext context, AppLocalizations t) {
     final localeCubit = getIt<LocaleCubit>();
