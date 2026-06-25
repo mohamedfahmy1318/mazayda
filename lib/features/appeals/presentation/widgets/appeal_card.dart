@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/appeal.dart';
 import 'appeal_status_chip.dart';
@@ -39,11 +41,11 @@ class AppealCard extends StatelessWidget {
             ],
           ),
           if (appeal.auctionTitle != null) ...[
-            SizedBox(height: 5.h),
+            Gap(5.h),
             Row(
               children: [
                 Icon(Icons.gavel, size: 13.sp, color: AppColors.textHint),
-                SizedBox(width: 4.w),
+                Gap(4.w),
                 Text(
                   appeal.auctionTitle!,
                   style: TextStyle(
@@ -54,9 +56,9 @@ class AppealCard extends StatelessWidget {
               ],
             ),
           ],
-          SizedBox(height: 5.h),
+          Gap(5.h),
           Text(
-            '${appeal.createdAt.year}/${appeal.createdAt.month}/${appeal.createdAt.day}',
+            DateFormat('yyyy/MM/dd').format(appeal.createdAt),
             style: TextStyle(fontSize: 10.sp, color: AppColors.textHint),
           ),
         ],

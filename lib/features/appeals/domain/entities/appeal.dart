@@ -31,5 +31,12 @@ class Appeal extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, status];
+  List<Object?> get props => [
+    id,
+    subject,
+    reason,
+    auctionTitle,
+    status,
+    createdAt,
+  ];
 }

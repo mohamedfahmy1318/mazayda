@@ -19,12 +19,16 @@ class AppealsRepositoryImpl implements AppealsRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> submitAppeal(SubmitAppealParams p) {
+  Future<Either<Failure, Unit>> submitAppeal({
+    required String subject,
+    required String reason,
+    String? auctionId,
+  }) {
     return _guard(() async {
       await remote.submitAppeal({
-        'subject': p.subject,
-        'reason': p.reason,
-        if (p.auctionId != null) 'auction_id': p.auctionId,
+        'subject': subject,
+        'reason': reason,
+        if (auctionId != null) 'auction_id': auctionId,
       });
       return unit;
     });

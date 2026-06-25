@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:formz/formz.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/primary_button.dart';
-import '../../domain/repositories/appeals_repository.dart';
+import '../../domain/usecases/submit_appeal.dart';
 import '../cubit/appeals_cubit.dart';
+import '../formz/appeal_inputs.dart';
 
 /// نموذج تقديم اعتراض جديد — يُعرض كـ bottom sheet.
 class NewAppealSheet extends StatefulWidget {
@@ -16,22 +19,18 @@ class NewAppealSheet extends StatefulWidget {
 }
 
 class _NewAppealSheetState extends State<NewAppealSheet> {
-  final _subject = TextEditingController();
-  final _reason = TextEditingController();
+  AppealTextInput _subject = const AppealTextInput.pure();
+  AppealTextInput _reason = const AppealTextInput.pure();
 
-  @override
-  void dispose() {
-    _subject.dispose();
-    _reason.dispose();
-    super.dispose();
-  }
+  bool get _isValid => Formz.validate([_subject, _reason]);
 
   void _submit() {
-    final subject = _subject.text.trim();
-    final reason = _reason.text.trim();
-    if (subject.isEmpty || reason.isEmpty) return;
+    if (!_isValid) return;
     context.read<AppealsCubit>().submit(
-      SubmitAppealParams(subject: subject, reason: reason),
+      SubmitAppealParams(
+        subject: _subject.value.trim(),
+        reason: _reason.value.trim(),
+      ),
     );
   }
 
@@ -39,8 +38,19 @@ class _NewAppealSheetState extends State<NewAppealSheet> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     return BlocListener<AppealsCubit, AppealsState>(
-      listenWhen: (p, c) => c.submitted && !p.submitted,
-      listener: (context, _) => Navigator.pop(context),
+      // نقفل الـ sheet عند نجاح الإرسال، ونعرض الخطأ لو فشل (بدل ما يتبلع بصمت).
+      listenWhen: (p, c) =>
+          (c.submitted && !p.submitted) ||
+          (!c.submitting && c.error != null && c.error != p.error),
+      listener: (context, state) {
+        if (state.submitted) {
+          Navigator.pop(context);
+        } else if (state.error != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error!)));
+        }
+      },
       child: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -56,45 +66,78 @@ class _NewAppealSheetState extends State<NewAppealSheet> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const _SheetGrabber(),
-              SizedBox(height: 16.h),
+              Gap(16.h),
               Text(
                 t.newAppealTitle,
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 16.h),
-              Text(
-                t.appealSubject,
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+              Gap(16.h),
+              _AppealField(
+                label: t.appealSubject,
+                hint: t.appealSubjectHint,
+                errorText: _subject.displayError == null ? null : t.valRequired,
+                onChanged: (v) =>
+                    setState(() => _subject = AppealTextInput.dirty(v)),
               ),
-              SizedBox(height: 6.h),
-              TextField(
-                controller: _subject,
-                decoration: InputDecoration(hintText: t.appealSubjectHint),
-              ),
-              SizedBox(height: 14.h),
-              Text(
-                t.appealReason,
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(height: 6.h),
-              TextField(
-                controller: _reason,
+              Gap(14.h),
+              _AppealField(
+                label: t.appealReason,
+                hint: t.appealReasonHint,
                 maxLines: 4,
-                decoration: InputDecoration(hintText: t.appealReasonHint),
+                errorText: _reason.displayError == null ? null : t.valRequired,
+                onChanged: (v) =>
+                    setState(() => _reason = AppealTextInput.dirty(v)),
               ),
-              SizedBox(height: 18.h),
+              Gap(18.h),
               BlocBuilder<AppealsCubit, AppealsState>(
                 builder: (context, state) => PrimaryButton(
                   label: t.submitAppeal,
                   icon: Icons.send,
                   isLoading: state.submitting,
-                  onPressed: _submit,
+                  // الزرار يتقفل لحد ما الحقول تتملا
+                  onPressed: _isValid ? _submit : null,
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// حقل بعنوان داخل فورم الاعتراض.
+class _AppealField extends StatelessWidget {
+  final String label;
+  final String hint;
+  final String? errorText;
+  final int maxLines;
+  final ValueChanged<String> onChanged;
+
+  const _AppealField({
+    required this.label,
+    required this.hint,
+    required this.onChanged,
+    this.errorText,
+    this.maxLines = 1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+        ),
+        Gap(6.h),
+        TextField(
+          maxLines: maxLines,
+          onChanged: onChanged,
+          decoration: InputDecoration(hintText: hint, errorText: errorText),
+        ),
+      ],
     );
   }
 }

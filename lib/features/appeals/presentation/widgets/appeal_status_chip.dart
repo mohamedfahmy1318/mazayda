@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/appeal.dart';
@@ -23,7 +24,7 @@ class AppealStatusChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 12.sp, color: fg),
-          SizedBox(width: 4.w),
+          Gap(4.w),
           Text(
             label,
             style: TextStyle(fontSize: 10.sp, color: fg),

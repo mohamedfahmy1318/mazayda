@@ -21,6 +21,8 @@ import '../../features/appeals/data/repositories/appeals_repository_impl.dart'
     as _i851;
 import '../../features/appeals/domain/repositories/appeals_repository.dart'
     as _i1060;
+import '../../features/appeals/domain/usecases/get_appeals.dart' as _i390;
+import '../../features/appeals/domain/usecases/submit_appeal.dart' as _i896;
 import '../../features/appeals/presentation/cubit/appeals_cubit.dart' as _i433;
 import '../../features/auctions/data/datasources/auction_remote_data_source.dart'
     as _i838;
@@ -164,11 +166,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i847.ProfileRemoteDataSource>(
       () => _i847.ProfileRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
-    gh.factory<_i1060.GetAppeals>(
-      () => _i1060.GetAppeals(gh<_i1060.AppealsRepository>()),
+    gh.factory<_i896.SubmitAppeal>(
+      () => _i896.SubmitAppeal(gh<_i1060.AppealsRepository>()),
     );
-    gh.factory<_i1060.SubmitAppeal>(
-      () => _i1060.SubmitAppeal(gh<_i1060.AppealsRepository>()),
+    gh.factory<_i390.GetAppeals>(
+      () => _i390.GetAppeals(gh<_i1060.AppealsRepository>()),
     );
     gh.lazySingleton<_i620.BiddingRemoteDataSource>(
       () => _i620.BiddingRemoteDataSourceImpl(gh<_i557.ApiClient>()),
@@ -209,10 +211,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i459.MarkAllNotificationsRead(gh<_i563.NotificationsRepository>()),
     );
     gh.factory<_i433.AppealsCubit>(
-      () => _i433.AppealsCubit(
-        gh<_i1060.GetAppeals>(),
-        gh<_i1060.SubmitAppeal>(),
-      ),
+      () =>
+          _i433.AppealsCubit(gh<_i390.GetAppeals>(), gh<_i896.SubmitAppeal>()),
     );
     gh.lazySingleton<_i793.AuctionRepository>(
       () => _i837.AuctionRepositoryImpl(gh<_i838.AuctionRemoteDataSource>()),

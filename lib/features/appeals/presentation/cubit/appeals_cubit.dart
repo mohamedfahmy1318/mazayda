@@ -3,7 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/appeal.dart';
-import '../../domain/repositories/appeals_repository.dart';
+import '../../domain/usecases/get_appeals.dart';
+import '../../domain/usecases/submit_appeal.dart';
 
 part 'appeals_cubit.freezed.dart';
 
