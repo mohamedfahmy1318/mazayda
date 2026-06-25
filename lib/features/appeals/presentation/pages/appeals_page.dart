@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
@@ -57,7 +58,13 @@ class _AppealsView extends StatelessWidget {
                     : ListView.builder(
                         padding: EdgeInsets.all(16.w),
                         itemCount: state.items.length,
-                        itemBuilder: (_, i) => AppealCard(state.items[i]),
+                        itemBuilder: (_, i) => AppealCard(state.items[i])
+                            .animate()
+                            .fadeIn(
+                              duration: 300.ms,
+                              delay: (40 * i.clamp(0, 8)).ms,
+                            )
+                            .slideY(begin: 0.08, end: 0, curve: Curves.easeOut),
                       ),
               ),
               Padding(
