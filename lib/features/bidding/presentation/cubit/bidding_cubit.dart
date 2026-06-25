@@ -35,7 +35,7 @@ class BiddingCubit extends Cubit<BiddingState> {
   final RealtimeService _realtime;
 
   BiddingCubit(this._getBids, this._getPrice, this._placeBid, this._realtime)
-      : super(const BiddingState());
+    : super(const BiddingState());
 
   Timer? _poll;
   late String _auctionId;
@@ -79,7 +79,7 @@ class BiddingCubit extends Cubit<BiddingState> {
     final res = await _getBids(GetBidsParams(auctionId: _auctionId));
     if (isClosed) return;
     res.fold(
-      (f) => emit(state.copyWith(loading: false, error: _msg(f))),
+      (f) => emit(state.copyWith(loading: false, error: f.message)),
       (bids) => emit(state.copyWith(loading: false, bids: bids)),
     );
   }
@@ -87,19 +87,18 @@ class BiddingCubit extends Cubit<BiddingState> {
   Future<void> _tick() async {
     final res = await _getPrice(_auctionId);
     if (isClosed) return;
-    res.fold(
-      (_) {},
-      (snap) {
-        emit(state.copyWith(
+    res.fold((_) {}, (snap) {
+      emit(
+        state.copyWith(
           currentPrice: snap.currentPrice,
           currentPriceFormatted: snap.currentPriceFormatted,
           bidCount: snap.bidCount,
           isBiddable: snap.isBiddable,
           hasEnded: snap.hasEnded,
-        ));
-        if (snap.bidCount != state.bids.length) _loadBids();
-      },
-    );
+        ),
+      );
+      if (snap.bidCount != state.bids.length) _loadBids();
+    });
   }
 
   Future<void> placeBid(int amount) async {
@@ -118,10 +117,9 @@ class BiddingCubit extends Cubit<BiddingState> {
             amountErr = amountErrors.first;
           }
         }
-        emit(state.copyWith(
-          placingBid: false,
-          bidError: amountErr ?? _msg(f),
-        ));
+        emit(
+          state.copyWith(placingBid: false, bidError: amountErr ?? f.message),
+        );
       },
       (_) {
         emit(state.copyWith(placingBid: false));
@@ -129,13 +127,6 @@ class BiddingCubit extends Cubit<BiddingState> {
       },
     );
   }
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 
   @override
   Future<void> close() {
