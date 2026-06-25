@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -26,15 +27,17 @@ class _AppealsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('الاعتراضات')),
+      appBar: AppBar(title: Text(t.appealsTitle)),
       body: BlocConsumer<AppealsCubit, AppealsState>(
+        // نعرض الإشعار مرة واحدة فقط عند أول انتقال لحالة "تم الإرسال"،
+        // وإلا تكرّر الـ snackbar مع كل emit أثناء إعادة التحميل.
+        listenWhen: (p, c) => c.submitted && !p.submitted,
         listener: (context, state) {
-          if (state.submitted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('تم إرسال اعتراضك')),
-            );
-          }
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(t.appealSubmitted)));
         },
         builder: (context, state) {
           if (state.loading) return const LoadingView();
@@ -48,8 +51,8 @@ class _AppealsView extends StatelessWidget {
             children: [
               Expanded(
                 child: state.items.isEmpty
-                    ? const EmptyView(
-                        message: 'لا توجد اعتراضات',
+                    ? EmptyView(
+                        message: t.appealsEmpty,
                         icon: Icons.gavel_outlined,
                       )
                     : ListView.builder(
@@ -61,7 +64,7 @@ class _AppealsView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: PrimaryButton(
-                  label: 'تقديم اعتراض جديد',
+                  label: t.newAppeal,
                   icon: Icons.add,
                   onPressed: () => _showNewAppealSheet(context),
                 ),
@@ -79,10 +82,8 @@ class _AppealsView extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => BlocProvider.value(
-        value: cubit,
-        child: const _NewAppealSheet(),
-      ),
+      builder: (_) =>
+          BlocProvider.value(value: cubit, child: const _NewAppealSheet()),
     );
   }
 }
@@ -93,8 +94,11 @@ class _AppealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (Color fg, Color bg, String label, IconData icon) =
-        _statusStyle(appeal.status);
+    final t = AppLocalizations.of(context);
+    final (Color fg, Color bg, String label, IconData icon) = _statusStyle(
+      appeal.status,
+      t,
+    );
     return Container(
       margin: EdgeInsets.only(bottom: 9.h),
       padding: EdgeInsets.all(12.w),
@@ -111,20 +115,29 @@ class _AppealCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Text(appeal.subject,
-                    style: TextStyle(
-                        fontSize: 13.sp, fontWeight: FontWeight.w500)),
+                child: Text(
+                  appeal.subject,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                    color: bg, borderRadius: BorderRadius.circular(7.r)),
+                  color: bg,
+                  borderRadius: BorderRadius.circular(7.r),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(icon, size: 12.sp, color: fg),
                     SizedBox(width: 4.w),
-                    Text(label, style: TextStyle(fontSize: 10.sp, color: fg)),
+                    Text(
+                      label,
+                      style: TextStyle(fontSize: 10.sp, color: fg),
+                    ),
                   ],
                 ),
               ),
@@ -136,9 +149,13 @@ class _AppealCard extends StatelessWidget {
               children: [
                 Icon(Icons.gavel, size: 13.sp, color: AppColors.textHint),
                 SizedBox(width: 4.w),
-                Text(appeal.auctionTitle!,
-                    style: TextStyle(
-                        fontSize: 11.sp, color: AppColors.textSecondary)),
+                Text(
+                  appeal.auctionTitle!,
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
               ],
             ),
           ],
@@ -152,32 +169,35 @@ class _AppealCard extends StatelessWidget {
     );
   }
 
-  (Color, Color, String, IconData) _statusStyle(AppealStatus s) => switch (s) {
-        AppealStatus.pending => (
-            AppColors.warning,
-            AppColors.warningBg,
-            'قيد المراجعة',
-            Icons.schedule
-          ),
-        AppealStatus.answered => (
-            AppColors.success,
-            AppColors.successBg,
-            'تمت الإجابة',
-            Icons.check_circle_outline
-          ),
-        AppealStatus.rejected => (
-            AppColors.danger,
-            AppColors.dangerBg,
-            'مرفوض',
-            Icons.close
-          ),
-        AppealStatus.unknown => (
-            AppColors.neutral,
-            AppColors.neutralBg,
-            '—',
-            Icons.info_outline
-          ),
-      };
+  (Color, Color, String, IconData) _statusStyle(
+    AppealStatus s,
+    AppLocalizations t,
+  ) => switch (s) {
+    AppealStatus.pending => (
+      AppColors.warning,
+      AppColors.warningBg,
+      t.appealStatusPending,
+      Icons.schedule,
+    ),
+    AppealStatus.answered => (
+      AppColors.success,
+      AppColors.successBg,
+      t.appealStatusAnswered,
+      Icons.check_circle_outline,
+    ),
+    AppealStatus.rejected => (
+      AppColors.danger,
+      AppColors.dangerBg,
+      t.appealStatusRejected,
+      Icons.close,
+    ),
+    AppealStatus.unknown => (
+      AppColors.neutral,
+      AppColors.neutralBg,
+      '—',
+      Icons.info_outline,
+    ),
+  };
 }
 
 class _NewAppealSheet extends StatefulWidget {
@@ -199,6 +219,7 @@ class _NewAppealSheetState extends State<_NewAppealSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return BlocListener<AppealsCubit, AppealsState>(
       listenWhen: (p, c) => c.submitted && !p.submitted,
       listener: (context, _) => Navigator.pop(context),
@@ -227,34 +248,35 @@ class _NewAppealSheetState extends State<_NewAppealSheet> {
                 ),
               ),
               SizedBox(height: 16.h),
-              Text('اعتراض جديد',
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
+              Text(
+                t.newAppealTitle,
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+              ),
               SizedBox(height: 16.h),
-              Text('الموضوع',
-                  style:
-                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
+              Text(
+                t.appealSubject,
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+              ),
               SizedBox(height: 6.h),
               TextField(
                 controller: _subject,
-                decoration: const InputDecoration(
-                    hintText: 'مثال: اعتراض على نتيجة المزاد'),
+                decoration: InputDecoration(hintText: t.appealSubjectHint),
               ),
               SizedBox(height: 14.h),
-              Text('السبب التفصيلي',
-                  style:
-                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
+              Text(
+                t.appealReason,
+                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+              ),
               SizedBox(height: 6.h),
               TextField(
                 controller: _reason,
                 maxLines: 4,
-                decoration: const InputDecoration(
-                    hintText: 'اشرح سبب الاعتراض بالتفصيل...'),
+                decoration: InputDecoration(hintText: t.appealReasonHint),
               ),
               SizedBox(height: 18.h),
               BlocBuilder<AppealsCubit, AppealsState>(
                 builder: (context, state) => PrimaryButton(
-                  label: 'إرسال الاعتراض',
+                  label: t.submitAppeal,
                   icon: Icons.send,
                   isLoading: state.submitting,
                   onPressed: () {
@@ -263,11 +285,11 @@ class _NewAppealSheetState extends State<_NewAppealSheet> {
                       return;
                     }
                     context.read<AppealsCubit>().submit(
-                          SubmitAppealParams(
-                            subject: _subject.text.trim(),
-                            reason: _reason.text.trim(),
-                          ),
-                        );
+                      SubmitAppealParams(
+                        subject: _subject.text.trim(),
+                        reason: _reason.text.trim(),
+                      ),
+                    );
                   },
                 ),
               ),

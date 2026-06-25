@@ -271,4 +271,45 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get backOnline => 'Connexion rétablie';
+
+  @override
+  String get appealsTitle => 'Réclamations';
+
+  @override
+  String get appealsEmpty => 'Aucune réclamation';
+
+  @override
+  String get appealSubmitted => 'Votre réclamation a été envoyée';
+
+  @override
+  String get newAppeal => 'Déposer une réclamation';
+
+  @override
+  String get newAppealTitle => 'Nouvelle réclamation';
+
+  @override
+  String get appealSubject => 'Sujet';
+
+  @override
+  String get appealSubjectHint =>
+      'Ex : réclamation sur le résultat de l\'enchère';
+
+  @override
+  String get appealReason => 'Motif détaillé';
+
+  @override
+  String get appealReasonHint =>
+      'Expliquez en détail le motif de la réclamation...';
+
+  @override
+  String get submitAppeal => 'Envoyer la réclamation';
+
+  @override
+  String get appealStatusPending => 'En cours d\'examen';
+
+  @override
+  String get appealStatusAnswered => 'Répondu';
+
+  @override
+  String get appealStatusRejected => 'Rejeté';
 }

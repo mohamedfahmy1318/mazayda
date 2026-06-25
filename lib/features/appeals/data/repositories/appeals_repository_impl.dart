@@ -13,8 +13,9 @@ class AppealsRepositoryImpl implements AppealsRepository {
 
   @override
   Future<Either<Failure, List<Appeal>>> getAppeals() {
-    return _guard(() async =>
-        (await remote.getAppeals()).map((m) => m.toEntity()).toList());
+    return _guard(
+      () async => (await remote.getAppeals()).map((m) => m.toEntity()).toList(),
+    );
   }
 
   @override
@@ -37,11 +38,13 @@ class AppealsRepositoryImpl implements AppealsRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }

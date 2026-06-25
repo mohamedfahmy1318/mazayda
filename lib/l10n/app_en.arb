@@ -107,5 +107,19 @@
   "valNameShort": "Name too short",
 
   "offlineBanner": "No internet connection",
-  "backOnline": "Connection restored"
+  "backOnline": "Connection restored",
+
+  "appealsTitle": "Appeals",
+  "appealsEmpty": "No appeals",
+  "appealSubmitted": "Your appeal has been submitted",
+  "newAppeal": "Submit a new appeal",
+  "newAppealTitle": "New appeal",
+  "appealSubject": "Subject",
+  "appealSubjectHint": "e.g. Appeal about the auction result",
+  "appealReason": "Detailed reason",
+  "appealReasonHint": "Explain the reason for your appeal in detail...",
+  "submitAppeal": "Send appeal",
+  "appealStatusPending": "Under review",
+  "appealStatusAnswered": "Answered",
+  "appealStatusRejected": "Rejected"
 }

@@ -5,11 +5,11 @@ enum AppealStatus { pending, answered, rejected, unknown }
 
 extension AppealStatusX on AppealStatus {
   static AppealStatus fromApi(String? v) => switch (v) {
-        'PENDING' => AppealStatus.pending,
-        'ANSWERED' => AppealStatus.answered,
-        'REJECTED' => AppealStatus.rejected,
-        _ => AppealStatus.unknown,
-      };
+    'PENDING' => AppealStatus.pending,
+    'ANSWERED' => AppealStatus.answered,
+    'REJECTED' => AppealStatus.rejected,
+    _ => AppealStatus.unknown,
+  };
 }
 
 /// اعتراض المواطن — قد يكون مرتبطًا بمزاد.

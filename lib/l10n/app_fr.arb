@@ -107,5 +107,19 @@
   "valNameShort": "Nom trop court",
 
   "offlineBanner": "Pas de connexion Internet",
-  "backOnline": "Connexion rétablie"
+  "backOnline": "Connexion rétablie",
+
+  "appealsTitle": "Réclamations",
+  "appealsEmpty": "Aucune réclamation",
+  "appealSubmitted": "Votre réclamation a été envoyée",
+  "newAppeal": "Déposer une réclamation",
+  "newAppealTitle": "Nouvelle réclamation",
+  "appealSubject": "Sujet",
+  "appealSubjectHint": "Ex : réclamation sur le résultat de l'enchère",
+  "appealReason": "Motif détaillé",
+  "appealReasonHint": "Expliquez en détail le motif de la réclamation...",
+  "submitAppeal": "Envoyer la réclamation",
+  "appealStatusPending": "En cours d'examen",
+  "appealStatusAnswered": "Répondu",
+  "appealStatusRejected": "Rejeté"
 }

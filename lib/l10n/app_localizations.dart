@@ -609,6 +609,84 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تم استعادة الاتصال'**
   String get backOnline;
+
+  /// No description provided for @appealsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاعتراضات'**
+  String get appealsTitle;
+
+  /// No description provided for @appealsEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد اعتراضات'**
+  String get appealsEmpty;
+
+  /// No description provided for @appealSubmitted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إرسال اعتراضك'**
+  String get appealSubmitted;
+
+  /// No description provided for @newAppeal.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقديم اعتراض جديد'**
+  String get newAppeal;
+
+  /// No description provided for @newAppealTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'اعتراض جديد'**
+  String get newAppealTitle;
+
+  /// No description provided for @appealSubject.
+  ///
+  /// In ar, this message translates to:
+  /// **'الموضوع'**
+  String get appealSubject;
+
+  /// No description provided for @appealSubjectHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: اعتراض على نتيجة المزاد'**
+  String get appealSubjectHint;
+
+  /// No description provided for @appealReason.
+  ///
+  /// In ar, this message translates to:
+  /// **'السبب التفصيلي'**
+  String get appealReason;
+
+  /// No description provided for @appealReasonHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اشرح سبب الاعتراض بالتفصيل...'**
+  String get appealReasonHint;
+
+  /// No description provided for @submitAppeal.
+  ///
+  /// In ar, this message translates to:
+  /// **'إرسال الاعتراض'**
+  String get submitAppeal;
+
+  /// No description provided for @appealStatusPending.
+  ///
+  /// In ar, this message translates to:
+  /// **'قيد المراجعة'**
+  String get appealStatusPending;
+
+  /// No description provided for @appealStatusAnswered.
+  ///
+  /// In ar, this message translates to:
+  /// **'تمت الإجابة'**
+  String get appealStatusAnswered;
+
+  /// No description provided for @appealStatusRejected.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرفوض'**
+  String get appealStatusRejected;
 }
 
 class _AppLocalizationsDelegate

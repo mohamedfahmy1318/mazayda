@@ -107,5 +107,19 @@
   "valNameShort": "الاسم قصير جدًا",
 
   "offlineBanner": "لا يوجد اتصال بالإنترنت",
-  "backOnline": "تم استعادة الاتصال"
+  "backOnline": "تم استعادة الاتصال",
+
+  "appealsTitle": "الاعتراضات",
+  "appealsEmpty": "لا توجد اعتراضات",
+  "appealSubmitted": "تم إرسال اعتراضك",
+  "newAppeal": "تقديم اعتراض جديد",
+  "newAppealTitle": "اعتراض جديد",
+  "appealSubject": "الموضوع",
+  "appealSubjectHint": "مثال: اعتراض على نتيجة المزاد",
+  "appealReason": "السبب التفصيلي",
+  "appealReasonHint": "اشرح سبب الاعتراض بالتفصيل...",
+  "submitAppeal": "إرسال الاعتراض",
+  "appealStatusPending": "قيد المراجعة",
+  "appealStatusAnswered": "تمت الإجابة",
+  "appealStatusRejected": "مرفوض"
 }

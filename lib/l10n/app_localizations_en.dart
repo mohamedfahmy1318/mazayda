@@ -269,4 +269,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backOnline => 'Connection restored';
+
+  @override
+  String get appealsTitle => 'Appeals';
+
+  @override
+  String get appealsEmpty => 'No appeals';
+
+  @override
+  String get appealSubmitted => 'Your appeal has been submitted';
+
+  @override
+  String get newAppeal => 'Submit a new appeal';
+
+  @override
+  String get newAppealTitle => 'New appeal';
+
+  @override
+  String get appealSubject => 'Subject';
+
+  @override
+  String get appealSubjectHint => 'e.g. Appeal about the auction result';
+
+  @override
+  String get appealReason => 'Detailed reason';
+
+  @override
+  String get appealReasonHint =>
+      'Explain the reason for your appeal in detail...';
+
+  @override
+  String get submitAppeal => 'Send appeal';
+
+  @override
+  String get appealStatusPending => 'Under review';
+
+  @override
+  String get appealStatusAnswered => 'Answered';
+
+  @override
+  String get appealStatusRejected => 'Rejected';
 }

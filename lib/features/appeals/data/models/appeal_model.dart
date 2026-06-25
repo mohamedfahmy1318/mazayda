@@ -21,11 +21,11 @@ class AppealModel with _$AppealModel {
       _$AppealModelFromJson(json);
 
   Appeal toEntity() => Appeal(
-        id: id,
-        subject: subject ?? '',
-        reason: reason ?? '',
-        auctionTitle: auctionTitle,
-        status: AppealStatusX.fromApi(status),
-        createdAt: DateTime.tryParse(createdAt ?? '') ?? DateTime.now(),
-      );
+    id: id,
+    subject: subject ?? '',
+    reason: reason ?? '',
+    auctionTitle: auctionTitle,
+    status: AppealStatusX.fromApi(status),
+    createdAt: DateTime.tryParse(createdAt ?? '') ?? DateTime.now(),
+  );
 }

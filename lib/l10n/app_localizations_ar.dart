@@ -268,4 +268,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get backOnline => 'تم استعادة الاتصال';
+
+  @override
+  String get appealsTitle => 'الاعتراضات';
+
+  @override
+  String get appealsEmpty => 'لا توجد اعتراضات';
+
+  @override
+  String get appealSubmitted => 'تم إرسال اعتراضك';
+
+  @override
+  String get newAppeal => 'تقديم اعتراض جديد';
+
+  @override
+  String get newAppealTitle => 'اعتراض جديد';
+
+  @override
+  String get appealSubject => 'الموضوع';
+
+  @override
+  String get appealSubjectHint => 'مثال: اعتراض على نتيجة المزاد';
+
+  @override
+  String get appealReason => 'السبب التفصيلي';
+
+  @override
+  String get appealReasonHint => 'اشرح سبب الاعتراض بالتفصيل...';
+
+  @override
+  String get submitAppeal => 'إرسال الاعتراض';
+
+  @override
+  String get appealStatusPending => 'قيد المراجعة';
+
+  @override
+  String get appealStatusAnswered => 'تمت الإجابة';
+
+  @override
+  String get appealStatusRejected => 'مرفوض';
 }
