@@ -97,6 +97,8 @@ import '../../features/profile/data/repositories/profile_repository_impl.dart'
     as _i334;
 import '../../features/profile/domain/repositories/profile_repository.dart'
     as _i894;
+import '../../features/profile/domain/usecases/get_profile.dart' as _i72;
+import '../../features/profile/domain/usecases/update_profile.dart' as _i78;
 import '../../features/profile/presentation/cubit/profile_cubit.dart' as _i36;
 import '../../features/qa/data/datasources/qa_remote_data_source.dart' as _i92;
 import '../../features/qa/data/repositories/qa_repository_impl.dart' as _i1033;
@@ -345,21 +347,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i759.RegisterCubit>(
       () => _i759.RegisterCubit(gh<_i198.RegisterUser>()),
     );
-    gh.factory<_i894.GetProfile>(
-      () => _i894.GetProfile(gh<_i894.ProfileRepository>()),
+    gh.factory<_i78.UpdateProfile>(
+      () => _i78.UpdateProfile(gh<_i894.ProfileRepository>()),
     );
-    gh.factory<_i894.UpdateProfile>(
-      () => _i894.UpdateProfile(gh<_i894.ProfileRepository>()),
+    gh.factory<_i72.GetProfile>(
+      () => _i72.GetProfile(gh<_i894.ProfileRepository>()),
     );
     gh.factory<_i489.GetMyAuctions>(
       () => _i489.GetMyAuctions(gh<_i489.MyAuctionsRepository>()),
-    );
-    gh.factory<_i36.ProfileCubit>(
-      () => _i36.ProfileCubit(
-        gh<_i894.GetProfile>(),
-        gh<_i894.UpdateProfile>(),
-        gh<_i778.LogoutUser>(),
-      ),
     );
     gh.factory<_i78.AuctionDetailCubit>(
       () => _i78.AuctionDetailCubit(gh<_i357.GetAuctionById>()),
@@ -367,6 +362,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i577.AuctionsCubit>(
       () =>
           _i577.AuctionsCubit(gh<_i689.GetAuctions>(), gh<_i829.GetWilayas>()),
+    );
+    gh.factory<_i36.ProfileCubit>(
+      () => _i36.ProfileCubit(
+        gh<_i72.GetProfile>(),
+        gh<_i78.UpdateProfile>(),
+        gh<_i778.LogoutUser>(),
+      ),
     );
     gh.factory<_i115.MyAuctionsCubit>(
       () => _i115.MyAuctionsCubit(gh<_i489.GetMyAuctions>()),

@@ -404,6 +404,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get verifiedKyc => 'Vérifié — KYC complété';
 
   @override
+  String get kycBadgeRejected => 'Rejeté — vérifiez à nouveau';
+
+  @override
+  String get kycBadgeComplete => 'Complétez la vérification d\'identité';
+
+  @override
   String get changePassword => 'Changer le mot de passe';
 
   @override

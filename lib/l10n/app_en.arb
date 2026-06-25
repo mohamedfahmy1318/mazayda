@@ -168,6 +168,8 @@
 
   "profile": "Profile",
   "verifiedKyc": "Verified — KYC complete",
+  "kycBadgeRejected": "Rejected — verify again",
+  "kycBadgeComplete": "Complete identity verification",
   "changePassword": "Change password",
   "language": "Language",
   "privacy": "Privacy",

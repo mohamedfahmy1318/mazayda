@@ -168,6 +168,8 @@
 
   "profile": "الملف الشخصي",
   "verifiedKyc": "موثّق — KYC مكتمل",
+  "kycBadgeRejected": "مرفوض — أعد التحقق",
+  "kycBadgeComplete": "أكمل التحقق من الهوية",
   "changePassword": "تغيير كلمة المرور",
   "language": "اللغة",
   "privacy": "الخصوصية",

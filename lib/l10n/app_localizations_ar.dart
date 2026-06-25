@@ -401,6 +401,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get verifiedKyc => 'موثّق — KYC مكتمل';
 
   @override
+  String get kycBadgeRejected => 'مرفوض — أعد التحقق';
+
+  @override
+  String get kycBadgeComplete => 'أكمل التحقق من الهوية';
+
+  @override
   String get changePassword => 'تغيير كلمة المرور';
 
   @override

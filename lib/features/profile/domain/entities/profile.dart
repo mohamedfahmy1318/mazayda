@@ -29,5 +29,16 @@ class Profile extends Equatable {
   bool get isVerified => kycStatus == 'VERIFIED';
 
   @override
-  List<Object?> get props => [id, email, phone, kycStatus];
+  List<Object?> get props => [
+    id,
+    ninMasked,
+    fullName,
+    email,
+    phone,
+    address,
+    postalCode,
+    profession,
+    wilayaName,
+    kycStatus,
+  ];
 }

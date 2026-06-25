@@ -26,15 +26,15 @@ class ProfileModel with _$ProfileModel {
       _$ProfileModelFromJson(json);
 
   Profile toEntity() => Profile(
-        id: id,
-        ninMasked: ninMasked,
-        fullName: [firstNameAr, lastNameAr].where((e) => e != null).join(' '),
-        email: email,
-        phone: phone,
-        address: address,
-        postalCode: postalCode,
-        profession: profession,
-        wilayaName: wilayaName,
-        kycStatus: kycStatus,
-      );
+    id: id,
+    ninMasked: ninMasked,
+    fullName: [firstNameAr, lastNameAr].where((e) => e != null).join(' '),
+    email: email,
+    phone: phone,
+    address: address,
+    postalCode: postalCode,
+    profession: profession,
+    wilayaName: wilayaName,
+    kycStatus: kycStatus,
+  );
 }

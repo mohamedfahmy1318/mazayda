@@ -17,14 +17,20 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, Profile>> updateProfile(UpdateProfileParams p) {
+  Future<Either<Failure, Profile>> updateProfile({
+    String? phone,
+    String? email,
+    String? address,
+    String? postalCode,
+    String? profession,
+  }) {
     return _guard(() async {
       final model = await remote.updateProfile({
-        if (p.phone != null) 'phone': p.phone,
-        if (p.email != null) 'email': p.email,
-        if (p.address != null) 'address': p.address,
-        if (p.postalCode != null) 'postal_code': p.postalCode,
-        if (p.profession != null) 'profession': p.profession,
+        if (phone != null) 'phone': phone,
+        if (email != null) 'email': email,
+        if (address != null) 'address': address,
+        if (postalCode != null) 'postal_code': postalCode,
+        if (profession != null) 'profession': profession,
       });
       return model.toEntity();
     });
@@ -38,11 +44,13 @@ class ProfileRepositoryImpl implements ProfileRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }

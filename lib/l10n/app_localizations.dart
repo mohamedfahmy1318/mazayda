@@ -844,6 +844,18 @@ abstract class AppLocalizations {
   /// **'موثّق — KYC مكتمل'**
   String get verifiedKyc;
 
+  /// No description provided for @kycBadgeRejected.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرفوض — أعد التحقق'**
+  String get kycBadgeRejected;
+
+  /// No description provided for @kycBadgeComplete.
+  ///
+  /// In ar, this message translates to:
+  /// **'أكمل التحقق من الهوية'**
+  String get kycBadgeComplete;
+
   /// No description provided for @changePassword.
   ///
   /// In ar, this message translates to:
