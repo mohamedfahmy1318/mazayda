@@ -53,29 +53,28 @@ class KycCubit extends Cubit<KycState> {
     final wilayasRes = await _getWilayas(const NoParams());
 
     statusRes.fold(
-      (f) => emit(state.copyWith(
-          status: KycViewStatus.error, error: _msg(f))),
+      (f) =>
+          emit(state.copyWith(status: KycViewStatus.error, error: f.message)),
       (kyc) {
         final uploaded = <KycDocType>{
           for (final t in KycDocType.values)
             if (kyc.hasDoc(t)) t,
         };
-        emit(state.copyWith(
-          status: KycViewStatus.ready,
-          kyc: kyc,
-          uploaded: uploaded,
-          wilayas: wilayasRes.getOrElse(() => const []),
-        ));
+        emit(
+          state.copyWith(
+            status: KycViewStatus.ready,
+            kyc: kyc,
+            uploaded: uploaded,
+            wilayas: wilayasRes.getOrElse(() => const []),
+          ),
+        );
       },
     );
   }
 
   Future<void> loadCommunes(int wilayaId) async {
     final res = await _getCommunes(wilayaId);
-    res.fold(
-      (_) {},
-      (communes) => emit(state.copyWith(communes: communes)),
-    );
+    res.fold((_) {}, (communes) => emit(state.copyWith(communes: communes)));
   }
 
   Future<void> uploadDoc(KycDocType type, String filePath) async {
@@ -83,14 +82,18 @@ class KycCubit extends Cubit<KycState> {
     final res = await _upload(UploadDocParams(type: type, filePath: filePath));
     if (isClosed) return;
     res.fold(
-      (f) => emit(state.copyWith(
-        uploading: {...state.uploading}..remove(type),
-        error: _msg(f),
-      )),
-      (_) => emit(state.copyWith(
-        uploading: {...state.uploading}..remove(type),
-        uploaded: {...state.uploaded, type},
-      )),
+      (f) => emit(
+        state.copyWith(
+          uploading: {...state.uploading}..remove(type),
+          error: f.message,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          uploading: {...state.uploading}..remove(type),
+          uploaded: {...state.uploaded, type},
+        ),
+      ),
     );
   }
 
@@ -99,11 +102,13 @@ class KycCubit extends Cubit<KycState> {
     final res = await _submit(params);
     if (isClosed) return;
     res.fold(
-      (f) => emit(state.copyWith(
-        submitting: false,
-        error: _msg(f),
-        fieldErrors: f is ServerFailure ? f.errors : null,
-      )),
+      (f) => emit(
+        state.copyWith(
+          submitting: false,
+          error: f.message,
+          fieldErrors: f is ServerFailure ? f.errors : null,
+        ),
+      ),
       (_) => emit(state.copyWith(submitting: false, submitted: true)),
     );
   }
@@ -113,11 +118,4 @@ class KycCubit extends Cubit<KycState> {
       state.uploaded.contains(KycDocType.idFront) &&
       state.uploaded.contains(KycDocType.idBack) &&
       state.uploaded.contains(KycDocType.selfieWithId);
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 }
