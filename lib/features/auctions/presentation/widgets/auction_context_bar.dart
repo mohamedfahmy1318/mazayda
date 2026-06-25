@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 
@@ -49,7 +50,7 @@ class AuctionContextBar extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                   ),
-                  SizedBox(width: 10.w),
+                  Gap(10.w),
                   // الفلاتر النشطة (قابلة للحذف)
                   Expanded(
                     child: SingleChildScrollView(
@@ -122,7 +123,7 @@ class _RemovableTag extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-            SizedBox(width: 3.w),
+            Gap(3.w),
             GestureDetector(
               onTap: onRemove,
               child: Icon(

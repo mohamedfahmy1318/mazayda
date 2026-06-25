@@ -13,24 +13,15 @@ enum AuctionStatus {
 }
 
 extension AuctionStatusX on AuctionStatus {
-  static AuctionStatus fromApi(String? v) {
-    switch (v) {
-      case 'PUBLISHED':
-        return AuctionStatus.published;
-      case 'ACTIVE':
-        return AuctionStatus.active;
-      case 'EXTENDED':
-        return AuctionStatus.extended;
-      case 'CLOSED':
-        return AuctionStatus.closed;
-      case 'CANCELLED':
-        return AuctionStatus.cancelled;
-      case 'DRAFT':
-        return AuctionStatus.draft;
-      default:
-        return AuctionStatus.unknown;
-    }
-  }
+  static AuctionStatus fromApi(String? v) => switch (v) {
+    'PUBLISHED' => AuctionStatus.published,
+    'ACTIVE' => AuctionStatus.active,
+    'EXTENDED' => AuctionStatus.extended,
+    'CLOSED' => AuctionStatus.closed,
+    'CANCELLED' => AuctionStatus.cancelled,
+    'DRAFT' => AuctionStatus.draft,
+    _ => AuctionStatus.unknown,
+  };
 }
 
 /// مرجع مبسّط (فئة / جهة / ولاية).
@@ -99,5 +90,15 @@ class Auction extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, status, currentPrice, bidCount];
+  List<Object?> get props => [
+    id,
+    title,
+    status,
+    currentPrice,
+    bidCount,
+    secondsRemaining,
+    isLive,
+    isBiddable,
+    hasEnded,
+  ];
 }

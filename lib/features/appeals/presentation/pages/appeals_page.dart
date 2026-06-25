@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../core/widgets/list_entrance_animation.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../cubit/appeals_cubit.dart';
 import '../widgets/appeal_card.dart';
 import '../widgets/new_appeal_sheet.dart';
-
-/// إعدادات أنيميشن الدخول المتدرّج لكروت القائمة.
-const _cardFadeDuration = Duration(milliseconds: 300);
-const _cardStaggerStep = Duration(milliseconds: 40);
-const _cardStaggerMaxIndex = 8;
-const _cardSlideBegin = 0.08;
 
 class AppealsPage extends StatelessWidget {
   const AppealsPage({super.key});
@@ -64,19 +58,8 @@ class _AppealsView extends StatelessWidget {
                     : ListView.builder(
                         padding: EdgeInsets.all(16.w),
                         itemCount: state.items.length,
-                        itemBuilder: (_, i) => AppealCard(state.items[i])
-                            .animate()
-                            .fadeIn(
-                              duration: _cardFadeDuration,
-                              delay:
-                                  _cardStaggerStep *
-                                  i.clamp(0, _cardStaggerMaxIndex),
-                            )
-                            .slideY(
-                              begin: _cardSlideBegin,
-                              end: 0,
-                              curve: Curves.easeOut,
-                            ),
+                        itemBuilder: (_, i) =>
+                            AppealCard(state.items[i]).staggeredEntrance(i),
                       ),
               ),
               Padding(

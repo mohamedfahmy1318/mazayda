@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../domain/entities/auction.dart';
 import 'auction_status_label.dart';
+
+/// ارتفاع صورة الغلاف في كارت القائمة.
+const _cardImageHeight = 120.0;
 
 /// كارت مزاد في القائمة — صورة + حالة + سعر + عدد المزايدين.
 class AuctionCard extends StatelessWidget {
@@ -30,15 +34,14 @@ class AuctionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // الصورة + الشارة
             Stack(
               children: [
                 SizedBox(
-                  height: 120.h,
+                  height: _cardImageHeight.h,
                   width: double.infinity,
                   child: AppImage(
                     url: auction.coverPhotoUrl,
-                    height: 120.h,
+                    height: _cardImageHeight.h,
                     width: double.infinity,
                     fit: BoxFit.cover,
                     fallbackIcon: Icons.gavel,
@@ -47,14 +50,13 @@ class AuctionCard extends StatelessWidget {
                 Positioned(
                   top: 10.h,
                   right: 10.w,
-                  child: _badge(
-                    isLive ? t.active : auction.status.badgeLabel(t),
-                    isLive ? AppColors.success : AppColors.warning,
+                  child: _AuctionCardBadge(
+                    text: isLive ? t.active : auction.status.badgeLabel(t),
+                    color: isLive ? AppColors.success : AppColors.warning,
                   ),
                 ),
               ],
             ),
-            // المحتوى
             Padding(
               padding: EdgeInsets.all(12.w),
               child: Column(
@@ -70,53 +72,16 @@ class AuctionCard extends StatelessWidget {
                       color: AppColors.textPrimary,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  Gap(4.h),
                   if (auction.wilayaName != null)
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 13.sp,
-                          color: AppColors.textHint,
-                        ),
-                        SizedBox(width: 3.w),
-                        Text(
-                          auction.wilayaName!,
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            color: AppColors.textHint,
-                          ),
-                        ),
-                      ],
-                    ),
-                  SizedBox(height: 8.h),
+                    _AuctionCardLocation(auction.wilayaName!),
+                  Gap(8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            isLive ? t.highestBid : t.openingPrice,
-                            style: TextStyle(
-                              fontSize: 10.sp,
-                              color: AppColors.textHint,
-                            ),
-                          ),
-                          Text(
-                            isLive
-                                ? auction.currentPrice.formatted
-                                : auction.openingPrice.formatted,
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      _chip(t.bidders(auction.bidCount)),
+                      _AuctionCardPrice(auction: auction, isLive: isLive),
+                      _AuctionCardChip(t.bidders(auction.bidCount)),
                     ],
                   ),
                 ],
@@ -127,32 +92,106 @@ class AuctionCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _badge(String text, Color color) => Container(
-    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-    decoration: BoxDecoration(
-      color: AppColors.white,
-      borderRadius: BorderRadius.circular(20.r),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 11.sp,
-        fontWeight: FontWeight.w500,
-        color: color,
+/// شارة الحالة فوق الصورة.
+class _AuctionCardBadge extends StatelessWidget {
+  final String text;
+  final Color color;
+  const _AuctionCardBadge({required this.text, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(20.r),
       ),
-    ),
-  );
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 11.sp,
+          fontWeight: FontWeight.w500,
+          color: color,
+        ),
+      ),
+    );
+  }
+}
 
-  Widget _chip(String text) => Container(
-    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-    decoration: BoxDecoration(
-      color: AppColors.successBg,
-      borderRadius: BorderRadius.circular(8.r),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 11.sp, color: AppColors.success),
-    ),
-  );
+/// سطر الولاية مع أيقونة الموقع.
+class _AuctionCardLocation extends StatelessWidget {
+  final String wilayaName;
+  const _AuctionCardLocation(this.wilayaName);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          Icons.location_on_outlined,
+          size: 13.sp,
+          color: AppColors.textHint,
+        ),
+        Gap(3.w),
+        Text(
+          wilayaName,
+          style: TextStyle(fontSize: 11.sp, color: AppColors.textHint),
+        ),
+      ],
+    );
+  }
+}
+
+/// عمود السعر (أعلى مزايدة للمباشر / سعر الافتتاح لغيره).
+class _AuctionCardPrice extends StatelessWidget {
+  final Auction auction;
+  final bool isLive;
+  const _AuctionCardPrice({required this.auction, required this.isLive});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isLive ? t.highestBid : t.openingPrice,
+          style: TextStyle(fontSize: 10.sp, color: AppColors.textHint),
+        ),
+        Text(
+          isLive
+              ? auction.currentPrice.formatted
+              : auction.openingPrice.formatted,
+          style: TextStyle(
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// شريحة عدد المزايدين.
+class _AuctionCardChip extends StatelessWidget {
+  final String text;
+  const _AuctionCardChip(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: AppColors.successBg,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 11.sp, color: AppColors.success),
+      ),
+    );
+  }
 }

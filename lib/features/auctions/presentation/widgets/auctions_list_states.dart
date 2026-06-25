@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../cubit/auctions_cubit.dart';
+
+/// أقل عدد عناصر يظهر بعده نص "لا مزيد من النتائج" (نتجنّبه للقوائم القصيرة).
+const _minItemsForEndLabel = 6;
 
 class AuctionsListFooter extends StatelessWidget {
   final AuctionsState state;
@@ -25,7 +29,7 @@ class AuctionsListFooter extends StatelessWidget {
         ),
       );
     }
-    if (!state.hasMore && state.auctions.length > 6) {
+    if (!state.hasMore && state.auctions.length > _minItemsForEndLabel) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 18.h),
         child: Center(
@@ -36,7 +40,7 @@ class AuctionsListFooter extends StatelessWidget {
         ),
       );
     }
-    return SizedBox(height: 4.h);
+    return Gap(4.h);
   }
 }
 
@@ -56,17 +60,17 @@ class AuctionsNoResults extends StatelessWidget {
             size: 46.sp,
             color: AppColors.textHint,
           ),
-          SizedBox(height: 10.h),
+          Gap(10.h),
           Text(
             t.noMatchingAuctions,
             style: TextStyle(fontSize: 13.5.sp, color: AppColors.textSecondary),
           ),
-          SizedBox(height: 4.h),
+          Gap(4.h),
           Text(
             t.tryAdjustingFilters,
             style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint),
           ),
-          SizedBox(height: 16.h),
+          Gap(16.h),
           OutlinedButton.icon(
             onPressed: onReset,
             icon: Icon(Icons.refresh_rounded, size: 17.sp),

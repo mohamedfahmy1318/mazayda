@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/widgets/list_entrance_animation.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../cubit/auctions_cubit.dart';
 import '../widgets/auction_card.dart';
@@ -16,6 +17,9 @@ import '../widgets/auction_status_strip.dart';
 import '../widgets/auction_context_bar.dart';
 import '../widgets/auctions_list_states.dart';
 import '../widgets/auction_filter_sheet.dart';
+
+/// مسافة من نهاية القائمة (بكسل) نبدأ عندها تحميل الصفحة التالية.
+const _loadMoreThreshold = 240.0;
 
 class AuctionsPage extends StatelessWidget {
   const AuctionsPage({super.key});
@@ -53,7 +57,7 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
   void _onScroll() {
     if (!mounted) return;
     final pos = _scroll.position;
-    if (pos.pixels >= pos.maxScrollExtent - 240) {
+    if (pos.pixels >= pos.maxScrollExtent - _loadMoreThreshold) {
       context.read<AuctionsCubit>().loadMore();
     }
   }
@@ -117,7 +121,7 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
                         cubit.search('');
                       },
                     ),
-                    SizedBox(height: 4.h),
+                    Gap(4.h),
                     AuctionStatusStrip(
                       current: state.statusFilter,
                       filterCount: cubit.activeFilterCount,
@@ -183,12 +187,13 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
           }
           final a = state.auctions[i];
           return AuctionCard(
-                auction: a,
-                onTap: () => context.push('${Routes.auctionDetail}/${a.id}'),
-              )
-              .animate()
-              .fadeIn(duration: 280.ms, delay: (40 * i.clamp(0, 8)).ms)
-              .slideY(begin: 0.06, end: 0, curve: Curves.easeOut);
+            auction: a,
+            onTap: () => context.push('${Routes.auctionDetail}/${a.id}'),
+          ).staggeredEntrance(
+            i,
+            duration: const Duration(milliseconds: 280),
+            slideBegin: 0.06,
+          );
         },
       ),
     );

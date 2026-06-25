@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'auction_filter_options.dart';
@@ -36,7 +37,7 @@ class AuctionStatusStrip extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsetsDirectional.only(end: 16.w),
               itemCount: auctionStatusKeys.length,
-              separatorBuilder: (_, __) => SizedBox(width: 8.w),
+              separatorBuilder: (_, __) => Gap(8.w),
               itemBuilder: (_, i) {
                 final key = auctionStatusKeys[i];
                 return Center(
@@ -84,7 +85,7 @@ class _FilterButton extends StatelessWidget {
               size: 17.sp,
               color: active ? AppColors.white : AppColors.textSecondary,
             ),
-            SizedBox(width: 6.w),
+            Gap(6.w),
             Text(
               AppLocalizations.of(context).filter,
               style: TextStyle(
@@ -94,7 +95,7 @@ class _FilterButton extends StatelessWidget {
               ),
             ),
             if (active) ...[
-              SizedBox(width: 6.w),
+              Gap(6.w),
               Container(
                 constraints: BoxConstraints(minWidth: 18.w),
                 height: 18.w,

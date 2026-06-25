@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../kyc/domain/entities/kyc_entities.dart';
@@ -87,7 +88,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
           child: Column(
             children: [
               // مقبض + عنوان
-              SizedBox(height: 10.h),
+              Gap(10.h),
               Container(
                 width: 38.w,
                 height: 4.h,
@@ -96,7 +97,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                   borderRadius: BorderRadius.circular(2.r),
                 ),
               ),
-              SizedBox(height: 14.h),
+              Gap(14.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
@@ -120,7 +121,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                   ],
                 ),
               ),
-              SizedBox(height: 8.h),
+              Gap(8.h),
               const Divider(height: 1, color: AppColors.border),
               // المحتوى القابل للتمرير
               Expanded(
@@ -129,7 +130,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                   padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 8.h),
                   children: [
                     _SectionTitle(t.type),
-                    SizedBox(height: 10.h),
+                    Gap(10.h),
                     _Segmented(
                       options: auctionTypeKeys
                           .map((k) => (k, auctionTypeFilterLabel(k, t)))
@@ -137,7 +138,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                       selected: _type,
                       onSelect: (v) => setState(() => _type = v),
                     ),
-                    SizedBox(height: 22.h),
+                    Gap(22.h),
                     Row(
                       children: [
                         _SectionTitle(t.wilaya),
@@ -158,9 +159,9 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                           ),
                       ],
                     ),
-                    SizedBox(height: 10.h),
+                    Gap(10.h),
                     _WilayaSearchField(controller: _wilayaSearch),
-                    SizedBox(height: 10.h),
+                    Gap(10.h),
                     _wilayaList(),
                   ],
                 ),
@@ -301,7 +302,7 @@ class _WilayaChip extends StatelessWidget {
           children: [
             if (selected) ...[
               Icon(Icons.check_rounded, size: 15.sp, color: AppColors.primary),
-              SizedBox(width: 4.w),
+              Gap(4.w),
             ],
             Text(
               name,
@@ -361,7 +362,7 @@ class _FilterSheetFooter extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 10.w),
+            Gap(10.w),
             Expanded(
               flex: 3,
               child: SizedBox(
