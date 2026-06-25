@@ -122,7 +122,10 @@ class _RegisterView extends StatelessWidget {
                 SizedBox(height: 12.h),
                 PrimaryButton(
                   label: t.nextVerify,
-                  icon: Icons.arrow_back,
+                  // سهم "للأمام" يتقلب حسب اتجاه اللغة (RTL: لليسار، LTR: لليمين).
+                  icon: Directionality.of(context) == TextDirection.rtl
+                      ? Icons.arrow_back
+                      : Icons.arrow_forward,
                   isLoading: state.status == RegisterStatus.submitting,
                   onPressed: state.canSubmit ? () => cubit.submit() : null,
                 ),

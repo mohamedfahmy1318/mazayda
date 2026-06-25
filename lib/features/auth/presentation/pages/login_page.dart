@@ -87,7 +87,7 @@ class _LoginView extends StatelessWidget {
                 SizedBox(height: 12.h),
                 PrimaryButton(
                   label: t.loginButton,
-                  icon: Icons.arrow_back,
+                  icon: Icons.login,
                   isLoading: state.status == LoginStatus.submitting,
                   // الزرار يتقفل لحد ما البيانات تبقى صحيحة
                   onPressed: state.canSubmit ? () => cubit.submit() : null,
