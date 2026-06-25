@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../../../core/di/injection.dart';
@@ -49,6 +50,8 @@ class _DetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Column(
       children: [
         Expanded(
@@ -74,10 +77,12 @@ class _DetailContent extends StatelessWidget {
                     top: MediaQuery.of(context).padding.top + 8.h,
                     right: 14.w,
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.white,
                       child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_forward,
+                        // زر رجوع — يشير "للخلف" حسب اتجاه اللغة
+                        // (RTL: لليمين/forward، LTR: لليسار/back).
+                        icon: Icon(
+                          isRtl ? Icons.arrow_forward : Icons.arrow_back,
                           color: AppColors.primary,
                         ),
                         onPressed: () {
@@ -152,14 +157,14 @@ class _DetailContent extends StatelessWidget {
                       children: [
                         Expanded(
                           child: _priceCard(
-                            'السعر الحالي',
+                            t.currentPrice,
                             auction.currentPrice.formatted,
                           ),
                         ),
                         SizedBox(width: 10.w),
                         Expanded(
                           child: _priceCard(
-                            'التأمين المطلوب',
+                            t.depositRequired,
                             auction.depositAmount.formatted,
                           ),
                         ),
@@ -168,7 +173,7 @@ class _DetailContent extends StatelessWidget {
                     if (auction.description != null) ...[
                       SizedBox(height: 16.h),
                       Text(
-                        'الوصف',
+                        t.description,
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
@@ -204,7 +209,7 @@ class _DetailContent extends StatelessWidget {
               children: [
                 Expanded(
                   child: PrimaryButton(
-                    label: 'تسجيل ودفع',
+                    label: t.registerAndPay,
                     icon: Icons.app_registration,
                     outlined: true,
                     onPressed: () =>
@@ -214,7 +219,7 @@ class _DetailContent extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Expanded(
                   child: PrimaryButton(
-                    label: 'مزايدة',
+                    label: t.bid,
                     icon: Icons.gavel,
                     onPressed: () {
                       context.push(
