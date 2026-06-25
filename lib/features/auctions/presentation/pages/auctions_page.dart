@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -182,9 +183,12 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
           }
           final a = state.auctions[i];
           return AuctionCard(
-            auction: a,
-            onTap: () => context.push('${Routes.auctionDetail}/${a.id}'),
-          );
+                auction: a,
+                onTap: () => context.push('${Routes.auctionDetail}/${a.id}'),
+              )
+              .animate()
+              .fadeIn(duration: 280.ms, delay: (40 * i.clamp(0, 8)).ms)
+              .slideY(begin: 0.06, end: 0, curve: Curves.easeOut);
         },
       ),
     );
