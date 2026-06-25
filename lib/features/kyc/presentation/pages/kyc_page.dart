@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -88,7 +89,9 @@ class _KycView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                KycStatusBanner(status: state.kyc?.status),
+                KycStatusBanner(
+                  status: state.kyc?.status,
+                ).animate().fadeIn(duration: 300.ms),
                 SizedBox(height: 16.h),
                 Text(
                   t.requiredDocuments,

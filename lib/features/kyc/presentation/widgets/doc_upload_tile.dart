@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -87,7 +88,16 @@ class DocUploadTile extends StatelessWidget {
       );
     }
     if (isUploaded) {
-      return Icon(Icons.check_circle, size: 22.sp, color: AppColors.success);
+      return Icon(
+        Icons.check_circle,
+        size: 22.sp,
+        color: AppColors.success,
+      ).animate().scale(
+        duration: 250.ms,
+        begin: const Offset(0.6, 0.6),
+        end: const Offset(1, 1),
+        curve: Curves.easeOutBack,
+      );
     }
     return Icon(Icons.upload_outlined, size: 22.sp, color: AppColors.textHint);
   }
