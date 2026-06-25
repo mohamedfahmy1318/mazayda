@@ -3,6 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/usecases/login_user.dart';
+import '../auth_constants.dart';
 import '../formz/auth_inputs.dart';
 
 part 'login_cubit.freezed.dart';
@@ -53,7 +54,9 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  Future<void> submit({String deviceName = 'mobile'}) async {
+  Future<void> submit({
+    String deviceName = AuthConstants.defaultDeviceName,
+  }) async {
     if (!state.isValid) return;
     emit(state.copyWith(status: LoginStatus.submitting, errorMessage: null));
 

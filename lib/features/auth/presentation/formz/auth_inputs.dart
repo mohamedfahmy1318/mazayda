@@ -1,4 +1,5 @@
 import 'package:formz/formz.dart';
+import '../auth_constants.dart';
 
 /// أخطاء التحقق — نترجمها في الواجهة حسب اللغة.
 enum EmailError { empty, invalid }
@@ -26,7 +27,9 @@ class PasswordInput extends FormzInput<String, PasswordError> {
   @override
   PasswordError? validator(String value) {
     if (value.isEmpty) return PasswordError.empty;
-    if (value.length < 12) return PasswordError.tooShort;
+    if (value.length < AuthConstants.minPasswordLength) {
+      return PasswordError.tooShort;
+    }
     return null;
   }
 }
@@ -57,8 +60,8 @@ class NinInput extends FormzInput<String, NinError> {
   @override
   NinError? validator(String value) {
     if (value.isEmpty) return NinError.empty;
-    // رقم التعريف الوطني الجزائري: 18 رقمًا
-    if (value.length != 18 || int.tryParse(value) == null) {
+    if (value.length != AuthConstants.ninLength ||
+        int.tryParse(value) == null) {
       return NinError.invalid;
     }
     return null;
@@ -74,8 +77,7 @@ class PhoneInput extends FormzInput<String, PhoneError> {
   @override
   PhoneError? validator(String value) {
     if (value.isEmpty) return PhoneError.empty;
-    // أرقام الجزائر: 10 خانات تبدأ بـ 0 (05/06/07)
-    if (value.length != 10 || !value.startsWith('0')) {
+    if (value.length != AuthConstants.phoneLength || !value.startsWith('0')) {
       return PhoneError.invalid;
     }
     return null;

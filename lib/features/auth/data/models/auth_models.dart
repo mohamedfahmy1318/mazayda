@@ -47,3 +47,22 @@ class AuthUserModel with _$AuthUserModel {
     kycStatus: kycStatus,
   );
 }
+
+/// نتيجة الـ login — إما توكنات أو إشارة إن البريد محتاج تأكيد.
+/// الـ datasource بيبنيه من الردّ الخام؛ مفيش parsing في الـ repository.
+@freezed
+class LoginResultModel with _$LoginResultModel {
+  const LoginResultModel._();
+
+  const factory LoginResultModel({
+    AuthTokensModel? tokens,
+    @Default(false) bool needsEmailVerification,
+    String? userId,
+  }) = _LoginResultModel;
+
+  LoginResult toEntity() => LoginResult(
+    tokens: tokens?.toEntity(),
+    needsEmailVerification: needsEmailVerification,
+    userId: userId,
+  );
+}

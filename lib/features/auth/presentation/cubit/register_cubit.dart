@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/usecases/register_user.dart';
+import '../auth_constants.dart';
 import '../formz/auth_inputs.dart';
 
 part 'register_cubit.freezed.dart';
@@ -86,7 +87,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> submit({
     String birthDate = '2000-01-01',
-    String deviceName = 'mobile',
+    String deviceName = AuthConstants.defaultDeviceName,
   }) async {
     if (!state.isValid) return;
     emit(

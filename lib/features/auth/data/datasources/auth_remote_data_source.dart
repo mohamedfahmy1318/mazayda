@@ -8,7 +8,7 @@ abstract class AuthRemoteDataSource {
   Future<String> register(Map<String, dynamic> body); // يرجّع user_id
   Future<AuthTokensModel> verifyOtp(Map<String, dynamic> body);
   Future<void> resendOtp(String userId);
-  Future<Map<String, dynamic>> login(Map<String, dynamic> body); // raw data
+  Future<LoginResultModel> login(Map<String, dynamic> body);
   Future<AuthUserModel> getCurrentUser();
   Future<void> logout({bool allDevices});
 }
@@ -28,10 +28,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<AuthTokensModel> verifyOtp(Map<String, dynamic> body) async {
     final data = await client.post(ApiConstants.verifyOtp, body: body);
-    final map = data as Map<String, dynamic>;
-    // الـ envelope يرجّع { user, tokens } — التوكنات متداخلة تحت "tokens"
-    final tokens = (map['tokens'] ?? map) as Map<String, dynamic>;
-    return AuthTokensModel.fromJson(tokens);
+    return AuthTokensModel.fromJson(
+      _unwrapTokens(data as Map<String, dynamic>),
+    );
   }
 
   @override
@@ -40,10 +39,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> login(Map<String, dynamic> body) async {
-    // ممكن يرجّع توكنات أو needs_email_verification — نرجّع الـ data خام
-    final data = await client.post(ApiConstants.login, body: body);
-    return data as Map<String, dynamic>;
+  Future<LoginResultModel> login(Map<String, dynamic> body) async {
+    final data =
+        await client.post(ApiConstants.login, body: body)
+            as Map<String, dynamic>;
+    // الردّ إما توكنات (متداخلة تحت "tokens" أو في الجذر) أو إشارة تأكيد بريد.
+    if (data['needs_email_verification'] == true) {
+      return LoginResultModel(
+        needsEmailVerification: true,
+        userId: data['user_id']?.toString(),
+      );
+    }
+    return LoginResultModel(
+      tokens: AuthTokensModel.fromJson(_unwrapTokens(data)),
+    );
   }
 
   @override
@@ -59,4 +68,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       body: allDevices ? {'all': true} : null,
     );
   }
+
+  /// الـ envelope ممكن يرجّع التوكنات متداخلة تحت "tokens" أو في الجذر مباشرة.
+  Map<String, dynamic> _unwrapTokens(Map<String, dynamic> data) =>
+      (data['tokens'] ?? data) as Map<String, dynamic>;
 }

@@ -40,6 +40,7 @@ import '../../features/auth/data/datasources/auth_remote_data_source.dart'
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/usecases/check_session.dart' as _i625;
 import '../../features/auth/domain/usecases/login_user.dart' as _i778;
 import '../../features/auth/domain/usecases/register_user.dart' as _i198;
 import '../../features/auth/domain/usecases/verify_otp.dart' as _i975;
@@ -248,6 +249,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i778.LogoutUser>(
       () => _i778.LogoutUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i625.CheckSession>(
+      () => _i625.CheckSession(gh<_i787.AuthRepository>()),
     );
     gh.lazySingleton<_i663.PaymentsRepository>(
       () => _i565.PaymentsRepositoryImpl(gh<_i340.PaymentsRemoteDataSource>()),

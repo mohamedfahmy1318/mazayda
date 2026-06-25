@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
-import '../../domain/repositories/auth_repository.dart';
+import '../../domain/usecases/check_session.dart';
+import '../widgets/auth_entrance_animation.dart';
 
 /// شاشة البداية — تفحص لو فيه جلسة محفوظة وتوجّه المستخدم.
 class SplashPage extends StatefulWidget {
@@ -26,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _decide() async {
     await Future.delayed(const Duration(milliseconds: 800));
-    final hasSession = await getIt<AuthRepository>().hasSession();
+    final hasSession = await getIt<CheckSession>()();
     if (!mounted) return;
     context.go(hasSession ? Routes.home : Routes.login);
   }
@@ -41,32 +43,25 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-                  width: 96.w,
-                  height: 96.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(28.r),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  // اللوجو من assets — لو الملف لسه مش متحط، يظهر أيقونة بديلة
-                  child: Image.asset(
-                    AppAssets.logo,
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, _, _) => Icon(
-                      Icons.gavel,
-                      size: 52.sp,
-                      color: AppColors.primary,
-                    ),
-                  ),
-                )
-                .animate()
-                .fadeIn(duration: 500.ms)
-                .scale(
-                  begin: const Offset(0.85, 0.85),
-                  end: const Offset(1, 1),
-                  curve: Curves.easeOutBack,
-                ),
-            SizedBox(height: 20.h),
+              width: 96.w,
+              height: 96.w,
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.circular(28.r),
+              ),
+              clipBehavior: Clip.antiAlias,
+              // اللوجو من assets — لو الملف لسه مش متحط، يظهر أيقونة بديلة
+              child: Image.asset(
+                AppAssets.logo,
+                fit: BoxFit.contain,
+                errorBuilder: (_, _, _) =>
+                    Icon(Icons.gavel, size: 52.sp, color: AppColors.primary),
+              ),
+            ).authEntrance(
+              duration: const Duration(milliseconds: 500),
+              beginScale: 0.85,
+            ),
+            Gap(20.h),
             Text(
               t.appName,
               style: TextStyle(
@@ -75,7 +70,7 @@ class _SplashPageState extends State<SplashPage> {
                 color: Colors.white,
               ),
             ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
-            SizedBox(height: 6.h),
+            Gap(6.h),
             Text(
               t.splashTagline,
               style: TextStyle(fontSize: 13.sp, color: Colors.white70),

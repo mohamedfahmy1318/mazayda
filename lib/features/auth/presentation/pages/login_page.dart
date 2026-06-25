@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,7 @@ import '../cubit/login_cubit.dart';
 import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/auth_circle_badge.dart';
+import '../widgets/auth_entrance_animation.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -54,21 +55,14 @@ class _LoginView extends StatelessWidget {
             padding: EdgeInsets.all(16.w),
             child: Column(
               children: [
-                SizedBox(height: 30.h),
+                Gap(30.h),
                 const AuthCircleBadge(
-                      icon: Icons.gavel,
-                      color: AppColors.white,
-                      backgroundColor: AppColors.primary,
-                      radius: 36,
-                    )
-                    .animate()
-                    .fadeIn(duration: 400.ms)
-                    .scale(
-                      begin: const Offset(0.8, 0.8),
-                      end: const Offset(1, 1),
-                      curve: Curves.easeOutBack,
-                    ),
-                SizedBox(height: 24.h),
+                  icon: Icons.gavel,
+                  color: AppColors.white,
+                  backgroundColor: AppColors.primary,
+                  radius: 36,
+                ).authEntrance(),
+                Gap(24.h),
                 AppTextField(
                   label: t.ninOrEmail,
                   hint: t.ninOrEmail,
@@ -84,7 +78,7 @@ class _LoginView extends StatelessWidget {
                   onChanged: cubit.passwordChanged,
                   errorText: state.password.errorText(t),
                 ),
-                SizedBox(height: 12.h),
+                Gap(12.h),
                 PrimaryButton(
                   label: t.loginButton,
                   icon: Icons.login,
@@ -92,7 +86,7 @@ class _LoginView extends StatelessWidget {
                   // الزرار يتقفل لحد ما البيانات تبقى صحيحة
                   onPressed: state.canSubmit ? () => cubit.submit() : null,
                 ),
-                SizedBox(height: 16.h),
+                Gap(16.h),
                 TextButton(
                   onPressed: () => context.push(Routes.register),
                   child: Text(t.noAccountRegister),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/usecases/verify_otp.dart';
+import '../auth_constants.dart';
 
 part 'otp_cubit.freezed.dart';
 
@@ -23,8 +24,8 @@ class OtpCubit extends Cubit<OtpState> {
 
   Timer? _timer;
 
-  /// يبدأ عدّاد إعادة الإرسال (60 ثانية، نفس cooldown الـ API).
-  void startCooldown([int seconds = 60]) {
+  /// يبدأ عدّاد إعادة الإرسال (نفس cooldown الـ API).
+  void startCooldown([int seconds = AuthConstants.resendCooldownSeconds]) {
     _timer?.cancel();
     var remaining = seconds;
     emit(OtpState.initial(cooldown: remaining));
@@ -48,7 +49,7 @@ class OtpCubit extends Cubit<OtpState> {
   Future<void> verify({
     required String userId,
     required String otp,
-    String deviceName = 'mobile',
+    String deviceName = AuthConstants.defaultDeviceName,
   }) async {
     emit(const OtpState.verifying());
     final result = await _verifyOtp(

@@ -6,7 +6,6 @@ import '../../../../core/network/token_storage.dart';
 import '../../domain/entities/auth_entities.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
-import '../models/auth_models.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
@@ -79,28 +78,21 @@ class AuthRepositoryImpl implements AuthRepository {
     required String deviceName,
   }) {
     return _guard(() async {
-      final data = await remote.login({
+      final result = await remote.login({
         'nin_or_email': ninOrEmail,
         'password': password,
         'device_name': deviceName,
       });
 
-      // حالة: البريد غير مؤكد
-      if (data['needs_email_verification'] == true) {
-        return LoginResult(
-          needsEmailVerification: true,
-          userId: data['user_id']?.toString(),
+      // نحفظ التوكنات فور النجاح (حالة عدم تأكيد البريد بترجّع tokens = null)
+      final tokens = result.tokens;
+      if (tokens != null) {
+        await tokenStorage.saveTokens(
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
         );
       }
-
-      // حالة: نجاح — التوكنات قد تكون متداخلة تحت "tokens"
-      final tokensJson = (data['tokens'] ?? data) as Map<String, dynamic>;
-      final tokens = AuthTokensModel.fromJson(tokensJson);
-      await tokenStorage.saveTokens(
-        accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken,
-      );
-      return LoginResult(tokens: tokens.toEntity());
+      return result.toEntity();
     });
   }
 

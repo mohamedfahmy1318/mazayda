@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../auth_constants.dart';
 import '../cubit/register_cubit.dart';
 import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
@@ -55,7 +57,7 @@ class _RegisterView extends StatelessWidget {
                   hint: t.ninHint,
                   icon: Icons.badge_outlined,
                   keyboardType: TextInputType.number,
-                  maxLength: 18,
+                  maxLength: AuthConstants.ninLength,
                   onChanged: cubit.ninChanged,
                   errorText: state.nin.errorText(t) ?? srv?['nin']?.first,
                 ),
@@ -72,7 +74,7 @@ class _RegisterView extends StatelessWidget {
                             srv?['first_name_ar']?.first,
                       ),
                     ),
-                    SizedBox(width: 10.w),
+                    Gap(10.w),
                     Expanded(
                       child: AppTextField(
                         label: t.lastName,
@@ -90,7 +92,7 @@ class _RegisterView extends StatelessWidget {
                   hint: '05 / 06 / 07 ...',
                   icon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
-                  maxLength: 10,
+                  maxLength: AuthConstants.phoneLength,
                   onChanged: cubit.phoneChanged,
                   errorText: state.phone.errorText(t) ?? srv?['phone']?.first,
                 ),
@@ -119,7 +121,7 @@ class _RegisterView extends StatelessWidget {
                   onChanged: cubit.confirmPasswordChanged,
                   errorText: state.confirmPassword.errorText(t),
                 ),
-                SizedBox(height: 12.h),
+                Gap(12.h),
                 PrimaryButton(
                   label: t.nextVerify,
                   // سهم "للأمام" يتقلب حسب اتجاه اللغة (RTL: لليسار، LTR: لليمين).

@@ -487,3 +487,213 @@ abstract class _AuthUserModel extends AuthUserModel {
   _$$AuthUserModelImplCopyWith<_$AuthUserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$LoginResultModel {
+  AuthTokensModel? get tokens => throw _privateConstructorUsedError;
+  bool get needsEmailVerification => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LoginResultModelCopyWith<LoginResultModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LoginResultModelCopyWith<$Res> {
+  factory $LoginResultModelCopyWith(
+    LoginResultModel value,
+    $Res Function(LoginResultModel) then,
+  ) = _$LoginResultModelCopyWithImpl<$Res, LoginResultModel>;
+  @useResult
+  $Res call({
+    AuthTokensModel? tokens,
+    bool needsEmailVerification,
+    String? userId,
+  });
+
+  $AuthTokensModelCopyWith<$Res>? get tokens;
+}
+
+/// @nodoc
+class _$LoginResultModelCopyWithImpl<$Res, $Val extends LoginResultModel>
+    implements $LoginResultModelCopyWith<$Res> {
+  _$LoginResultModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tokens = freezed,
+    Object? needsEmailVerification = null,
+    Object? userId = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            tokens: freezed == tokens
+                ? _value.tokens
+                : tokens // ignore: cast_nullable_to_non_nullable
+                      as AuthTokensModel?,
+            needsEmailVerification: null == needsEmailVerification
+                ? _value.needsEmailVerification
+                : needsEmailVerification // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            userId: freezed == userId
+                ? _value.userId
+                : userId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AuthTokensModelCopyWith<$Res>? get tokens {
+    if (_value.tokens == null) {
+      return null;
+    }
+
+    return $AuthTokensModelCopyWith<$Res>(_value.tokens!, (value) {
+      return _then(_value.copyWith(tokens: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$LoginResultModelImplCopyWith<$Res>
+    implements $LoginResultModelCopyWith<$Res> {
+  factory _$$LoginResultModelImplCopyWith(
+    _$LoginResultModelImpl value,
+    $Res Function(_$LoginResultModelImpl) then,
+  ) = __$$LoginResultModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    AuthTokensModel? tokens,
+    bool needsEmailVerification,
+    String? userId,
+  });
+
+  @override
+  $AuthTokensModelCopyWith<$Res>? get tokens;
+}
+
+/// @nodoc
+class __$$LoginResultModelImplCopyWithImpl<$Res>
+    extends _$LoginResultModelCopyWithImpl<$Res, _$LoginResultModelImpl>
+    implements _$$LoginResultModelImplCopyWith<$Res> {
+  __$$LoginResultModelImplCopyWithImpl(
+    _$LoginResultModelImpl _value,
+    $Res Function(_$LoginResultModelImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tokens = freezed,
+    Object? needsEmailVerification = null,
+    Object? userId = freezed,
+  }) {
+    return _then(
+      _$LoginResultModelImpl(
+        tokens: freezed == tokens
+            ? _value.tokens
+            : tokens // ignore: cast_nullable_to_non_nullable
+                  as AuthTokensModel?,
+        needsEmailVerification: null == needsEmailVerification
+            ? _value.needsEmailVerification
+            : needsEmailVerification // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        userId: freezed == userId
+            ? _value.userId
+            : userId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$LoginResultModelImpl extends _LoginResultModel {
+  const _$LoginResultModelImpl({
+    this.tokens,
+    this.needsEmailVerification = false,
+    this.userId,
+  }) : super._();
+
+  @override
+  final AuthTokensModel? tokens;
+  @override
+  @JsonKey()
+  final bool needsEmailVerification;
+  @override
+  final String? userId;
+
+  @override
+  String toString() {
+    return 'LoginResultModel(tokens: $tokens, needsEmailVerification: $needsEmailVerification, userId: $userId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoginResultModelImpl &&
+            (identical(other.tokens, tokens) || other.tokens == tokens) &&
+            (identical(other.needsEmailVerification, needsEmailVerification) ||
+                other.needsEmailVerification == needsEmailVerification) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, tokens, needsEmailVerification, userId);
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginResultModelImplCopyWith<_$LoginResultModelImpl> get copyWith =>
+      __$$LoginResultModelImplCopyWithImpl<_$LoginResultModelImpl>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _LoginResultModel extends LoginResultModel {
+  const factory _LoginResultModel({
+    final AuthTokensModel? tokens,
+    final bool needsEmailVerification,
+    final String? userId,
+  }) = _$LoginResultModelImpl;
+  const _LoginResultModel._() : super._();
+
+  @override
+  AuthTokensModel? get tokens;
+  @override
+  bool get needsEmailVerification;
+  @override
+  String? get userId;
+
+  /// Create a copy of LoginResultModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoginResultModelImplCopyWith<_$LoginResultModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
