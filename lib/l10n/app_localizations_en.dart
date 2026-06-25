@@ -120,6 +120,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get comingSoon => 'Soon';
 
   @override
+  String get active => 'Active';
+
+  @override
+  String get ended => 'Ended';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
   String get description => 'Description';
 
   @override

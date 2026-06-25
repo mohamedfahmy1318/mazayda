@@ -10,16 +10,12 @@ part 'auction_model.g.dart';
 class NamedRefModel with _$NamedRefModel {
   const NamedRefModel._();
 
-  const factory NamedRefModel({
-    dynamic id,
-    String? name,
-  }) = _NamedRefModel;
+  const factory NamedRefModel({dynamic id, String? name}) = _NamedRefModel;
 
   factory NamedRefModel.fromJson(Map<String, dynamic> json) =>
       _$NamedRefModelFromJson(json);
 
-  NamedRef toEntity() =>
-      NamedRef(id: id?.toString() ?? '', name: name ?? '');
+  NamedRef toEntity() => NamedRef(id: id?.toString() ?? '', name: name ?? '');
 }
 
 /// موديل المزاد — يطابق response الـ API (list + detail).
@@ -64,41 +60,38 @@ class AuctionModel with _$AuctionModel {
   static const _zero = MoneyModel(amount: 0, formatted: '0 دج');
 
   Auction toEntity() => Auction(
-        id: id,
-        title: title ?? '',
-        description: description,
-        status: AuctionStatusX.fromApi(status),
-        auctionType: auctionType ?? 'SALE',
-        coverPhotoUrl: coverPhotoUrl,
-        photos: photos,
-        category: category?.toEntity(),
-        entity: entity?.toEntity(),
-        wilayaName: wilaya?.name,
-        assetLocation: assetLocation,
-        openingPrice: (openingPrice ?? _zero).toEntity(),
-        currentPrice: (currentPrice ?? _zero).toEntity(),
-        depositAmount: (depositAmount ?? _zero).toEntity(),
-        entryFee: (entryFee ?? _zero).toEntity(),
-        bookPrice: bookPrice?.toEntity(),
-        bidCount: bidCount,
-        secondsRemaining: secondsRemaining,
-        isLive: isLive,
-        isBiddable: isBiddable,
-        hasEnded: hasEnded,
-        winnerAlias: winnerAlias,
-        finalPrice: finalPrice?.toEntity(),
-        requiresCommerceRegister: requiresCommerceRegister,
-        conditionBookDownloadUrl: conditionBook?.downloadUrl,
-      );
+    id: id,
+    title: title ?? '',
+    description: description,
+    status: AuctionStatusX.fromApi(status),
+    auctionType: auctionType ?? 'SALE',
+    coverPhotoUrl: coverPhotoUrl,
+    photos: photos,
+    category: category?.toEntity(),
+    entity: entity?.toEntity(),
+    wilayaName: wilaya?.name,
+    assetLocation: assetLocation,
+    openingPrice: (openingPrice ?? _zero).toEntity(),
+    currentPrice: (currentPrice ?? _zero).toEntity(),
+    depositAmount: (depositAmount ?? _zero).toEntity(),
+    entryFee: (entryFee ?? _zero).toEntity(),
+    bookPrice: bookPrice?.toEntity(),
+    bidCount: bidCount,
+    secondsRemaining: secondsRemaining,
+    isLive: isLive,
+    isBiddable: isBiddable,
+    hasEnded: hasEnded,
+    winnerAlias: winnerAlias,
+    finalPrice: finalPrice?.toEntity(),
+    requiresCommerceRegister: requiresCommerceRegister,
+    conditionBookDownloadUrl: conditionBook?.downloadUrl,
+  );
 }
 
 @freezed
 class WilayaRefModel with _$WilayaRefModel {
-  const factory WilayaRefModel({
-    dynamic id,
-    String? code,
-    String? name,
-  }) = _WilayaRefModel;
+  const factory WilayaRefModel({dynamic id, String? code, String? name}) =
+      _WilayaRefModel;
 
   factory WilayaRefModel.fromJson(Map<String, dynamic> json) =>
       _$WilayaRefModelFromJson(json);

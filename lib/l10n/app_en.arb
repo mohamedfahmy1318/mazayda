@@ -49,6 +49,9 @@
   },
   "live": "Live",
   "comingSoon": "Soon",
+  "active": "Active",
+  "ended": "Ended",
+  "cancelled": "Cancelled",
   "description": "Description",
 
   "registerAndPay": "Register & Pay",

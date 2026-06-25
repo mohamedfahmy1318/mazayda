@@ -49,6 +49,9 @@
   },
   "live": "مباشر",
   "comingSoon": "قريبًا",
+  "active": "نشط",
+  "ended": "منتهٍ",
+  "cancelled": "ملغى",
   "description": "الوصف",
 
   "registerAndPay": "تسجيل ودفع",

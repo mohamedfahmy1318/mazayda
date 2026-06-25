@@ -26,15 +26,15 @@ class AuctionDetailPage extends StatelessWidget {
           builder: (context, state) {
             return switch (state) {
               AuctionDetailInitial() ||
-              AuctionDetailLoading() =>
-                const LoadingView(),
+              AuctionDetailLoading() => const LoadingView(),
               AuctionDetailError(:final message) => ErrorView(
-                  message: message,
-                  onRetry: () =>
-                      context.read<AuctionDetailCubit>().load(auctionId),
-                ),
-              AuctionDetailLoaded(:final auction) =>
-                _DetailContent(auction: auction),
+                message: message,
+                onRetry: () =>
+                    context.read<AuctionDetailCubit>().load(auctionId),
+              ),
+              AuctionDetailLoaded(:final auction) => _DetailContent(
+                auction: auction,
+              ),
             };
           },
         ),
@@ -76,8 +76,10 @@ class _DetailContent extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       child: IconButton(
-                        icon: const Icon(Icons.arrow_forward,
-                            color: AppColors.primary),
+                        icon: const Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.primary,
+                        ),
                         onPressed: () {
                           if (context.canPop()) {
                             context.pop();
@@ -100,11 +102,17 @@ class _DetailContent extends StatelessWidget {
                       spacing: 6.w,
                       children: [
                         if (auction.category != null)
-                          _tag(auction.category!.name,
-                              AppColors.success, AppColors.successBg),
+                          _tag(
+                            auction.category!.name,
+                            AppColors.success,
+                            AppColors.successBg,
+                          ),
                         if (auction.entity != null)
-                          _tag(auction.entity!.name, AppColors.info,
-                              AppColors.infoBg),
+                          _tag(
+                            auction.entity!.name,
+                            AppColors.info,
+                            AppColors.infoBg,
+                          ),
                       ],
                     ),
                     SizedBox(height: 8.h),
@@ -120,15 +128,19 @@ class _DetailContent extends StatelessWidget {
                       SizedBox(height: 4.h),
                       Row(
                         children: [
-                          Icon(Icons.location_on_outlined,
-                              size: 15.sp, color: AppColors.textSecondary),
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 15.sp,
+                            color: AppColors.textSecondary,
+                          ),
                           SizedBox(width: 4.w),
                           Expanded(
                             child: Text(
                               auction.assetLocation!,
                               style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: AppColors.textSecondary),
+                                fontSize: 13.sp,
+                                color: AppColors.textSecondary,
+                              ),
                             ),
                           ),
                         ],
@@ -140,29 +152,36 @@ class _DetailContent extends StatelessWidget {
                       children: [
                         Expanded(
                           child: _priceCard(
-                              'السعر الحالي',
-                              auction.currentPrice.formatted),
+                            'السعر الحالي',
+                            auction.currentPrice.formatted,
+                          ),
                         ),
                         SizedBox(width: 10.w),
                         Expanded(
-                          child: _priceCard('التأمين المطلوب',
-                              auction.depositAmount.formatted),
+                          child: _priceCard(
+                            'التأمين المطلوب',
+                            auction.depositAmount.formatted,
+                          ),
                         ),
                       ],
                     ),
                     if (auction.description != null) ...[
                       SizedBox(height: 16.h),
-                      Text('الوصف',
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        'الوصف',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       SizedBox(height: 6.h),
                       Text(
                         auction.description!,
                         style: TextStyle(
-                            fontSize: 13.sp,
-                            height: 1.6,
-                            color: AppColors.textSecondary),
+                          fontSize: 13.sp,
+                          height: 1.6,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ],
@@ -178,7 +197,8 @@ class _DetailContent extends StatelessWidget {
             decoration: const BoxDecoration(
               color: AppColors.background,
               border: Border(
-                  top: BorderSide(color: AppColors.border, width: 0.5)),
+                top: BorderSide(color: AppColors.border, width: 0.5),
+              ),
             ),
             child: Row(
               children: [
@@ -212,36 +232,41 @@ class _DetailContent extends StatelessWidget {
   }
 
   Widget _tag(String text, Color fg, Color bg) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        decoration: BoxDecoration(
-            color: bg, borderRadius: BorderRadius.circular(8.r)),
-        child: Text(text,
-            style: TextStyle(
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w500,
-                color: fg)),
-      );
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(8.r),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: fg),
+    ),
+  );
 
   Widget _priceCard(String label, String value) => Container(
-        padding: EdgeInsets.all(12.w),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.border, width: 0.5),
+    padding: EdgeInsets.all(12.w),
+    decoration: BoxDecoration(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(12.r),
+      border: Border.all(color: AppColors.border, width: 0.5),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontSize: 11.sp, color: AppColors.textSecondary),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label,
-                style: TextStyle(
-                    fontSize: 11.sp, color: AppColors.textSecondary)),
-            SizedBox(height: 4.h),
-            Text(value,
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primary)),
-          ],
+        SizedBox(height: 4.h),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primary,
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }

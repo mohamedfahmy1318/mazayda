@@ -49,6 +49,9 @@
   },
   "live": "En direct",
   "comingSoon": "Bientôt",
+  "active": "Actif",
+  "ended": "Terminé",
+  "cancelled": "Annulé",
   "description": "Description",
 
   "registerAndPay": "S'inscrire et payer",

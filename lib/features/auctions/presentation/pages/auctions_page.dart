@@ -102,16 +102,12 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
       listener: (_, __) => _searchCtrl.clear(),
       builder: (context, state) {
         final cubit = context.read<AuctionsCubit>();
-        final hasSecondary =
-            state.typeFilter != null || state.wilayaId != null;
+        final hasSecondary = state.typeFilter != null || state.wilayaId != null;
         final showContext = hasSecondary || state.query.isNotEmpty;
 
         return Scaffold(
           backgroundColor: AppColors.background,
-          appBar: AppBar(
-            title: const Text('المزادات'),
-            elevation: 0,
-          ),
+          appBar: AppBar(title: const Text('المزادات'), elevation: 0),
           body: Column(
             children: [
               // — رأس البحث والفلاتر (على خلفية بيضاء كبلوك واحد) —
@@ -177,7 +173,10 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
   }
 
   Widget _buildBody(
-      BuildContext context, AuctionsCubit cubit, AuctionsState state) {
+    BuildContext context,
+    AuctionsCubit cubit,
+    AuctionsState state,
+  ) {
     if (state.loading && state.auctions.isEmpty) return const LoadingView();
     if (state.error != null && state.auctions.isEmpty) {
       return ErrorView(message: state.error!, onRetry: cubit.refresh);
@@ -236,12 +235,18 @@ class _SearchField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: 'ابحث عن مزاد...',
             hintStyle: TextStyle(fontSize: 13.sp, color: AppColors.textHint),
-            prefixIcon: Icon(Icons.search_rounded,
-                size: 22.sp, color: AppColors.textHint),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              size: 22.sp,
+              color: AppColors.textHint,
+            ),
             suffixIcon: hasText
                 ? IconButton(
-                    icon: Icon(Icons.close_rounded,
-                        size: 18.sp, color: AppColors.textSecondary),
+                    icon: Icon(
+                      Icons.close_rounded,
+                      size: 18.sp,
+                      color: AppColors.textSecondary,
+                    ),
                     onPressed: onClear,
                   )
                 : null,
@@ -259,7 +264,10 @@ class _SearchField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(13.r),
-              borderSide: const BorderSide(color: AppColors.primary, width: 1.3),
+              borderSide: const BorderSide(
+                color: AppColors.primary,
+                width: 1.3,
+              ),
             ),
           ),
           onChanged: onChanged,
@@ -346,9 +354,11 @@ class _FilterButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.tune_rounded,
-                size: 17.sp,
-                color: active ? Colors.white : AppColors.textSecondary),
+            Icon(
+              Icons.tune_rounded,
+              size: 17.sp,
+              color: active ? Colors.white : AppColors.textSecondary,
+            ),
             SizedBox(width: 6.w),
             Text(
               'تصفية',
@@ -395,8 +405,11 @@ class _Pill extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  const _Pill(
-      {required this.label, required this.selected, required this.onTap});
+  const _Pill({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -485,10 +498,14 @@ class _ContextBar extends StatelessWidget {
                         children: [
                           if (typeLabel != null)
                             _RemovableTag(
-                                label: typeLabel!, onRemove: onClearType),
+                              label: typeLabel!,
+                              onRemove: onClearType,
+                            ),
                           if (wilayaLabel != null)
                             _RemovableTag(
-                                label: wilayaLabel!, onRemove: onClearWilaya),
+                              label: wilayaLabel!,
+                              onRemove: onClearWilaya,
+                            ),
                         ],
                       ),
                     ),
@@ -504,9 +521,10 @@ class _ContextBar extends StatelessWidget {
                     child: Text(
                       'مسح الكل',
                       style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primary),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
                 ],
@@ -539,15 +557,19 @@ class _RemovableTag extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                  fontSize: 11.5.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.primary),
+                fontSize: 11.5.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primary,
+              ),
             ),
             SizedBox(width: 3.w),
             GestureDetector(
               onTap: onRemove,
-              child: Icon(Icons.close_rounded,
-                  size: 14.sp, color: AppColors.primary),
+              child: Icon(
+                Icons.close_rounded,
+                size: 14.sp,
+                color: AppColors.primary,
+              ),
             ),
           ],
         ),
@@ -574,7 +596,9 @@ class _Footer extends StatelessWidget {
             width: 22,
             height: 22,
             child: CircularProgressIndicator(
-                strokeWidth: 2.2, color: AppColors.primary),
+              strokeWidth: 2.2,
+              color: AppColors.primary,
+            ),
           ),
         ),
       );
@@ -583,8 +607,10 @@ class _Footer extends StatelessWidget {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 18.h),
         child: Center(
-          child: Text('— لا مزيد من النتائج —',
-              style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint)),
+          child: Text(
+            '— لا مزيد من النتائج —',
+            style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint),
+          ),
         ),
       );
     }
@@ -602,13 +628,21 @@ class _NoResults extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off_rounded, size: 46.sp, color: AppColors.textHint),
+          Icon(
+            Icons.search_off_rounded,
+            size: 46.sp,
+            color: AppColors.textHint,
+          ),
           SizedBox(height: 10.h),
-          Text('لا توجد مزادات مطابقة',
-              style: TextStyle(fontSize: 13.5.sp, color: AppColors.textSecondary)),
+          Text(
+            'لا توجد مزادات مطابقة',
+            style: TextStyle(fontSize: 13.5.sp, color: AppColors.textSecondary),
+          ),
           SizedBox(height: 4.h),
-          Text('جرّب تعديل البحث أو الفلاتر',
-              style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint)),
+          Text(
+            'جرّب تعديل البحث أو الفلاتر',
+            style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint),
+          ),
           SizedBox(height: 16.h),
           OutlinedButton.icon(
             onPressed: onReset,
@@ -618,7 +652,8 @@ class _NoResults extends StatelessWidget {
               foregroundColor: AppColors.primary,
               side: const BorderSide(color: AppColors.primary),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r)),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
             ),
           ),
         ],
@@ -669,8 +704,8 @@ class _FilterSheetState extends State<_FilterSheet> {
       _filtered = q.isEmpty
           ? widget.wilayas
           : widget.wilayas
-              .where((w) => w.name.toLowerCase().contains(q))
-              .toList();
+                .where((w) => w.name.toLowerCase().contains(q))
+                .toList();
     });
   }
 
@@ -725,14 +760,21 @@ class _FilterSheetState extends State<_FilterSheet> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
                   children: [
-                    Text('تصفية المزادات',
-                        style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                    Text(
+                      'تصفية المزادات',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const Spacer(),
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.close_rounded,
-                          size: 22.sp, color: AppColors.textSecondary),
+                      child: Icon(
+                        Icons.close_rounded,
+                        size: 22.sp,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -763,10 +805,13 @@ class _FilterSheetState extends State<_FilterSheet> {
                               _wilayaId = null;
                               _wilayaName = null;
                             }),
-                            child: Text('إلغاء التحديد',
-                                style: TextStyle(
-                                    fontSize: 11.5.sp,
-                                    color: AppColors.primary)),
+                            child: Text(
+                              'إلغاء التحديد',
+                              style: TextStyle(
+                                fontSize: 11.5.sp,
+                                color: AppColors.primary,
+                              ),
+                            ),
                           ),
                       ],
                     ),
@@ -787,9 +832,9 @@ class _FilterSheetState extends State<_FilterSheet> {
   }
 
   Widget _sectionTitle(String text) => Text(
-        text,
-        style: TextStyle(fontSize: 13.5.sp, fontWeight: FontWeight.w700),
-      );
+    text,
+    style: TextStyle(fontSize: 13.5.sp, fontWeight: FontWeight.w700),
+  );
 
   Widget _wilayaSearchField() {
     return SizedBox(
@@ -800,8 +845,11 @@ class _FilterSheetState extends State<_FilterSheet> {
         decoration: InputDecoration(
           hintText: 'ابحث عن ولاية...',
           hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
-          prefixIcon:
-              Icon(Icons.search_rounded, size: 19.sp, color: AppColors.textHint),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            size: 19.sp,
+            color: AppColors.textHint,
+          ),
           filled: true,
           fillColor: AppColors.background,
           isDense: true,
@@ -828,8 +876,10 @@ class _FilterSheetState extends State<_FilterSheet> {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Center(
-          child: Text('تعذّر تحميل الولايات',
-              style: TextStyle(fontSize: 12.sp, color: AppColors.textHint)),
+          child: Text(
+            'تعذّر تحميل الولايات',
+            style: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
+          ),
         ),
       );
     }
@@ -837,8 +887,10 @@ class _FilterSheetState extends State<_FilterSheet> {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Center(
-          child: Text('لا توجد ولاية بهذا الاسم',
-              style: TextStyle(fontSize: 12.sp, color: AppColors.textHint)),
+          child: Text(
+            'لا توجد ولاية بهذا الاسم',
+            style: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
+          ),
         ),
       );
     }
@@ -868,8 +920,11 @@ class _FilterSheetState extends State<_FilterSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (sel) ...[
-                  Icon(Icons.check_rounded,
-                      size: 15.sp, color: AppColors.primary),
+                  Icon(
+                    Icons.check_rounded,
+                    size: 15.sp,
+                    color: AppColors.primary,
+                  ),
                   SizedBox(width: 4.w),
                 ],
                 Text(
@@ -909,11 +964,16 @@ class _FilterSheetState extends State<_FilterSheet> {
                     foregroundColor: AppColors.textSecondary,
                     side: const BorderSide(color: AppColors.borderStrong),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13.r)),
+                      borderRadius: BorderRadius.circular(13.r),
+                    ),
                   ),
-                  child: Text('إعادة تعيين',
-                      style: TextStyle(
-                          fontSize: 13.5.sp, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    'إعادة تعيين',
+                    style: TextStyle(
+                      fontSize: 13.5.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -929,11 +989,16 @@ class _FilterSheetState extends State<_FilterSheet> {
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13.r)),
+                      borderRadius: BorderRadius.circular(13.r),
+                    ),
                   ),
-                  child: Text('عرض النتائج',
-                      style: TextStyle(
-                          fontSize: 14.sp, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    'عرض النتائج',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
             ),

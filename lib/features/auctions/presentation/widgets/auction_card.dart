@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../domain/entities/auction.dart';
+import 'auction_status_label.dart';
 
 /// كارت مزاد في القائمة — صورة + حالة + سعر + عدد المزايدين.
 class AuctionCard extends StatelessWidget {
@@ -13,6 +15,7 @@ class AuctionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     final isLive = auction.isLive;
     return GestureDetector(
       onTap: onTap,
@@ -45,7 +48,7 @@ class AuctionCard extends StatelessWidget {
                   top: 10.h,
                   right: 10.w,
                   child: _badge(
-                    isLive ? 'نشط' : auction.status.labelAr,
+                    isLive ? t.active : auction.status.badgeLabel(t),
                     isLive ? AppColors.success : AppColors.warning,
                   ),
                 ),
@@ -71,13 +74,18 @@ class AuctionCard extends StatelessWidget {
                   if (auction.wilayaName != null)
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined,
-                            size: 13.sp, color: AppColors.textHint),
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 13.sp,
+                          color: AppColors.textHint,
+                        ),
                         SizedBox(width: 3.w),
                         Text(
                           auction.wilayaName!,
                           style: TextStyle(
-                              fontSize: 11.sp, color: AppColors.textHint),
+                            fontSize: 11.sp,
+                            color: AppColors.textHint,
+                          ),
                         ),
                       ],
                     ),
@@ -90,10 +98,11 @@ class AuctionCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isLive ? 'أعلى مزايدة' : 'السعر الافتتاحي',
+                            isLive ? t.highestBid : t.openingPrice,
                             style: TextStyle(
-                                fontSize: 10.sp,
-                                color: AppColors.textHint),
+                              fontSize: 10.sp,
+                              color: AppColors.textHint,
+                            ),
                           ),
                           Text(
                             isLive
@@ -107,7 +116,7 @@ class AuctionCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      _chip('${auction.bidCount} مزايد'),
+                      _chip(t.bidders(auction.bidCount)),
                     ],
                   ),
                 ],
@@ -120,27 +129,30 @@ class AuctionCard extends StatelessWidget {
   }
 
   Widget _badge(String text, Color color) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 11.sp, fontWeight: FontWeight.w500, color: color),
-        ),
-      );
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+    decoration: BoxDecoration(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(20.r),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11.sp,
+        fontWeight: FontWeight.w500,
+        color: color,
+      ),
+    ),
+  );
 
   Widget _chip(String text) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        decoration: BoxDecoration(
-          color: AppColors.successBg,
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 11.sp, color: AppColors.success),
-        ),
-      );
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+    decoration: BoxDecoration(
+      color: AppColors.successBg,
+      borderRadius: BorderRadius.circular(8.r),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 11.sp, color: AppColors.success),
+    ),
+  );
 }

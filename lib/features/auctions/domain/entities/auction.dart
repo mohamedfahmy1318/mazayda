@@ -2,7 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'money.dart';
 
 /// حالة المزاد كما يرجّعها الـ API.
-enum AuctionStatus { published, active, extended, closed, cancelled, draft, unknown }
+enum AuctionStatus {
+  published,
+  active,
+  extended,
+  closed,
+  cancelled,
+  draft,
+  unknown,
+}
 
 extension AuctionStatusX on AuctionStatus {
   static AuctionStatus fromApi(String? v) {
@@ -21,22 +29,6 @@ extension AuctionStatusX on AuctionStatus {
         return AuctionStatus.draft;
       default:
         return AuctionStatus.unknown;
-    }
-  }
-
-  String get labelAr {
-    switch (this) {
-      case AuctionStatus.active:
-      case AuctionStatus.extended:
-        return 'مباشر';
-      case AuctionStatus.published:
-        return 'قريبًا';
-      case AuctionStatus.closed:
-        return 'منتهٍ';
-      case AuctionStatus.cancelled:
-        return 'ملغى';
-      default:
-        return '';
     }
   }
 }

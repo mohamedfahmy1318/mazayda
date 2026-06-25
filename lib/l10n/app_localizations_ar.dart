@@ -120,6 +120,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get comingSoon => 'قريبًا';
 
   @override
+  String get active => 'نشط';
+
+  @override
+  String get ended => 'منتهٍ';
+
+  @override
+  String get cancelled => 'ملغى';
+
+  @override
   String get description => 'الوصف';
 
   @override

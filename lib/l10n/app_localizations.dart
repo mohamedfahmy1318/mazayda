@@ -310,6 +310,24 @@ abstract class AppLocalizations {
   /// **'قريبًا'**
   String get comingSoon;
 
+  /// No description provided for @active.
+  ///
+  /// In ar, this message translates to:
+  /// **'نشط'**
+  String get active;
+
+  /// No description provided for @ended.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتهٍ'**
+  String get ended;
+
+  /// No description provided for @cancelled.
+  ///
+  /// In ar, this message translates to:
+  /// **'ملغى'**
+  String get cancelled;
+
   /// No description provided for @description.
   ///
   /// In ar, this message translates to:
