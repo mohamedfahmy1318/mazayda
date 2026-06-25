@@ -103,14 +103,15 @@ class _KycViewState extends State<_KycView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('التحقق من الهوية (KYC)')),
+      appBar: AppBar(title: Text(t.kycTitle)),
       body: BlocConsumer<KycCubit, KycState>(
         listener: (context, state) {
           if (state.submitted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('تم إرسال طلبك للمراجعة')),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(t.kycSubmitted)));
             Navigator.pop(context);
           } else if (state.error != null && state.fieldErrors == null) {
             ScaffoldMessenger.of(
@@ -127,7 +128,7 @@ class _KycViewState extends State<_KycView> {
           }
           if (state.status == KycViewStatus.error) {
             return ErrorView(
-              message: state.error ?? 'خطأ',
+              message: state.error ?? t.errorGeneric,
               onRetry: cubit.init,
             );
           }
@@ -143,7 +144,7 @@ class _KycViewState extends State<_KycView> {
                 SizedBox(height: 16.h),
 
                 Text(
-                  'المستندات المطلوبة',
+                  t.requiredDocuments,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -166,7 +167,7 @@ class _KycViewState extends State<_KycView> {
 
                 SizedBox(height: 16.h),
                 Text(
-                  'البيانات الشخصية',
+                  t.personalData,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -175,65 +176,65 @@ class _KycViewState extends State<_KycView> {
                 SizedBox(height: 12.h),
 
                 _field(
-                  'الاسم بالفرنسية',
+                  t.firstNameFr,
                   _firstFr,
                   error: errors?['first_name_fr']?.first,
                 ),
                 _field(
-                  'اللقب بالفرنسية',
+                  t.lastNameFr,
                   _lastFr,
                   error: errors?['last_name_fr']?.first,
                 ),
                 _field(
-                  'اسم الأب',
+                  t.fatherName,
                   _father,
                   error: errors?['father_name']?.first,
                 ),
                 _field(
-                  'اسم الأم',
+                  t.motherName,
                   _motherName,
                   error: errors?['mother_name']?.first,
                 ),
                 _field(
-                  'لقب الأم',
+                  t.motherSurname,
                   _motherSurname,
                   error: errors?['mother_surname']?.first,
                 ),
                 _field(
-                  'المهنة',
+                  t.profession,
                   _profession,
                   error: errors?['profession']?.first,
                 ),
-                _field('العنوان', _address, error: errors?['address']?.first),
+                _field(t.address, _address, error: errors?['address']?.first),
 
                 // الولاية
-                _dropdownWilaya(state, cubit),
+                _dropdownWilaya(state, cubit, t.wilaya),
                 SizedBox(height: 12.h),
                 // البلدية
-                _dropdownCommune(state),
+                _dropdownCommune(state, t.commune),
                 SizedBox(height: 12.h),
 
                 _field(
-                  'الرمز البريدي',
+                  t.postalCode,
                   _postal,
                   keyboard: TextInputType.number,
                   error: errors?['postal_code']?.first,
                 ),
                 _field(
-                  'الدخل الشهري المتوقع',
+                  t.expectedIncome,
                   _income,
                   keyboard: TextInputType.number,
                   error: errors?['expected_income']?.first,
                 ),
                 _field(
-                  'رقم بطاقة الهوية',
+                  t.idNumber,
                   _idNumber,
                   error: errors?['id_number']?.first,
                 ),
 
                 SizedBox(height: 12.h),
                 PrimaryButton(
-                  label: 'إنهاء التحقق',
+                  label: t.finishVerification,
                   icon: Icons.check_circle_outline,
                   isLoading: state.submitting,
                   onPressed: cubit.requiredDocsUploaded
@@ -243,7 +244,7 @@ class _KycViewState extends State<_KycView> {
                 if (!cubit.requiredDocsUploaded) ...[
                   SizedBox(height: 8.h),
                   Text(
-                    'ارفع المستندات الثلاثة المطلوبة أولًا',
+                    t.uploadDocsFirst,
                     style: TextStyle(
                       fontSize: 11.sp,
                       color: AppColors.textHint,
@@ -328,12 +329,12 @@ class _KycViewState extends State<_KycView> {
     );
   }
 
-  Widget _dropdownWilaya(KycState state, KycCubit cubit) {
+  Widget _dropdownWilaya(KycState state, KycCubit cubit, String label) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'الولاية',
+          label,
           style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
         ),
         SizedBox(height: 6.h),
@@ -355,12 +356,12 @@ class _KycViewState extends State<_KycView> {
     );
   }
 
-  Widget _dropdownCommune(KycState state) {
+  Widget _dropdownCommune(KycState state, String label) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'البلدية',
+          label,
           style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
         ),
         SizedBox(height: 6.h),
