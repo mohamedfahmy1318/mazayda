@@ -712,6 +712,84 @@ abstract class AppLocalizations {
   /// **'قادمة'**
   String get myAuctionsUpcoming;
 
+  /// No description provided for @myAuctionsStatusWinning.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنت الأعلى'**
+  String get myAuctionsStatusWinning;
+
+  /// No description provided for @myAuctionsStatusOutbid.
+  ///
+  /// In ar, this message translates to:
+  /// **'تمت المزايدة عليك'**
+  String get myAuctionsStatusOutbid;
+
+  /// No description provided for @myAuctionsStatusAwaitingPayment.
+  ///
+  /// In ar, this message translates to:
+  /// **'بانتظار الدفع'**
+  String get myAuctionsStatusAwaitingPayment;
+
+  /// No description provided for @myAuctionsStatusCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'مكتمل'**
+  String get myAuctionsStatusCompleted;
+
+  /// No description provided for @myAuctionsStatusRefund.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم استرداد التأمين'**
+  String get myAuctionsStatusRefund;
+
+  /// No description provided for @myAuctionsStatusUpcoming.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم يبدأ بعد'**
+  String get myAuctionsStatusUpcoming;
+
+  /// No description provided for @myAuctionsPriceCurrentBid.
+  ///
+  /// In ar, this message translates to:
+  /// **'مزايدتك الحالية'**
+  String get myAuctionsPriceCurrentBid;
+
+  /// No description provided for @myAuctionsPriceKnockdown.
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر الرسو'**
+  String get myAuctionsPriceKnockdown;
+
+  /// No description provided for @myAuctionsPriceFinal.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر النهائي'**
+  String get myAuctionsPriceFinal;
+
+  /// No description provided for @myAuctionsEmptyActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد مزادات نشطة'**
+  String get myAuctionsEmptyActive;
+
+  /// No description provided for @myAuctionsEmptyWon.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تربح أي مزاد بعد'**
+  String get myAuctionsEmptyWon;
+
+  /// No description provided for @myAuctionsEmptyLost.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد مزادات خاسرة'**
+  String get myAuctionsEmptyLost;
+
+  /// No description provided for @myAuctionsEmptyUpcoming.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد مزادات قادمة'**
+  String get myAuctionsEmptyUpcoming;
+
   /// No description provided for @notifications.
   ///
   /// In ar, this message translates to:

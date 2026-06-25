@@ -27,48 +27,38 @@ class ParticipationModel with _$ParticipationModel {
   factory ParticipationModel.fromJson(Map<String, dynamic> json) =>
       _$ParticipationModelFromJson(json);
 
-  /// التحويل لـ entity حسب التبويب (لأن المعروض يختلف).
+  /// التحويل لـ entity حسب التبويب (لأن السعر المعروض والحالة يختلفان).
   Participation toEntity(MyAuctionTab tab) {
-    final aId = auctionId ?? id ?? '';
     const zero = MoneyModel(amount: 0, formatted: '0 دج');
-
-    return switch (tab) {
-      MyAuctionTab.active => Participation(
-          auctionId: aId,
-          title: title ?? '',
-          coverPhotoUrl: coverPhotoUrl,
-          price: (myBid ?? currentPrice ?? zero).toEntity(),
-          priceLabel: 'مزايدتك الحالية',
-          statusLabel: (isWinning ?? false) ? 'أنت الأعلى' : 'تمت المزايدة عليك',
-          statusKind: (isWinning ?? false) ? 'winning' : 'outbid',
-        ),
-      MyAuctionTab.won => Participation(
-          auctionId: aId,
-          title: title ?? '',
-          coverPhotoUrl: coverPhotoUrl,
-          price: (finalPrice ?? currentPrice ?? zero).toEntity(),
-          priceLabel: 'سعر الرسو',
-          statusLabel: status == 'PAID' ? 'مكتمل' : 'بانتظار الدفع',
-          statusKind: status == 'PAID' ? 'completed' : 'awaiting_payment',
-        ),
-      MyAuctionTab.lost => Participation(
-          auctionId: aId,
-          title: title ?? '',
-          coverPhotoUrl: coverPhotoUrl,
-          price: (finalPrice ?? currentPrice ?? zero).toEntity(),
-          priceLabel: 'السعر النهائي',
-          statusLabel: 'تم استرداد التأمين',
-          statusKind: 'refund',
-        ),
-      MyAuctionTab.upcoming => Participation(
-          auctionId: aId,
-          title: title ?? '',
-          coverPhotoUrl: coverPhotoUrl,
-          price: (openingPrice ?? zero).toEntity(),
-          priceLabel: 'السعر الافتتاحي',
-          statusLabel: 'لم يبدأ بعد',
-          statusKind: 'upcoming',
-        ),
+    final (MoneyModel money, ParticipationStatus status) = switch (tab) {
+      MyAuctionTab.active => (
+        myBid ?? currentPrice ?? zero,
+        (isWinning ?? false)
+            ? ParticipationStatus.winning
+            : ParticipationStatus.outbid,
+      ),
+      MyAuctionTab.won => (
+        finalPrice ?? currentPrice ?? zero,
+        this.status == 'PAID'
+            ? ParticipationStatus.completed
+            : ParticipationStatus.awaitingPayment,
+      ),
+      MyAuctionTab.lost => (
+        finalPrice ?? currentPrice ?? zero,
+        ParticipationStatus.refund,
+      ),
+      MyAuctionTab.upcoming => (
+        openingPrice ?? zero,
+        ParticipationStatus.upcoming,
+      ),
     };
+
+    return Participation(
+      auctionId: auctionId ?? id ?? '',
+      title: title ?? '',
+      coverPhotoUrl: coverPhotoUrl,
+      price: money.toEntity(),
+      status: status,
+    );
   }
 }

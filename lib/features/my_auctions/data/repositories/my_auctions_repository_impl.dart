@@ -24,11 +24,13 @@ class MyAuctionsRepositoryImpl implements MyAuctionsRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }

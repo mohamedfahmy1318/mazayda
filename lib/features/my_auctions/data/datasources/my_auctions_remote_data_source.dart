@@ -14,10 +14,7 @@ class MyAuctionsRemoteDataSourceImpl implements MyAuctionsRemoteDataSource {
 
   @override
   Future<List<ParticipationModel>> getMyAuctions(String tab) async {
-    final data = await client.get(
-      ApiConstants.myAuctions,
-      query: {'tab': tab},
-    );
+    final data = await client.get(ApiConstants.myAuctions, query: {'tab': tab});
     return (data as List)
         .map((e) => ParticipationModel.fromJson(e as Map<String, dynamic>))
         .toList();

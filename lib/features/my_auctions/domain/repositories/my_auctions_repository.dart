@@ -6,9 +6,7 @@ import '../entities/participation.dart';
 
 /// عقد الـ my-auctions repository.
 abstract class MyAuctionsRepository {
-  Future<Either<Failure, List<Participation>>> getMyAuctions(
-    MyAuctionTab tab,
-  );
+  Future<Either<Failure, List<Participation>>> getMyAuctions(MyAuctionTab tab);
 }
 
 @injectable

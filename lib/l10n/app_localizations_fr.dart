@@ -332,6 +332,45 @@ class AppLocalizationsFr extends AppLocalizations {
   String get myAuctionsUpcoming => 'À venir';
 
   @override
+  String get myAuctionsStatusWinning => 'Vous êtes en tête';
+
+  @override
+  String get myAuctionsStatusOutbid => 'Vous êtes dépassé';
+
+  @override
+  String get myAuctionsStatusAwaitingPayment => 'En attente de paiement';
+
+  @override
+  String get myAuctionsStatusCompleted => 'Terminé';
+
+  @override
+  String get myAuctionsStatusRefund => 'Caution remboursée';
+
+  @override
+  String get myAuctionsStatusUpcoming => 'Pas encore commencé';
+
+  @override
+  String get myAuctionsPriceCurrentBid => 'Votre offre actuelle';
+
+  @override
+  String get myAuctionsPriceKnockdown => 'Prix d\'adjudication';
+
+  @override
+  String get myAuctionsPriceFinal => 'Prix final';
+
+  @override
+  String get myAuctionsEmptyActive => 'Aucune enchère active';
+
+  @override
+  String get myAuctionsEmptyWon => 'Vous n\'avez encore gagné aucune enchère';
+
+  @override
+  String get myAuctionsEmptyLost => 'Aucune enchère perdue';
+
+  @override
+  String get myAuctionsEmptyUpcoming => 'Aucune enchère à venir';
+
+  @override
   String get notifications => 'Notifications';
 
   @override

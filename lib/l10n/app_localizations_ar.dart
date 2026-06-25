@@ -329,6 +329,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myAuctionsUpcoming => 'قادمة';
 
   @override
+  String get myAuctionsStatusWinning => 'أنت الأعلى';
+
+  @override
+  String get myAuctionsStatusOutbid => 'تمت المزايدة عليك';
+
+  @override
+  String get myAuctionsStatusAwaitingPayment => 'بانتظار الدفع';
+
+  @override
+  String get myAuctionsStatusCompleted => 'مكتمل';
+
+  @override
+  String get myAuctionsStatusRefund => 'تم استرداد التأمين';
+
+  @override
+  String get myAuctionsStatusUpcoming => 'لم يبدأ بعد';
+
+  @override
+  String get myAuctionsPriceCurrentBid => 'مزايدتك الحالية';
+
+  @override
+  String get myAuctionsPriceKnockdown => 'سعر الرسو';
+
+  @override
+  String get myAuctionsPriceFinal => 'السعر النهائي';
+
+  @override
+  String get myAuctionsEmptyActive => 'لا توجد مزادات نشطة';
+
+  @override
+  String get myAuctionsEmptyWon => 'لم تربح أي مزاد بعد';
+
+  @override
+  String get myAuctionsEmptyLost => 'لا توجد مزادات خاسرة';
+
+  @override
+  String get myAuctionsEmptyUpcoming => 'لا توجد مزادات قادمة';
+
+  @override
   String get notifications => 'الإشعارات';
 
   @override

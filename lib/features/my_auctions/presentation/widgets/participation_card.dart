@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/participation.dart';
+import 'participation_labels.dart';
 
 /// كارت مشاركة في "مزايداتي" — الحالة بتغيّر اللون والأيقونة.
 class ParticipationCard extends StatelessWidget {
@@ -12,7 +14,7 @@ class ParticipationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (Color fg, Color bg, IconData icon) = _statusStyle(item.statusKind);
+    final t = AppLocalizations.of(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -45,79 +47,72 @@ class ParticipationCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textPrimary),
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                   SizedBox(height: 2.h),
-                  Text(item.priceLabel,
-                      style: TextStyle(
-                          fontSize: 10.sp, color: AppColors.textHint)),
-                  Text(item.price.formatted,
-                      style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primary)),
-                  SizedBox(height: 5.h),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 9.w, vertical: 3.h),
-                    decoration: BoxDecoration(
-                      color: bg,
-                      borderRadius: BorderRadius.circular(7.r),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(icon, size: 12.sp, color: fg),
-                        SizedBox(width: 4.w),
-                        Text(item.statusLabel,
-                            style: TextStyle(fontSize: 10.sp, color: fg)),
-                      ],
+                  Text(
+                    item.status.priceLabel(t),
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      color: AppColors.textHint,
                     ),
                   ),
+                  Text(
+                    item.price.formatted,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
+                  _StatusBadge(status: item.status),
                 ],
               ),
             ),
-            Icon(Icons.chevron_left,
-                size: 20.sp, color: AppColors.borderStrong),
+            Icon(
+              Icons.chevron_left,
+              size: 20.sp,
+              color: AppColors.borderStrong,
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  (Color, Color, IconData) _statusStyle(String kind) => switch (kind) {
-        'winning' => (
-            AppColors.success,
-            AppColors.successBg,
-            Icons.emoji_events_outlined
+/// شارة الحالة الدلالية داخل الكارت (لون/أيقونة/نص حسب الحالة).
+class _StatusBadge extends StatelessWidget {
+  final ParticipationStatus status;
+
+  const _StatusBadge({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final style = status.style;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
+      decoration: BoxDecoration(
+        color: style.bg,
+        borderRadius: BorderRadius.circular(7.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(style.icon, size: 12.sp, color: style.fg),
+          SizedBox(width: 4.w),
+          Text(
+            status.statusLabel(t),
+            style: TextStyle(fontSize: 10.sp, color: style.fg),
           ),
-        'outbid' => (
-            AppColors.danger,
-            AppColors.dangerBg,
-            Icons.arrow_downward
-          ),
-        'awaiting_payment' => (
-            AppColors.danger,
-            AppColors.dangerBg,
-            Icons.schedule
-          ),
-        'completed' => (
-            AppColors.success,
-            AppColors.successBg,
-            Icons.check_circle_outline
-          ),
-        'refund' => (
-            AppColors.info,
-            AppColors.infoBg,
-            Icons.replay
-          ),
-        'upcoming' => (
-            AppColors.warning,
-            AppColors.warningBg,
-            Icons.calendar_today_outlined
-          ),
-        _ => (AppColors.neutral, AppColors.neutralBg, Icons.info_outline),
-      };
+        ],
+      ),
+    );
+  }
 }

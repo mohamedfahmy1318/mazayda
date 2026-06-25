@@ -133,6 +133,22 @@
   "myAuctionsLost": "خاسرة",
   "myAuctionsUpcoming": "قادمة",
 
+  "myAuctionsStatusWinning": "أنت الأعلى",
+  "myAuctionsStatusOutbid": "تمت المزايدة عليك",
+  "myAuctionsStatusAwaitingPayment": "بانتظار الدفع",
+  "myAuctionsStatusCompleted": "مكتمل",
+  "myAuctionsStatusRefund": "تم استرداد التأمين",
+  "myAuctionsStatusUpcoming": "لم يبدأ بعد",
+
+  "myAuctionsPriceCurrentBid": "مزايدتك الحالية",
+  "myAuctionsPriceKnockdown": "سعر الرسو",
+  "myAuctionsPriceFinal": "السعر النهائي",
+
+  "myAuctionsEmptyActive": "لا توجد مزادات نشطة",
+  "myAuctionsEmptyWon": "لم تربح أي مزاد بعد",
+  "myAuctionsEmptyLost": "لا توجد مزادات خاسرة",
+  "myAuctionsEmptyUpcoming": "لا توجد مزادات قادمة",
+
   "notifications": "الإشعارات",
   "markAllRead": "تعليم الكل",
   "noNotifications": "لا توجد إشعارات",

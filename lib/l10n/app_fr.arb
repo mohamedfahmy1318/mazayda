@@ -133,6 +133,22 @@
   "myAuctionsLost": "Perdues",
   "myAuctionsUpcoming": "À venir",
 
+  "myAuctionsStatusWinning": "Vous êtes en tête",
+  "myAuctionsStatusOutbid": "Vous êtes dépassé",
+  "myAuctionsStatusAwaitingPayment": "En attente de paiement",
+  "myAuctionsStatusCompleted": "Terminé",
+  "myAuctionsStatusRefund": "Caution remboursée",
+  "myAuctionsStatusUpcoming": "Pas encore commencé",
+
+  "myAuctionsPriceCurrentBid": "Votre offre actuelle",
+  "myAuctionsPriceKnockdown": "Prix d'adjudication",
+  "myAuctionsPriceFinal": "Prix final",
+
+  "myAuctionsEmptyActive": "Aucune enchère active",
+  "myAuctionsEmptyWon": "Vous n'avez encore gagné aucune enchère",
+  "myAuctionsEmptyLost": "Aucune enchère perdue",
+  "myAuctionsEmptyUpcoming": "Aucune enchère à venir",
+
   "notifications": "Notifications",
   "markAllRead": "Tout marquer",
   "noNotifications": "Aucune notification",
