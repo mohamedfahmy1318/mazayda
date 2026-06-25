@@ -11,6 +11,9 @@ import '../../domain/usecases/get_auctions.dart';
 part 'auctions_cubit.freezed.dart';
 part 'auctions_state.dart';
 
+/// عدد العناصر في كل صفحة — يُستخدم للطلب ولتحديد وجود صفحة تالية.
+const _kPerPage = 12;
+
 @injectable
 class AuctionsCubit extends Cubit<AuctionsState> {
   final GetAuctions _getAuctions;
@@ -113,7 +116,7 @@ class AuctionsCubit extends Cubit<AuctionsState> {
         type: state.typeFilter,
         wilaya: state.wilayaId,
         page: page,
-        perPage: 12,
+        perPage: _kPerPage,
       ),
     );
 
@@ -124,7 +127,7 @@ class AuctionsCubit extends Cubit<AuctionsState> {
         state.copyWith(
           loading: false,
           auctions: reset ? items : [...state.auctions, ...items],
-          hasMore: items.length == 12,
+          hasMore: items.length == _kPerPage,
           page: page,
         ),
       ),

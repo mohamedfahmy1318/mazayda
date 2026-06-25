@@ -128,7 +128,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                   controller: scrollController,
                   padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 8.h),
                   children: [
-                    _sectionTitle(t.type),
+                    _SectionTitle(t.type),
                     SizedBox(height: 10.h),
                     _Segmented(
                       options: auctionTypeKeys
@@ -140,7 +140,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                     SizedBox(height: 22.h),
                     Row(
                       children: [
-                        _sectionTitle(t.wilaya),
+                        _SectionTitle(t.wilaya),
                         const Spacer(),
                         if (_wilayaId != null)
                           GestureDetector(
@@ -159,58 +159,18 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                       ],
                     ),
                     SizedBox(height: 10.h),
-                    _wilayaSearchField(),
+                    _WilayaSearchField(controller: _wilayaSearch),
                     SizedBox(height: 10.h),
                     _wilayaList(),
                   ],
                 ),
               ),
               // الأزرار السفلية
-              _footerButtons(),
+              _FilterSheetFooter(onReset: _reset, onApply: _apply),
             ],
           ),
         );
       },
-    );
-  }
-
-  Widget _sectionTitle(String text) => Text(
-    text,
-    style: TextStyle(fontSize: 13.5.sp, fontWeight: FontWeight.w700),
-  );
-
-  Widget _wilayaSearchField() {
-    return SizedBox(
-      height: 42.h,
-      child: TextField(
-        controller: _wilayaSearch,
-        style: TextStyle(fontSize: 13.sp),
-        decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).searchWilayaHint,
-          hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
-          prefixIcon: Icon(
-            Icons.search_rounded,
-            size: 19.sp,
-            color: AppColors.textHint,
-          ),
-          filled: true,
-          fillColor: AppColors.background,
-          isDense: true,
-          contentPadding: EdgeInsets.zero,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(11.r),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(11.r),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(11.r),
-            borderSide: const BorderSide(color: AppColors.primary, width: 1.2),
-          ),
-        ),
-      ),
     );
   }
 
@@ -241,52 +201,133 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
       spacing: 8.w,
       runSpacing: 8.h,
       children: _filtered.map((w) {
-        final sel = w.id == _wilayaId;
-        return GestureDetector(
+        return _WilayaChip(
+          name: w.name,
+          selected: w.id == _wilayaId,
           onTap: () => setState(() {
             _wilayaId = w.id;
             _wilayaName = w.name;
           }),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 9.h),
-            decoration: BoxDecoration(
-              color: sel
-                  ? AppColors.primary.withValues(alpha: 0.10)
-                  : AppColors.background,
-              borderRadius: BorderRadius.circular(11.r),
-              border: Border.all(
-                color: sel ? AppColors.primary : AppColors.border,
-                width: sel ? 1.2 : 1,
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (sel) ...[
-                  Icon(
-                    Icons.check_rounded,
-                    size: 15.sp,
-                    color: AppColors.primary,
-                  ),
-                  SizedBox(width: 4.w),
-                ],
-                Text(
-                  w.name,
-                  style: TextStyle(
-                    fontSize: 12.5.sp,
-                    fontWeight: sel ? FontWeight.w600 : FontWeight.w400,
-                    color: sel ? AppColors.primary : AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
         );
       }).toList(),
     );
   }
+}
 
-  Widget _footerButtons() {
+/// عنوان قسم داخل الـ sheet.
+class _SectionTitle extends StatelessWidget {
+  final String text;
+  const _SectionTitle(this.text);
+
+  @override
+  Widget build(BuildContext context) => Text(
+    text,
+    style: TextStyle(fontSize: 13.5.sp, fontWeight: FontWeight.w700),
+  );
+}
+
+/// حقل البحث عن ولاية.
+class _WilayaSearchField extends StatelessWidget {
+  final TextEditingController controller;
+  const _WilayaSearchField({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 42.h,
+      child: TextField(
+        controller: controller,
+        style: TextStyle(fontSize: 13.sp),
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context).searchWilayaHint,
+          hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            size: 19.sp,
+            color: AppColors.textHint,
+          ),
+          filled: true,
+          fillColor: AppColors.background,
+          isDense: true,
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(11.r),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(11.r),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(11.r),
+            borderSide: const BorderSide(color: AppColors.primary, width: 1.2),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// شريحة ولاية قابلة للاختيار.
+class _WilayaChip extends StatelessWidget {
+  final String name;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _WilayaChip({
+    required this.name,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 9.h),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.primary.withValues(alpha: 0.10)
+              : AppColors.background,
+          borderRadius: BorderRadius.circular(11.r),
+          border: Border.all(
+            color: selected ? AppColors.primary : AppColors.border,
+            width: selected ? 1.2 : 1,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (selected) ...[
+              Icon(Icons.check_rounded, size: 15.sp, color: AppColors.primary),
+              SizedBox(width: 4.w),
+            ],
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 12.5.sp,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+                color: selected ? AppColors.primary : AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// أزرار الـ sheet السفلية (إعادة تعيين / عرض النتائج).
+class _FilterSheetFooter extends StatelessWidget {
+  final VoidCallback onReset;
+  final VoidCallback onApply;
+
+  const _FilterSheetFooter({required this.onReset, required this.onApply});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Container(
       padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 16.h),
       decoration: const BoxDecoration(
@@ -302,7 +343,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
               child: SizedBox(
                 height: 48.h,
                 child: OutlinedButton(
-                  onPressed: _reset,
+                  onPressed: onReset,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.textSecondary,
                     side: const BorderSide(color: AppColors.borderStrong),
@@ -311,7 +352,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                     ),
                   ),
                   child: Text(
-                    AppLocalizations.of(context).reset,
+                    t.reset,
                     style: TextStyle(
                       fontSize: 13.5.sp,
                       fontWeight: FontWeight.w600,
@@ -326,7 +367,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
               child: SizedBox(
                 height: 48.h,
                 child: ElevatedButton(
-                  onPressed: _apply,
+                  onPressed: onApply,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: AppColors.white,
@@ -336,7 +377,7 @@ class AuctionFilterSheetState extends State<AuctionFilterSheet> {
                     ),
                   ),
                   child: Text(
-                    AppLocalizations.of(context).showResults,
+                    t.showResults,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
