@@ -86,6 +86,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String resendInTimer(String time) {
+    return 'Resend in $time';
+  }
+
+  @override
   String get activeAuctions => 'Active Auctions';
 
   @override

@@ -250,6 +250,12 @@ abstract class AppLocalizations {
   /// **'إعادة الإرسال خلال {seconds} ثانية'**
   String resendIn(int seconds);
 
+  /// No description provided for @resendInTimer.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة الإرسال خلال {time}'**
+  String resendInTimer(String time);
+
   /// No description provided for @activeAuctions.
   ///
   /// In ar, this message translates to:

@@ -123,8 +123,10 @@ class _ResendControl extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     if (cooldown > 0) {
+      final minutes = cooldown ~/ 60;
+      final seconds = (cooldown % 60).toString().padLeft(2, '0');
       return Text(
-        t.resendIn(cooldown),
+        t.resendInTimer('$minutes:$seconds'),
         style: TextStyle(fontSize: 13.sp, color: AppColors.textHint),
       );
     }

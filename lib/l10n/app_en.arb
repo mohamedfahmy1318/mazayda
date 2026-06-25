@@ -32,6 +32,10 @@
   "@resendIn": {
     "placeholders": { "seconds": { "type": "int" } }
   },
+  "resendInTimer": "Resend in {time}",
+  "@resendInTimer": {
+    "placeholders": { "time": { "type": "String" } }
+  },
 
   "activeAuctions": "Active Auctions",
   "noAuctions": "No auctions available",
