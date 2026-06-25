@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -10,6 +11,7 @@ import '../../domain/entities/kyc_entities.dart';
 import '../../domain/repositories/kyc_repository.dart';
 import '../cubit/kyc_cubit.dart';
 import '../widgets/doc_upload_tile.dart';
+import '../widgets/kyc_labels.dart';
 
 class KycPage extends StatelessWidget {
   const KycPage({super.key});
@@ -69,8 +71,8 @@ class _KycViewState extends State<_KycView> {
     // الصورة البيومترية والسيلفي من الكاميرا، الباقي من المعرض
     final source =
         (type == KycDocType.photoBiometric || type == KycDocType.selfieWithId)
-            ? ImageSource.camera
-            : ImageSource.gallery;
+        ? ImageSource.camera
+        : ImageSource.gallery;
     final file = await picker.pickImage(
       source: source,
       imageQuality: 80, // ضغط للبقاء تحت 1MB (متطلب الـ spec)
@@ -81,20 +83,22 @@ class _KycViewState extends State<_KycView> {
   }
 
   void _submit(KycCubit cubit) {
-    cubit.submit(KycSubmitParams(
-      firstNameFr: _firstFr.text.trim(),
-      lastNameFr: _lastFr.text.trim(),
-      fatherName: _father.text.trim(),
-      motherName: _motherName.text.trim(),
-      motherSurname: _motherSurname.text.trim(),
-      address: _address.text.trim(),
-      wilayaId: _wilayaId ?? 0,
-      communeId: _communeId ?? 0,
-      postalCode: _postal.text.trim(),
-      profession: _profession.text.trim(),
-      expectedIncome: int.tryParse(_income.text.trim()) ?? 0,
-      idNumber: _idNumber.text.trim(),
-    ));
+    cubit.submit(
+      KycSubmitParams(
+        firstNameFr: _firstFr.text.trim(),
+        lastNameFr: _lastFr.text.trim(),
+        fatherName: _father.text.trim(),
+        motherName: _motherName.text.trim(),
+        motherSurname: _motherSurname.text.trim(),
+        address: _address.text.trim(),
+        wilayaId: _wilayaId ?? 0,
+        communeId: _communeId ?? 0,
+        postalCode: _postal.text.trim(),
+        profession: _profession.text.trim(),
+        expectedIncome: int.tryParse(_income.text.trim()) ?? 0,
+        idNumber: _idNumber.text.trim(),
+      ),
+    );
   }
 
   @override
@@ -109,8 +113,9 @@ class _KycViewState extends State<_KycView> {
             );
             Navigator.pop(context);
           } else if (state.error != null && state.fieldErrors == null) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error!)));
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.error!)));
           }
         },
         builder: (context, state) {
@@ -134,45 +139,72 @@ class _KycViewState extends State<_KycView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _statusBanner(state.kyc?.status),
+                _statusBanner(context, state.kyc?.status),
                 SizedBox(height: 16.h),
 
-                Text('المستندات المطلوبة',
-                    style: TextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                Text(
+                  'المستندات المطلوبة',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 SizedBox(height: 10.h),
                 ...[
                   KycDocType.idFront,
                   KycDocType.idBack,
                   KycDocType.selfieWithId,
                   KycDocType.photoBiometric,
-                ].map((t) => DocUploadTile(
-                      type: t,
-                      isUploading: state.uploading.contains(t),
-                      isUploaded: state.uploaded.contains(t),
-                      onTap: () => _pickAndUpload(t),
-                    )),
+                ].map(
+                  (t) => DocUploadTile(
+                    type: t,
+                    isUploading: state.uploading.contains(t),
+                    isUploaded: state.uploaded.contains(t),
+                    onTap: () => _pickAndUpload(t),
+                  ),
+                ),
 
                 SizedBox(height: 16.h),
-                Text('البيانات الشخصية',
-                    style: TextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.w500)),
+                Text(
+                  'البيانات الشخصية',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 SizedBox(height: 12.h),
 
-                _field('الاسم بالفرنسية', _firstFr,
-                    error: errors?['first_name_fr']?.first),
-                _field('اللقب بالفرنسية', _lastFr,
-                    error: errors?['last_name_fr']?.first),
-                _field('اسم الأب', _father,
-                    error: errors?['father_name']?.first),
-                _field('اسم الأم', _motherName,
-                    error: errors?['mother_name']?.first),
-                _field('لقب الأم', _motherSurname,
-                    error: errors?['mother_surname']?.first),
-                _field('المهنة', _profession,
-                    error: errors?['profession']?.first),
-                _field('العنوان', _address,
-                    error: errors?['address']?.first),
+                _field(
+                  'الاسم بالفرنسية',
+                  _firstFr,
+                  error: errors?['first_name_fr']?.first,
+                ),
+                _field(
+                  'اللقب بالفرنسية',
+                  _lastFr,
+                  error: errors?['last_name_fr']?.first,
+                ),
+                _field(
+                  'اسم الأب',
+                  _father,
+                  error: errors?['father_name']?.first,
+                ),
+                _field(
+                  'اسم الأم',
+                  _motherName,
+                  error: errors?['mother_name']?.first,
+                ),
+                _field(
+                  'لقب الأم',
+                  _motherSurname,
+                  error: errors?['mother_surname']?.first,
+                ),
+                _field(
+                  'المهنة',
+                  _profession,
+                  error: errors?['profession']?.first,
+                ),
+                _field('العنوان', _address, error: errors?['address']?.first),
 
                 // الولاية
                 _dropdownWilaya(state, cubit),
@@ -181,29 +213,41 @@ class _KycViewState extends State<_KycView> {
                 _dropdownCommune(state),
                 SizedBox(height: 12.h),
 
-                _field('الرمز البريدي', _postal,
-                    keyboard: TextInputType.number,
-                    error: errors?['postal_code']?.first),
-                _field('الدخل الشهري المتوقع', _income,
-                    keyboard: TextInputType.number,
-                    error: errors?['expected_income']?.first),
-                _field('رقم بطاقة الهوية', _idNumber,
-                    error: errors?['id_number']?.first),
+                _field(
+                  'الرمز البريدي',
+                  _postal,
+                  keyboard: TextInputType.number,
+                  error: errors?['postal_code']?.first,
+                ),
+                _field(
+                  'الدخل الشهري المتوقع',
+                  _income,
+                  keyboard: TextInputType.number,
+                  error: errors?['expected_income']?.first,
+                ),
+                _field(
+                  'رقم بطاقة الهوية',
+                  _idNumber,
+                  error: errors?['id_number']?.first,
+                ),
 
                 SizedBox(height: 12.h),
                 PrimaryButton(
                   label: 'إنهاء التحقق',
                   icon: Icons.check_circle_outline,
                   isLoading: state.submitting,
-                  onPressed:
-                      cubit.requiredDocsUploaded ? () => _submit(cubit) : null,
+                  onPressed: cubit.requiredDocsUploaded
+                      ? () => _submit(cubit)
+                      : null,
                 ),
                 if (!cubit.requiredDocsUploaded) ...[
                   SizedBox(height: 8.h),
                   Text(
                     'ارفع المستندات الثلاثة المطلوبة أولًا',
-                    style:
-                        TextStyle(fontSize: 11.sp, color: AppColors.textHint),
+                    style: TextStyle(
+                      fontSize: 11.sp,
+                      color: AppColors.textHint,
+                    ),
                   ),
                 ],
               ],
@@ -214,24 +258,25 @@ class _KycViewState extends State<_KycView> {
     );
   }
 
-  Widget _statusBanner(KycAccountStatus? status) {
+  Widget _statusBanner(BuildContext context, KycAccountStatus? status) {
+    final t = AppLocalizations.of(context);
     final s = status ?? KycAccountStatus.pending;
     final (Color bg, Color fg, IconData icon) = switch (s) {
       KycAccountStatus.verified => (
-          AppColors.successBg,
-          AppColors.success,
-          Icons.verified_outlined
-        ),
+        AppColors.successBg,
+        AppColors.success,
+        Icons.verified_outlined,
+      ),
       KycAccountStatus.underReview => (
-          AppColors.infoBg,
-          AppColors.info,
-          Icons.hourglass_top_outlined
-        ),
+        AppColors.infoBg,
+        AppColors.info,
+        Icons.hourglass_top_outlined,
+      ),
       KycAccountStatus.rejected => (
-          AppColors.dangerBg,
-          AppColors.danger,
-          Icons.cancel_outlined
-        ),
+        AppColors.dangerBg,
+        AppColors.danger,
+        Icons.cancel_outlined,
+      ),
       _ => (AppColors.warningBg, AppColors.warning, Icons.info_outline),
     };
     return Container(
@@ -247,8 +292,8 @@ class _KycViewState extends State<_KycView> {
           Expanded(
             child: Text(
               s == KycAccountStatus.pending
-                  ? 'أكمل النموذج خلال 30 يومًا وإلا سيُعلَّق الحساب'
-                  : 'الحالة: ${s.labelAr}',
+                  ? t.kycWarning
+                  : t.kycStatusLabel(s.label(t)),
               style: TextStyle(fontSize: 11.sp, color: fg, height: 1.5),
             ),
           ),
@@ -268,8 +313,10 @@ class _KycViewState extends State<_KycView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+          ),
           SizedBox(height: 6.h),
           TextField(
             controller: controller,
@@ -285,8 +332,10 @@ class _KycViewState extends State<_KycView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('الولاية',
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
+        Text(
+          'الولاية',
+          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+        ),
         SizedBox(height: 6.h),
         DropdownButtonFormField<int>(
           initialValue: _wilayaId,
@@ -310,8 +359,10 @@ class _KycViewState extends State<_KycView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('البلدية',
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
+        Text(
+          'البلدية',
+          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+        ),
         SizedBox(height: 6.h),
         DropdownButtonFormField<int>(
           initialValue: _communeId,

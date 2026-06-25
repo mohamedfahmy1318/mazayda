@@ -6,18 +6,11 @@ enum KycDocType { idFront, idBack, selfieWithId, photoBiometric }
 extension KycDocTypeX on KycDocType {
   /// القيمة اللي بتتبعت في مسار الـ upload: kyc/upload/:type
   String get apiValue => switch (this) {
-        KycDocType.idFront => 'id-front',
-        KycDocType.idBack => 'id-back',
-        KycDocType.selfieWithId => 'selfie-with-id',
-        KycDocType.photoBiometric => 'photo-biometric',
-      };
-
-  String get labelAr => switch (this) {
-        KycDocType.idFront => 'بطاقة الهوية (الوجه)',
-        KycDocType.idBack => 'بطاقة الهوية (الظهر)',
-        KycDocType.selfieWithId => 'سيلفي مع البطاقة',
-        KycDocType.photoBiometric => 'الصورة البيومترية',
-      };
+    KycDocType.idFront => 'id-front',
+    KycDocType.idBack => 'id-back',
+    KycDocType.selfieWithId => 'selfie-with-id',
+    KycDocType.photoBiometric => 'photo-biometric',
+  };
 }
 
 /// حالة الـ KYC الكلية للحساب.
@@ -25,20 +18,12 @@ enum KycAccountStatus { pending, underReview, verified, rejected, unknown }
 
 extension KycAccountStatusX on KycAccountStatus {
   static KycAccountStatus fromApi(String? v) => switch (v) {
-        'PENDING' => KycAccountStatus.pending,
-        'UNDER_REVIEW' => KycAccountStatus.underReview,
-        'VERIFIED' => KycAccountStatus.verified,
-        'REJECTED' => KycAccountStatus.rejected,
-        _ => KycAccountStatus.unknown,
-      };
-
-  String get labelAr => switch (this) {
-        KycAccountStatus.pending => 'بانتظار الإكمال',
-        KycAccountStatus.underReview => 'قيد المراجعة',
-        KycAccountStatus.verified => 'موثّق',
-        KycAccountStatus.rejected => 'مرفوض',
-        KycAccountStatus.unknown => '',
-      };
+    'PENDING' => KycAccountStatus.pending,
+    'UNDER_REVIEW' => KycAccountStatus.underReview,
+    'VERIFIED' => KycAccountStatus.verified,
+    'REJECTED' => KycAccountStatus.rejected,
+    _ => KycAccountStatus.unknown,
+  };
 }
 
 /// حالة الـ KYC + المستندات الموجودة + هل يمكن الإرسال.

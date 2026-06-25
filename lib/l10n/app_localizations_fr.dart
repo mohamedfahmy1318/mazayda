@@ -264,6 +264,62 @@ class AppLocalizationsFr extends AppLocalizations {
       'Téléversez d\'abord les trois documents requis';
 
   @override
+  String get kycSubmitted => 'Votre demande a été envoyée pour examen';
+
+  @override
+  String get kycDocIdFront => 'Carte d\'identité (recto)';
+
+  @override
+  String get kycDocIdBack => 'Carte d\'identité (verso)';
+
+  @override
+  String get kycDocSelfie => 'Selfie avec la carte';
+
+  @override
+  String get kycDocBiometric => 'Photo biométrique';
+
+  @override
+  String get kycStatusPending => 'En attente';
+
+  @override
+  String get kycStatusUnderReview => 'En cours d\'examen';
+
+  @override
+  String get kycStatusVerified => 'Vérifié';
+
+  @override
+  String get kycStatusRejected => 'Rejeté';
+
+  @override
+  String kycStatusLabel(String status) {
+    return 'Statut : $status';
+  }
+
+  @override
+  String get firstNameFr => 'Prénom (en français)';
+
+  @override
+  String get lastNameFr => 'Nom (en français)';
+
+  @override
+  String get fatherName => 'Nom du père';
+
+  @override
+  String get motherName => 'Nom de la mère';
+
+  @override
+  String get motherSurname => 'Nom de jeune fille de la mère';
+
+  @override
+  String get expectedIncome => 'Revenu mensuel estimé';
+
+  @override
+  String get idNumber => 'Numéro de la carte d\'identité';
+
+  @override
+  String get commune => 'Commune';
+
+  @override
   String get myAuctionsActive => 'Actives';
 
   @override

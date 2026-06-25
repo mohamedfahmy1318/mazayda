@@ -262,6 +262,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get uploadDocsFirst => 'Upload the three required documents first';
 
   @override
+  String get kycSubmitted => 'Your request has been submitted for review';
+
+  @override
+  String get kycDocIdFront => 'ID card (front)';
+
+  @override
+  String get kycDocIdBack => 'ID card (back)';
+
+  @override
+  String get kycDocSelfie => 'Selfie with ID';
+
+  @override
+  String get kycDocBiometric => 'Biometric photo';
+
+  @override
+  String get kycStatusPending => 'Awaiting completion';
+
+  @override
+  String get kycStatusUnderReview => 'Under review';
+
+  @override
+  String get kycStatusVerified => 'Verified';
+
+  @override
+  String get kycStatusRejected => 'Rejected';
+
+  @override
+  String kycStatusLabel(String status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String get firstNameFr => 'First name (French)';
+
+  @override
+  String get lastNameFr => 'Last name (French)';
+
+  @override
+  String get fatherName => 'Father\'s name';
+
+  @override
+  String get motherName => 'Mother\'s name';
+
+  @override
+  String get motherSurname => 'Mother\'s surname';
+
+  @override
+  String get expectedIncome => 'Expected monthly income';
+
+  @override
+  String get idNumber => 'ID card number';
+
+  @override
+  String get commune => 'Commune';
+
+  @override
   String get myAuctionsActive => 'Active';
 
   @override

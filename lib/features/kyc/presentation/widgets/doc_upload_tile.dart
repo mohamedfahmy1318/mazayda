@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/kyc_entities.dart';
+import 'kyc_labels.dart';
 
 /// خانة رفع مستند — بتعرض الحالة: فاضي / بيرفع / اترفع.
 class DocUploadTile extends StatelessWidget {
@@ -20,8 +22,10 @@ class DocUploadTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color borderColor =
-        isUploaded ? AppColors.success : AppColors.primary;
+    final t = AppLocalizations.of(context);
+    final Color borderColor = isUploaded
+        ? AppColors.success
+        : AppColors.primary;
 
     return GestureDetector(
       onTap: isUploading ? null : onTap,
@@ -31,11 +35,7 @@ class DocUploadTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: isUploaded ? AppColors.successBg : AppColors.white,
           borderRadius: BorderRadius.circular(14.r),
-          border: Border.all(
-            color: borderColor,
-            width: 0.8,
-            style: isUploaded ? BorderStyle.solid : BorderStyle.solid,
-          ),
+          border: Border.all(color: borderColor, width: 0.8),
         ),
         child: Row(
           children: [
@@ -43,7 +43,7 @@ class DocUploadTile extends StatelessWidget {
             SizedBox(width: 12.w),
             Expanded(
               child: Text(
-                type.labelAr,
+                type.label(t),
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
@@ -71,7 +71,7 @@ class DocUploadTile extends StatelessWidget {
         color: isUploaded ? AppColors.success : AppColors.primary,
         borderRadius: BorderRadius.circular(11.r),
       ),
-      child: Icon(icon, size: 21.sp, color: Colors.white),
+      child: Icon(icon, size: 21.sp, color: AppColors.white),
     );
   }
 
@@ -81,13 +81,14 @@ class DocUploadTile extends StatelessWidget {
         width: 20.w,
         height: 20.w,
         child: const CircularProgressIndicator(
-            strokeWidth: 2.5, color: AppColors.primary),
+          strokeWidth: 2.5,
+          color: AppColors.primary,
+        ),
       );
     }
     if (isUploaded) {
       return Icon(Icons.check_circle, size: 22.sp, color: AppColors.success);
     }
-    return Icon(Icons.upload_outlined,
-        size: 22.sp, color: AppColors.textHint);
+    return Icon(Icons.upload_outlined, size: 22.sp, color: AppColors.textHint);
   }
 }

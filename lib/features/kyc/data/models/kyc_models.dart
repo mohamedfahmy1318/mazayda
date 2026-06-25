@@ -21,10 +21,10 @@ class KycStatusModel with _$KycStatusModel {
       _$KycStatusModelFromJson(json);
 
   KycStatus toEntity() => KycStatus(
-        status: KycAccountStatusX.fromApi(status),
-        documentsOnFile: documentsOnFile,
-        canSubmit: canSubmit,
-      );
+    status: KycAccountStatusX.fromApi(status),
+    documentsOnFile: documentsOnFile,
+    canSubmit: canSubmit,
+  );
 }
 
 /// ولاية — GET /wilayas (بترجع name_ar / name_fr).
@@ -42,8 +42,7 @@ class WilayaModel with _$WilayaModel {
   factory WilayaModel.fromJson(Map<String, dynamic> json) =>
       _$WilayaModelFromJson(json);
 
-  Wilaya toEntity() =>
-      Wilaya(id: id, code: code, name: nameAr ?? nameFr ?? '');
+  Wilaya toEntity() => Wilaya(id: id, code: code, name: nameAr ?? nameFr ?? '');
 }
 
 /// بلدية — GET /wilayas/:id/communes.
@@ -61,9 +60,6 @@ class CommuneModel with _$CommuneModel {
   factory CommuneModel.fromJson(Map<String, dynamic> json) =>
       _$CommuneModelFromJson(json);
 
-  Commune toEntity() => Commune(
-        id: id,
-        name: nameAr ?? nameFr ?? '',
-        postalCode: postalCode,
-      );
+  Commune toEntity() =>
+      Commune(id: id, name: nameAr ?? nameFr ?? '', postalCode: postalCode);
 }

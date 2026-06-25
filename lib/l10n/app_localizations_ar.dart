@@ -261,6 +261,62 @@ class AppLocalizationsAr extends AppLocalizations {
   String get uploadDocsFirst => 'ارفع المستندات الثلاثة المطلوبة أولًا';
 
   @override
+  String get kycSubmitted => 'تم إرسال طلبك للمراجعة';
+
+  @override
+  String get kycDocIdFront => 'بطاقة الهوية (الوجه)';
+
+  @override
+  String get kycDocIdBack => 'بطاقة الهوية (الظهر)';
+
+  @override
+  String get kycDocSelfie => 'سيلفي مع البطاقة';
+
+  @override
+  String get kycDocBiometric => 'الصورة البيومترية';
+
+  @override
+  String get kycStatusPending => 'بانتظار الإكمال';
+
+  @override
+  String get kycStatusUnderReview => 'قيد المراجعة';
+
+  @override
+  String get kycStatusVerified => 'موثّق';
+
+  @override
+  String get kycStatusRejected => 'مرفوض';
+
+  @override
+  String kycStatusLabel(String status) {
+    return 'الحالة: $status';
+  }
+
+  @override
+  String get firstNameFr => 'الاسم بالفرنسية';
+
+  @override
+  String get lastNameFr => 'اللقب بالفرنسية';
+
+  @override
+  String get fatherName => 'اسم الأب';
+
+  @override
+  String get motherName => 'اسم الأم';
+
+  @override
+  String get motherSurname => 'لقب الأم';
+
+  @override
+  String get expectedIncome => 'الدخل الشهري المتوقع';
+
+  @override
+  String get idNumber => 'رقم بطاقة الهوية';
+
+  @override
+  String get commune => 'البلدية';
+
+  @override
   String get myAuctionsActive => 'نشطة';
 
   @override

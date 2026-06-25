@@ -39,8 +39,7 @@ class SubmitKyc implements UseCase<Unit, KycSubmitParams> {
   final KycRepository repository;
   SubmitKyc(this.repository);
   @override
-  Future<Either<Failure, Unit>> call(KycSubmitParams p) =>
-      repository.submit(p);
+  Future<Either<Failure, Unit>> call(KycSubmitParams p) => repository.submit(p);
 }
 
 @injectable

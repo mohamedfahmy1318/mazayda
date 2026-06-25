@@ -580,6 +580,114 @@ abstract class AppLocalizations {
   /// **'ارفع المستندات الثلاثة المطلوبة أولًا'**
   String get uploadDocsFirst;
 
+  /// No description provided for @kycSubmitted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إرسال طلبك للمراجعة'**
+  String get kycSubmitted;
+
+  /// No description provided for @kycDocIdFront.
+  ///
+  /// In ar, this message translates to:
+  /// **'بطاقة الهوية (الوجه)'**
+  String get kycDocIdFront;
+
+  /// No description provided for @kycDocIdBack.
+  ///
+  /// In ar, this message translates to:
+  /// **'بطاقة الهوية (الظهر)'**
+  String get kycDocIdBack;
+
+  /// No description provided for @kycDocSelfie.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيلفي مع البطاقة'**
+  String get kycDocSelfie;
+
+  /// No description provided for @kycDocBiometric.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصورة البيومترية'**
+  String get kycDocBiometric;
+
+  /// No description provided for @kycStatusPending.
+  ///
+  /// In ar, this message translates to:
+  /// **'بانتظار الإكمال'**
+  String get kycStatusPending;
+
+  /// No description provided for @kycStatusUnderReview.
+  ///
+  /// In ar, this message translates to:
+  /// **'قيد المراجعة'**
+  String get kycStatusUnderReview;
+
+  /// No description provided for @kycStatusVerified.
+  ///
+  /// In ar, this message translates to:
+  /// **'موثّق'**
+  String get kycStatusVerified;
+
+  /// No description provided for @kycStatusRejected.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرفوض'**
+  String get kycStatusRejected;
+
+  /// No description provided for @kycStatusLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحالة: {status}'**
+  String kycStatusLabel(String status);
+
+  /// No description provided for @firstNameFr.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم بالفرنسية'**
+  String get firstNameFr;
+
+  /// No description provided for @lastNameFr.
+  ///
+  /// In ar, this message translates to:
+  /// **'اللقب بالفرنسية'**
+  String get lastNameFr;
+
+  /// No description provided for @fatherName.
+  ///
+  /// In ar, this message translates to:
+  /// **'اسم الأب'**
+  String get fatherName;
+
+  /// No description provided for @motherName.
+  ///
+  /// In ar, this message translates to:
+  /// **'اسم الأم'**
+  String get motherName;
+
+  /// No description provided for @motherSurname.
+  ///
+  /// In ar, this message translates to:
+  /// **'لقب الأم'**
+  String get motherSurname;
+
+  /// No description provided for @expectedIncome.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدخل الشهري المتوقع'**
+  String get expectedIncome;
+
+  /// No description provided for @idNumber.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم بطاقة الهوية'**
+  String get idNumber;
+
+  /// No description provided for @commune.
+  ///
+  /// In ar, this message translates to:
+  /// **'البلدية'**
+  String get commune;
+
   /// No description provided for @myAuctionsActive.
   ///
   /// In ar, this message translates to:

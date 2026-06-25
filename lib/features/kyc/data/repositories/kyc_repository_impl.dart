@@ -51,15 +51,18 @@ class KycRepositoryImpl implements KycRepository {
 
   @override
   Future<Either<Failure, List<Wilaya>>> getWilayas() {
-    return _guard(() async =>
-        (await remote.getWilayas()).map((m) => m.toEntity()).toList());
+    return _guard(
+      () async => (await remote.getWilayas()).map((m) => m.toEntity()).toList(),
+    );
   }
 
   @override
   Future<Either<Failure, List<Commune>>> getCommunes(int wilayaId) {
-    return _guard(() async => (await remote.getCommunes(wilayaId))
-        .map((m) => m.toEntity())
-        .toList());
+    return _guard(
+      () async => (await remote.getCommunes(
+        wilayaId,
+      )).map((m) => m.toEntity()).toList(),
+    );
   }
 
   Future<Either<Failure, T>> _guard<T>(Future<T> Function() action) async {
@@ -70,11 +73,13 @@ class KycRepositoryImpl implements KycRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }
