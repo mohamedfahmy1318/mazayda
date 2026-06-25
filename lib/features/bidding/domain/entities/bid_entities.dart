@@ -36,6 +36,11 @@ class PriceSnapshot extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [currentPrice, bidCount, status, isBiddable, hasEnded];
+  List<Object?> get props => [
+    currentPrice,
+    bidCount,
+    status,
+    isBiddable,
+    hasEnded,
+  ];
 }

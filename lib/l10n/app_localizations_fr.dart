@@ -233,6 +233,17 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get currentHighestBid => 'Meilleure offre actuelle';
+
+  @override
+  String get currencyDzd => 'DA';
+
+  @override
+  String bidsCount(int count) {
+    return '$count offres';
+  }
+
+  @override
   String get kycTitle => 'Vérification d\'identité (KYC)';
 
   @override

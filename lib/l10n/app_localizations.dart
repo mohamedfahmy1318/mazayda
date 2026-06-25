@@ -526,6 +526,24 @@ abstract class AppLocalizations {
   /// **'زايد بـ {amount}'**
   String placeBidAmount(String amount);
 
+  /// No description provided for @currentHighestBid.
+  ///
+  /// In ar, this message translates to:
+  /// **'أعلى مزايدة حالية'**
+  String get currentHighestBid;
+
+  /// No description provided for @currencyDzd.
+  ///
+  /// In ar, this message translates to:
+  /// **'دج'**
+  String get currencyDzd;
+
+  /// No description provided for @bidsCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} مزايدة'**
+  String bidsCount(int count);
+
   /// No description provided for @kycTitle.
   ///
   /// In ar, this message translates to:

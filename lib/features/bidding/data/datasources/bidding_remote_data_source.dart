@@ -15,8 +15,7 @@ class BiddingRemoteDataSourceImpl implements BiddingRemoteDataSource {
   BiddingRemoteDataSourceImpl(this.client);
 
   @override
-  Future<List<BidEntryModel>> getLatestBids(
-      String auctionId, int limit) async {
+  Future<List<BidEntryModel>> getLatestBids(String auctionId, int limit) async {
     final data = await client.get(
       ApiConstants.auctionBids(auctionId),
       query: {'limit': limit},

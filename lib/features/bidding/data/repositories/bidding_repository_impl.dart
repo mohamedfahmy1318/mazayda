@@ -16,9 +16,12 @@ class BiddingRepositoryImpl implements BiddingRepository {
     String auctionId, {
     int limit = 10,
   }) {
-    return _guard(() async => (await remote.getLatestBids(auctionId, limit))
-        .map((m) => m.toEntity())
-        .toList());
+    return _guard(
+      () async => (await remote.getLatestBids(
+        auctionId,
+        limit,
+      )).map((m) => m.toEntity()).toList(),
+    );
   }
 
   @override
@@ -45,11 +48,13 @@ class BiddingRepositoryImpl implements BiddingRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }

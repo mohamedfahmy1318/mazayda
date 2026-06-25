@@ -232,6 +232,17 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get currentHighestBid => 'أعلى مزايدة حالية';
+
+  @override
+  String get currencyDzd => 'دج';
+
+  @override
+  String bidsCount(int count) {
+    return '$count مزايدة';
+  }
+
+  @override
   String get kycTitle => 'التحقق من الهوية (KYC)';
 
   @override

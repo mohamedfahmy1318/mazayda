@@ -20,10 +20,10 @@ class BidEntryModel with _$BidEntryModel {
       _$BidEntryModelFromJson(json);
 
   BidEntry toEntity() => BidEntry(
-        amount: (amount ?? const MoneyModel()).toEntity(),
-        bidderAlias: bidderAlias ?? '—',
-        bidTime: DateTime.tryParse(bidTime ?? '') ?? DateTime.now(),
-      );
+    amount: (amount ?? const MoneyModel()).toEntity(),
+    bidderAlias: bidderAlias ?? '—',
+    bidTime: DateTime.tryParse(bidTime ?? '') ?? DateTime.now(),
+  );
 }
 
 /// لقطة السعر — يطابق ردّ /price.
@@ -46,11 +46,11 @@ class PriceSnapshotModel with _$PriceSnapshotModel {
       _$PriceSnapshotModelFromJson(json);
 
   PriceSnapshot toEntity() => PriceSnapshot(
-        currentPrice: currentPrice,
-        currentPriceFormatted: currentPriceFormatted,
-        bidCount: bidCount,
-        status: status,
-        isBiddable: isBiddable,
-        hasEnded: hasEnded,
-      );
+    currentPrice: currentPrice,
+    currentPriceFormatted: currentPriceFormatted,
+    bidCount: bidCount,
+    status: status,
+    isBiddable: isBiddable,
+    hasEnded: hasEnded,
+  );
 }

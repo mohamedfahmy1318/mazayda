@@ -93,6 +93,12 @@
   "@placeBidAmount": {
     "placeholders": { "amount": { "type": "String" } }
   },
+  "currentHighestBid": "أعلى مزايدة حالية",
+  "currencyDzd": "دج",
+  "bidsCount": "{count} مزايدة",
+  "@bidsCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
 
   "kycTitle": "التحقق من الهوية (KYC)",
   "kycWarning": "أكمل النموذج خلال 30 يومًا وإلا سيُعلَّق الحساب",

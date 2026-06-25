@@ -93,6 +93,12 @@
   "@placeBidAmount": {
     "placeholders": { "amount": { "type": "String" } }
   },
+  "currentHighestBid": "Current highest bid",
+  "currencyDzd": "DA",
+  "bidsCount": "{count} bids",
+  "@bidsCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
 
   "kycTitle": "Identity Verification (KYC)",
   "kycWarning": "Complete the form within 30 days or your account will be suspended",
