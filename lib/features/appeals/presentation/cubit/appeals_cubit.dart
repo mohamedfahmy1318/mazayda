@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/appeal.dart';
 import '../../domain/repositories/appeals_repository.dart';
@@ -25,13 +24,13 @@ class AppealsCubit extends Cubit<AppealsState> {
   final SubmitAppeal _submitAppeal;
 
   AppealsCubit(this._getAppeals, this._submitAppeal)
-      : super(const AppealsState());
+    : super(const AppealsState());
 
   Future<void> load() async {
     emit(state.copyWith(loading: true, error: null));
     final res = await _getAppeals(const NoParams());
     res.fold(
-      (f) => emit(state.copyWith(loading: false, error: _msg(f))),
+      (f) => emit(state.copyWith(loading: false, error: f.message)),
       (items) => emit(state.copyWith(loading: false, items: items)),
     );
   }
@@ -39,19 +38,11 @@ class AppealsCubit extends Cubit<AppealsState> {
   Future<void> submit(SubmitAppealParams params) async {
     emit(state.copyWith(submitting: true, submitted: false, error: null));
     final res = await _submitAppeal(params);
-    res.fold(
-      (f) => emit(state.copyWith(submitting: false, error: _msg(f))),
-      (_) {
-        emit(state.copyWith(submitting: false, submitted: true));
-        load(); // أعد تحميل القائمة بعد الإضافة
-      },
-    );
+    res.fold((f) => emit(state.copyWith(submitting: false, error: f.message)), (
+      _,
+    ) {
+      emit(state.copyWith(submitting: false, submitted: true));
+      load(); // أعد تحميل القائمة بعد الإضافة
+    });
   }
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 }
