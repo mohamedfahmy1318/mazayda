@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
@@ -101,7 +102,10 @@ class _BidHistory extends StatelessWidget {
                 : ListView.builder(
                     itemCount: bids.length,
                     itemBuilder: (_, i) =>
-                        BidRow(bid: bids[i], highlighted: i == 0),
+                        BidRow(bid: bids[i], highlighted: i == 0)
+                            .animate()
+                            .fadeIn(duration: 250.ms)
+                            .slideY(begin: 0.08, end: 0, curve: Curves.easeOut),
                   ),
           ),
         ],
