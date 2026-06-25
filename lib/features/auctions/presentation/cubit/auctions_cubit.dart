@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../kyc/domain/entities/kyc_entities.dart';
 import '../../../kyc/domain/usecases/kyc_usecases.dart';
@@ -23,7 +22,7 @@ class AuctionsCubit extends Cubit<AuctionsState> {
   bool _wilayasLoaded = false;
 
   AuctionsCubit(this._getAuctions, this._getWilayas)
-      : super(const AuctionsState());
+    : super(const AuctionsState());
 
   List<Wilaya> get wilayas => _wilayas;
 
@@ -58,11 +57,13 @@ class AuctionsCubit extends Cubit<AuctionsState> {
 
   /// يطبّق الفلاتر الثانوية (النوع + الولاية) دفعة واحدة من الـ bottom sheet.
   void applyFilters({String? type, int? wilayaId, String? wilayaName}) {
-    emit(state.copyWith(
-      typeFilter: type,
-      wilayaId: wilayaId,
-      wilayaName: wilayaName,
-    ));
+    emit(
+      state.copyWith(
+        typeFilter: type,
+        wilayaId: wilayaId,
+        wilayaName: wilayaName,
+      ),
+    );
     _fetch(page: 1, reset: true);
   }
 
@@ -71,13 +72,15 @@ class AuctionsCubit extends Cubit<AuctionsState> {
       (state.typeFilter != null ? 1 : 0) + (state.wilayaId != null ? 1 : 0);
 
   void clearFilters() {
-    emit(state.copyWith(
-      query: '',
-      statusFilter: 'ACTIVE',
-      typeFilter: null,
-      wilayaId: null,
-      wilayaName: null,
-    ));
+    emit(
+      state.copyWith(
+        query: '',
+        statusFilter: 'ACTIVE',
+        typeFilter: null,
+        wilayaId: null,
+        wilayaName: null,
+      ),
+    );
     _fetch(page: 1, reset: true);
   }
 
@@ -103,24 +106,28 @@ class AuctionsCubit extends Cubit<AuctionsState> {
     if (isClosed) return;
     emit(state.copyWith(loading: true, error: null));
 
-    final result = await _getAuctions(GetAuctionsParams(
-      query: state.query.isEmpty ? null : state.query,
-      status: state.statusFilter,
-      type: state.typeFilter,
-      wilaya: state.wilayaId,
-      page: page,
-      perPage: 12,
-    ));
+    final result = await _getAuctions(
+      GetAuctionsParams(
+        query: state.query.isEmpty ? null : state.query,
+        status: state.statusFilter,
+        type: state.typeFilter,
+        wilaya: state.wilayaId,
+        page: page,
+        perPage: 12,
+      ),
+    );
 
     if (isClosed) return;
     result.fold(
-      (f) => emit(state.copyWith(loading: false, error: _msg(f))),
-      (items) => emit(state.copyWith(
-        loading: false,
-        auctions: reset ? items : [...state.auctions, ...items],
-        hasMore: items.length == 12,
-        page: page,
-      )),
+      (f) => emit(state.copyWith(loading: false, error: f.message)),
+      (items) => emit(
+        state.copyWith(
+          loading: false,
+          auctions: reset ? items : [...state.auctions, ...items],
+          hasMore: items.length == 12,
+          page: page,
+        ),
+      ),
     );
   }
 
@@ -129,11 +136,4 @@ class AuctionsCubit extends Cubit<AuctionsState> {
     _debounce?.cancel();
     return super.close();
   }
-
-  String _msg(Failure f) => switch (f) {
-        ServerFailure(:final message) => message,
-        NetworkFailure(:final message) => message,
-        UnauthorizedFailure(:final message) => message,
-        UnexpectedFailure(:final message) => message,
-      };
 }
