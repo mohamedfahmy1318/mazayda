@@ -377,6 +377,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noNotifications => 'لا توجد إشعارات';
 
   @override
+  String get timeNow => 'الآن';
+
+  @override
+  String timeMinutesAgo(int minutes) {
+    return 'منذ $minutes دقيقة';
+  }
+
+  @override
+  String timeHoursAgo(int hours) {
+    return 'منذ $hours ساعة';
+  }
+
+  @override
+  String timeDaysAgo(int days) {
+    return 'منذ $days يوم';
+  }
+
+  @override
   String get profile => 'الملف الشخصي';
 
   @override

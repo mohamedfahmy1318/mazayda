@@ -23,12 +23,12 @@ class NotificationModel with _$NotificationModel {
       _$NotificationModelFromJson(json);
 
   AppNotification toEntity() => AppNotification(
-        id: id,
-        title: title ?? '',
-        body: body ?? '',
-        kind: NotificationKindX.fromApi(type),
-        // مقروء لو is_read=true أو فيه read_at
-        isRead: isRead ?? (readAt != null),
-        createdAt: DateTime.tryParse(createdAt ?? '') ?? DateTime.now(),
-      );
+    id: id,
+    title: title ?? '',
+    body: body ?? '',
+    kind: NotificationKindX.fromApi(type),
+    // مقروء لو is_read=true أو فيه read_at
+    isRead: isRead ?? (readAt != null),
+    createdAt: DateTime.tryParse(createdAt ?? '') ?? DateTime.now(),
+  );
 }

@@ -201,9 +201,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i459.GetNotifications>(
       () => _i459.GetNotifications(gh<_i563.NotificationsRepository>()),
     );
-    gh.factory<_i459.GetUnreadCount>(
-      () => _i459.GetUnreadCount(gh<_i563.NotificationsRepository>()),
-    );
     gh.factory<_i459.MarkNotificationRead>(
       () => _i459.MarkNotificationRead(gh<_i563.NotificationsRepository>()),
     );

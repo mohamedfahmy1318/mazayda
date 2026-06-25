@@ -808,6 +808,30 @@ abstract class AppLocalizations {
   /// **'لا توجد إشعارات'**
   String get noNotifications;
 
+  /// No description provided for @timeNow.
+  ///
+  /// In ar, this message translates to:
+  /// **'الآن'**
+  String get timeNow;
+
+  /// No description provided for @timeMinutesAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'منذ {minutes} دقيقة'**
+  String timeMinutesAgo(int minutes);
+
+  /// No description provided for @timeHoursAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'منذ {hours} ساعة'**
+  String timeHoursAgo(int hours);
+
+  /// No description provided for @timeDaysAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'منذ {days} يوم'**
+  String timeDaysAgo(int days);
+
   /// No description provided for @profile.
   ///
   /// In ar, this message translates to:

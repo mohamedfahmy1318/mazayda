@@ -152,6 +152,19 @@
   "notifications": "الإشعارات",
   "markAllRead": "تعليم الكل",
   "noNotifications": "لا توجد إشعارات",
+  "timeNow": "الآن",
+  "timeMinutesAgo": "منذ {minutes} دقيقة",
+  "@timeMinutesAgo": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "timeHoursAgo": "منذ {hours} ساعة",
+  "@timeHoursAgo": {
+    "placeholders": { "hours": { "type": "int" } }
+  },
+  "timeDaysAgo": "منذ {days} يوم",
+  "@timeDaysAgo": {
+    "placeholders": { "days": { "type": "int" } }
+  },
 
   "profile": "الملف الشخصي",
   "verifiedKyc": "موثّق — KYC مكتمل",

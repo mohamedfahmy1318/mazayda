@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/app_notification.dart';
+import 'notification_labels.dart';
 
 /// عنصر إشعار — أيقونة ولون حسب النوع + نقطة لغير المقروء.
 class NotificationTile extends StatelessWidget {
@@ -16,7 +19,7 @@ class NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (Color fg, Color bg, IconData icon) = _style(notification.kind);
+    final t = AppLocalizations.of(context);
     final unread = !notification.isRead;
 
     return GestureDetector(
@@ -32,16 +35,8 @@ class NotificationTile extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 42.w,
-              height: 42.w,
-              decoration: BoxDecoration(
-                color: bg,
-                borderRadius: BorderRadius.circular(11.r),
-              ),
-              child: Icon(icon, size: 21.sp, color: fg),
-            ),
-            SizedBox(width: 11.w),
+            _NotificationIcon(kind: notification.kind),
+            Gap(11.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,87 +44,72 @@ class NotificationTile extends StatelessWidget {
                   Text(
                     notification.title,
                     style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textPrimary),
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
-                  SizedBox(height: 3.h),
+                  Gap(3.h),
                   Text(
                     notification.body,
                     style: TextStyle(
-                        fontSize: 11.sp,
-                        color: AppColors.textSecondary,
-                        height: 1.5),
+                      fontSize: 11.sp,
+                      color: AppColors.textSecondary,
+                      height: 1.5,
+                    ),
                   ),
-                  SizedBox(height: 4.h),
+                  Gap(4.h),
                   Text(
-                    _timeAgo(notification.createdAt),
+                    notificationTimeAgo(notification.createdAt, t),
                     style: TextStyle(
-                        fontSize: 10.sp, color: AppColors.textHint),
+                      fontSize: 10.sp,
+                      color: AppColors.textHint,
+                    ),
                   ),
                 ],
               ),
             ),
-            if (unread)
-              Container(
-                margin: EdgeInsets.only(top: 4.h, right: 4.w),
-                width: 8.w,
-                height: 8.w,
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                ),
-              ),
+            if (unread) const _UnreadDot(),
           ],
         ),
       ),
     );
   }
+}
 
-  (Color, Color, IconData) _style(NotificationKind kind) => switch (kind) {
-        NotificationKind.won => (
-            AppColors.warning,
-            AppColors.warningBg,
-            Icons.emoji_events_outlined
-          ),
-        NotificationKind.outbid => (
-            AppColors.danger,
-            AppColors.dangerBg,
-            Icons.arrow_downward
-          ),
-        NotificationKind.refund => (
-            AppColors.info,
-            AppColors.infoBg,
-            Icons.replay
-          ),
-        NotificationKind.newAuction => (
-            AppColors.success,
-            AppColors.successBg,
-            Icons.gavel
-          ),
-        NotificationKind.reminder => (
-            AppColors.neutral,
-            AppColors.neutralBg,
-            Icons.schedule
-          ),
-        NotificationKind.payment => (
-            AppColors.danger,
-            AppColors.dangerBg,
-            Icons.credit_card
-          ),
-        NotificationKind.generic => (
-            AppColors.neutral,
-            AppColors.neutralBg,
-            Icons.notifications_outlined
-          ),
-      };
+class _NotificationIcon extends StatelessWidget {
+  final NotificationKind kind;
 
-  String _timeAgo(DateTime dt) {
-    final diff = DateTime.now().difference(dt);
-    if (diff.inMinutes < 1) return 'الآن';
-    if (diff.inMinutes < 60) return 'منذ ${diff.inMinutes} دقيقة';
-    if (diff.inHours < 24) return 'منذ ${diff.inHours} ساعة';
-    if (diff.inDays < 7) return 'منذ ${diff.inDays} يوم';
-    return '${dt.year}/${dt.month}/${dt.day}';
+  const _NotificationIcon({required this.kind});
+
+  @override
+  Widget build(BuildContext context) {
+    final style = kind.style;
+    return Container(
+      width: 42.w,
+      height: 42.w,
+      decoration: BoxDecoration(
+        color: style.bg,
+        borderRadius: BorderRadius.circular(11.r),
+      ),
+      child: Icon(style.icon, size: 21.sp, color: style.fg),
+    );
+  }
+}
+
+class _UnreadDot extends StatelessWidget {
+  const _UnreadDot();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 4.h, right: 4.w),
+      width: 8.w,
+      height: 8.w,
+      decoration: const BoxDecoration(
+        color: AppColors.primary,
+        shape: BoxShape.circle,
+      ),
+    );
   }
 }

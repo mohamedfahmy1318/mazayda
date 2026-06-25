@@ -6,10 +6,7 @@ import '../entities/app_notification.dart';
 abstract class NotificationsRepository {
   /// قائمة الإشعارات + عدد غير المقروء.
   Future<Either<Failure, ({List<AppNotification> items, int unreadCount})>>
-      getNotifications();
-
-  /// عدّاد غير المقروء فقط (للـ badge).
-  Future<Either<Failure, int>> getUnreadCount();
+  getNotifications();
 
   /// تعليم إشعار واحد كمقروء.
   Future<Either<Failure, Unit>> markAsRead(String id);

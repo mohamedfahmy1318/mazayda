@@ -380,6 +380,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noNotifications => 'Aucune notification';
 
   @override
+  String get timeNow => 'Maintenant';
+
+  @override
+  String timeMinutesAgo(int minutes) {
+    return 'il y a $minutes min';
+  }
+
+  @override
+  String timeHoursAgo(int hours) {
+    return 'il y a $hours h';
+  }
+
+  @override
+  String timeDaysAgo(int days) {
+    return 'il y a $days j';
+  }
+
+  @override
   String get profile => 'Profil';
 
   @override

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../cubit/notifications_cubit.dart';
+import '../widgets/mark_all_read_button.dart';
 import '../widgets/notification_tile.dart';
+import '../widgets/unread_count_badge.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -24,30 +29,18 @@ class _NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<NotificationsCubit, NotificationsState>(
+          buildWhen: (a, b) => a.unreadCount != b.unreadCount,
           builder: (context, state) {
             return Row(
               children: [
-                const Text('الإشعارات'),
+                Text(t.notifications),
                 if (state.unreadCount > 0) ...[
-                  SizedBox(width: 8.w),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Text(
-                      '${state.unreadCount}',
-                      style: TextStyle(
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primary),
-                    ),
-                  ),
+                  Gap(8.w),
+                  UnreadCountBadge(count: state.unreadCount),
                 ],
               ],
             );
@@ -55,50 +48,56 @@ class _NotificationsView extends StatelessWidget {
         ),
         actions: [
           BlocBuilder<NotificationsCubit, NotificationsState>(
+            buildWhen: (a, b) => a.unreadCount != b.unreadCount,
             builder: (context, state) {
               if (state.unreadCount == 0) return const SizedBox.shrink();
-              return TextButton.icon(
-                onPressed: () =>
-                    context.read<NotificationsCubit>().markAllAsRead(),
-                icon: Icon(Icons.done_all, size: 16.sp, color: Colors.white),
-                label: Text('تعليم الكل',
-                    style: TextStyle(fontSize: 12.sp, color: Colors.white)),
+              return MarkAllReadButton(
+                onPressed: context.read<NotificationsCubit>().markAllAsRead,
               );
             },
           ),
         ],
       ),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
-        builder: (context, state) {
-          if (state.loading) return const LoadingView();
-          if (state.error != null) {
-            return ErrorView(
-              message: state.error!,
-              onRetry: () => context.read<NotificationsCubit>().load(),
-            );
-          }
-          if (state.items.isEmpty) {
-            return const EmptyView(
-              message: 'لا توجد إشعارات',
-              icon: Icons.notifications_none,
-            );
-          }
-          return RefreshIndicator(
-            color: AppColors.primary,
-            onRefresh: () => context.read<NotificationsCubit>().load(),
-            child: ListView.builder(
-              padding: EdgeInsets.all(16.w),
-              itemCount: state.items.length,
-              itemBuilder: (_, i) {
-                final n = state.items[i];
-                return NotificationTile(
-                  notification: n,
-                  onTap: () =>
-                      context.read<NotificationsCubit>().markAsRead(n.id),
-                );
-              },
-            ),
-          );
+        builder: (context, state) => _NotificationsBody(state: state),
+      ),
+    );
+  }
+}
+
+class _NotificationsBody extends StatelessWidget {
+  final NotificationsState state;
+
+  const _NotificationsBody({required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<NotificationsCubit>();
+    if (state.loading) return const LoadingView();
+    if (state.error != null) {
+      return ErrorView(message: state.error!, onRetry: cubit.load);
+    }
+    if (state.items.isEmpty) {
+      return EmptyView(
+        message: AppLocalizations.of(context).noNotifications,
+        icon: Icons.notifications_none,
+      );
+    }
+    return RefreshIndicator(
+      color: AppColors.primary,
+      onRefresh: cubit.load,
+      child: ListView.builder(
+        padding: EdgeInsets.all(16.w),
+        itemCount: state.items.length,
+        itemBuilder: (_, i) {
+          final n = state.items[i];
+          return NotificationTile(
+                notification: n,
+                onTap: () => cubit.markAsRead(n.id),
+              )
+              .animate()
+              .fadeIn(duration: 220.ms, delay: (40 * i).ms)
+              .slideY(begin: 0.06, end: 0, curve: Curves.easeOut);
         },
       ),
     );

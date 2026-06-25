@@ -378,6 +378,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noNotifications => 'No notifications';
 
   @override
+  String get timeNow => 'Now';
+
+  @override
+  String timeMinutesAgo(int minutes) {
+    return '$minutes min ago';
+  }
+
+  @override
+  String timeHoursAgo(int hours) {
+    return '$hours h ago';
+  }
+
+  @override
+  String timeDaysAgo(int days) {
+    return '$days d ago';
+  }
+
+  @override
   String get profile => 'Profile';
 
   @override

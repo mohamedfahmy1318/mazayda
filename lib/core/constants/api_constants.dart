@@ -58,7 +58,6 @@ class ApiConstants {
 
   // ===== Notifications =====
   static const String notifications = '$apiPrefix/notifications';
-  static const String unreadCount = '$apiPrefix/notifications/unread-count';
   static const String readAll = '$apiPrefix/notifications/read-all';
   static String markNotificationRead(String id) =>
       '$apiPrefix/notifications/$id/read';

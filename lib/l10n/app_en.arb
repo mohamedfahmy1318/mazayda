@@ -152,6 +152,19 @@
   "notifications": "Notifications",
   "markAllRead": "Mark all",
   "noNotifications": "No notifications",
+  "timeNow": "Now",
+  "timeMinutesAgo": "{minutes} min ago",
+  "@timeMinutesAgo": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "timeHoursAgo": "{hours} h ago",
+  "@timeHoursAgo": {
+    "placeholders": { "hours": { "type": "int" } }
+  },
+  "timeDaysAgo": "{days} d ago",
+  "@timeDaysAgo": {
+    "placeholders": { "days": { "type": "int" } }
+  },
 
   "profile": "Profile",
   "verifiedKyc": "Verified — KYC complete",

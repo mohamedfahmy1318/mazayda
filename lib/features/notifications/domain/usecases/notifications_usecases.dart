@@ -17,15 +17,6 @@ class GetNotifications implements UseCase<NotificationsResult, NoParams> {
 }
 
 @injectable
-class GetUnreadCount implements UseCase<int, NoParams> {
-  final NotificationsRepository repository;
-  GetUnreadCount(this.repository);
-  @override
-  Future<Either<Failure, int>> call(NoParams params) =>
-      repository.getUnreadCount();
-}
-
-@injectable
 class MarkNotificationRead implements UseCase<Unit, String> {
   final NotificationsRepository repository;
   MarkNotificationRead(this.repository);

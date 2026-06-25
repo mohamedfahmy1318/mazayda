@@ -152,6 +152,19 @@
   "notifications": "Notifications",
   "markAllRead": "Tout marquer",
   "noNotifications": "Aucune notification",
+  "timeNow": "Maintenant",
+  "timeMinutesAgo": "il y a {minutes} min",
+  "@timeMinutesAgo": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "timeHoursAgo": "il y a {hours} h",
+  "@timeHoursAgo": {
+    "placeholders": { "hours": { "type": "int" } }
+  },
+  "timeDaysAgo": "il y a {days} j",
+  "@timeDaysAgo": {
+    "placeholders": { "days": { "type": "int" } }
+  },
 
   "profile": "Profil",
   "verifiedKyc": "Vérifié — KYC complété",

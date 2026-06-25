@@ -13,7 +13,7 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
 
   @override
   Future<Either<Failure, ({List<AppNotification> items, int unreadCount})>>
-      getNotifications() {
+  getNotifications() {
     return _guard(() async {
       final res = await remote.getNotifications();
       return (
@@ -21,11 +21,6 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
         unreadCount: res.unreadCount,
       );
     });
-  }
-
-  @override
-  Future<Either<Failure, int>> getUnreadCount() {
-    return _guard(() async => remote.getUnreadCount());
   }
 
   @override
@@ -52,11 +47,13 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(
+        Failure.server(
+          message: e.message,
+          statusCode: e.statusCode,
+          errors: e.errors,
+        ),
+      );
     } catch (_) {
       return const Left(Failure.unexpected());
     }
