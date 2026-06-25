@@ -334,6 +334,156 @@ abstract class AppLocalizations {
   /// **'الوصف'**
   String get description;
 
+  /// No description provided for @auctionsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'المزادات'**
+  String get auctionsTitle;
+
+  /// No description provided for @searchAuctionHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث عن مزاد...'**
+  String get searchAuctionHint;
+
+  /// No description provided for @filter.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصفية'**
+  String get filter;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'الكل'**
+  String get filterAll;
+
+  /// No description provided for @filterStatusActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'نشط'**
+  String get filterStatusActive;
+
+  /// No description provided for @filterStatusUpcoming.
+  ///
+  /// In ar, this message translates to:
+  /// **'قادم'**
+  String get filterStatusUpcoming;
+
+  /// No description provided for @filterStatusExtended.
+  ///
+  /// In ar, this message translates to:
+  /// **'مُمدّد'**
+  String get filterStatusExtended;
+
+  /// No description provided for @filterStatusClosed.
+  ///
+  /// In ar, this message translates to:
+  /// **'مُغلق'**
+  String get filterStatusClosed;
+
+  /// No description provided for @auctionTypeSale.
+  ///
+  /// In ar, this message translates to:
+  /// **'بيع'**
+  String get auctionTypeSale;
+
+  /// No description provided for @auctionTypeLease.
+  ///
+  /// In ar, this message translates to:
+  /// **'إيجار'**
+  String get auctionTypeLease;
+
+  /// No description provided for @auctionsCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} مزاد'**
+  String auctionsCount(String count);
+
+  /// No description provided for @clearAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'مسح الكل'**
+  String get clearAll;
+
+  /// No description provided for @noMoreResults.
+  ///
+  /// In ar, this message translates to:
+  /// **'— لا مزيد من النتائج —'**
+  String get noMoreResults;
+
+  /// No description provided for @noMatchingAuctions.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد مزادات مطابقة'**
+  String get noMatchingAuctions;
+
+  /// No description provided for @tryAdjustingFilters.
+  ///
+  /// In ar, this message translates to:
+  /// **'جرّب تعديل البحث أو الفلاتر'**
+  String get tryAdjustingFilters;
+
+  /// No description provided for @resetFilters.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة تعيين الفلاتر'**
+  String get resetFilters;
+
+  /// No description provided for @filterAuctions.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصفية المزادات'**
+  String get filterAuctions;
+
+  /// No description provided for @type.
+  ///
+  /// In ar, this message translates to:
+  /// **'النوع'**
+  String get type;
+
+  /// No description provided for @wilaya.
+  ///
+  /// In ar, this message translates to:
+  /// **'الولاية'**
+  String get wilaya;
+
+  /// No description provided for @clearSelection.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلغاء التحديد'**
+  String get clearSelection;
+
+  /// No description provided for @searchWilayaHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث عن ولاية...'**
+  String get searchWilayaHint;
+
+  /// No description provided for @wilayasLoadError.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذّر تحميل الولايات'**
+  String get wilayasLoadError;
+
+  /// No description provided for @noWilayaMatch.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد ولاية بهذا الاسم'**
+  String get noWilayaMatch;
+
+  /// No description provided for @reset.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة تعيين'**
+  String get reset;
+
+  /// No description provided for @showResults.
+  ///
+  /// In ar, this message translates to:
+  /// **'عرض النتائج'**
+  String get showResults;
+
   /// No description provided for @registerAndPay.
   ///
   /// In ar, this message translates to:

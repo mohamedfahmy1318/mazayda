@@ -132,6 +132,83 @@ class AppLocalizationsAr extends AppLocalizations {
   String get description => 'الوصف';
 
   @override
+  String get auctionsTitle => 'المزادات';
+
+  @override
+  String get searchAuctionHint => 'ابحث عن مزاد...';
+
+  @override
+  String get filter => 'تصفية';
+
+  @override
+  String get filterAll => 'الكل';
+
+  @override
+  String get filterStatusActive => 'نشط';
+
+  @override
+  String get filterStatusUpcoming => 'قادم';
+
+  @override
+  String get filterStatusExtended => 'مُمدّد';
+
+  @override
+  String get filterStatusClosed => 'مُغلق';
+
+  @override
+  String get auctionTypeSale => 'بيع';
+
+  @override
+  String get auctionTypeLease => 'إيجار';
+
+  @override
+  String auctionsCount(String count) {
+    return '$count مزاد';
+  }
+
+  @override
+  String get clearAll => 'مسح الكل';
+
+  @override
+  String get noMoreResults => '— لا مزيد من النتائج —';
+
+  @override
+  String get noMatchingAuctions => 'لا توجد مزادات مطابقة';
+
+  @override
+  String get tryAdjustingFilters => 'جرّب تعديل البحث أو الفلاتر';
+
+  @override
+  String get resetFilters => 'إعادة تعيين الفلاتر';
+
+  @override
+  String get filterAuctions => 'تصفية المزادات';
+
+  @override
+  String get type => 'النوع';
+
+  @override
+  String get wilaya => 'الولاية';
+
+  @override
+  String get clearSelection => 'إلغاء التحديد';
+
+  @override
+  String get searchWilayaHint => 'ابحث عن ولاية...';
+
+  @override
+  String get wilayasLoadError => 'تعذّر تحميل الولايات';
+
+  @override
+  String get noWilayaMatch => 'لا توجد ولاية بهذا الاسم';
+
+  @override
+  String get reset => 'إعادة تعيين';
+
+  @override
+  String get showResults => 'عرض النتائج';
+
+  @override
   String get registerAndPay => 'تسجيل ودفع';
 
   @override

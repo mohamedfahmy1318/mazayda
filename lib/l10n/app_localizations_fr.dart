@@ -132,6 +132,84 @@ class AppLocalizationsFr extends AppLocalizations {
   String get description => 'Description';
 
   @override
+  String get auctionsTitle => 'Enchères';
+
+  @override
+  String get searchAuctionHint => 'Rechercher une enchère...';
+
+  @override
+  String get filter => 'Filtrer';
+
+  @override
+  String get filterAll => 'Tout';
+
+  @override
+  String get filterStatusActive => 'Actif';
+
+  @override
+  String get filterStatusUpcoming => 'À venir';
+
+  @override
+  String get filterStatusExtended => 'Prolongé';
+
+  @override
+  String get filterStatusClosed => 'Clôturé';
+
+  @override
+  String get auctionTypeSale => 'Vente';
+
+  @override
+  String get auctionTypeLease => 'Location';
+
+  @override
+  String auctionsCount(String count) {
+    return '$count enchères';
+  }
+
+  @override
+  String get clearAll => 'Tout effacer';
+
+  @override
+  String get noMoreResults => '— Plus de résultats —';
+
+  @override
+  String get noMatchingAuctions => 'Aucune enchère correspondante';
+
+  @override
+  String get tryAdjustingFilters =>
+      'Essayez d\'ajuster la recherche ou les filtres';
+
+  @override
+  String get resetFilters => 'Réinitialiser les filtres';
+
+  @override
+  String get filterAuctions => 'Filtrer les enchères';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get wilaya => 'Wilaya';
+
+  @override
+  String get clearSelection => 'Effacer la sélection';
+
+  @override
+  String get searchWilayaHint => 'Rechercher une wilaya...';
+
+  @override
+  String get wilayasLoadError => 'Impossible de charger les wilayas';
+
+  @override
+  String get noWilayaMatch => 'Aucune wilaya de ce nom';
+
+  @override
+  String get reset => 'Réinitialiser';
+
+  @override
+  String get showResults => 'Afficher les résultats';
+
+  @override
   String get registerAndPay => 'S\'inscrire et payer';
 
   @override

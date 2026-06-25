@@ -132,6 +132,83 @@ class AppLocalizationsEn extends AppLocalizations {
   String get description => 'Description';
 
   @override
+  String get auctionsTitle => 'Auctions';
+
+  @override
+  String get searchAuctionHint => 'Search for an auction...';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterStatusActive => 'Active';
+
+  @override
+  String get filterStatusUpcoming => 'Upcoming';
+
+  @override
+  String get filterStatusExtended => 'Extended';
+
+  @override
+  String get filterStatusClosed => 'Closed';
+
+  @override
+  String get auctionTypeSale => 'Sale';
+
+  @override
+  String get auctionTypeLease => 'Lease';
+
+  @override
+  String auctionsCount(String count) {
+    return '$count auctions';
+  }
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get noMoreResults => '— No more results —';
+
+  @override
+  String get noMatchingAuctions => 'No matching auctions';
+
+  @override
+  String get tryAdjustingFilters => 'Try adjusting your search or filters';
+
+  @override
+  String get resetFilters => 'Reset filters';
+
+  @override
+  String get filterAuctions => 'Filter auctions';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get wilaya => 'Wilaya';
+
+  @override
+  String get clearSelection => 'Clear selection';
+
+  @override
+  String get searchWilayaHint => 'Search for a wilaya...';
+
+  @override
+  String get wilayasLoadError => 'Couldn\'t load wilayas';
+
+  @override
+  String get noWilayaMatch => 'No wilaya by that name';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get showResults => 'Show results';
+
+  @override
   String get registerAndPay => 'Register & Pay';
 
   @override

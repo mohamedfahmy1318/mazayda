@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
@@ -9,22 +10,7 @@ import '../../../../core/widgets/state_views.dart';
 import '../../../kyc/domain/entities/kyc_entities.dart';
 import '../cubit/auctions_cubit.dart';
 import '../widgets/auction_card.dart';
-
-/// خيارات فلتر الحالة (تظهر كشيبس سريعة).
-const _statusOptions = <(String?, String)>[
-  (null, 'الكل'),
-  ('ACTIVE', 'نشط'),
-  ('PUBLISHED', 'قادم'),
-  ('EXTENDED', 'مُمدّد'),
-  ('CLOSED', 'مُغلق'),
-];
-
-/// خيارات فلتر النوع (تظهر داخل sheet التصفية).
-const _typeOptions = <(String?, String)>[
-  (null, 'الكل'),
-  ('SALE', 'بيع'),
-  ('LEASE', 'إيجار'),
-];
+import '../widgets/auction_filter_options.dart';
 
 class AuctionsPage extends StatelessWidget {
   const AuctionsPage({super.key});
@@ -101,13 +87,14 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
       listenWhen: (p, c) => c.query.isEmpty && _searchCtrl.text.isNotEmpty,
       listener: (_, __) => _searchCtrl.clear(),
       builder: (context, state) {
+        final t = AppLocalizations.of(context);
         final cubit = context.read<AuctionsCubit>();
         final hasSecondary = state.typeFilter != null || state.wilayaId != null;
         final showContext = hasSecondary || state.query.isNotEmpty;
 
         return Scaffold(
           backgroundColor: AppColors.background,
-          appBar: AppBar(title: const Text('المزادات'), elevation: 0),
+          appBar: AppBar(title: Text(t.auctionsTitle), elevation: 0),
           body: Column(
             children: [
               // — رأس البحث والفلاتر (على خلفية بيضاء كبلوك واحد) —
@@ -140,7 +127,9 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
                 visible: showContext,
                 count: state.auctions.length,
                 hasMore: state.hasMore,
-                typeLabel: _labelFor(_typeOptions, state.typeFilter),
+                typeLabel: state.typeFilter == null
+                    ? null
+                    : auctionTypeFilterLabel(state.typeFilter, t),
                 wilayaLabel: state.wilayaName,
                 query: state.query,
                 onClearType: () => cubit.applyFilters(
@@ -162,14 +151,6 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
         );
       },
     );
-  }
-
-  static String? _labelFor(List<(String?, String)> opts, String? key) {
-    if (key == null) return null;
-    for (final o in opts) {
-      if (o.$1 == key) return o.$2;
-    }
-    return key;
   }
 
   Widget _buildBody(
@@ -233,7 +214,7 @@ class _SearchField extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(fontSize: 14.sp, color: AppColors.textPrimary),
           decoration: InputDecoration(
-            hintText: 'ابحث عن مزاد...',
+            hintText: AppLocalizations.of(context).searchAuctionHint,
             hintStyle: TextStyle(fontSize: 13.sp, color: AppColors.textHint),
             prefixIcon: Icon(
               Icons.search_rounded,
@@ -296,6 +277,7 @@ class _StatusStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return SizedBox(
       height: 50.h,
       child: Row(
@@ -310,13 +292,13 @@ class _StatusStrip extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsetsDirectional.only(end: 16.w),
-              itemCount: _statusOptions.length,
+              itemCount: auctionStatusKeys.length,
               separatorBuilder: (_, __) => SizedBox(width: 8.w),
               itemBuilder: (_, i) {
-                final (key, label) = _statusOptions[i];
+                final key = auctionStatusKeys[i];
                 return Center(
                   child: _Pill(
-                    label: label,
+                    label: auctionStatusFilterLabel(key, t),
                     selected: current == key,
                     onTap: () => onSelectStatus(key),
                   ),
@@ -357,15 +339,15 @@ class _FilterButton extends StatelessWidget {
             Icon(
               Icons.tune_rounded,
               size: 17.sp,
-              color: active ? Colors.white : AppColors.textSecondary,
+              color: active ? AppColors.white : AppColors.textSecondary,
             ),
             SizedBox(width: 6.w),
             Text(
-              'تصفية',
+              AppLocalizations.of(context).filter,
               style: TextStyle(
                 fontSize: 12.5.sp,
                 fontWeight: FontWeight.w600,
-                color: active ? Colors.white : AppColors.textSecondary,
+                color: active ? AppColors.white : AppColors.textSecondary,
               ),
             ),
             if (active) ...[
@@ -376,7 +358,7 @@ class _FilterButton extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(9.w),
                 ),
                 child: FittedBox(
@@ -433,7 +415,7 @@ class _Pill extends StatelessWidget {
           style: TextStyle(
             fontSize: 12.5.sp,
             fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-            color: selected ? Colors.white : AppColors.textSecondary,
+            color: selected ? AppColors.white : AppColors.textSecondary,
           ),
         ),
       ),
@@ -470,6 +452,7 @@ class _ContextBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return AnimatedSize(
       duration: const Duration(milliseconds: 180),
       curve: Curves.easeOut,
@@ -482,7 +465,7 @@ class _ContextBar extends StatelessWidget {
                 children: [
                   // عدد النتائج
                   Text(
-                    '$count${hasMore ? '+' : ''} مزاد',
+                    t.auctionsCount('$count${hasMore ? '+' : ''}'),
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
@@ -519,7 +502,7 @@ class _ContextBar extends StatelessWidget {
                     ),
                     onPressed: onClearAll,
                     child: Text(
-                      'مسح الكل',
+                      t.clearAll,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
@@ -608,7 +591,7 @@ class _Footer extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 18.h),
         child: Center(
           child: Text(
-            '— لا مزيد من النتائج —',
+            AppLocalizations.of(context).noMoreResults,
             style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint),
           ),
         ),
@@ -624,6 +607,7 @@ class _NoResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -635,19 +619,19 @@ class _NoResults extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            'لا توجد مزادات مطابقة',
+            t.noMatchingAuctions,
             style: TextStyle(fontSize: 13.5.sp, color: AppColors.textSecondary),
           ),
           SizedBox(height: 4.h),
           Text(
-            'جرّب تعديل البحث أو الفلاتر',
+            t.tryAdjustingFilters,
             style: TextStyle(fontSize: 11.5.sp, color: AppColors.textHint),
           ),
           SizedBox(height: 16.h),
           OutlinedButton.icon(
             onPressed: onReset,
             icon: Icon(Icons.refresh_rounded, size: 17.sp),
-            label: const Text('إعادة تعيين الفلاتر'),
+            label: Text(t.resetFilters),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primary,
               side: const BorderSide(color: AppColors.primary),
@@ -738,6 +722,7 @@ class _FilterSheetState extends State<_FilterSheet> {
       maxChildSize: 0.92,
       expand: false,
       builder: (context, scrollController) {
+        final t = AppLocalizations.of(context);
         return Container(
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -761,7 +746,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                 child: Row(
                   children: [
                     Text(
-                      'تصفية المزادات',
+                      t.filterAuctions,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
@@ -787,17 +772,19 @@ class _FilterSheetState extends State<_FilterSheet> {
                   controller: scrollController,
                   padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 8.h),
                   children: [
-                    _sectionTitle('النوع'),
+                    _sectionTitle(t.type),
                     SizedBox(height: 10.h),
                     _Segmented(
-                      options: _typeOptions,
+                      options: auctionTypeKeys
+                          .map((k) => (k, auctionTypeFilterLabel(k, t)))
+                          .toList(),
                       selected: _type,
                       onSelect: (v) => setState(() => _type = v),
                     ),
                     SizedBox(height: 22.h),
                     Row(
                       children: [
-                        _sectionTitle('الولاية'),
+                        _sectionTitle(t.wilaya),
                         const Spacer(),
                         if (_wilayaId != null)
                           GestureDetector(
@@ -806,7 +793,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                               _wilayaName = null;
                             }),
                             child: Text(
-                              'إلغاء التحديد',
+                              t.clearSelection,
                               style: TextStyle(
                                 fontSize: 11.5.sp,
                                 color: AppColors.primary,
@@ -843,7 +830,7 @@ class _FilterSheetState extends State<_FilterSheet> {
         controller: _wilayaSearch,
         style: TextStyle(fontSize: 13.sp),
         decoration: InputDecoration(
-          hintText: 'ابحث عن ولاية...',
+          hintText: AppLocalizations.of(context).searchWilayaHint,
           hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
           prefixIcon: Icon(
             Icons.search_rounded,
@@ -877,7 +864,7 @@ class _FilterSheetState extends State<_FilterSheet> {
         padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Center(
           child: Text(
-            'تعذّر تحميل الولايات',
+            AppLocalizations.of(context).wilayasLoadError,
             style: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
           ),
         ),
@@ -888,7 +875,7 @@ class _FilterSheetState extends State<_FilterSheet> {
         padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Center(
           child: Text(
-            'لا توجد ولاية بهذا الاسم',
+            AppLocalizations.of(context).noWilayaMatch,
             style: TextStyle(fontSize: 12.sp, color: AppColors.textHint),
           ),
         ),
@@ -968,7 +955,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                     ),
                   ),
                   child: Text(
-                    'إعادة تعيين',
+                    AppLocalizations.of(context).reset,
                     style: TextStyle(
                       fontSize: 13.5.sp,
                       fontWeight: FontWeight.w600,
@@ -986,14 +973,14 @@ class _FilterSheetState extends State<_FilterSheet> {
                   onPressed: _apply,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: AppColors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13.r),
                     ),
                   ),
                   child: Text(
-                    'عرض النتائج',
+                    AppLocalizations.of(context).showResults,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
