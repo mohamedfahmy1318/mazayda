@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../auctions/domain/entities/auction.dart';
@@ -8,85 +9,139 @@ import '../widgets/acknowledge_sheet.dart';
 import 'payment_webview_page.dart';
 
 /// منسّق flow الدفع — يُستدعى من أي مكان (تفاصيل المزاد / شاشة الفوز).
-/// [isFinalPayment] لو true يبدأ الدفع النهائي، غير كده التسجيل في المزاد.
+///
+/// يفتح اشتراكًا واحدًا على الـ cubit يعيش طول الـ flow (قد يمرّ ببوابتين
+/// متتاليتين: كراس الشروط ثم التسجيل)، ويفتح WebView لكل [PaymentOpenGateway]،
+/// ثم يستطلع الحالة بعد رجوع كل واحدة، لحد ما يصل لحالة نهائية.
 class PaymentFlow {
-  /// يبدأ flow التسجيل في المزاد (acknowledge → register → بوابة → استطلاع).
+  /// flow التسجيل في المزاد: موافقة (bottom sheet) ← بوابة/بوابتين ← تأكيد.
   static Future<void> startRegistration(
     BuildContext context,
     Auction auction,
   ) async {
     final cubit = getIt<PaymentFlowCubit>();
 
-    // 1) bottom sheet لإقرار كراس الشروط
-    await showModalBottomSheet(
+    // 1) bottom sheet للموافقة على الشروط وعرض الرسوم — يرجّع true لو تابع.
+    final proceed = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (sheetCtx) => BlocProvider.value(
-        value: cubit,
-        child: BlocConsumer<PaymentFlowCubit, PaymentFlowState>(
-          listener: (ctx, state) => _handle(context, sheetCtx, cubit, state),
-          builder: (ctx, state) => AcknowledgeSheet(
-            auction: auction,
-            isLoading: state is PaymentPreparing,
-            onConfirm: () => cubit.startRegistration(auction.id),
-          ),
-        ),
+      builder: (sheetCtx) => AcknowledgeSheet(
+        auction: auction,
+        onConfirm: () => Navigator.pop(sheetCtx, true),
       ),
+    );
+
+    // قفل الشيت بدون بدء الـ flow — لا ننتظر شيئًا معلّقًا.
+    if (proceed != true || !context.mounted) {
+      await cubit.close();
+      return;
+    }
+
+    await _runFlow(
+      context,
+      cubit,
+      () => cubit.startRegistration(auction.id, auction.hasBookAccess),
     );
   }
 
-  /// يبدأ flow الدفع النهائي للفائز (بدون sheet إقرار).
+  /// flow الدفع النهائي للفائز — بوابة واحدة بدون sheet.
   static Future<void> startFinalPayment(
     BuildContext context,
     String auctionId,
   ) async {
     final cubit = getIt<PaymentFlowCubit>();
-    final sub = cubit.stream.listen((state) {
-      if (!context.mounted) return;
-      _handle(context, null, cubit, state);
-    });
-    await cubit.startFinalPayment(auctionId);
-    await sub.cancel();
+    await _runFlow(context, cubit, () => cubit.startFinalPayment(auctionId));
   }
 
-  /// معالجة انتقالات الـ flow: فتح البوابة، النجاح، الفشل.
-  static Future<void> _handle(
-    BuildContext rootCtx,
-    BuildContext? sheetCtx,
+  /// اشتراك واحد يعيش طول الـ flow لحد حالة نهائية (confirmed/failed).
+  static Future<void> _runFlow(
+    BuildContext context,
     PaymentFlowCubit cubit,
-    PaymentFlowState state,
+    Future<void> Function() start,
   ) async {
-    switch (state) {
-      case PaymentOpenGateway(:final url, :final ref):
-        // اقفل الـ sheet لو مفتوح
-        if (sheetCtx != null && Navigator.canPop(sheetCtx)) {
-          Navigator.pop(sheetCtx);
-        }
-        // افتح WebView البوابة
-        final success = await Navigator.push<bool>(
-          rootCtx,
-          MaterialPageRoute(
-            builder: (_) => PaymentWebViewPage(url: url),
-          ),
-        );
-        if (success == true) {
-          await cubit.confirmAfterGateway(ref);
-        } else if (rootCtx.mounted) {
-          _snack(rootCtx, 'تم إلغاء الدفع', AppColors.danger);
-        }
-      case PaymentConfirmed():
-        _snack(rootCtx, 'تم الدفع بنجاح', AppColors.success);
-      case PaymentFailed(:final message):
-        _snack(rootCtx, message, AppColors.danger);
-      default:
-        break;
+    final overlay = Overlay.of(context, rootOverlay: true);
+    OverlayEntry? loader;
+    void showLoader() {
+      if (loader != null) return;
+      loader = OverlayEntry(builder: (_) => const _FlowLoader());
+      overlay.insert(loader!);
     }
+
+    void hideLoader() {
+      loader?.remove();
+      loader = null;
+    }
+
+    final done = Completer<void>();
+
+    final sub = cubit.stream.listen((state) async {
+      switch (state) {
+        case PaymentPreparing():
+        case PaymentPolling():
+          showLoader();
+        case PaymentOpenGateway(:final url, :final ref):
+          hideLoader();
+          if (!context.mounted) {
+            cubit.cancel();
+            return;
+          }
+          // بوابة الدفع — WebView يرجّع true لو نجح الدفع، غير كده إلغاء.
+          final paid = await Navigator.of(context, rootNavigator: true)
+              .push<bool>(
+                MaterialPageRoute(
+                  builder: (_) => PaymentWebViewPage(url: url),
+                ),
+              );
+          if (paid == true) {
+            cubit.confirmAfterGateway(ref);
+          } else {
+            cubit.cancel();
+          }
+        case PaymentConfirmed():
+          hideLoader();
+          if (context.mounted) {
+            _snack(context, 'تم الدفع بنجاح', AppColors.success);
+          }
+          if (!done.isCompleted) done.complete();
+        case PaymentFailed(:final message):
+          hideLoader();
+          if (context.mounted) _snack(context, message, AppColors.danger);
+          if (!done.isCompleted) done.complete();
+        case PaymentIdle():
+          break;
+      }
+    });
+
+    await start();
+    await done.future;
+    hideLoader();
+    await sub.cancel();
+    await cubit.close();
   }
 
   static void _snack(BuildContext ctx, String msg, Color color) {
     ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(content: Text(msg), backgroundColor: color),
+    );
+  }
+}
+
+/// طبقة تحميل معتمة تغطّي الشاشة أثناء تحضير الدفع أو استطلاع الحالة.
+class _FlowLoader extends StatelessWidget {
+  const _FlowLoader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {},
+        child: const ColoredBox(
+          color: Color(0x66000000),
+          child: Center(child: CircularProgressIndicator(color: Colors.white)),
+        ),
+      ),
     );
   }
 }

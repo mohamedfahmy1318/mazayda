@@ -6,12 +6,12 @@ import '../entities/payment_entities.dart';
 import '../repositories/payments_repository.dart';
 
 @injectable
-class AcknowledgeBook implements UseCase<Unit, String> {
+class BuyBook implements UseCase<PaymentInit, String> {
   final PaymentsRepository repository;
-  AcknowledgeBook(this.repository);
+  BuyBook(this.repository);
   @override
-  Future<Either<Failure, Unit>> call(String auctionId) =>
-      repository.acknowledgeBook(auctionId);
+  Future<Either<Failure, PaymentInit>> call(String auctionId) =>
+      repository.buyBook(auctionId);
 }
 
 @injectable

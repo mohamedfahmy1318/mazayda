@@ -51,6 +51,7 @@ class Auction extends Equatable {
   final Money depositAmount;
   final Money entryFee;
   final Money? bookPrice;
+  final bool hasBookAccess; // هل اشترى المستخدم كراس الشروط مسبقًا
   final int bidCount;
   final int secondsRemaining;
   final bool isLive;
@@ -78,6 +79,7 @@ class Auction extends Equatable {
     required this.depositAmount,
     required this.entryFee,
     this.bookPrice,
+    this.hasBookAccess = false,
     this.bidCount = 0,
     this.secondsRemaining = 0,
     this.isLive = false,

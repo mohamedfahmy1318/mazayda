@@ -12,11 +12,8 @@ class PaymentsRepositoryImpl implements PaymentsRepository {
   PaymentsRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, Unit>> acknowledgeBook(String auctionId) {
-    return _guard(() async {
-      await remote.acknowledgeBook(auctionId);
-      return unit;
-    });
+  Future<Either<Failure, PaymentInit>> buyBook(String auctionId) {
+    return _guard(() async => (await remote.buyBook(auctionId)).toEntity());
   }
 
   @override

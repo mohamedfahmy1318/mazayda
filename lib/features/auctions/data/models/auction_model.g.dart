@@ -50,6 +50,7 @@ _$AuctionModelImpl _$$AuctionModelImplFromJson(Map<String, dynamic> json) =>
       bookPrice: json['book_price'] == null
           ? null
           : MoneyModel.fromJson(json['book_price'] as Map<String, dynamic>),
+      hasBookAccess: json['has_book_access'] as bool? ?? false,
       bidCount: (json['bid_count'] as num?)?.toInt() ?? 0,
       secondsRemaining: (json['seconds_remaining'] as num?)?.toInt() ?? 0,
       isLive: json['is_live'] as bool? ?? false,
@@ -86,6 +87,7 @@ Map<String, dynamic> _$$AuctionModelImplToJson(_$AuctionModelImpl instance) =>
       'deposit_amount': instance.depositAmount,
       'entry_fee': instance.entryFee,
       'book_price': instance.bookPrice,
+      'has_book_access': instance.hasBookAccess,
       'bid_count': instance.bidCount,
       'seconds_remaining': instance.secondsRemaining,
       'is_live': instance.isLive,

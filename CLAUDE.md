@@ -9,8 +9,8 @@ Mazayada is a Flutter app for the Algerian government auction platform (منصة
 ```bash
 flutter pub get                                          # install deps
 
-# Code generation is REQUIRED before the app compiles.
-# *.freezed.dart, *.g.dart, and injection.config.dart are git-ignored / not committed.
+# Generated files (*.freezed.dart, *.g.dart, injection.config.dart) ARE committed,
+# so a fresh clone compiles as-is — but regenerate after editing any model/DI (see below).
 dart run build_runner build --delete-conflicting-outputs # one-shot generation
 dart run build_runner watch --delete-conflicting-outputs # regen on every save (use while developing)
 
@@ -44,7 +44,8 @@ The 10 features: `auth · auctions · kyc · bidding · payments · my_auctions 
 - **realtime/** — abstract `RealtimeService` + Pusher impl for live bidding (channel `auction.{id}`, events `bid.placed` / `price.updated`), with polling fallback. Keys in `ApiConstants.pusherKey` / `pusherCluster`.
 - **notifications/PushNotificationService** — FCM + flutter_local_notifications. Firebase init is wrapped in try/catch in `main` so a missing `google-services.json` disables Push instead of crashing.
 - **connectivity/** — `ConnectivityCubit` + `ConnectivityBanner` (wraps the app via `MaterialApp.builder`).
-- **constants/api_constants.dart** — all real endpoints. **constants/app_colors.dart** — Primary `#215744`, Background `#f4f5f9`.
+- **theme/app_theme.dart** — `AppTheme.light` only; there is **no dark theme**. The Cairo font is wired here. **utils/locale_cubit.dart** — `LocaleCubit` persists the chosen language in secure storage; `main` awaits `loadSaved()` before `runApp`.
+- **constants/** — `api_constants.dart` (all real endpoints + base URL), `app_colors.dart` (Primary `#215744`, Background `#f4f5f9`), `app_assets.dart` (type-safe `AppAssets`).
 
 ## Conventions
 
@@ -58,5 +59,7 @@ The 10 features: `auth · auctions · kyc · bidding · payments · my_auctions 
 
 ## API notes
 
+- Base URL is `https://mazayada.findosystem.com` (in `api_constants.dart`). `colloectio.json` at the repo root is the full Postman export ("Mazayada API Documentation") — the most complete endpoint/payload reference. It is currently **untracked** (not committed), so treat it as a local-only reference that may not exist on every clone.
+- Pusher keys in `api_constants.dart` are placeholders (`YOUR_PUSHER_KEY`, cluster `eu`) — until replaced with real values, live bidding silently uses the polling fallback.
 - Every response is the `{data, message, meta}` envelope; `ApiClient` returns the `data` part. Money fields come as `{amount, formatted}` → `MoneyModel`.
 - Payments flow: terms acknowledgement → `register` → in-app WebView payment gateway → poll `payments/:ref/status`. The `PaymentStatusModel` field names are spec-derived (the status endpoint was 401-protected during dev) — verify against a real authenticated response and adjust if needed.

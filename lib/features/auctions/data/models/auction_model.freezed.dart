@@ -213,6 +213,8 @@ mixin _$AuctionModel {
   MoneyModel? get entryFee => throw _privateConstructorUsedError;
   @JsonKey(name: 'book_price')
   MoneyModel? get bookPrice => throw _privateConstructorUsedError;
+  @JsonKey(name: 'has_book_access')
+  bool get hasBookAccess => throw _privateConstructorUsedError;
   @JsonKey(name: 'bid_count')
   int get bidCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'seconds_remaining')
@@ -266,6 +268,7 @@ abstract class $AuctionModelCopyWith<$Res> {
     @JsonKey(name: 'deposit_amount') MoneyModel? depositAmount,
     @JsonKey(name: 'entry_fee') MoneyModel? entryFee,
     @JsonKey(name: 'book_price') MoneyModel? bookPrice,
+    @JsonKey(name: 'has_book_access') bool hasBookAccess,
     @JsonKey(name: 'bid_count') int bidCount,
     @JsonKey(name: 'seconds_remaining') int secondsRemaining,
     @JsonKey(name: 'is_live') bool isLive,
@@ -320,6 +323,7 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
     Object? depositAmount = freezed,
     Object? entryFee = freezed,
     Object? bookPrice = freezed,
+    Object? hasBookAccess = null,
     Object? bidCount = null,
     Object? secondsRemaining = null,
     Object? isLive = null,
@@ -396,6 +400,10 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
                 ? _value.bookPrice
                 : bookPrice // ignore: cast_nullable_to_non_nullable
                       as MoneyModel?,
+            hasBookAccess: null == hasBookAccess
+                ? _value.hasBookAccess
+                : hasBookAccess // ignore: cast_nullable_to_non_nullable
+                      as bool,
             bidCount: null == bidCount
                 ? _value.bidCount
                 : bidCount // ignore: cast_nullable_to_non_nullable
@@ -604,6 +612,7 @@ abstract class _$$AuctionModelImplCopyWith<$Res>
     @JsonKey(name: 'deposit_amount') MoneyModel? depositAmount,
     @JsonKey(name: 'entry_fee') MoneyModel? entryFee,
     @JsonKey(name: 'book_price') MoneyModel? bookPrice,
+    @JsonKey(name: 'has_book_access') bool hasBookAccess,
     @JsonKey(name: 'bid_count') int bidCount,
     @JsonKey(name: 'seconds_remaining') int secondsRemaining,
     @JsonKey(name: 'is_live') bool isLive,
@@ -667,6 +676,7 @@ class __$$AuctionModelImplCopyWithImpl<$Res>
     Object? depositAmount = freezed,
     Object? entryFee = freezed,
     Object? bookPrice = freezed,
+    Object? hasBookAccess = null,
     Object? bidCount = null,
     Object? secondsRemaining = null,
     Object? isLive = null,
@@ -743,6 +753,10 @@ class __$$AuctionModelImplCopyWithImpl<$Res>
             ? _value.bookPrice
             : bookPrice // ignore: cast_nullable_to_non_nullable
                   as MoneyModel?,
+        hasBookAccess: null == hasBookAccess
+            ? _value.hasBookAccess
+            : hasBookAccess // ignore: cast_nullable_to_non_nullable
+                  as bool,
         bidCount: null == bidCount
             ? _value.bidCount
             : bidCount // ignore: cast_nullable_to_non_nullable
@@ -804,6 +818,7 @@ class _$AuctionModelImpl extends _AuctionModel {
     @JsonKey(name: 'deposit_amount') this.depositAmount,
     @JsonKey(name: 'entry_fee') this.entryFee,
     @JsonKey(name: 'book_price') this.bookPrice,
+    @JsonKey(name: 'has_book_access') this.hasBookAccess = false,
     @JsonKey(name: 'bid_count') this.bidCount = 0,
     @JsonKey(name: 'seconds_remaining') this.secondsRemaining = 0,
     @JsonKey(name: 'is_live') this.isLive = false,
@@ -868,6 +883,9 @@ class _$AuctionModelImpl extends _AuctionModel {
   @JsonKey(name: 'book_price')
   final MoneyModel? bookPrice;
   @override
+  @JsonKey(name: 'has_book_access')
+  final bool hasBookAccess;
+  @override
   @JsonKey(name: 'bid_count')
   final int bidCount;
   @override
@@ -897,7 +915,7 @@ class _$AuctionModelImpl extends _AuctionModel {
 
   @override
   String toString() {
-    return 'AuctionModel(id: $id, title: $title, description: $description, status: $status, auctionType: $auctionType, coverPhotoUrl: $coverPhotoUrl, photos: $photos, category: $category, entity: $entity, wilaya: $wilaya, assetLocation: $assetLocation, openingPrice: $openingPrice, currentPrice: $currentPrice, depositAmount: $depositAmount, entryFee: $entryFee, bookPrice: $bookPrice, bidCount: $bidCount, secondsRemaining: $secondsRemaining, isLive: $isLive, isBiddable: $isBiddable, hasEnded: $hasEnded, winnerAlias: $winnerAlias, finalPrice: $finalPrice, requiresCommerceRegister: $requiresCommerceRegister, conditionBook: $conditionBook)';
+    return 'AuctionModel(id: $id, title: $title, description: $description, status: $status, auctionType: $auctionType, coverPhotoUrl: $coverPhotoUrl, photos: $photos, category: $category, entity: $entity, wilaya: $wilaya, assetLocation: $assetLocation, openingPrice: $openingPrice, currentPrice: $currentPrice, depositAmount: $depositAmount, entryFee: $entryFee, bookPrice: $bookPrice, hasBookAccess: $hasBookAccess, bidCount: $bidCount, secondsRemaining: $secondsRemaining, isLive: $isLive, isBiddable: $isBiddable, hasEnded: $hasEnded, winnerAlias: $winnerAlias, finalPrice: $finalPrice, requiresCommerceRegister: $requiresCommerceRegister, conditionBook: $conditionBook)';
   }
 
   @override
@@ -931,6 +949,8 @@ class _$AuctionModelImpl extends _AuctionModel {
                 other.entryFee == entryFee) &&
             (identical(other.bookPrice, bookPrice) ||
                 other.bookPrice == bookPrice) &&
+            (identical(other.hasBookAccess, hasBookAccess) ||
+                other.hasBookAccess == hasBookAccess) &&
             (identical(other.bidCount, bidCount) ||
                 other.bidCount == bidCount) &&
             (identical(other.secondsRemaining, secondsRemaining) ||
@@ -973,6 +993,7 @@ class _$AuctionModelImpl extends _AuctionModel {
     depositAmount,
     entryFee,
     bookPrice,
+    hasBookAccess,
     bidCount,
     secondsRemaining,
     isLive,
@@ -1016,6 +1037,7 @@ abstract class _AuctionModel extends AuctionModel {
     @JsonKey(name: 'deposit_amount') final MoneyModel? depositAmount,
     @JsonKey(name: 'entry_fee') final MoneyModel? entryFee,
     @JsonKey(name: 'book_price') final MoneyModel? bookPrice,
+    @JsonKey(name: 'has_book_access') final bool hasBookAccess,
     @JsonKey(name: 'bid_count') final int bidCount,
     @JsonKey(name: 'seconds_remaining') final int secondsRemaining,
     @JsonKey(name: 'is_live') final bool isLive,
@@ -1072,6 +1094,9 @@ abstract class _AuctionModel extends AuctionModel {
   @override
   @JsonKey(name: 'book_price')
   MoneyModel? get bookPrice;
+  @override
+  @JsonKey(name: 'has_book_access')
+  bool get hasBookAccess;
   @override
   @JsonKey(name: 'bid_count')
   int get bidCount;

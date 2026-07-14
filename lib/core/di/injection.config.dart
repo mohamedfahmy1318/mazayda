@@ -324,8 +324,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i854.RealtimeService>(),
       ),
     );
-    gh.factory<_i306.AcknowledgeBook>(
-      () => _i306.AcknowledgeBook(gh<_i663.PaymentsRepository>()),
+    gh.factory<_i306.BuyBook>(
+      () => _i306.BuyBook(gh<_i663.PaymentsRepository>()),
     );
     gh.factory<_i306.RegisterInAuction>(
       () => _i306.RegisterInAuction(gh<_i663.PaymentsRepository>()),
@@ -335,14 +335,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i306.GetPaymentStatus>(
       () => _i306.GetPaymentStatus(gh<_i663.PaymentsRepository>()),
-    );
-    gh.factory<_i462.PaymentFlowCubit>(
-      () => _i462.PaymentFlowCubit(
-        gh<_i306.AcknowledgeBook>(),
-        gh<_i306.RegisterInAuction>(),
-        gh<_i306.StartFinalPayment>(),
-        gh<_i306.GetPaymentStatus>(),
-      ),
     );
     gh.factory<_i759.RegisterCubit>(
       () => _i759.RegisterCubit(gh<_i198.RegisterUser>()),
@@ -358,6 +350,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i78.AuctionDetailCubit>(
       () => _i78.AuctionDetailCubit(gh<_i357.GetAuctionById>()),
+    );
+    gh.factory<_i462.PaymentFlowCubit>(
+      () => _i462.PaymentFlowCubit(
+        gh<_i306.BuyBook>(),
+        gh<_i306.RegisterInAuction>(),
+        gh<_i306.StartFinalPayment>(),
+        gh<_i306.GetPaymentStatus>(),
+      ),
     );
     gh.factory<_i577.AuctionsCubit>(
       () =>

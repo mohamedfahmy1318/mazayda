@@ -4,7 +4,7 @@ import '../../../../core/network/api_client.dart';
 import '../models/payment_models.dart';
 
 abstract class PaymentsRemoteDataSource {
-  Future<void> acknowledgeBook(String auctionId);
+  Future<PaymentInitModel> buyBook(String auctionId);
   Future<PaymentInitModel> registerInAuction(String auctionId);
   Future<PaymentInitModel> startFinalPayment(String auctionId);
   Future<List<PaymentStatusModel>> getPaymentStatus(String ref);
@@ -16,8 +16,9 @@ class PaymentsRemoteDataSourceImpl implements PaymentsRemoteDataSource {
   PaymentsRemoteDataSourceImpl(this.client);
 
   @override
-  Future<void> acknowledgeBook(String auctionId) async {
-    await client.post(ApiConstants.acknowledgeBook(auctionId));
+  Future<PaymentInitModel> buyBook(String auctionId) async {
+    final data = await client.post(ApiConstants.buyBook(auctionId));
+    return PaymentInitModel.fromJson(data as Map<String, dynamic>);
   }
 
   @override

@@ -8,13 +8,11 @@ import '../../../auctions/domain/entities/auction.dart';
 /// يرجّع true لو وافق وضغط المتابعة.
 class AcknowledgeSheet extends StatefulWidget {
   final Auction auction;
-  final bool isLoading;
   final VoidCallback onConfirm;
 
   const AcknowledgeSheet({
     super.key,
     required this.auction,
-    required this.isLoading,
     required this.onConfirm,
   });
 
@@ -53,12 +51,14 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
                 size: 28.sp, color: AppColors.success),
           ),
           SizedBox(height: 10.h),
-          Text('إقرار كراس الشروط',
+          Text('التسجيل في المزاد',
               style: TextStyle(
                   fontSize: 16.sp, fontWeight: FontWeight.w500)),
           SizedBox(height: 4.h),
           Text(
-            'يجب الإقرار بقراءة كراس الشروط قبل بدء التسجيل (الخطوة 1 من 2)',
+            a.hasBookAccess
+                ? 'أقرّ بشروط المشاركة لبدء التسجيل عبر بوابة الدفع الآمنة'
+                : 'شراء كراس الشروط شرط للتسجيل — ستُفتح بوابتا دفع متتاليتان: الكراس ثم التسجيل',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 12.sp, color: AppColors.textSecondary, height: 1.6),
@@ -76,7 +76,7 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
               children: [
                 _row('التأمين القابل للاسترداد', a.depositAmount.formatted),
                 _row('رسوم المشاركة (غير مستردة)', a.entryFee.formatted),
-                if (a.bookPrice != null)
+                if (a.bookPrice != null && !a.hasBookAccess)
                   _row('كراس الشروط (غير مسترد)', a.bookPrice!.formatted),
               ],
             ),
@@ -117,7 +117,6 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
           PrimaryButton(
             label: 'المتابعة للدفع',
             icon: Icons.open_in_new,
-            isLoading: widget.isLoading,
             onPressed: _agreed ? widget.onConfirm : null,
           ),
           SizedBox(height: 8.h),
