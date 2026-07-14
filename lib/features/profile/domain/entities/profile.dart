@@ -26,7 +26,7 @@ class Profile extends Equatable {
     this.kycStatus = 'PENDING',
   });
 
-  bool get isVerified => kycStatus == 'VERIFIED';
+  bool get isVerified => kycStatus == 'VERIFIED' || kycStatus == 'COMPLETE';
 
   @override
   List<Object?> get props => [

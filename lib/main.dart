@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'core/di/injection.dart';
@@ -14,6 +13,12 @@ import 'core/session/session_manager.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/locale_cubit.dart';
 
+/// مقاس التصميم المرجعي لـ flutter_screenutil.
+const _designSize = Size(375, 812);
+
+/// اللغات المدعومة — الاتجاه (RTL/LTR) يتحدّد تلقائيًا حسب اللغة.
+const _supportedLocales = [Locale('ar'), Locale('fr'), Locale('en')];
+
 /// معالج رسائل FCM في الخلفية — لازم يكون top-level (شرط Firebase).
 @pragma('vm:entry-point')
 Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
@@ -24,32 +29,39 @@ Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // تهيئة Firebase + معالج الخلفية.
-  // اختيارية: لو إعدادات Firebase (google-services.json) غير موجودة،
-  // نكمل تشغيل التطبيق بدون Push بدل ما يكرّش عند الإقلاع.
-  bool firebaseReady = false;
-  try {
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
-    firebaseReady = true;
-  } catch (e) {
-    debugPrint('⚠️ Firebase غير مُهيّأ — سيتم تعطيل الإشعارات. السبب: $e');
-  }
+  final firebaseReady = await _initFirebase();
 
   await configureDependencies();
   // حمّل اللغة المحفوظة قبل التشغيل
   await getIt<LocaleCubit>().loadSaved();
 
-  // تهيئة الـ push notifications — فقط لو Firebase جاهز
-  if (firebaseReady) {
-    try {
-      await getIt<PushNotificationService>().init();
-    } catch (e) {
-      debugPrint('⚠️ تعذّر تهيئة خدمة الإشعارات: $e');
-    }
-  }
+  // الإشعارات تعتمد على Firebase — نهيّئها فقط لو جاهز
+  if (firebaseReady) await _initPushNotifications();
 
   runApp(const MazayadaApp());
+}
+
+/// تهيئة Firebase + معالج الخلفية.
+/// اختيارية: لو إعدادات Firebase (google-services.json) غير موجودة،
+/// نكمل تشغيل التطبيق بدون Push بدل ما يكرّش عند الإقلاع.
+Future<bool> _initFirebase() async {
+  try {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
+    return true;
+  } catch (e) {
+    debugPrint('⚠️ Firebase غير مُهيّأ — سيتم تعطيل الإشعارات. السبب: $e');
+    return false;
+  }
+}
+
+/// تهيئة خدمة الـ push notifications (بعد التأكد إن Firebase جاهز).
+Future<void> _initPushNotifications() async {
+  try {
+    await getIt<PushNotificationService>().init();
+  } catch (e) {
+    debugPrint('⚠️ تعذّر تهيئة خدمة الإشعارات: $e');
+  }
 }
 
 class MazayadaApp extends StatefulWidget {
@@ -72,39 +84,28 @@ class _MazayadaAppState extends State<MazayadaApp> {
         BlocProvider.value(value: getIt<ConnectivityCubit>()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
-        builder: (context, locale) {
-          return ScreenUtilInit(
-            designSize: const Size(375, 812),
-            minTextAdapt: true,
-            splitScreenMode: true,
-            builder: (context, child) {
-              return MaterialApp.router(
-                title: 'Mazayada',
-                debugShowCheckedModeBanner: false,
-                theme: AppTheme.light,
-                routerConfig: _router,
-                // شريط حالة الاتصال يلفّ كل الشاشات
-                builder: (context, child) =>
-                    ConnectivityBanner(child: child ?? const SizedBox()),
-                // الترجمة الكاملة
-                locale: locale,
-                supportedLocales: const [
-                  Locale('ar'),
-                  Locale('fr'),
-                  Locale('en'),
-                ],
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                // الاتجاه يتحدّد تلقائيًا حسب اللغة (عربي = RTL، غيره = LTR)
-              );
-            },
-          );
-        },
+        builder: (context, locale) => ScreenUtilInit(
+          designSize: _designSize,
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (_, __) => _buildApp(locale),
+        ),
       ),
+    );
+  }
+
+  Widget _buildApp(Locale locale) {
+    return MaterialApp.router(
+      onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light,
+      routerConfig: _router,
+      // شريط حالة الاتصال يلفّ كل الشاشات
+      builder: (context, child) =>
+          ConnectivityBanner(child: child ?? const SizedBox()),
+      locale: locale,
+      supportedLocales: _supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }
 }

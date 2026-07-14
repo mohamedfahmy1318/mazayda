@@ -21,9 +21,12 @@ KycStatusModel _$KycStatusModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$KycStatusModel {
-  String? get status => throw _privateConstructorUsedError;
+  String? get status =>
+      throw _privateConstructorUsedError; // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
   @JsonKey(name: 'documents_on_file')
   List<String> get documentsOnFile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'documents')
+  Map<String, dynamic> get documents => throw _privateConstructorUsedError;
   @JsonKey(name: 'can_submit')
   bool get canSubmit => throw _privateConstructorUsedError;
 
@@ -47,6 +50,7 @@ abstract class $KycStatusModelCopyWith<$Res> {
   $Res call({
     String? status,
     @JsonKey(name: 'documents_on_file') List<String> documentsOnFile,
+    @JsonKey(name: 'documents') Map<String, dynamic> documents,
     @JsonKey(name: 'can_submit') bool canSubmit,
   });
 }
@@ -68,6 +72,7 @@ class _$KycStatusModelCopyWithImpl<$Res, $Val extends KycStatusModel>
   $Res call({
     Object? status = freezed,
     Object? documentsOnFile = null,
+    Object? documents = null,
     Object? canSubmit = null,
   }) {
     return _then(
@@ -80,6 +85,10 @@ class _$KycStatusModelCopyWithImpl<$Res, $Val extends KycStatusModel>
                 ? _value.documentsOnFile
                 : documentsOnFile // ignore: cast_nullable_to_non_nullable
                       as List<String>,
+            documents: null == documents
+                ? _value.documents
+                : documents // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>,
             canSubmit: null == canSubmit
                 ? _value.canSubmit
                 : canSubmit // ignore: cast_nullable_to_non_nullable
@@ -102,6 +111,7 @@ abstract class _$$KycStatusModelImplCopyWith<$Res>
   $Res call({
     String? status,
     @JsonKey(name: 'documents_on_file') List<String> documentsOnFile,
+    @JsonKey(name: 'documents') Map<String, dynamic> documents,
     @JsonKey(name: 'can_submit') bool canSubmit,
   });
 }
@@ -122,6 +132,7 @@ class __$$KycStatusModelImplCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? documentsOnFile = null,
+    Object? documents = null,
     Object? canSubmit = null,
   }) {
     return _then(
@@ -134,6 +145,10 @@ class __$$KycStatusModelImplCopyWithImpl<$Res>
             ? _value._documentsOnFile
             : documentsOnFile // ignore: cast_nullable_to_non_nullable
                   as List<String>,
+        documents: null == documents
+            ? _value._documents
+            : documents // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>,
         canSubmit: null == canSubmit
             ? _value.canSubmit
             : canSubmit // ignore: cast_nullable_to_non_nullable
@@ -150,8 +165,11 @@ class _$KycStatusModelImpl extends _KycStatusModel {
     this.status,
     @JsonKey(name: 'documents_on_file')
     final List<String> documentsOnFile = const <String>[],
+    @JsonKey(name: 'documents')
+    final Map<String, dynamic> documents = const <String, dynamic>{},
     @JsonKey(name: 'can_submit') this.canSubmit = false,
   }) : _documentsOnFile = documentsOnFile,
+       _documents = documents,
        super._();
 
   factory _$KycStatusModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -159,7 +177,9 @@ class _$KycStatusModelImpl extends _KycStatusModel {
 
   @override
   final String? status;
+  // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
   final List<String> _documentsOnFile;
+  // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
   @override
   @JsonKey(name: 'documents_on_file')
   List<String> get documentsOnFile {
@@ -168,13 +188,22 @@ class _$KycStatusModelImpl extends _KycStatusModel {
     return EqualUnmodifiableListView(_documentsOnFile);
   }
 
+  final Map<String, dynamic> _documents;
+  @override
+  @JsonKey(name: 'documents')
+  Map<String, dynamic> get documents {
+    if (_documents is EqualUnmodifiableMapView) return _documents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_documents);
+  }
+
   @override
   @JsonKey(name: 'can_submit')
   final bool canSubmit;
 
   @override
   String toString() {
-    return 'KycStatusModel(status: $status, documentsOnFile: $documentsOnFile, canSubmit: $canSubmit)';
+    return 'KycStatusModel(status: $status, documentsOnFile: $documentsOnFile, documents: $documents, canSubmit: $canSubmit)';
   }
 
   @override
@@ -187,6 +216,10 @@ class _$KycStatusModelImpl extends _KycStatusModel {
               other._documentsOnFile,
               _documentsOnFile,
             ) &&
+            const DeepCollectionEquality().equals(
+              other._documents,
+              _documents,
+            ) &&
             (identical(other.canSubmit, canSubmit) ||
                 other.canSubmit == canSubmit));
   }
@@ -197,6 +230,7 @@ class _$KycStatusModelImpl extends _KycStatusModel {
     runtimeType,
     status,
     const DeepCollectionEquality().hash(_documentsOnFile),
+    const DeepCollectionEquality().hash(_documents),
     canSubmit,
   );
 
@@ -221,6 +255,7 @@ abstract class _KycStatusModel extends KycStatusModel {
   const factory _KycStatusModel({
     final String? status,
     @JsonKey(name: 'documents_on_file') final List<String> documentsOnFile,
+    @JsonKey(name: 'documents') final Map<String, dynamic> documents,
     @JsonKey(name: 'can_submit') final bool canSubmit,
   }) = _$KycStatusModelImpl;
   const _KycStatusModel._() : super._();
@@ -229,10 +264,13 @@ abstract class _KycStatusModel extends KycStatusModel {
       _$KycStatusModelImpl.fromJson;
 
   @override
-  String? get status;
+  String? get status; // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
   @override
   @JsonKey(name: 'documents_on_file')
   List<String> get documentsOnFile;
+  @override
+  @JsonKey(name: 'documents')
+  Map<String, dynamic> get documents;
   @override
   @JsonKey(name: 'can_submit')
   bool get canSubmit;

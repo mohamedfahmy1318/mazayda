@@ -14,6 +14,9 @@ _$KycStatusModelImpl _$$KycStatusModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const <String>[],
+      documents:
+          json['documents'] as Map<String, dynamic>? ??
+          const <String, dynamic>{},
       canSubmit: json['can_submit'] as bool? ?? false,
     );
 
@@ -22,6 +25,7 @@ Map<String, dynamic> _$$KycStatusModelImplToJson(
 ) => <String, dynamic>{
   'status': instance.status,
   'documents_on_file': instance.documentsOnFile,
+  'documents': instance.documents,
   'can_submit': instance.canSubmit,
 };
 

@@ -32,7 +32,7 @@ class AuthUser extends Equatable {
   String get fullName =>
       [firstNameAr, lastNameAr].where((e) => e != null).join(' ');
 
-  bool get isVerified => kycStatus == 'VERIFIED';
+  bool get isVerified => kycStatus == 'VERIFIED' || kycStatus == 'COMPLETE';
 
   @override
   List<Object?> get props => [id, email, phone, kycStatus];

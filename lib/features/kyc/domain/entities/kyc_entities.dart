@@ -20,7 +20,8 @@ extension KycAccountStatusX on KycAccountStatus {
   static KycAccountStatus fromApi(String? v) => switch (v) {
     'PENDING' => KycAccountStatus.pending,
     'UNDER_REVIEW' => KycAccountStatus.underReview,
-    'VERIFIED' => KycAccountStatus.verified,
+    // الـ backend بيرجّع COMPLETE كحالة التوثيق النهائية (مرادفة لـ VERIFIED).
+    'VERIFIED' || 'COMPLETE' => KycAccountStatus.verified,
     'REJECTED' => KycAccountStatus.rejected,
     _ => KycAccountStatus.unknown,
   };

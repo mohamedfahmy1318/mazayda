@@ -22,7 +22,7 @@ class ProfileKycBadge extends StatelessWidget {
       fg: style.fg,
       bg: style.bg,
     );
-    if (status == 'VERIFIED') return pill;
+    if (status == 'VERIFIED' || status == 'COMPLETE') return pill;
     return GestureDetector(onTap: () => context.push(Routes.kyc), child: pill);
   }
 
@@ -30,7 +30,7 @@ class ProfileKycBadge extends StatelessWidget {
     String status,
     AppLocalizations t,
   ) => switch (status) {
-    'VERIFIED' => (
+    'VERIFIED' || 'COMPLETE' => (
       icon: Icons.verified,
       label: t.verifiedKyc,
       fg: AppColors.success,

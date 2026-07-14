@@ -11,9 +11,13 @@ class KycStatusModel with _$KycStatusModel {
 
   const factory KycStatusModel({
     String? status,
+    // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
     @JsonKey(name: 'documents_on_file')
     @Default(<String>[])
     List<String> documentsOnFile,
+    @JsonKey(name: 'documents')
+    @Default(<String, dynamic>{})
+    Map<String, dynamic> documents,
     @JsonKey(name: 'can_submit') @Default(false) bool canSubmit,
   }) = _KycStatusModel;
 
@@ -22,9 +26,16 @@ class KycStatusModel with _$KycStatusModel {
 
   KycStatus toEntity() => KycStatus(
     status: KycAccountStatusX.fromApi(status),
-    documentsOnFile: documentsOnFile,
+    documentsOnFile: _resolveDocuments(),
     canSubmit: canSubmit,
   );
+
+  /// يدمج الشكلين: array مباشر، أو map بأنواع المستندات اللي قيمتها true.
+  List<String> _resolveDocuments() => [
+    ...documentsOnFile,
+    for (final entry in documents.entries)
+      if (entry.value == true) entry.key,
+  ];
 }
 
 /// ولاية — GET /wilayas (بترجع name_ar / name_fr).
