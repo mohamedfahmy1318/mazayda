@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../domain/entities/participation.dart';
-import 'participation_labels.dart';
+import '../../domain/entities/my_auctions_result.dart';
+import 'my_auction_labels.dart';
 
-/// شريط تبويبات مزايداتي (chips قابلة للتمرير أفقيًا).
+/// شريط تبويبات «مزاداتي» (chips قابلة للتمرير أفقيًا) مع عدّاد لكل تبويب.
 class MyAuctionTabBar extends StatelessWidget {
   final MyAuctionTab selected;
   final ValueChanged<MyAuctionTab> onSelect;
+
+  /// الأعداد جاية من `meta.counts` — بتوصل مع أي تبويب، فالعدّادات كلها
+  /// بتفضل محدّثة حتى وإحنا شايفين تبويب واحد.
+  final MyAuctionCounts counts;
 
   const MyAuctionTabBar({
     super.key,
     required this.selected,
     required this.onSelect,
+    this.counts = MyAuctionCounts.empty,
   });
 
   @override
@@ -29,6 +34,7 @@ class MyAuctionTabBar extends StatelessWidget {
               padding: EdgeInsets.only(left: 7.w),
               child: _TabChip(
                 label: tab.label(t),
+                count: counts.of(tab),
                 selected: tab == selected,
                 onTap: () => onSelect(tab),
               ),
@@ -42,11 +48,13 @@ class MyAuctionTabBar extends StatelessWidget {
 
 class _TabChip extends StatelessWidget {
   final String label;
+  final int count;
   final bool selected;
   final VoidCallback onTap;
 
   const _TabChip({
     required this.label,
+    required this.count,
     required this.selected,
     required this.onTap,
   });
@@ -69,13 +77,39 @@ class _TabChip extends StatelessWidget {
             width: 0.5,
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w500,
-            color: selected ? Colors.white : AppColors.textSecondary,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w500,
+                color: selected ? Colors.white : AppColors.textSecondary,
+              ),
+            ),
+            // العدّاد يظهر فقط لما يكون فيه عناصر فعلًا.
+            if (count > 0) ...[
+              SizedBox(width: 6.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
+                decoration: BoxDecoration(
+                  color: selected
+                      ? Colors.white.withValues(alpha: 0.22)
+                      : AppColors.neutralBg,
+                  borderRadius: BorderRadius.circular(9.r),
+                ),
+                child: Text(
+                  '$count',
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w500,
+                    color: selected ? Colors.white : AppColors.textSecondary,
+                  ),
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );

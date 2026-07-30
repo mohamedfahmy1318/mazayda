@@ -104,6 +104,12 @@ class _RegisterView extends StatelessWidget {
                   onChanged: cubit.emailChanged,
                   errorText: state.email.errorText(t) ?? srv?['email']?.first,
                 ),
+                _BirthDateField(
+                  value: state.birthDate.value,
+                  errorText:
+                      state.birthDate.errorText(t) ?? srv?['birth_date']?.first,
+                  onPicked: cubit.birthDateChanged,
+                ),
                 AppTextField(
                   label: t.password,
                   hint: '••••••••',
@@ -136,6 +142,57 @@ class _RegisterView extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+/// حقل تاريخ الميلاد — يفتح date picker ويرجّع القيمة بصيغة YYYY-MM-DD
+/// (الصيغة اللي بيتوقّعها الـ API). الـ picker نفسه بيمنع اختيار أي تاريخ
+/// يخلّي العمر أقل من 18 سنة، فالقاعدة متطبّقة في الواجهة قبل السيرفر.
+class _BirthDateField extends StatelessWidget {
+  final String value;
+  final String? errorText;
+  final ValueChanged<String> onPicked;
+
+  const _BirthDateField({
+    required this.value,
+    required this.errorText,
+    required this.onPicked,
+  });
+
+  static String _fmt(DateTime d) =>
+      '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final now = DateTime.now();
+    // آخر تاريخ مسموح = (اليوم - 18 سنة) - يوم، مطابقة لـ before: في الـ API.
+    final lastAllowed = DateTime(
+      now.year - AuthConstants.minAgeYears,
+      now.month,
+      now.day,
+    ).subtract(const Duration(days: 1));
+
+    return AppTextField(
+      label: t.birthDate,
+      hint: t.selectBirthDate,
+      icon: Icons.cake_outlined,
+      readOnly: true,
+      controller: TextEditingController(text: value),
+      errorText: errorText,
+      onTap: () async {
+        final picked = await showDatePicker(
+          context: context,
+          initialDate: DateTime.tryParse(value) ?? lastAllowed,
+          firstDate: DateTime(1900),
+          lastDate: lastAllowed,
+          helpText: t.selectBirthDate,
+        );
+        if (picked != null) onPicked(_fmt(picked));
+      },
     );
   }
 }

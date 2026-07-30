@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/token_storage.dart';
+import '../../../../core/notifications/device_registrar.dart';
 import '../../domain/entities/auth_entities.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
@@ -11,8 +13,9 @@ import '../datasources/auth_remote_data_source.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remote;
   final TokenStorage tokenStorage;
+  final DeviceRegistrar deviceRegistrar;
 
-  AuthRepositoryImpl(this.remote, this.tokenStorage);
+  AuthRepositoryImpl(this.remote, this.tokenStorage, this.deviceRegistrar);
 
   @override
   Future<Either<Failure, RegisterResult>> register({
@@ -23,6 +26,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String birthDate,
     required String password,
+    required String passwordConfirmation,
     required String deviceName,
   }) {
     return _guard(() async {
@@ -34,8 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
         'email': email,
         'birth_date': birthDate,
         'password': password,
-        // الواجهة فيها حقل واحد لكلمة المرور، فالتأكيد = كلمة المرور نفسها
-        'password_confirmation': password,
+        'password_confirmation': passwordConfirmation,
         'device_name': deviceName,
       });
       return RegisterResult(userId: userId);
@@ -59,6 +62,8 @@ class AuthRepositoryImpl implements AuthRepository {
         accessToken: model.accessToken,
         refreshToken: model.refreshToken,
       );
+      // نربط الجهاز بالحساب عشان الإشعارات توصله (بيتجاهل الفشل بهدوء).
+      await deviceRegistrar.register();
       return model.toEntity();
     });
   }
@@ -91,6 +96,7 @@ class AuthRepositoryImpl implements AuthRepository {
           accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken,
         );
+        await deviceRegistrar.register();
       }
       return result.toEntity();
     });
@@ -107,6 +113,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Unit>> logout({bool allDevices = false}) {
     return _guard(() async {
+      // فكّ ربط الجهاز **قبل** مسح التوكن — النداء محتاج مصادقة.
+      await deviceRegistrar.unregister();
       try {
         await remote.logout(allDevices: allDevices);
       } catch (_) {
@@ -120,6 +128,72 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<bool> hasSession() => tokenStorage.hasTokens;
 
+  // ===== استرجاع الحساب =====
+
+  @override
+  Future<Either<Failure, Unit>> requestPasswordReset({
+    required String nin,
+    required String email,
+  }) {
+    return _guard(() async {
+      await remote.requestPasswordReset(nin: nin, email: email);
+      return unit;
+    });
+  }
+
+  @override
+  Future<Either<Failure, Unit>> verifyPasswordReset({
+    required String nin,
+    required String email,
+    required String otp,
+    required String password,
+    required String passwordConfirmation,
+  }) {
+    return _guard(() async {
+      await remote.verifyPasswordReset(
+        nin: nin,
+        email: email,
+        otp: otp,
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+      );
+      // السيرفر عمل revokeAll — أي توكن مخزّن بقى ميت، فنمسحه.
+      await tokenStorage.clear();
+      return unit;
+    });
+  }
+
+  @override
+  Future<Either<Failure, String>> revealSecretQuestion({
+    required String nin,
+    required String email,
+  }) {
+    return _guard(
+      () async => remote.revealSecretQuestion(nin: nin, email: email),
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> recoverBySecret({
+    required String nin,
+    required String email,
+    required String secretAnswer,
+    required String password,
+    required String passwordConfirmation,
+  }) {
+    return _guard(() async {
+      await remote.recoverBySecret(
+        nin: nin,
+        email: email,
+        secretAnswer: secretAnswer,
+        password: password,
+        passwordConfirmation: passwordConfirmation,
+      );
+      await tokenStorage.clear();
+      return unit;
+    });
+  }
+
   // تحويل الـ exceptions لـ Failures (نفس نمط الـ auctions)
   Future<Either<Failure, T>> _guard<T>(Future<T> Function() action) async {
     try {
@@ -129,13 +203,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(
-        Failure.server(
-          message: e.message,
-          statusCode: e.statusCode,
-          errors: e.errors,
-        ),
-      );
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

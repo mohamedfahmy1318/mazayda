@@ -1,20 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 import '../../../../core/errors/failures.dart';
-import '../../../../core/usecase/usecase.dart';
-import '../entities/participation.dart';
+import '../entities/my_auctions_result.dart';
 
 /// عقد الـ my-auctions repository.
+/// (الـ use case اتنقل لـ domain/usecases/get_my_auctions.dart حسب اتفاقية المشروع.)
 abstract class MyAuctionsRepository {
-  Future<Either<Failure, List<Participation>>> getMyAuctions(MyAuctionTab tab);
-}
-
-@injectable
-class GetMyAuctions implements UseCase<List<Participation>, MyAuctionTab> {
-  final MyAuctionsRepository repository;
-  GetMyAuctions(this.repository);
-
-  @override
-  Future<Either<Failure, List<Participation>>> call(MyAuctionTab tab) =>
-      repository.getMyAuctions(tab);
+  Future<Either<Failure, MyAuctionsResult>> getMyAuctions(MyAuctionTab tab);
 }

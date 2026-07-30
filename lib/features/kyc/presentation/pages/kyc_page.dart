@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../../domain/entities/kyc_entities.dart';
@@ -32,23 +35,49 @@ class KycPage extends StatelessWidget {
   }
 }
 
+/// حدود حجم المستندات — مطابقة لـ `KycUploadRequest`:
+/// setting('kyc.biometric_max_kb', 120) و setting('kyc.doc_max_kb', 1024).
+const _biometricMaxKb = 120;
+const _documentMaxKb = 1024;
+
 class _KycView extends StatelessWidget {
   const _KycView();
 
   /// اختيار/تصوير المستند عبر image_picker ثم رفعه.
+  ///
+  /// السيرفر بيقبل **JPG/PNG فقط** هنا (مش زي السجل التجاري اللي بيقبل PDF)،
+  /// وسقف الحجم **بيختلف حسب النوع**: الصورة البيومترية 120 KB بينما باقي
+  /// المستندات 1024 KB — عشان كده الضغط بيتظبط لكل نوع على حدة.
   Future<void> _pickAndUpload(BuildContext context, KycDocType type) async {
     final picker = ImagePicker();
+    final isBiometric = type == KycDocType.photoBiometric;
+
     // الصورة البيومترية والسيلفي من الكاميرا، الباقي من المعرض
-    final source =
-        (type == KycDocType.photoBiometric || type == KycDocType.selfieWithId)
+    final source = (isBiometric || type == KycDocType.selfieWithId)
         ? ImageSource.camera
         : ImageSource.gallery;
+
+    // البيومترية مقاس صورة هوية (35×45 مم) فمينفعش نبعتها بنفس أبعاد المستندات.
     final file = await picker.pickImage(
       source: source,
-      imageQuality: 80, // ضغط للبقاء تحت 1MB (متطلب الـ spec)
-      maxWidth: 1600,
+      imageQuality: isBiometric ? 70 : 80,
+      maxWidth: isBiometric ? 450 : 1600,
     );
     if (file == null || !context.mounted) return;
+
+    // نتحقق من الحجم محليًا بدل ما السيرفر يرجّع 422 برسالة عامة.
+    final maxKb = isBiometric ? _biometricMaxKb : _documentMaxKb;
+    final sizeKb = (File(file.path).lengthSync() / 1024).ceil();
+    if (sizeKb > maxKb) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).kycFileTooLarge(maxKb)),
+          backgroundColor: AppColors.danger,
+        ),
+      );
+      return;
+    }
+
     context.read<KycCubit>().uploadDoc(type, file.path);
   }
 

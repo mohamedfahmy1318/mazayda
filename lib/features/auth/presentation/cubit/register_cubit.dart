@@ -21,7 +21,8 @@ class RegisterState with _$RegisterState {
     @Default(NameInput.pure()) NameInput lastName,
     @Default(PhoneInput.pure()) PhoneInput phone,
     @Default(EmailInput.pure()) EmailInput email,
-    @Default(PasswordInput.pure()) PasswordInput password,
+    @Default(BirthDateInput.pure()) BirthDateInput birthDate,
+    @Default(NewPasswordInput.pure()) NewPasswordInput password,
     @Default(ConfirmPasswordInput.pure()) ConfirmPasswordInput confirmPassword,
     @Default(RegisterStatus.idle) RegisterStatus status,
     @Default(false) bool isValid,
@@ -46,6 +47,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       s.lastName,
       s.phone,
       s.email,
+      s.birthDate,
       s.password,
       s.confirmPassword,
     ]);
@@ -62,6 +64,11 @@ class RegisterCubit extends Cubit<RegisterState> {
       _revalidate(state.copyWith(phone: PhoneInput.dirty(v)));
   void emailChanged(String v) =>
       _revalidate(state.copyWith(email: EmailInput.dirty(v)));
+
+  /// [v] بصيغة YYYY-MM-DD (من الـ date picker).
+  void birthDateChanged(String v) =>
+      _revalidate(state.copyWith(birthDate: BirthDateInput.dirty(v)));
+
   void passwordChanged(String v) {
     // عند تغيير كلمة المرور، نعيد التحقق من التأكيد أيضًا (لأن المرجع تغيّر)
     final confirm = ConfirmPasswordInput.dirty(
@@ -70,7 +77,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
     _revalidate(
       state.copyWith(
-        password: PasswordInput.dirty(v),
+        password: NewPasswordInput.dirty(v),
         confirmPassword: confirm,
       ),
     );
@@ -86,7 +93,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   );
 
   Future<void> submit({
-    String birthDate = '2000-01-01',
     String deviceName = AuthConstants.defaultDeviceName,
   }) async {
     if (!state.isValid) return;
@@ -105,8 +111,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         lastNameAr: state.lastName.value,
         phone: state.phone.value,
         email: state.email.value,
-        birthDate: birthDate,
+        birthDate: state.birthDate.value,
         password: state.password.value,
+        passwordConfirmation: state.confirmPassword.value,
         deviceName: deviceName,
       ),
     );

@@ -3,10 +3,13 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/state_views.dart';
+import '../../domain/entities/app_notification.dart';
 import '../cubit/notifications_cubit.dart';
 import '../widgets/mark_all_read_button.dart';
 import '../widgets/notification_tile.dart';
@@ -93,7 +96,10 @@ class _NotificationsBody extends StatelessWidget {
           final n = state.items[i];
           return NotificationTile(
                 notification: n,
-                onTap: () => cubit.markAsRead(n.id),
+                onTap: () {
+                  cubit.markAsRead(n.id);
+                  _openDestination(context, n);
+                },
               )
               .animate()
               .fadeIn(duration: 220.ms, delay: (40 * i).ms)
@@ -101,5 +107,17 @@ class _NotificationsBody extends StatelessWidget {
         },
       ),
     );
+  }
+
+  /// يفتح وجهة الإشعار **داخل التطبيق** (مش في المتصفح).
+  /// الـ action_url جاي من الباك كرابط ويب كامل، فبنستخرج منه المسار.
+  void _openDestination(BuildContext context, AppNotification n) {
+    final auctionId = n.auctionId;
+    if (auctionId != null) {
+      context.push('${Routes.auctionDetail}/$auctionId');
+    } else if (n.pointsToAppeals) {
+      context.push(Routes.appeals);
+    }
+    // مفيش وجهة معروفة → نكتفي بتعليمه كمقروء.
   }
 }

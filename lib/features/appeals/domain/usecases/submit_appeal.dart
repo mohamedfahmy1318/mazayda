@@ -16,17 +16,17 @@ class SubmitAppeal implements UseCase<Unit, SubmitAppealParams> {
   @override
   Future<Either<Failure, Unit>> call(SubmitAppealParams params) =>
       repository.submitAppeal(
+        auctionId: params.auctionId,
         subject: params.subject,
         reason: params.reason,
-        auctionId: params.auctionId,
       );
 }
 
 @freezed
 class SubmitAppealParams with _$SubmitAppealParams {
   const factory SubmitAppealParams({
+    required String auctionId, // مطلوب — الطعن دايمًا على مزاد
     required String subject,
     required String reason,
-    String? auctionId, // اختياري
   }) = _SubmitAppealParams;
 }

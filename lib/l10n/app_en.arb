@@ -1,14 +1,11 @@
 {
   "@@locale": "en",
   "appName": "Mazayada",
-
   "navHome": "Home",
   "navMyAuctions": "My Auctions",
   "navPayments": "Payments",
   "navProfile": "Profile",
-
   "splashTagline": "National Public Auctions Platform",
-
   "login": "Login",
   "loginButton": "Sign in",
   "register": "Create Account",
@@ -16,6 +13,8 @@
   "ninOrEmail": "NIN or email",
   "password": "Password",
   "confirmPassword": "Confirm password",
+  "birthDate": "Date of birth",
+  "selectBirthDate": "Select date of birth",
   "nin": "National ID Number (NIN)",
   "ninHint": "18 digits",
   "firstName": "First name",
@@ -23,20 +22,26 @@
   "phone": "Phone number",
   "email": "Email",
   "nextVerify": "Next — Verify",
-
   "verifyEmailTitle": "Email Verification",
   "otpHint": "Enter the 6-digit code sent to your email",
   "confirm": "Confirm",
   "resendCode": "Resend code",
   "resendIn": "Resend in {seconds}s",
   "@resendIn": {
-    "placeholders": { "seconds": { "type": "int" } }
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
   "resendInTimer": "Resend in {time}",
   "@resendInTimer": {
-    "placeholders": { "time": { "type": "String" } }
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   },
-
   "activeAuctions": "Active Auctions",
   "noAuctions": "No auctions available",
   "currentPrice": "Current price",
@@ -45,7 +50,11 @@
   "depositRequired": "Deposit required",
   "bidders": "{count} bidders",
   "@bidders": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "live": "Live",
   "comingSoon": "Soon",
@@ -53,7 +62,6 @@
   "ended": "Ended",
   "cancelled": "Cancelled",
   "description": "Description",
-
   "auctionsTitle": "Auctions",
   "searchAuctionHint": "Search for an auction...",
   "filter": "Filter",
@@ -62,11 +70,13 @@
   "filterStatusUpcoming": "Upcoming",
   "filterStatusExtended": "Extended",
   "filterStatusClosed": "Closed",
-  "auctionTypeSale": "Sale",
-  "auctionTypeLease": "Lease",
   "auctionsCount": "{count} auctions",
   "@auctionsCount": {
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "clearAll": "Clear all",
   "noMoreResults": "— No more results —",
@@ -82,7 +92,6 @@
   "noWilayaMatch": "No wilaya by that name",
   "reset": "Reset",
   "showResults": "Show results",
-
   "registerAndPay": "Register & Pay",
   "bid": "Bid",
   "liveBidding": "Live Bidding",
@@ -91,15 +100,22 @@
   "youAreHighest": "You have the highest bid",
   "placeBidAmount": "Bid {amount}",
   "@placeBidAmount": {
-    "placeholders": { "amount": { "type": "String" } }
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   },
   "currentHighestBid": "Current highest bid",
   "currencyDzd": "DA",
   "bidsCount": "{count} bids",
   "@bidsCount": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "kycTitle": "Identity Verification (KYC)",
   "kycWarning": "Complete the form within 30 days or your account will be suspended",
   "requiredDocuments": "Required documents",
@@ -117,7 +133,11 @@
   "kycStatusRejected": "Rejected",
   "kycStatusLabel": "Status: {status}",
   "@kycStatusLabel": {
-    "placeholders": { "status": { "type": "String" } }
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
   },
   "firstNameFr": "First name (French)",
   "lastNameFr": "Last name (French)",
@@ -127,45 +147,56 @@
   "expectedIncome": "Expected monthly income",
   "idNumber": "ID card number",
   "commune": "Commune",
-
   "myAuctionsActive": "Active",
   "myAuctionsWon": "Won",
   "myAuctionsLost": "Lost",
   "myAuctionsUpcoming": "Upcoming",
-
-  "myAuctionsStatusWinning": "You're the highest",
-  "myAuctionsStatusOutbid": "You've been outbid",
   "myAuctionsStatusAwaitingPayment": "Awaiting payment",
   "myAuctionsStatusCompleted": "Completed",
   "myAuctionsStatusRefund": "Deposit refunded",
   "myAuctionsStatusUpcoming": "Not started yet",
-
+  "myAuctionsStatusLive": "Live now",
+  "myAuctionsStatusEnded": "Ended — awaiting result",
+  "myAuctionsStatusParticipating": "Registered",
+  "myAuctionsStatusWinning": "You lead",
+  "myAuctionsStatusOutbid": "You were outbid",
+  "myAuctionsStatusWon": "You won",
+  "myAuctionsStatusLost": "Not won",
   "myAuctionsPriceCurrentBid": "Your current bid",
   "myAuctionsPriceKnockdown": "Knockdown price",
   "myAuctionsPriceFinal": "Final price",
-
   "myAuctionsEmptyActive": "No active auctions",
   "myAuctionsEmptyWon": "You haven't won any auction yet",
   "myAuctionsEmptyLost": "No lost auctions",
   "myAuctionsEmptyUpcoming": "No upcoming auctions",
-
   "notifications": "Notifications",
   "markAllRead": "Mark all",
   "noNotifications": "No notifications",
   "timeNow": "Now",
   "timeMinutesAgo": "{minutes} min ago",
   "@timeMinutesAgo": {
-    "placeholders": { "minutes": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   },
   "timeHoursAgo": "{hours} h ago",
   "@timeHoursAgo": {
-    "placeholders": { "hours": { "type": "int" } }
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
   },
   "timeDaysAgo": "{days} d ago",
   "@timeDaysAgo": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
-
   "profile": "Profile",
   "verifiedKyc": "Verified — KYC complete",
   "kycBadgeRejected": "Rejected — verify again",
@@ -179,30 +210,33 @@
   "profession": "Profession",
   "address": "Address",
   "postalCode": "Postal code",
-
   "languageArabic": "Arabic",
   "languageFrench": "French",
   "languageEnglish": "English",
   "chooseLanguage": "Choose language",
-
   "retry": "Retry",
   "errorGeneric": "An error occurred, please try again",
   "errorNetwork": "Check your internet connection",
   "paymentSuccess": "Payment successful",
   "paymentCancelled": "Payment cancelled",
+  "paymentAlreadyDone": "You are already registered for this auction — you can bid",
+  "paymentNotConfirmed": "The payment confirmation has not arrived yet. If you paid, wait a moment and try again.",
+  "paymentBookNotConfirmed": "The condition-book purchase has not been confirmed yet. If you paid, wait a moment and try again.",
   "securePayment": "Secure payment",
-
+  "paymentPageFailed": "Could not load the payment page",
   "valRequired": "This field is required",
   "valEmailInvalid": "Invalid email",
   "valPasswordShort": "Password must be at least 12 characters",
+  "valPasswordMixedCase": "Must contain an uppercase and a lowercase letter",
+  "valPasswordNumber": "Must contain at least one number",
+  "valPasswordSymbol": "Must contain at least one symbol",
+  "valBirthDateUnder18": "You must be at least 18 years old",
   "valPasswordMismatch": "Passwords do not match",
   "valNinInvalid": "NIN must be 18 digits",
   "valPhoneInvalid": "Invalid phone (10 digits starting with 0)",
   "valNameShort": "Name too short",
-
   "offlineBanner": "No internet connection",
   "backOnline": "Connection restored",
-
   "appealsTitle": "Appeals",
   "appealsEmpty": "No appeals",
   "appealSubmitted": "Your appeal has been submitted",
@@ -214,6 +248,184 @@
   "appealReasonHint": "Explain the reason for your appeal in detail...",
   "submitAppeal": "Send appeal",
   "appealStatusPending": "Under review",
-  "appealStatusAnswered": "Answered",
-  "appealStatusRejected": "Rejected"
+  "appealStatusApproved": "Approved",
+  "appealStatusRejected": "Rejected",
+  "appealFileFromAuction": "Appeals are filed from the auction page after it closes — open an auction you took part in, then choose “File an appeal”.",
+  "ctaLogin": "Sign in to take part",
+  "ctaParticipate": "Take part in the auction",
+  "ctaNeedsKyc": "Complete your account verification",
+  "ctaNeedsCommerceRegister": "Commercial register required",
+  "ctaCommerceRegisterHint": "This auction requires a valid commercial register before any payment. Add it on the platform, then come back.",
+  "ctaBuyBook": "Buy the condition book",
+  "ctaFinalPayment": "Make the final payment",
+  "ctaFinalPaymentDone": "Final payment completed",
+  "ctaAppeal": "File an appeal",
+  "ctaTrackAppeal": "Track the appeal",
+  "crTitle": "Commercial register",
+  "crIntro": "Some auctions require a valid commercial register. Submit your details plus a copy of the register and the tax card for review.",
+  "crStatusNone": "No register submitted yet",
+  "crStatusPending": "Under review",
+  "crStatusApproved": "Approved",
+  "crStatusRejected": "Rejected",
+  "crApprovedNote": "Your register is approved — you can take part in auctions that require one.",
+  "crPendingNote": "Your submission is under review. You can edit and resend it before a decision is made.",
+  "crRejectedNote": "Submission rejected. Correct the details and resend.",
+  "crCompanyName": "Company name",
+  "crRegisterNumber": "Commercial register number",
+  "crTaxNumber": "Tax number",
+  "crActivityType": "Activity type",
+  "crStartDate": "Register issue date",
+  "crStartDateNotFuture": "The issue date cannot be in the future",
+  "crFileTooLarge": "File exceeds 2 MB",
+  "crRegisterDocument": "Commercial register scan",
+  "crTaxCardDocument": "Tax card scan",
+  "crDocumentSelected": "New file selected",
+  "crDocumentOnFile": "Copy stored on the platform",
+  "crDocumentMissing": "Required",
+  "crCapture": "Take photo",
+  "crFromGallery": "From gallery",
+  "crFromFiles": "PDF file",
+  "crSubmit": "Submit for review",
+  "crResubmit": "Resend",
+  "crSubmitted": "Register submitted for review",
+  "valTooLong": "Text is longer than allowed",
+  "fpTitle": "Final payment breakdown",
+  "fpConfirmedDeposit": "Deposit paid (deducted)",
+  "fpAmountDue": "Amount due",
+  "fpCustomsImmediate": "Immediate payment (20% customs)",
+  "fpDeadline": "Payment deadline: {date} (within {days} days)",
+  "@fpDeadline": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "fpAlreadyPaid": "The final payment has already been made",
+  "fpPay": "Proceed to payment",
+  "assetClassMovable": "Movable",
+  "assetClassRealEstate": "Real estate",
+  "assetClassCustoms": "Customs goods",
+  "conditionNew": "New",
+  "conditionGood": "Good",
+  "conditionFair": "Fair",
+  "conditionPoor": "Poor",
+  "conditionScrap": "Scrap",
+  "auctionTypeSale": "Sale",
+  "auctionTypeLease": "Lease",
+  "adSpecifications": "Specifications",
+  "adPricing": "Prices and fees",
+  "adBookPrice": "Condition book",
+  "adAssetInfo": "Asset details",
+  "adAuctionType": "Auction type",
+  "adAssetClass": "Asset class",
+  "adCondition": "Condition",
+  "adUnitCount": "Unit count",
+  "adRequiresCr": "Commercial register required",
+  "adRequiresNewspaper": "Newspaper announcement",
+  "adYes": "Yes",
+  "adSchedule": "Schedule",
+  "adStartTime": "Auction start",
+  "adEndTime": "Auction end",
+  "adExtensions": "Extensions",
+  "adLocation": "Location",
+  "adCommune": "Commune",
+  "adMayor": "Mayor",
+  "adOpenMap": "Open in Maps",
+  "adInspection": "Inspection",
+  "adInspectionState": "Inspection status",
+  "adInspectionOpen": "Open now",
+  "adInspectionClosed": "Closed",
+  "adFrom": "From",
+  "adTo": "To",
+  "adInspectionPlace": "Inspection venue",
+  "adLease": "Lease terms",
+  "adLeaseDuration": "Duration (years)",
+  "adLeaseRenewals": "Renewals",
+  "adTerms": "Terms",
+  "adConditionTerms": "Participation terms",
+  "adAwardTerms": "Award terms",
+  "adResult": "Auction result",
+  "adWinner": "Winner",
+  "adNoWinner": "No winner",
+  "adFinalPrice": "Final price",
+  "adAppealWindow": "Appeal window",
+  "adAppealOpen": "Open ({days} days)",
+  "@adAppealOpen": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "adAppealClosed": "Expired",
+  "kycFileTooLarge": "File exceeds {maxKb} KB — try a smaller image",
+  "@kycFileTooLarge": {
+    "placeholders": {
+      "maxKb": {
+        "type": "int"
+      }
+    }
+  },
+  "docsTitle": "My documents",
+  "docsSearchHint": "Search by auction or document",
+  "docsTotal": "Total",
+  "docsBooks": "Books",
+  "docsAwards": "Awards",
+  "docsReceipts": "Receipts",
+  "docsFilters": "Filter documents",
+  "docsType": "Document type",
+  "docsPeriod": "Period",
+  "docsSort": "Sort",
+  "docsApply": "Apply",
+  "docsClearFilters": "Clear all",
+  "docTypeConditionBook": "Condition book",
+  "docTypeAward": "Award document",
+  "docTypeReceipt": "Payment receipt",
+  "docTypeDelivery": "Delivery report",
+  "docsPresetAll": "All",
+  "docsPresetToday": "Today",
+  "docsPreset7d": "Last 7 days",
+  "docsPreset30d": "Last 30 days",
+  "docsPresetMonth": "This month",
+  "docsPresetYear": "This year",
+  "docsSortRecent": "Newest",
+  "docsSortOldest": "Oldest",
+  "docsSortAuction": "By auction",
+  "docsEmpty": "No documents yet — documents from auctions you take part in appear here",
+  "docsNoResults": "No documents match the filters",
+  "docsVerify": "Verify",
+  "docsCannotOpen": "Could not open the file — no PDF viewer installed",
+  "adAwardDocument": "Award document",
+  "adDownloadAward": "Download award document",
+  "forgotPassword": "Forgot your password?",
+  "forgotPasswordTitle": "Reset password",
+  "recoverAccountTitle": "Recover with secret question",
+  "recoverWithSecret": "Recover with secret question",
+  "forgotPasswordHint": "Enter your NIN and registered email and we will send a reset code.",
+  "recoverAccountHint": "Enter your NIN and registered email to see your secret question.",
+  "sendCode": "Send code",
+  "showQuestion": "Show question",
+  "codeSentHint": "If an account exists for {email}, a 6-digit code has just been sent to it.",
+  "@codeSentHint": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otpCode": "Verification code",
+  "secretAnswer": "Secret answer",
+  "secretAnswerHint": "The answer is case- and space-sensitive — type it exactly as you registered it.",
+  "newPassword": "New password",
+  "setNewPassword": "Set password",
+  "recoveryDone": "Password changed — sign in with your new password",
+  "secretQMotherMaiden": "What is your mother's maiden name?",
+  "secretQFirstSchool": "What was the name of your first school?",
+  "secretQBirthCity": "In which city were you born?",
+  "secretQPetName": "What was your first pet's name?",
+  "secretQFavTeacher": "Who was your favourite teacher?"
 }

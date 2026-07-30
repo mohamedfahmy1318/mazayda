@@ -6,6 +6,11 @@ import '../../domain/entities/app_notification.dart';
 /// شكل الإشعار الدلالي (لون النص/الخلفية + الأيقونة) حسب نوعه — طبقة العرض.
 typedef NotificationStyle = ({Color fg, Color bg, IconData icon});
 
+/// شكل الإشعار حسب تصنيفه.
+///
+/// التصنيفات الدلالية (فزت / تفوّق عليك / استرداد …) بتتفعّل بس لما الباك
+/// يبعت `type` (طلب BE-2). لحد ساعتها بيتشتقّ التصنيف من وجهة الرابط،
+/// فبتتعرض أيقونة المزاد/الطعن/العام.
 extension NotificationKindStyle on NotificationKind {
   NotificationStyle get style => switch (this) {
     NotificationKind.won => (
@@ -16,27 +21,32 @@ extension NotificationKindStyle on NotificationKind {
     NotificationKind.outbid => (
       fg: AppColors.danger,
       bg: AppColors.dangerBg,
-      icon: Icons.arrow_downward,
+      icon: Icons.trending_down,
+    ),
+    NotificationKind.lost => (
+      fg: AppColors.neutral,
+      bg: AppColors.neutralBg,
+      icon: Icons.do_not_disturb_alt,
     ),
     NotificationKind.refund => (
       fg: AppColors.info,
       bg: AppColors.infoBg,
       icon: Icons.replay,
     ),
-    NotificationKind.newAuction => (
+    NotificationKind.payment => (
       fg: AppColors.success,
+      bg: AppColors.successBg,
+      icon: Icons.credit_card,
+    ),
+    NotificationKind.auction => (
+      fg: AppColors.primary,
       bg: AppColors.successBg,
       icon: Icons.gavel,
     ),
-    NotificationKind.reminder => (
-      fg: AppColors.neutral,
-      bg: AppColors.neutralBg,
-      icon: Icons.schedule,
-    ),
-    NotificationKind.payment => (
-      fg: AppColors.danger,
-      bg: AppColors.dangerBg,
-      icon: Icons.credit_card,
+    NotificationKind.appeal => (
+      fg: AppColors.info,
+      bg: AppColors.infoBg,
+      icon: Icons.balance,
     ),
     NotificationKind.generic => (
       fg: AppColors.neutral,

@@ -1,8 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
-import '../../domain/entities/auction.dart';
+import '../../../../core/usecase/paged.dart';
+import '../../domain/entities/auction_list_item.dart';
+import '../../domain/entities/auction_viewer.dart';
 import '../../domain/repositories/auction_repository.dart';
 import '../datasources/auction_remote_data_source.dart';
 
@@ -16,7 +19,7 @@ class AuctionRepositoryImpl implements AuctionRepository {
   AuctionRepositoryImpl(this.remote);
 
   @override
-  Future<Either<Failure, List<Auction>>> getAuctions({
+  Future<Either<Failure, Paged<AuctionListItem>>> getAuctions({
     String? query,
     String? category,
     int? wilaya,
@@ -26,7 +29,7 @@ class AuctionRepositoryImpl implements AuctionRepository {
     int perPage = 12,
   }) async {
     return _guard(() async {
-      final models = await remote.getAuctions(
+      final raw = await remote.getAuctions(
         query: query,
         category: category,
         wilaya: wilaya,
@@ -35,15 +38,23 @@ class AuctionRepositoryImpl implements AuctionRepository {
         page: page,
         perPage: perPage,
       );
-      return models.map((m) => m.toEntity()).toList();
+      return Paged<AuctionListItem>(
+        items: raw.items.map((m) => m.toEntity()).toList(),
+        currentPage: raw.page.currentPage,
+        lastPage: raw.page.lastPage,
+        total: raw.page.total,
+      );
     });
   }
 
   @override
-  Future<Either<Failure, Auction>> getAuctionById(String id) async {
+  Future<Either<Failure, AuctionDetail>> getAuctionById(String id) async {
     return _guard(() async {
-      final model = await remote.getAuctionById(id);
-      return model.toEntity();
+      final raw = await remote.getAuctionById(id);
+      return AuctionDetail(
+        auction: raw.auction.toEntity(),
+        viewer: raw.viewer?.toEntity(),
+      );
     });
   }
 
@@ -57,13 +68,7 @@ class AuctionRepositoryImpl implements AuctionRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(
-        Failure.server(
-          message: e.message,
-          statusCode: e.statusCode,
-          errors: e.errors,
-        ),
-      );
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

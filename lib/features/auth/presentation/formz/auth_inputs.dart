@@ -18,19 +18,70 @@ class EmailInput extends FormzInput<String, EmailError> {
   }
 }
 
-enum PasswordError { empty, tooShort }
+enum PasswordError { empty }
 
+/// كلمة المرور عند **تسجيل الدخول** — نتحقق فقط إنها مش فاضية.
+/// متعمّد: العميل ما يفرضش قواعد التعقيد على الدخول، لأن الباك بيخفّف
+/// القاعدة لـ Password::min(8) خارج الـ production، فحساب قديم أو متعمل
+/// في بيئة تانية لازم يفضل قادر يسجّل دخول.
 class PasswordInput extends FormzInput<String, PasswordError> {
   const PasswordInput.pure() : super.pure('');
   const PasswordInput.dirty([super.value = '']) : super.dirty();
 
   @override
-  PasswordError? validator(String value) {
-    if (value.isEmpty) return PasswordError.empty;
+  PasswordError? validator(String value) =>
+      value.isEmpty ? PasswordError.empty : null;
+}
+
+enum NewPasswordError { empty, tooShort, needsMixedCase, needsNumber, needsSymbol }
+
+/// كلمة مرور **جديدة** (تسجيل / إعادة تعيين) — تطابق Password::defaults()
+/// في الـ production: min(12)->mixedCase()->numbers()->symbols()->uncompromised().
+/// ملاحظة: شرط uncompromised (كلمة سر مسرّبة) بيتحقق منه السيرفر فقط.
+class NewPasswordInput extends FormzInput<String, NewPasswordError> {
+  const NewPasswordInput.pure() : super.pure('');
+  const NewPasswordInput.dirty([super.value = '']) : super.dirty();
+
+  static final _upper = RegExp(r'[A-Z]');
+  static final _lower = RegExp(r'[a-z]');
+  static final _digit = RegExp(r'[0-9]');
+  static final _symbol = RegExp(r'[^A-Za-z0-9]');
+
+  @override
+  NewPasswordError? validator(String value) {
+    if (value.isEmpty) return NewPasswordError.empty;
     if (value.length < AuthConstants.minPasswordLength) {
-      return PasswordError.tooShort;
+      return NewPasswordError.tooShort;
     }
+    if (!_upper.hasMatch(value) || !_lower.hasMatch(value)) {
+      return NewPasswordError.needsMixedCase;
+    }
+    if (!_digit.hasMatch(value)) return NewPasswordError.needsNumber;
+    if (!_symbol.hasMatch(value)) return NewPasswordError.needsSymbol;
     return null;
+  }
+}
+
+enum BirthDateError { empty, under18 }
+
+/// تاريخ الميلاد بصيغة YYYY-MM-DD — نفس قاعدة الـ API:
+/// required|date|before:(اليوم - 18 سنة).
+class BirthDateInput extends FormzInput<String, BirthDateError> {
+  const BirthDateInput.pure() : super.pure('');
+  const BirthDateInput.dirty([super.value = '']) : super.dirty();
+
+  @override
+  BirthDateError? validator(String value) {
+    if (value.isEmpty) return BirthDateError.empty;
+    final date = DateTime.tryParse(value);
+    if (date == null) return BirthDateError.empty;
+    final now = DateTime.now();
+    final cutoff = DateTime(
+      now.year - AuthConstants.minAgeYears,
+      now.month,
+      now.day,
+    );
+    return date.isBefore(cutoff) ? null : BirthDateError.under18;
   }
 }
 

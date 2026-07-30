@@ -1,14 +1,11 @@
 {
   "@@locale": "ar",
   "appName": "مزايدة",
-
   "navHome": "الرئيسية",
   "navMyAuctions": "مزايداتي",
   "navPayments": "المدفوعات",
   "navProfile": "حسابي",
-
   "splashTagline": "المنصة الوطنية للمزادات الحكومية",
-
   "login": "تسجيل الدخول",
   "loginButton": "دخول",
   "register": "إنشاء حساب",
@@ -16,6 +13,8 @@
   "ninOrEmail": "رقم التعريف أو البريد",
   "password": "كلمة المرور",
   "confirmPassword": "تأكيد كلمة المرور",
+  "birthDate": "تاريخ الميلاد",
+  "selectBirthDate": "اختر تاريخ الميلاد",
   "nin": "رقم التعريف الوطني (NIN)",
   "ninHint": "18 رقم",
   "firstName": "الاسم",
@@ -23,20 +22,26 @@
   "phone": "رقم الهاتف",
   "email": "البريد الإلكتروني",
   "nextVerify": "التالي — التحقق",
-
   "verifyEmailTitle": "تأكيد البريد الإلكتروني",
   "otpHint": "أدخل الرمز المكوّن من 6 أرقام المرسل إلى بريدك",
   "confirm": "تأكيد",
   "resendCode": "إعادة إرسال الرمز",
   "resendIn": "إعادة الإرسال خلال {seconds} ثانية",
   "@resendIn": {
-    "placeholders": { "seconds": { "type": "int" } }
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
   "resendInTimer": "إعادة الإرسال خلال {time}",
   "@resendInTimer": {
-    "placeholders": { "time": { "type": "String" } }
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   },
-
   "activeAuctions": "المزادات النشطة",
   "noAuctions": "لا توجد مزادات حاليًا",
   "currentPrice": "السعر الحالي",
@@ -45,7 +50,11 @@
   "depositRequired": "التأمين المطلوب",
   "bidders": "{count} مزايد",
   "@bidders": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "live": "مباشر",
   "comingSoon": "قريبًا",
@@ -53,7 +62,6 @@
   "ended": "منتهٍ",
   "cancelled": "ملغى",
   "description": "الوصف",
-
   "auctionsTitle": "المزادات",
   "searchAuctionHint": "ابحث عن مزاد...",
   "filter": "تصفية",
@@ -62,11 +70,13 @@
   "filterStatusUpcoming": "قادم",
   "filterStatusExtended": "مُمدّد",
   "filterStatusClosed": "مُغلق",
-  "auctionTypeSale": "بيع",
-  "auctionTypeLease": "إيجار",
   "auctionsCount": "{count} مزاد",
   "@auctionsCount": {
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "clearAll": "مسح الكل",
   "noMoreResults": "— لا مزيد من النتائج —",
@@ -82,7 +92,6 @@
   "noWilayaMatch": "لا توجد ولاية بهذا الاسم",
   "reset": "إعادة تعيين",
   "showResults": "عرض النتائج",
-
   "registerAndPay": "تسجيل ودفع",
   "bid": "مزايدة",
   "liveBidding": "المزاد المباشر",
@@ -91,15 +100,22 @@
   "youAreHighest": "أنت صاحب أعلى مزايدة",
   "placeBidAmount": "زايد بـ {amount}",
   "@placeBidAmount": {
-    "placeholders": { "amount": { "type": "String" } }
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   },
   "currentHighestBid": "أعلى مزايدة حالية",
   "currencyDzd": "دج",
   "bidsCount": "{count} مزايدة",
   "@bidsCount": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "kycTitle": "التحقق من الهوية (KYC)",
   "kycWarning": "أكمل النموذج خلال 30 يومًا وإلا سيُعلَّق الحساب",
   "requiredDocuments": "المستندات المطلوبة",
@@ -117,7 +133,11 @@
   "kycStatusRejected": "مرفوض",
   "kycStatusLabel": "الحالة: {status}",
   "@kycStatusLabel": {
-    "placeholders": { "status": { "type": "String" } }
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
   },
   "firstNameFr": "الاسم بالفرنسية",
   "lastNameFr": "اللقب بالفرنسية",
@@ -127,45 +147,56 @@
   "expectedIncome": "الدخل الشهري المتوقع",
   "idNumber": "رقم بطاقة الهوية",
   "commune": "البلدية",
-
   "myAuctionsActive": "نشطة",
   "myAuctionsWon": "رابحة",
   "myAuctionsLost": "خاسرة",
   "myAuctionsUpcoming": "قادمة",
-
-  "myAuctionsStatusWinning": "أنت الأعلى",
-  "myAuctionsStatusOutbid": "تمت المزايدة عليك",
   "myAuctionsStatusAwaitingPayment": "بانتظار الدفع",
   "myAuctionsStatusCompleted": "مكتمل",
   "myAuctionsStatusRefund": "تم استرداد التأمين",
   "myAuctionsStatusUpcoming": "لم يبدأ بعد",
-
+  "myAuctionsStatusLive": "جارٍ الآن",
+  "myAuctionsStatusEnded": "انتهى — بانتظار النتيجة",
+  "myAuctionsStatusParticipating": "مشارِك",
+  "myAuctionsStatusWinning": "أنت الأعلى",
+  "myAuctionsStatusOutbid": "تم تجاوزك",
+  "myAuctionsStatusWon": "فزت بالمزاد",
+  "myAuctionsStatusLost": "لم تفز",
   "myAuctionsPriceCurrentBid": "مزايدتك الحالية",
   "myAuctionsPriceKnockdown": "سعر الرسو",
   "myAuctionsPriceFinal": "السعر النهائي",
-
   "myAuctionsEmptyActive": "لا توجد مزادات نشطة",
   "myAuctionsEmptyWon": "لم تربح أي مزاد بعد",
   "myAuctionsEmptyLost": "لا توجد مزادات خاسرة",
   "myAuctionsEmptyUpcoming": "لا توجد مزادات قادمة",
-
   "notifications": "الإشعارات",
   "markAllRead": "تعليم الكل",
   "noNotifications": "لا توجد إشعارات",
   "timeNow": "الآن",
   "timeMinutesAgo": "منذ {minutes} دقيقة",
   "@timeMinutesAgo": {
-    "placeholders": { "minutes": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   },
   "timeHoursAgo": "منذ {hours} ساعة",
   "@timeHoursAgo": {
-    "placeholders": { "hours": { "type": "int" } }
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
   },
   "timeDaysAgo": "منذ {days} يوم",
   "@timeDaysAgo": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
-
   "profile": "الملف الشخصي",
   "verifiedKyc": "موثّق — KYC مكتمل",
   "kycBadgeRejected": "مرفوض — أعد التحقق",
@@ -179,30 +210,33 @@
   "profession": "المهنة",
   "address": "العنوان",
   "postalCode": "الرمز البريدي",
-
   "languageArabic": "العربية",
   "languageFrench": "الفرنسية",
   "languageEnglish": "الإنجليزية",
   "chooseLanguage": "اختر اللغة",
-
   "retry": "إعادة المحاولة",
   "errorGeneric": "حدث خطأ، حاول مجددًا",
   "errorNetwork": "تحقق من اتصالك بالإنترنت",
   "paymentSuccess": "تم الدفع بنجاح",
   "paymentCancelled": "تم إلغاء الدفع",
+  "paymentAlreadyDone": "أنت مسجّل بالفعل في هذا المزاد — يمكنك المزايدة",
+  "paymentNotConfirmed": "لم يصلنا تأكيد الدفع بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.",
+  "paymentBookNotConfirmed": "لم يصلنا تأكيد شراء كراسة الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.",
   "securePayment": "الدفع الآمن",
-
+  "paymentPageFailed": "تعذّر فتح صفحة الدفع",
   "valRequired": "هذا الحقل مطلوب",
   "valEmailInvalid": "بريد إلكتروني غير صالح",
   "valPasswordShort": "كلمة المرور 12 حرفًا على الأقل",
+  "valPasswordMixedCase": "يجب أن تحتوي على حرف كبير وآخر صغير",
+  "valPasswordNumber": "يجب أن تحتوي على رقم واحد على الأقل",
+  "valPasswordSymbol": "يجب أن تحتوي على رمز واحد على الأقل",
+  "valBirthDateUnder18": "يجب ألا يقل عمرك عن 18 سنة",
   "valPasswordMismatch": "كلمتا المرور غير متطابقتين",
   "valNinInvalid": "رقم التعريف يجب أن يكون 18 رقمًا",
   "valPhoneInvalid": "رقم هاتف غير صالح (10 أرقام تبدأ بـ 0)",
   "valNameShort": "الاسم قصير جدًا",
-
   "offlineBanner": "لا يوجد اتصال بالإنترنت",
   "backOnline": "تم استعادة الاتصال",
-
   "appealsTitle": "الاعتراضات",
   "appealsEmpty": "لا توجد اعتراضات",
   "appealSubmitted": "تم إرسال اعتراضك",
@@ -214,6 +248,184 @@
   "appealReasonHint": "اشرح سبب الاعتراض بالتفصيل...",
   "submitAppeal": "إرسال الاعتراض",
   "appealStatusPending": "قيد المراجعة",
-  "appealStatusAnswered": "تمت الإجابة",
-  "appealStatusRejected": "مرفوض"
+  "appealStatusApproved": "مقبول",
+  "appealStatusRejected": "مرفوض",
+  "appealFileFromAuction": "يُقدَّم الطعن من صفحة المزاد بعد إغلاقه — افتح المزاد الذي شاركت فيه ثم اختر «تقديم طعن».",
+  "ctaLogin": "سجّل الدخول للمشاركة",
+  "ctaParticipate": "المشاركة في المزاد",
+  "ctaNeedsKyc": "أكمل توثيق حسابك",
+  "ctaNeedsCommerceRegister": "يتطلب سجلاً تجاريًا",
+  "ctaCommerceRegisterHint": "هذا المزاد يتطلب سجلاً تجاريًا ساريًا قبل أي دفع. أضِفه من المنصّة ثم عُد للتطبيق.",
+  "ctaBuyBook": "شراء كراس الشروط",
+  "ctaFinalPayment": "إتمام الدفع النهائي",
+  "ctaFinalPaymentDone": "تم الدفع النهائي",
+  "ctaAppeal": "تقديم طعن",
+  "ctaTrackAppeal": "متابعة الطعن",
+  "crTitle": "السجل التجاري",
+  "crIntro": "بعض المزادات تشترط سجلاً تجاريًا ساريًا للمشاركة. قدّم بياناتك ونسخة من السجل والبطاقة الجبائية للمراجعة.",
+  "crStatusNone": "لم تقدّم سجلاً بعد",
+  "crStatusPending": "قيد المراجعة",
+  "crStatusApproved": "معتمد",
+  "crStatusRejected": "مرفوض",
+  "crApprovedNote": "سجلك معتمد — يمكنك المشاركة في المزادات التي تشترط سجلاً تجاريًا.",
+  "crPendingNote": "طلبك قيد المراجعة. يمكنك تعديل البيانات وإعادة الإرسال قبل صدور القرار.",
+  "crRejectedNote": "تم رفض الطلب. صحّح البيانات وأعد الإرسال.",
+  "crCompanyName": "اسم الشركة",
+  "crRegisterNumber": "رقم السجل التجاري",
+  "crTaxNumber": "الرقم الجبائي",
+  "crActivityType": "نوع النشاط",
+  "crStartDate": "تاريخ إصدار السجل",
+  "crStartDateNotFuture": "تاريخ الإصدار لا يمكن أن يكون في المستقبل",
+  "crFileTooLarge": "حجم الملف يتجاوز 2 ميغابايت",
+  "crRegisterDocument": "نسخة السجل التجاري",
+  "crTaxCardDocument": "نسخة البطاقة الجبائية",
+  "crDocumentSelected": "تم اختيار ملف جديد",
+  "crDocumentOnFile": "نسخة محفوظة لدى المنصّة",
+  "crDocumentMissing": "مطلوب",
+  "crCapture": "تصوير",
+  "crFromGallery": "من المعرض",
+  "crFromFiles": "ملف PDF",
+  "crSubmit": "إرسال للمراجعة",
+  "crResubmit": "إعادة الإرسال",
+  "crSubmitted": "تم إرسال السجل للمراجعة",
+  "valTooLong": "النص أطول من المسموح",
+  "fpTitle": "تفصيل الدفع النهائي",
+  "fpConfirmedDeposit": "الكفالة المدفوعة (تُخصم)",
+  "fpAmountDue": "المبلغ المستحق",
+  "fpCustomsImmediate": "الدفعة الفورية (20% جمركي)",
+  "fpDeadline": "آخر أجل للدفع: {date} (خلال {days} يومًا)",
+  "@fpDeadline": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "fpAlreadyPaid": "تم الدفع النهائي بالفعل",
+  "fpPay": "إتمام الدفع",
+  "assetClassMovable": "منقول",
+  "assetClassRealEstate": "عقار",
+  "assetClassCustoms": "بضائع جمركية",
+  "conditionNew": "جديد",
+  "conditionGood": "جيد",
+  "conditionFair": "مقبول",
+  "conditionPoor": "ضعيف",
+  "conditionScrap": "خردة",
+  "auctionTypeSale": "بيع",
+  "auctionTypeLease": "إيجار",
+  "adSpecifications": "المواصفات",
+  "adPricing": "الأسعار والرسوم",
+  "adBookPrice": "كراسة شروط",
+  "adAssetInfo": "بيانات الأصل",
+  "adAuctionType": "نوع المزاد",
+  "adAssetClass": "صنف الأصل",
+  "adCondition": "الحالة",
+  "adUnitCount": "عدد الوحدات",
+  "adRequiresCr": "يتطلب سجلاً تجاريًا",
+  "adRequiresNewspaper": "إعلان في الجريدة",
+  "adYes": "نعم",
+  "adSchedule": "التوقيت",
+  "adStartTime": "بداية المزاد",
+  "adEndTime": "نهاية المزاد",
+  "adExtensions": "التمديدات",
+  "adLocation": "الموقع",
+  "adCommune": "البلدية",
+  "adMayor": "رئيس البلدية",
+  "adOpenMap": "فتح في الخرائط",
+  "adInspection": "المعاينة",
+  "adInspectionState": "حالة المعاينة",
+  "adInspectionOpen": "متاحة الآن",
+  "adInspectionClosed": "مغلقة",
+  "adFrom": "من",
+  "adTo": "إلى",
+  "adInspectionPlace": "مكان المعاينة",
+  "adLease": "شروط الإيجار",
+  "adLeaseDuration": "مدة الإيجار (سنوات)",
+  "adLeaseRenewals": "عدد التجديدات",
+  "adTerms": "الشروط",
+  "adConditionTerms": "شروط المشاركة",
+  "adAwardTerms": "شروط الترسية",
+  "adResult": "نتيجة المزاد",
+  "adWinner": "الفائز",
+  "adNoWinner": "لا يوجد فائز",
+  "adFinalPrice": "السعر النهائي",
+  "adAppealWindow": "مهلة الطعن",
+  "adAppealOpen": "مفتوحة ({days} يومًا)",
+  "@adAppealOpen": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "adAppealClosed": "منتهية",
+  "kycFileTooLarge": "حجم الملف يتجاوز {maxKb} كيلوبايت — جرّب صورة أصغر",
+  "@kycFileTooLarge": {
+    "placeholders": {
+      "maxKb": {
+        "type": "int"
+      }
+    }
+  },
+  "docsTitle": "وثائقي",
+  "docsSearchHint": "ابحث باسم المزاد أو الوثيقة",
+  "docsTotal": "الإجمالي",
+  "docsBooks": "كراسات",
+  "docsAwards": "ترسيات",
+  "docsReceipts": "إيصالات",
+  "docsFilters": "تصفية الوثائق",
+  "docsType": "نوع الوثيقة",
+  "docsPeriod": "الفترة",
+  "docsSort": "الترتيب",
+  "docsApply": "تطبيق",
+  "docsClearFilters": "مسح الكل",
+  "docTypeConditionBook": "كراسة الشروط",
+  "docTypeAward": "وثيقة الترسية",
+  "docTypeReceipt": "إيصال دفع",
+  "docTypeDelivery": "محضر تسليم",
+  "docsPresetAll": "الكل",
+  "docsPresetToday": "اليوم",
+  "docsPreset7d": "آخر 7 أيام",
+  "docsPreset30d": "آخر 30 يومًا",
+  "docsPresetMonth": "هذا الشهر",
+  "docsPresetYear": "هذه السنة",
+  "docsSortRecent": "الأحدث",
+  "docsSortOldest": "الأقدم",
+  "docsSortAuction": "حسب المزاد",
+  "docsEmpty": "لا توجد وثائق بعد — ستظهر هنا وثائق المزادات التي تشارك فيها",
+  "docsNoResults": "لا توجد وثائق مطابقة للتصفية",
+  "docsVerify": "تحقّق",
+  "docsCannotOpen": "تعذّر فتح الملف — لا يوجد تطبيق لعرض PDF",
+  "adAwardDocument": "وثيقة الترسية",
+  "adDownloadAward": "تحميل وثيقة الترسية",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
+  "recoverAccountTitle": "الاسترجاع بالسؤال السرّي",
+  "recoverWithSecret": "الاسترجاع بالسؤال السرّي",
+  "forgotPasswordHint": "أدخل رقم التعريف الوطني والبريد المسجّل، وسنرسل رمزًا لإعادة التعيين.",
+  "recoverAccountHint": "أدخل رقم التعريف الوطني والبريد المسجّل لعرض سؤالك السرّي.",
+  "sendCode": "إرسال الرمز",
+  "showQuestion": "عرض السؤال",
+  "codeSentHint": "إذا كان الحساب مسجّلاً بالبريد {email}، فقد أُرسل إليه رمز مكوّن من 6 أرقام.",
+  "@codeSentHint": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otpCode": "رمز التحقق",
+  "secretAnswer": "الإجابة السرّية",
+  "secretAnswerHint": "الإجابة حسّاسة للحروف الكبيرة والصغيرة والمسافات — اكتبها كما سجّلتها تمامًا.",
+  "newPassword": "كلمة المرور الجديدة",
+  "setNewPassword": "تعيين كلمة المرور",
+  "recoveryDone": "تم تغيير كلمة المرور — سجّل الدخول بكلمتك الجديدة",
+  "secretQMotherMaiden": "ما هو الاسم العائلي لوالدتك؟",
+  "secretQFirstSchool": "ما اسم أول مدرسة التحقت بها؟",
+  "secretQBirthCity": "في أي مدينة وُلدت؟",
+  "secretQPetName": "ما اسم أول حيوان أليف لديك؟",
+  "secretQFavTeacher": "من هو معلّمك المفضّل؟"
 }

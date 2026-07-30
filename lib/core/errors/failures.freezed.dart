@@ -24,6 +24,7 @@ mixin _$Failure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )
     server,
     required TResult Function(String message) network,
@@ -36,6 +37,7 @@ mixin _$Failure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult? Function(String message)? network,
@@ -48,6 +50,7 @@ mixin _$Failure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult Function(String message)? network,
@@ -132,6 +135,7 @@ abstract class _$$ServerFailureImplCopyWith<$Res>
     String message,
     int? statusCode,
     Map<String, List<String>>? errors,
+    String? code,
   });
 }
 
@@ -152,6 +156,7 @@ class __$$ServerFailureImplCopyWithImpl<$Res>
     Object? message = null,
     Object? statusCode = freezed,
     Object? errors = freezed,
+    Object? code = freezed,
   }) {
     return _then(
       _$ServerFailureImpl(
@@ -167,6 +172,10 @@ class __$$ServerFailureImplCopyWithImpl<$Res>
             ? _value._errors
             : errors // ignore: cast_nullable_to_non_nullable
                   as Map<String, List<String>>?,
+        code: freezed == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -179,6 +188,7 @@ class _$ServerFailureImpl implements ServerFailure {
     required this.message,
     this.statusCode,
     final Map<String, List<String>>? errors,
+    this.code,
   }) : _errors = errors;
 
   @override
@@ -195,9 +205,14 @@ class _$ServerFailureImpl implements ServerFailure {
     return EqualUnmodifiableMapView(value);
   }
 
+  // أخطاء التحقق {field: [msgs]}
+  // كود يتقري من الباك (BE-16) — null لو المسار لسه بيرجّع نص بس.
+  @override
+  final String? code;
+
   @override
   String toString() {
-    return 'Failure.server(message: $message, statusCode: $statusCode, errors: $errors)';
+    return 'Failure.server(message: $message, statusCode: $statusCode, errors: $errors, code: $code)';
   }
 
   @override
@@ -208,7 +223,8 @@ class _$ServerFailureImpl implements ServerFailure {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
-            const DeepCollectionEquality().equals(other._errors, _errors));
+            const DeepCollectionEquality().equals(other._errors, _errors) &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @override
@@ -217,6 +233,7 @@ class _$ServerFailureImpl implements ServerFailure {
     message,
     statusCode,
     const DeepCollectionEquality().hash(_errors),
+    code,
   );
 
   /// Create a copy of Failure
@@ -234,13 +251,14 @@ class _$ServerFailureImpl implements ServerFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )
     server,
     required TResult Function(String message) network,
     required TResult Function(String message) unauthorized,
     required TResult Function(String message) unexpected,
   }) {
-    return server(message, statusCode, errors);
+    return server(message, statusCode, errors, code);
   }
 
   @override
@@ -250,13 +268,14 @@ class _$ServerFailureImpl implements ServerFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult? Function(String message)? network,
     TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? unexpected,
   }) {
-    return server?.call(message, statusCode, errors);
+    return server?.call(message, statusCode, errors, code);
   }
 
   @override
@@ -266,6 +285,7 @@ class _$ServerFailureImpl implements ServerFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult Function(String message)? network,
@@ -274,7 +294,7 @@ class _$ServerFailureImpl implements ServerFailure {
     required TResult orElse(),
   }) {
     if (server != null) {
-      return server(message, statusCode, errors);
+      return server(message, statusCode, errors, code);
     }
     return orElse();
   }
@@ -322,12 +342,15 @@ abstract class ServerFailure implements Failure {
     required final String message,
     final int? statusCode,
     final Map<String, List<String>>? errors,
+    final String? code,
   }) = _$ServerFailureImpl;
 
   @override
   String get message;
   int? get statusCode;
-  Map<String, List<String>>? get errors;
+  Map<String, List<String>>? get errors; // أخطاء التحقق {field: [msgs]}
+  // كود يتقري من الباك (BE-16) — null لو المسار لسه بيرجّع نص بس.
+  String? get code;
 
   /// Create a copy of Failure
   /// with the given fields replaced by the non-null parameter values.
@@ -419,6 +442,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )
     server,
     required TResult Function(String message) network,
@@ -435,6 +459,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult? Function(String message)? network,
@@ -451,6 +476,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult Function(String message)? network,
@@ -598,6 +624,7 @@ class _$UnauthorizedFailureImpl implements UnauthorizedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )
     server,
     required TResult Function(String message) network,
@@ -614,6 +641,7 @@ class _$UnauthorizedFailureImpl implements UnauthorizedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult? Function(String message)? network,
@@ -630,6 +658,7 @@ class _$UnauthorizedFailureImpl implements UnauthorizedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult Function(String message)? network,
@@ -776,6 +805,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )
     server,
     required TResult Function(String message) network,
@@ -792,6 +822,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult? Function(String message)? network,
@@ -808,6 +839,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
       String message,
       int? statusCode,
       Map<String, List<String>>? errors,
+      String? code,
     )?
     server,
     TResult Function(String message)? network,

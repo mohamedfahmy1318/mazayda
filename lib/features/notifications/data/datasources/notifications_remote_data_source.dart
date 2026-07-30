@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
+import '../../../../core/network/api_response.dart';
 import '../models/notification_model.dart';
 
 abstract class NotificationsRemoteDataSource {
@@ -18,19 +19,14 @@ class NotificationsRemoteDataSourceImpl
   @override
   Future<({List<NotificationModel> items, int unreadCount})>
   getNotifications() async {
-    // الـ unread count في meta — نقرأه من الـ response الخام عبر Dio
-    final res = await client.dio.get(ApiConstants.notifications);
-    final body = res.data as Map<String, dynamic>;
-
-    final data = (body['data'] as List?) ?? [];
-    final items = data
-        .map((e) => NotificationModel.fromJson(e as Map<String, dynamic>))
-        .toList();
-
-    final meta = body['meta'] as Map<String, dynamic>?;
-    final unread = (meta?['unread_count'] as num?)?.toInt() ?? 0;
-
-    return (items: items, unreadCount: unread);
+    // getEnvelope بيحافظ على الـ meta (فيها unread_count + pagination).
+    // قبل كده كان الاستدعاء بيتم عبر Dio الخام، وده كان بيتخطّى تحويل
+    // أخطاء Dio لـ exceptions نظيفة — فأي فشل شبكة كان بيوصل كـ «خطأ غير متوقع».
+    final res = await client.getEnvelope(ApiConstants.notifications);
+    return (
+      items: Paginated.from(res, NotificationModel.fromJson).items,
+      unreadCount: res.metaInt('unread_count'),
+    );
   }
 
   @override

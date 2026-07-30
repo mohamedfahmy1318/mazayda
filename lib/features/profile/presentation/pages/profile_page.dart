@@ -4,6 +4,7 @@ import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/state_views.dart';
@@ -88,13 +89,35 @@ class _ProfileContent extends StatelessWidget {
                       label: t.email,
                       value: profile.email ?? '—',
                     ),
-                    if (profile.wilayaName != null)
+                    // الـ API مبيرجّعش اسم ولاية — العنوان النصي هو الحقل الحقيقي.
+                    if (profile.address?.isNotEmpty ?? false)
                       ProfileInfoRow(
                         icon: Icons.location_on_outlined,
                         label: t.address,
-                        value: profile.wilayaName!,
+                        value: profile.address!,
                       ),
                   ],
+                ),
+                Gap(16.h),
+                _ProfileNavRow(
+                  icon: Icons.folder_outlined,
+                  label: AppLocalizations.of(context).docsTitle,
+                  onTap: () => context.push(Routes.documents),
+                ),
+                Gap(10.h),
+                // مدخل السجل التجاري — عشان المستخدم يقدر يقدّمه استباقيًا
+                // بدل ما يكتشفه لما يصطدم بمزاد بيتطلبه.
+                _ProfileNavRow(
+                  icon: Icons.store_outlined,
+                  label: AppLocalizations.of(context).crTitle,
+                  trailing: profile.hasCommerceRegister
+                      ? Icon(
+                          Icons.verified,
+                          size: 17.sp,
+                          color: AppColors.success,
+                        )
+                      : null,
+                  onTap: () => context.push(Routes.commercialRegister),
                 ),
                 Gap(16.h),
                 const ProfileLanguageSwitcher(),
@@ -106,6 +129,59 @@ class _ProfileContent extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// صف تنقّل في البروفايل — أيقونة + عنوان + سهم.
+class _ProfileNavRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Widget? trailing;
+  final VoidCallback onTap;
+
+  const _ProfileNavRow({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(13.r),
+      child: Container(
+        padding: EdgeInsets.all(14.w),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(13.r),
+          border: Border.all(color: AppColors.border, width: 0.5),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 19.sp, color: AppColors.primary),
+            Gap(10.w),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+            if (trailing != null) ...[trailing!, Gap(6.w)],
+            Icon(
+              Icons.chevron_left,
+              size: 19.sp,
+              color: AppColors.borderStrong,
+            ),
+          ],
+        ),
       ),
     );
   }

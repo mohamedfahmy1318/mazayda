@@ -8,7 +8,6 @@ import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../cubit/appeals_cubit.dart';
 import '../widgets/appeal_card.dart';
-import '../widgets/new_appeal_sheet.dart';
 
 class AppealsPage extends StatelessWidget {
   const AppealsPage({super.key});
@@ -67,7 +66,11 @@ class _AppealsView extends StatelessWidget {
                 child: PrimaryButton(
                   label: t.newAppeal,
                   icon: Icons.add,
-                  onPressed: () => _showNewAppealSheet(context),
+                  // الطعن لازم يكون على مزاد محدّد، فمن هنا نوجّه المستخدم
+                  // لصفحة المزاد بدل ما نفتح فورم هيفشل على السيرفر.
+                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(t.appealFileFromAuction)),
+                  ),
                 ),
               ),
             ],
@@ -77,14 +80,4 @@ class _AppealsView extends StatelessWidget {
     );
   }
 
-  void _showNewAppealSheet(BuildContext context) {
-    final cubit = context.read<AppealsCubit>();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) =>
-          BlocProvider.value(value: cubit, child: const NewAppealSheet()),
-    );
-  }
 }

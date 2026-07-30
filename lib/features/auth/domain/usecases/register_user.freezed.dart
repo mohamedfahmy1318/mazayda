@@ -24,6 +24,7 @@ mixin _$RegisterParams {
   String get email => throw _privateConstructorUsedError;
   String get birthDate => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get passwordConfirmation => throw _privateConstructorUsedError;
   String get deviceName => throw _privateConstructorUsedError;
 
   /// Create a copy of RegisterParams
@@ -48,6 +49,7 @@ abstract class $RegisterParamsCopyWith<$Res> {
     String email,
     String birthDate,
     String password,
+    String passwordConfirmation,
     String deviceName,
   });
 }
@@ -74,6 +76,7 @@ class _$RegisterParamsCopyWithImpl<$Res, $Val extends RegisterParams>
     Object? email = null,
     Object? birthDate = null,
     Object? password = null,
+    Object? passwordConfirmation = null,
     Object? deviceName = null,
   }) {
     return _then(
@@ -106,6 +109,10 @@ class _$RegisterParamsCopyWithImpl<$Res, $Val extends RegisterParams>
                 ? _value.password
                 : password // ignore: cast_nullable_to_non_nullable
                       as String,
+            passwordConfirmation: null == passwordConfirmation
+                ? _value.passwordConfirmation
+                : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+                      as String,
             deviceName: null == deviceName
                 ? _value.deviceName
                 : deviceName // ignore: cast_nullable_to_non_nullable
@@ -133,6 +140,7 @@ abstract class _$$RegisterParamsImplCopyWith<$Res>
     String email,
     String birthDate,
     String password,
+    String passwordConfirmation,
     String deviceName,
   });
 }
@@ -158,6 +166,7 @@ class __$$RegisterParamsImplCopyWithImpl<$Res>
     Object? email = null,
     Object? birthDate = null,
     Object? password = null,
+    Object? passwordConfirmation = null,
     Object? deviceName = null,
   }) {
     return _then(
@@ -190,6 +199,10 @@ class __$$RegisterParamsImplCopyWithImpl<$Res>
             ? _value.password
             : password // ignore: cast_nullable_to_non_nullable
                   as String,
+        passwordConfirmation: null == passwordConfirmation
+            ? _value.passwordConfirmation
+            : passwordConfirmation // ignore: cast_nullable_to_non_nullable
+                  as String,
         deviceName: null == deviceName
             ? _value.deviceName
             : deviceName // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$RegisterParamsImpl implements _RegisterParams {
     required this.email,
     required this.birthDate,
     required this.password,
+    required this.passwordConfirmation,
     required this.deviceName,
   });
 
@@ -228,11 +242,13 @@ class _$RegisterParamsImpl implements _RegisterParams {
   @override
   final String password;
   @override
+  final String passwordConfirmation;
+  @override
   final String deviceName;
 
   @override
   String toString() {
-    return 'RegisterParams(nin: $nin, firstNameAr: $firstNameAr, lastNameAr: $lastNameAr, phone: $phone, email: $email, birthDate: $birthDate, password: $password, deviceName: $deviceName)';
+    return 'RegisterParams(nin: $nin, firstNameAr: $firstNameAr, lastNameAr: $lastNameAr, phone: $phone, email: $email, birthDate: $birthDate, password: $password, passwordConfirmation: $passwordConfirmation, deviceName: $deviceName)';
   }
 
   @override
@@ -251,6 +267,8 @@ class _$RegisterParamsImpl implements _RegisterParams {
                 other.birthDate == birthDate) &&
             (identical(other.password, password) ||
                 other.password == password) &&
+            (identical(other.passwordConfirmation, passwordConfirmation) ||
+                other.passwordConfirmation == passwordConfirmation) &&
             (identical(other.deviceName, deviceName) ||
                 other.deviceName == deviceName));
   }
@@ -265,6 +283,7 @@ class _$RegisterParamsImpl implements _RegisterParams {
     email,
     birthDate,
     password,
+    passwordConfirmation,
     deviceName,
   );
 
@@ -289,6 +308,7 @@ abstract class _RegisterParams implements RegisterParams {
     required final String email,
     required final String birthDate,
     required final String password,
+    required final String passwordConfirmation,
     required final String deviceName,
   }) = _$RegisterParamsImpl;
 
@@ -306,6 +326,8 @@ abstract class _RegisterParams implements RegisterParams {
   String get birthDate;
   @override
   String get password;
+  @override
+  String get passwordConfirmation;
   @override
   String get deviceName;
 

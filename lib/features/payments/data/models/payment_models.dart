@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../auctions/data/models/money_model.dart';
 import '../../domain/entities/payment_entities.dart';
 
 part 'payment_models.freezed.dart';
@@ -21,25 +22,54 @@ class PaymentInitModel with _$PaymentInitModel {
       PaymentInit(redirectUrl: redirectUrl ?? '', ref: ref ?? '');
 }
 
-/// صف حالة دفع.
+/// صف حالة دفع — يطابق PaymentResource:
+/// {id, type, amount:{amount,formatted}, status, gateway_ref, due_at,
+///  confirmed_at, created_at}
 @freezed
 class PaymentStatusModel with _$PaymentStatusModel {
   const PaymentStatusModel._();
 
   const factory PaymentStatusModel({
-    String? ref,
-    @JsonKey(name: 'payment_type') String? paymentType,
+    String? id,
+    String? type,
+    MoneyModel? amount,
     String? status,
-    @JsonKey(name: 'is_confirmed') @Default(false) bool isConfirmed,
+    @JsonKey(name: 'gateway_ref') String? gatewayRef,
+    @JsonKey(name: 'due_at') String? dueAt,
+    @JsonKey(name: 'confirmed_at') String? confirmedAt,
+    @JsonKey(name: 'created_at') String? createdAt,
   }) = _PaymentStatusModel;
 
   factory PaymentStatusModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentStatusModelFromJson(json);
 
   PaymentStatus toEntity() => PaymentStatus(
-        ref: ref ?? '',
-        type: PaymentTypeX.fromApi(paymentType),
+        id: id ?? '',
+        type: PaymentTypeX.fromApi(type),
+        amount: (amount ?? const MoneyModel()).toEntity(),
         status: PaymentRowStatusX.fromApi(status),
-        isConfirmed: isConfirmed,
+        gatewayRef: gatewayRef,
+        dueAt: DateTime.tryParse(dueAt ?? ''),
+        confirmedAt: DateTime.tryParse(confirmedAt ?? ''),
+        createdAt: DateTime.tryParse(createdAt ?? ''),
+      );
+}
+
+/// ردّ GET /payments/{ref}/status — `{ ref, payments[] }` (object مش list).
+@freezed
+class PaymentStatusResponseModel with _$PaymentStatusResponseModel {
+  const PaymentStatusResponseModel._();
+
+  const factory PaymentStatusResponseModel({
+    String? ref,
+    @Default(<PaymentStatusModel>[]) List<PaymentStatusModel> payments,
+  }) = _PaymentStatusResponseModel;
+
+  factory PaymentStatusResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$PaymentStatusResponseModelFromJson(json);
+
+  PaymentStatusResult toEntity() => PaymentStatusResult(
+        ref: ref ?? '',
+        payments: payments.map((p) => p.toEntity()).toList(),
       );
 }

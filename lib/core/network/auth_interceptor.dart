@@ -26,10 +26,13 @@ class AuthInterceptor extends Interceptor {
     options.headers['Accept-Language'] = 'ar';
 
     // ما نضفش التوكن في طلبات الـ auth العامة
+    // endpoints الضيف — ما نضفش عليها توكن (توكن قديم/منتهي ممكن يسبّب 401).
     final isAuthFree = options.path.contains('/auth/register') ||
         options.path.contains('/auth/login') ||
         options.path.contains('/auth/verify-otp') ||
-        options.path.contains('/auth/resend-otp');
+        options.path.contains('/auth/resend-otp') ||
+        options.path.contains('/auth/password/') ||
+        options.path.contains('/auth/recover/');
 
     if (!isAuthFree) {
       final token = await _tokenStorage.accessToken;
@@ -89,14 +92,19 @@ class AuthInterceptor extends Interceptor {
       }),
     );
 
-    final data = res.data['data'];
-    if (data != null && data['access_token'] != null) {
-      await _tokenStorage.saveTokens(
-        accessToken: data['access_token'],
-        refreshToken: data['refresh_token'] ?? refresh,
-      );
-      return true;
-    }
-    return false;
+    // الردّ الحقيقي: data.tokens.{access_token, refresh_token, ...}
+    // (نتسامح لو رجعوا في الجذر مباشرة زي ما بيعمل الـ datasource).
+    final data = res.data is Map ? res.data['data'] : null;
+    if (data is! Map) return false;
+
+    final tokens = (data['tokens'] ?? data) as Map;
+    final access = tokens['access_token'];
+    if (access is! String || access.isEmpty) return false;
+
+    await _tokenStorage.saveTokens(
+      accessToken: access,
+      refreshToken: (tokens['refresh_token'] as String?) ?? refresh,
+    );
+    return true;
   }
 }

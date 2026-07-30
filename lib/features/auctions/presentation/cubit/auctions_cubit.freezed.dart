@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AuctionsState {
   bool get loading => throw _privateConstructorUsedError;
-  List<Auction> get auctions => throw _privateConstructorUsedError;
+  List<AuctionListItem> get auctions => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError; // فلاتر نشطة
@@ -44,7 +44,7 @@ abstract class $AuctionsStateCopyWith<$Res> {
   @useResult
   $Res call({
     bool loading,
-    List<Auction> auctions,
+    List<AuctionListItem> auctions,
     bool hasMore,
     int page,
     String? error,
@@ -91,7 +91,7 @@ class _$AuctionsStateCopyWithImpl<$Res, $Val extends AuctionsState>
             auctions: null == auctions
                 ? _value.auctions
                 : auctions // ignore: cast_nullable_to_non_nullable
-                      as List<Auction>,
+                      as List<AuctionListItem>,
             hasMore: null == hasMore
                 ? _value.hasMore
                 : hasMore // ignore: cast_nullable_to_non_nullable
@@ -141,7 +141,7 @@ abstract class _$$AuctionsStateImplCopyWith<$Res>
   @useResult
   $Res call({
     bool loading,
-    List<Auction> auctions,
+    List<AuctionListItem> auctions,
     bool hasMore,
     int page,
     String? error,
@@ -187,7 +187,7 @@ class __$$AuctionsStateImplCopyWithImpl<$Res>
         auctions: null == auctions
             ? _value._auctions
             : auctions // ignore: cast_nullable_to_non_nullable
-                  as List<Auction>,
+                  as List<AuctionListItem>,
         hasMore: null == hasMore
             ? _value.hasMore
             : hasMore // ignore: cast_nullable_to_non_nullable
@@ -230,7 +230,7 @@ class __$$AuctionsStateImplCopyWithImpl<$Res>
 class _$AuctionsStateImpl implements _AuctionsState {
   const _$AuctionsStateImpl({
     this.loading = false,
-    final List<Auction> auctions = const <Auction>[],
+    final List<AuctionListItem> auctions = const <AuctionListItem>[],
     this.hasMore = false,
     this.page = 1,
     this.error,
@@ -244,10 +244,10 @@ class _$AuctionsStateImpl implements _AuctionsState {
   @override
   @JsonKey()
   final bool loading;
-  final List<Auction> _auctions;
+  final List<AuctionListItem> _auctions;
   @override
   @JsonKey()
-  List<Auction> get auctions {
+  List<AuctionListItem> get auctions {
     if (_auctions is EqualUnmodifiableListView) return _auctions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_auctions);
@@ -327,7 +327,7 @@ class _$AuctionsStateImpl implements _AuctionsState {
 abstract class _AuctionsState implements AuctionsState {
   const factory _AuctionsState({
     final bool loading,
-    final List<Auction> auctions,
+    final List<AuctionListItem> auctions,
     final bool hasMore,
     final int page,
     final String? error,
@@ -341,7 +341,7 @@ abstract class _AuctionsState implements AuctionsState {
   @override
   bool get loading;
   @override
-  List<Auction> get auctions;
+  List<AuctionListItem> get auctions;
   @override
   bool get hasMore;
   @override

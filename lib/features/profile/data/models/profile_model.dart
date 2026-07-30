@@ -4,6 +4,24 @@ import '../../domain/entities/profile.dart';
 part 'profile_model.freezed.dart';
 part 'profile_model.g.dart';
 
+/// جهة المستخدم — `entity: {id, name}` (whenLoaded، فالمفتاح ممكن يغيب تمامًا).
+@freezed
+class ProfileEntityRefModel with _$ProfileEntityRefModel {
+  const ProfileEntityRefModel._();
+
+  const factory ProfileEntityRefModel({String? id, String? name}) =
+      _ProfileEntityRefModel;
+
+  factory ProfileEntityRefModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileEntityRefModelFromJson(json);
+
+  ProfileEntityRef toEntity() =>
+      ProfileEntityRef(id: id ?? '', name: name ?? '');
+}
+
+/// يطابق UserResource (26 حقل). كل الحقول nullable لأن بعضها بيغيب
+/// حسب السياق — مثال: `entity` بيتشال لما العلاقة مش محمّلة، و PUT /profile
+/// بيرجّع الرد من غير `entity` أصلًا.
 @freezed
 class ProfileModel with _$ProfileModel {
   const ProfileModel._();
@@ -11,15 +29,39 @@ class ProfileModel with _$ProfileModel {
   const factory ProfileModel({
     required String id,
     @JsonKey(name: 'nin_masked') String? ninMasked,
+    String? name,
     @JsonKey(name: 'first_name_ar') String? firstNameAr,
     @JsonKey(name: 'last_name_ar') String? lastNameAr,
+    @JsonKey(name: 'first_name_fr') String? firstNameFr,
+    @JsonKey(name: 'last_name_fr') String? lastNameFr,
     String? email,
     String? phone,
     String? address,
+    @JsonKey(name: 'commune_id') int? communeId,
     @JsonKey(name: 'postal_code') String? postalCode,
     String? profession,
-    @JsonKey(name: 'wilaya_name') String? wilayaName,
+    String? locale,
+    String? role,
+    @JsonKey(name: 'account_status') String? accountStatus,
+    @JsonKey(name: 'account_type') String? accountType,
+    @JsonKey(name: 'is_institution') @Default(false) bool isInstitution,
+    ProfileEntityRefModel? entity,
     @JsonKey(name: 'kyc_status') @Default('PENDING') String kycStatus,
+    @JsonKey(name: 'commercial_register_status')
+    String? commercialRegisterStatus,
+    @JsonKey(name: 'has_commerce_register')
+    @Default(false)
+    bool hasCommerceRegister,
+    @JsonKey(name: 'email_verified') @Default(false) bool emailVerified,
+    @JsonKey(name: 'phone_verified') @Default(false) bool phoneVerified,
+    @JsonKey(name: 'secret_question') String? secretQuestion,
+    @JsonKey(name: 'has_secret_question')
+    @Default(false)
+    bool hasSecretQuestion,
+    @JsonKey(name: 'is_kyc_complete') @Default(false) bool isKycComplete,
+    @JsonKey(name: 'can_bid') @Default(false) bool canBid,
+    @JsonKey(name: 'is_premium') @Default(false) bool isPremium,
+    @JsonKey(name: 'is_blacklisted') @Default(false) bool isBlacklisted,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -28,13 +70,36 @@ class ProfileModel with _$ProfileModel {
   Profile toEntity() => Profile(
     id: id,
     ninMasked: ninMasked,
-    fullName: [firstNameAr, lastNameAr].where((e) => e != null).join(' '),
+    // الباك بيرجّع `name` جاهز؛ لو غاب نركّبه من الاسم العربي.
+    fullName: name?.trim().isNotEmpty == true
+        ? name!
+        : [firstNameAr, lastNameAr].whereType<String>().join(' ').trim(),
+    firstNameAr: firstNameAr,
+    lastNameAr: lastNameAr,
+    firstNameFr: firstNameFr,
+    lastNameFr: lastNameFr,
     email: email,
     phone: phone,
     address: address,
+    communeId: communeId,
     postalCode: postalCode,
     profession: profession,
-    wilayaName: wilayaName,
+    locale: locale,
+    role: role,
+    accountStatus: accountStatus,
+    accountType: accountType,
+    isInstitution: isInstitution,
+    entity: entity?.toEntity(),
     kycStatus: kycStatus,
+    commercialRegisterStatus: commercialRegisterStatus,
+    hasCommerceRegister: hasCommerceRegister,
+    emailVerified: emailVerified,
+    phoneVerified: phoneVerified,
+    secretQuestion: secretQuestion,
+    hasSecretQuestion: hasSecretQuestion,
+    isKycComplete: isKycComplete,
+    canBid: canBid,
+    isPremium: isPremium,
+    isBlacklisted: isBlacklisted,
   );
 }

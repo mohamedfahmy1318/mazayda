@@ -9,9 +9,9 @@ import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../cubit/my_auctions_cubit.dart';
+import '../widgets/my_auction_card.dart';
+import '../widgets/my_auction_labels.dart';
 import '../widgets/my_auction_tab_bar.dart';
-import '../widgets/participation_card.dart';
-import '../widgets/participation_labels.dart';
 
 class MyAuctionsPage extends StatelessWidget {
   const MyAuctionsPage({super.key});
@@ -39,6 +39,7 @@ class _MyAuctionsView extends StatelessWidget {
             children: [
               MyAuctionTabBar(
                 selected: state.tab,
+                counts: state.counts,
                 onSelect: context.read<MyAuctionsCubit>().changeTab,
               ),
               Gap(14.h),
@@ -73,10 +74,10 @@ class _Content extends StatelessWidget {
       itemCount: state.items.length,
       itemBuilder: (_, i) {
         final item = state.items[i];
-        return ParticipationCard(
+        return MyAuctionCard(
               item: item,
-              onTap: () =>
-                  context.push('${Routes.auctionDetail}/${item.auctionId}'),
+              tab: state.tab,
+              onTap: () => context.push('${Routes.auctionDetail}/${item.id}'),
             )
             .animate()
             .fadeIn(duration: 220.ms, delay: (40 * i).ms)

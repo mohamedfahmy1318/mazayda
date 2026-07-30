@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../auctions/domain/entities/auction.dart';
@@ -101,12 +102,25 @@ class PaymentFlow {
         case PaymentConfirmed():
           hideLoader();
           if (context.mounted) {
-            _snack(context, 'تم الدفع بنجاح', AppColors.success);
+            _snack(context, _t(context).paymentSuccess, AppColors.success);
+          }
+          if (!done.isCompleted) done.complete();
+        case PaymentAlreadySettled():
+          hideLoader();
+          if (context.mounted) {
+            _snack(context, _t(context).paymentAlreadyDone, AppColors.info);
           }
           if (!done.isCompleted) done.complete();
         case PaymentFailed(:final message):
+          // رسالة السيرفر مترجمة أصلًا من الباك.
           hideLoader();
           if (context.mounted) _snack(context, message, AppColors.danger);
+          if (!done.isCompleted) done.complete();
+        case PaymentIssue(:final issue):
+          hideLoader();
+          if (context.mounted) {
+            _snack(context, _issueText(context, issue), AppColors.danger);
+          }
           if (!done.isCompleted) done.complete();
         case PaymentIdle():
           break;
@@ -119,6 +133,16 @@ class PaymentFlow {
     await sub.cancel();
     await cubit.close();
   }
+
+  static AppLocalizations _t(BuildContext ctx) => AppLocalizations.of(ctx);
+
+  /// ترجمة أسباب التوقّف اللي بيولّدها العميل.
+  static String _issueText(BuildContext ctx, PaymentFlowIssue issue) =>
+      switch (issue) {
+        PaymentFlowIssue.bookNotConfirmed => _t(ctx).paymentBookNotConfirmed,
+        PaymentFlowIssue.paymentNotConfirmed => _t(ctx).paymentNotConfirmed,
+        PaymentFlowIssue.cancelled => _t(ctx).paymentCancelled,
+      };
 
   static void _snack(BuildContext ctx, String msg, Color color) {
     ScaffoldMessenger.of(ctx).showSnackBar(

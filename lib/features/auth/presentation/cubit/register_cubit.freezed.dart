@@ -22,7 +22,8 @@ mixin _$RegisterState {
   NameInput get lastName => throw _privateConstructorUsedError;
   PhoneInput get phone => throw _privateConstructorUsedError;
   EmailInput get email => throw _privateConstructorUsedError;
-  PasswordInput get password => throw _privateConstructorUsedError;
+  BirthDateInput get birthDate => throw _privateConstructorUsedError;
+  NewPasswordInput get password => throw _privateConstructorUsedError;
   ConfirmPasswordInput get confirmPassword =>
       throw _privateConstructorUsedError;
   RegisterStatus get status => throw _privateConstructorUsedError;
@@ -54,7 +55,8 @@ abstract class $RegisterStateCopyWith<$Res> {
     NameInput lastName,
     PhoneInput phone,
     EmailInput email,
-    PasswordInput password,
+    BirthDateInput birthDate,
+    NewPasswordInput password,
     ConfirmPasswordInput confirmPassword,
     RegisterStatus status,
     bool isValid,
@@ -84,6 +86,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? lastName = null,
     Object? phone = null,
     Object? email = null,
+    Object? birthDate = null,
     Object? password = null,
     Object? confirmPassword = null,
     Object? status = null,
@@ -114,10 +117,14 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
                       as EmailInput,
+            birthDate: null == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as BirthDateInput,
             password: null == password
                 ? _value.password
                 : password // ignore: cast_nullable_to_non_nullable
-                      as PasswordInput,
+                      as NewPasswordInput,
             confirmPassword: null == confirmPassword
                 ? _value.confirmPassword
                 : confirmPassword // ignore: cast_nullable_to_non_nullable
@@ -163,7 +170,8 @@ abstract class _$$RegisterStateImplCopyWith<$Res>
     NameInput lastName,
     PhoneInput phone,
     EmailInput email,
-    PasswordInput password,
+    BirthDateInput birthDate,
+    NewPasswordInput password,
     ConfirmPasswordInput confirmPassword,
     RegisterStatus status,
     bool isValid,
@@ -192,6 +200,7 @@ class __$$RegisterStateImplCopyWithImpl<$Res>
     Object? lastName = null,
     Object? phone = null,
     Object? email = null,
+    Object? birthDate = null,
     Object? password = null,
     Object? confirmPassword = null,
     Object? status = null,
@@ -222,10 +231,14 @@ class __$$RegisterStateImplCopyWithImpl<$Res>
             ? _value.email
             : email // ignore: cast_nullable_to_non_nullable
                   as EmailInput,
+        birthDate: null == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as BirthDateInput,
         password: null == password
             ? _value.password
             : password // ignore: cast_nullable_to_non_nullable
-                  as PasswordInput,
+                  as NewPasswordInput,
         confirmPassword: null == confirmPassword
             ? _value.confirmPassword
             : confirmPassword // ignore: cast_nullable_to_non_nullable
@@ -264,7 +277,8 @@ class _$RegisterStateImpl extends _RegisterState {
     this.lastName = const NameInput.pure(),
     this.phone = const PhoneInput.pure(),
     this.email = const EmailInput.pure(),
-    this.password = const PasswordInput.pure(),
+    this.birthDate = const BirthDateInput.pure(),
+    this.password = const NewPasswordInput.pure(),
     this.confirmPassword = const ConfirmPasswordInput.pure(),
     this.status = RegisterStatus.idle,
     this.isValid = false,
@@ -291,7 +305,10 @@ class _$RegisterStateImpl extends _RegisterState {
   final EmailInput email;
   @override
   @JsonKey()
-  final PasswordInput password;
+  final BirthDateInput birthDate;
+  @override
+  @JsonKey()
+  final NewPasswordInput password;
   @override
   @JsonKey()
   final ConfirmPasswordInput confirmPassword;
@@ -320,7 +337,7 @@ class _$RegisterStateImpl extends _RegisterState {
 
   @override
   String toString() {
-    return 'RegisterState(nin: $nin, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, password: $password, confirmPassword: $confirmPassword, status: $status, isValid: $isValid, userId: $userId, errorMessage: $errorMessage, serverErrors: $serverErrors)';
+    return 'RegisterState(nin: $nin, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, birthDate: $birthDate, password: $password, confirmPassword: $confirmPassword, status: $status, isValid: $isValid, userId: $userId, errorMessage: $errorMessage, serverErrors: $serverErrors)';
   }
 
   @override
@@ -335,6 +352,8 @@ class _$RegisterStateImpl extends _RegisterState {
                 other.lastName == lastName) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
@@ -358,6 +377,7 @@ class _$RegisterStateImpl extends _RegisterState {
     lastName,
     phone,
     email,
+    birthDate,
     password,
     confirmPassword,
     status,
@@ -383,7 +403,8 @@ abstract class _RegisterState extends RegisterState {
     final NameInput lastName,
     final PhoneInput phone,
     final EmailInput email,
-    final PasswordInput password,
+    final BirthDateInput birthDate,
+    final NewPasswordInput password,
     final ConfirmPasswordInput confirmPassword,
     final RegisterStatus status,
     final bool isValid,
@@ -404,7 +425,9 @@ abstract class _RegisterState extends RegisterState {
   @override
   EmailInput get email;
   @override
-  PasswordInput get password;
+  BirthDateInput get birthDate;
+  @override
+  NewPasswordInput get password;
   @override
   ConfirmPasswordInput get confirmPassword;
   @override

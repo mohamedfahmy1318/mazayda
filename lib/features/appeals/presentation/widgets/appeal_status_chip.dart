@@ -8,12 +8,21 @@ import '../../domain/entities/appeal.dart';
 /// شارة حالة الاعتراض — لون وأيقونة ونص مترجم حسب الحالة.
 class AppealStatusChip extends StatelessWidget {
   final AppealStatus status;
-  const AppealStatusChip(this.status, {super.key});
+
+  /// نص الحالة الجاهز من السيرفر (status_label) — لو موجود نعرضه بدل
+  /// الترجمة المحلية، لأنه المصدر الرسمي وبيتفادى أي انحراف في الصياغة.
+  final String? label;
+
+  const AppealStatusChip(this.status, {this.label, super.key});
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    final (Color fg, Color bg, String label, IconData icon) = _style(status, t);
+    final (Color fg, Color bg, String fallback, IconData icon) = _style(
+      status,
+      t,
+    );
+    final label = this.label ?? fallback;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
       decoration: BoxDecoration(
@@ -42,10 +51,10 @@ class AppealStatusChip extends StatelessWidget {
           t.appealStatusPending,
           Icons.schedule,
         ),
-        AppealStatus.answered => (
+        AppealStatus.approved => (
           AppColors.success,
           AppColors.successBg,
-          t.appealStatusAnswered,
+          t.appealStatusApproved,
           Icons.check_circle_outline,
         ),
         AppealStatus.rejected => (

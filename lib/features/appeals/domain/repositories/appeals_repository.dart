@@ -6,9 +6,10 @@ import '../entities/appeal.dart';
 abstract class AppealsRepository {
   Future<Either<Failure, List<Appeal>>> getAppeals();
 
+  /// [auctionId] مطلوب — المسار هو POST /auctions/{id}/appeals.
   Future<Either<Failure, Unit>> submitAppeal({
+    required String auctionId,
     required String subject,
     required String reason,
-    String? auctionId,
   });
 }

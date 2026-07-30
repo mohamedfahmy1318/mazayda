@@ -74,8 +74,9 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
             ),
             child: Column(
               children: [
-                _row('التأمين القابل للاسترداد', a.depositAmount.formatted),
-                _row('رسوم المشاركة (غير مستردة)', a.entryFee.formatted),
+                // «كفالة» هو المصطلح المستخدم في الباك (lang/ar/enums.php)،
+                // وهي المبلغ **القابل للاسترداد** — الكراس هو غير المسترد.
+                _row('الكفالة (قابلة للاسترداد)', a.depositAmount.formatted),
                 if (a.bookPrice != null && !a.hasBookAccess)
                   _row('كراس الشروط (غير مسترد)', a.bookPrice!.formatted),
               ],

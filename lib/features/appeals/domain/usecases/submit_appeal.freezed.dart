@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SubmitAppealParams {
+  String get auctionId =>
+      throw _privateConstructorUsedError; // مطلوب — الطعن دايمًا على مزاد
   String get subject => throw _privateConstructorUsedError;
   String get reason => throw _privateConstructorUsedError;
-  String? get auctionId => throw _privateConstructorUsedError;
 
   /// Create a copy of SubmitAppealParams
   /// with the given fields replaced by the non-null parameter values.
@@ -35,7 +36,7 @@ abstract class $SubmitAppealParamsCopyWith<$Res> {
     $Res Function(SubmitAppealParams) then,
   ) = _$SubmitAppealParamsCopyWithImpl<$Res, SubmitAppealParams>;
   @useResult
-  $Res call({String subject, String reason, String? auctionId});
+  $Res call({String auctionId, String subject, String reason});
 }
 
 /// @nodoc
@@ -53,12 +54,16 @@ class _$SubmitAppealParamsCopyWithImpl<$Res, $Val extends SubmitAppealParams>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? auctionId = null,
     Object? subject = null,
     Object? reason = null,
-    Object? auctionId = freezed,
   }) {
     return _then(
       _value.copyWith(
+            auctionId: null == auctionId
+                ? _value.auctionId
+                : auctionId // ignore: cast_nullable_to_non_nullable
+                      as String,
             subject: null == subject
                 ? _value.subject
                 : subject // ignore: cast_nullable_to_non_nullable
@@ -67,10 +72,6 @@ class _$SubmitAppealParamsCopyWithImpl<$Res, $Val extends SubmitAppealParams>
                 ? _value.reason
                 : reason // ignore: cast_nullable_to_non_nullable
                       as String,
-            auctionId: freezed == auctionId
-                ? _value.auctionId
-                : auctionId // ignore: cast_nullable_to_non_nullable
-                      as String?,
           )
           as $Val,
     );
@@ -86,7 +87,7 @@ abstract class _$$SubmitAppealParamsImplCopyWith<$Res>
   ) = __$$SubmitAppealParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String subject, String reason, String? auctionId});
+  $Res call({String auctionId, String subject, String reason});
 }
 
 /// @nodoc
@@ -103,12 +104,16 @@ class __$$SubmitAppealParamsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? auctionId = null,
     Object? subject = null,
     Object? reason = null,
-    Object? auctionId = freezed,
   }) {
     return _then(
       _$SubmitAppealParamsImpl(
+        auctionId: null == auctionId
+            ? _value.auctionId
+            : auctionId // ignore: cast_nullable_to_non_nullable
+                  as String,
         subject: null == subject
             ? _value.subject
             : subject // ignore: cast_nullable_to_non_nullable
@@ -117,10 +122,6 @@ class __$$SubmitAppealParamsImplCopyWithImpl<$Res>
             ? _value.reason
             : reason // ignore: cast_nullable_to_non_nullable
                   as String,
-        auctionId: freezed == auctionId
-            ? _value.auctionId
-            : auctionId // ignore: cast_nullable_to_non_nullable
-                  as String?,
       ),
     );
   }
@@ -130,21 +131,22 @@ class __$$SubmitAppealParamsImplCopyWithImpl<$Res>
 
 class _$SubmitAppealParamsImpl implements _SubmitAppealParams {
   const _$SubmitAppealParamsImpl({
+    required this.auctionId,
     required this.subject,
     required this.reason,
-    this.auctionId,
   });
 
+  @override
+  final String auctionId;
+  // مطلوب — الطعن دايمًا على مزاد
   @override
   final String subject;
   @override
   final String reason;
-  @override
-  final String? auctionId;
 
   @override
   String toString() {
-    return 'SubmitAppealParams(subject: $subject, reason: $reason, auctionId: $auctionId)';
+    return 'SubmitAppealParams(auctionId: $auctionId, subject: $subject, reason: $reason)';
   }
 
   @override
@@ -152,14 +154,14 @@ class _$SubmitAppealParamsImpl implements _SubmitAppealParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubmitAppealParamsImpl &&
-            (identical(other.subject, subject) || other.subject == subject) &&
-            (identical(other.reason, reason) || other.reason == reason) &&
             (identical(other.auctionId, auctionId) ||
-                other.auctionId == auctionId));
+                other.auctionId == auctionId) &&
+            (identical(other.subject, subject) || other.subject == subject) &&
+            (identical(other.reason, reason) || other.reason == reason));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subject, reason, auctionId);
+  int get hashCode => Object.hash(runtimeType, auctionId, subject, reason);
 
   /// Create a copy of SubmitAppealParams
   /// with the given fields replaced by the non-null parameter values.
@@ -175,17 +177,17 @@ class _$SubmitAppealParamsImpl implements _SubmitAppealParams {
 
 abstract class _SubmitAppealParams implements SubmitAppealParams {
   const factory _SubmitAppealParams({
+    required final String auctionId,
     required final String subject,
     required final String reason,
-    final String? auctionId,
   }) = _$SubmitAppealParamsImpl;
 
+  @override
+  String get auctionId; // مطلوب — الطعن دايمًا على مزاد
   @override
   String get subject;
   @override
   String get reason;
-  @override
-  String? get auctionId;
 
   /// Create a copy of SubmitAppealParams
   /// with the given fields replaced by the non-null parameter values.

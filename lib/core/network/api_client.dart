@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../constants/api_constants.dart';
 import '../errors/exceptions.dart';
 import '../session/session_manager.dart';
+import 'api_response.dart';
 import 'auth_interceptor.dart';
 import 'token_storage.dart';
 
@@ -74,9 +75,54 @@ class ApiClient {
     return _handle(() => _dio.put(path, data: body));
   }
 
+  /// PATCH
+  Future<dynamic> patch(String path, {dynamic body}) async {
+    return _handle(() => _dio.patch(path, data: body));
+  }
+
+  /// DELETE
+  Future<dynamic> delete(String path, {dynamic body}) async {
+    return _handle(() => _dio.delete(path, data: body));
+  }
+
   /// رفع ملف (multipart) — مثلًا مستندات الـ KYC.
   Future<dynamic> upload(String path, FormData formData) async {
     return _handle(() => _dio.post(path, data: formData));
+  }
+
+  /// تنزيل ملف ثنائي (PDF مثلًا) **بتوكن المصادقة**.
+  ///
+  /// endpoints التنزيل محمية بـ Sanctum ومبترجّعش الغلاف — بترجّع stream خام.
+  /// فمينفعش تتفتح في المتصفح أو عبر `get()` (اللي بيحاول يفك الغلاف).
+  /// بنستخدم الـ Dio نفسه عشان الـ AuthInterceptor يحقن الـ Bearer، مع نفس
+  /// تحويل الأخطاء المستخدم في باقي الطلبات.
+  Future<List<int>> downloadBytes(String path) async {
+    try {
+      final response = await _dio.get<List<int>>(
+        path,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      return response.data ?? const <int>[];
+    } on DioException catch (e) {
+      throw _mapDioError(e);
+    }
+  }
+
+  /// GET مع **الحفاظ على الغلاف كامل** — استخدمه لما تحتاج `meta`
+  /// (pagination / viewer / counts / unread_count).
+  Future<ApiResponse<dynamic>> getEnvelope(
+    String path, {
+    Map<String, dynamic>? query,
+  }) async {
+    return _handleEnvelope(() => _dio.get(path, queryParameters: query));
+  }
+
+  /// POST مع الحفاظ على الغلاف كامل.
+  Future<ApiResponse<dynamic>> postEnvelope(
+    String path, {
+    dynamic body,
+  }) async {
+    return _handleEnvelope(() => _dio.post(path, data: body));
   }
 
   /// المنطق المشترك: يشغّل الطلب، يفكّ الـ envelope، يحوّل الأخطاء.
@@ -89,6 +135,31 @@ class ApiClient {
         return body['data'];
       }
       return body;
+    } on DioException catch (e) {
+      throw _mapDioError(e);
+    }
+  }
+
+  /// نفس المنطق بس من غير ما نرمي الـ meta.
+  Future<ApiResponse<dynamic>> _handleEnvelope(
+    Future<Response> Function() request,
+  ) async {
+    try {
+      final response = await request();
+      final body = response.data;
+
+      if (body is Map) {
+        return ApiResponse<dynamic>(
+          data: body.containsKey('data') ? body['data'] : body,
+          message: body['message'] as String?,
+          meta: body['meta'] is Map
+              ? Map<String, dynamic>.from(body['meta'] as Map)
+              : const <String, dynamic>{},
+        );
+      }
+
+      // ردود غير مغلّفة (زي /wilayas اللي بترجّع مصفوفة خام) — بدون meta.
+      return ApiResponse<dynamic>(data: body);
     } on DioException catch (e) {
       throw _mapDioError(e);
     }
@@ -109,9 +180,13 @@ class ApiClient {
     // الرسالة المعرّبة جاية من الـ API
     String message = 'حدث خطأ، حاول مجددًا';
     Map<String, List<String>>? errors;
+    String? code;
 
     if (data is Map) {
       if (data['message'] is String) message = data['message'];
+      // كود يتقري لو الباك بعته (BE-16) — بيخلّينا نفرّق بين أنواع الرفض
+      // من غير ما نطابق نصوص مترجمة.
+      if (data['code'] is String) code = data['code'] as String;
       if (data['errors'] is Map) {
         errors = (data['errors'] as Map).map(
           (k, v) => MapEntry(
@@ -130,6 +205,7 @@ class ApiClient {
       message: message,
       statusCode: status,
       errors: errors,
+      code: code,
     );
   }
 }

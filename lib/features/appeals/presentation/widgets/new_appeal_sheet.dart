@@ -11,8 +11,12 @@ import '../cubit/appeals_cubit.dart';
 import '../formz/appeal_inputs.dart';
 
 /// نموذج تقديم اعتراض جديد — يُعرض كـ bottom sheet.
+/// لازم يتفتح في سياق مزاد: الباك مسار الطعن عنده POST /auctions/{id}/appeals
+/// ومفيش مسار عام POST /appeals.
 class NewAppealSheet extends StatefulWidget {
-  const NewAppealSheet({super.key});
+  final String auctionId;
+
+  const NewAppealSheet({super.key, required this.auctionId});
 
   @override
   State<NewAppealSheet> createState() => _NewAppealSheetState();
@@ -28,6 +32,7 @@ class _NewAppealSheetState extends State<NewAppealSheet> {
     if (!_isValid) return;
     context.read<AppealsCubit>().submit(
       SubmitAppealParams(
+        auctionId: widget.auctionId,
         subject: _subject.value.trim(),
         reason: _reason.value.trim(),
       ),

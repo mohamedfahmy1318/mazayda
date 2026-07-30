@@ -116,6 +116,11 @@ class ApiConstants {
   static const String reportsSummary = '$apiPrefix/reports/summary';
   static const String reportsTransactions = '$apiPrefix/reports/transactions';
 
+  // ===== Devices (Push) =====
+  // ⚠️ لسه غير موجود في الباك (طلب BE-11) — التطبيق بينادي عليه ويتجاهل
+  // الفشل بهدوء، فأول ما ينزل يشتغل من غير أي تعديل.
+  static const String devices = '$apiPrefix/devices';
+
   // ===== System =====
   static const String ping = '$apiPrefix/ping';
 }

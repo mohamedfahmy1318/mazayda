@@ -5,13 +5,15 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../kyc/domain/entities/kyc_entities.dart';
 import '../../../kyc/domain/usecases/kyc_usecases.dart';
-import '../../domain/entities/auction.dart';
+import '../../domain/entities/auction_list_item.dart';
 import '../../domain/usecases/get_auctions.dart';
 
 part 'auctions_cubit.freezed.dart';
 part 'auctions_state.dart';
 
-/// عدد العناصر في كل صفحة — يُستخدم للطلب ولتحديد وجود صفحة تالية.
+/// عدد العناصر المطلوبة في كل صفحة.
+/// ملاحظة: **مش** بنستخدمه لتحديد وجود صفحة تالية — ده بيتحدّد من
+/// `meta.pagination` (current_page < last_page).
 const _kPerPage = 12;
 
 @injectable
@@ -123,12 +125,13 @@ class AuctionsCubit extends Cubit<AuctionsState> {
     if (isClosed) return;
     result.fold(
       (f) => emit(state.copyWith(loading: false, error: f.message)),
-      (items) => emit(
+      (paged) => emit(
         state.copyWith(
           loading: false,
-          auctions: reset ? items : [...state.auctions, ...items],
-          hasMore: items.length == _kPerPage,
-          page: page,
+          auctions: reset ? paged.items : [...state.auctions, ...paged.items],
+          // من meta.pagination — مش تخمين من طول القائمة.
+          hasMore: paged.hasMore,
+          page: paged.currentPage,
         ),
       ),
     );

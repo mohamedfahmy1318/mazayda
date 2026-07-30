@@ -21,21 +21,36 @@ mixin _$AuctionDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Auction auction) loaded,
+    required TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )
+    loaded,
     required TResult Function(String message) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Auction auction)? loaded,
+    TResult? Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Auction auction)? loaded,
+    TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -131,7 +146,12 @@ class _$AuctionDetailInitialImpl implements AuctionDetailInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Auction auction) loaded,
+    required TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )
+    loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -142,7 +162,12 @@ class _$AuctionDetailInitialImpl implements AuctionDetailInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Auction auction)? loaded,
+    TResult? Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -153,7 +178,12 @@ class _$AuctionDetailInitialImpl implements AuctionDetailInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Auction auction)? loaded,
+    TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -251,7 +281,12 @@ class _$AuctionDetailLoadingImpl implements AuctionDetailLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Auction auction) loaded,
+    required TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )
+    loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -262,7 +297,12 @@ class _$AuctionDetailLoadingImpl implements AuctionDetailLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Auction auction)? loaded,
+    TResult? Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -273,7 +313,12 @@ class _$AuctionDetailLoadingImpl implements AuctionDetailLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Auction auction)? loaded,
+    TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -332,7 +377,11 @@ abstract class _$$AuctionDetailLoadedImplCopyWith<$Res> {
     $Res Function(_$AuctionDetailLoadedImpl) then,
   ) = __$$AuctionDetailLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Auction auction});
+  $Res call({
+    AuctionDetail detail,
+    bool isAuthenticated,
+    ViewerAccountFlags? account,
+  });
 }
 
 /// @nodoc
@@ -348,13 +397,25 @@ class __$$AuctionDetailLoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? auction = null}) {
+  $Res call({
+    Object? detail = null,
+    Object? isAuthenticated = null,
+    Object? account = freezed,
+  }) {
     return _then(
       _$AuctionDetailLoadedImpl(
-        null == auction
-            ? _value.auction
-            : auction // ignore: cast_nullable_to_non_nullable
-                  as Auction,
+        null == detail
+            ? _value.detail
+            : detail // ignore: cast_nullable_to_non_nullable
+                  as AuctionDetail,
+        isAuthenticated: null == isAuthenticated
+            ? _value.isAuthenticated
+            : isAuthenticated // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        account: freezed == account
+            ? _value.account
+            : account // ignore: cast_nullable_to_non_nullable
+                  as ViewerAccountFlags?,
       ),
     );
   }
@@ -363,14 +424,23 @@ class __$$AuctionDetailLoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
-  const _$AuctionDetailLoadedImpl(this.auction);
+  const _$AuctionDetailLoadedImpl(
+    this.detail, {
+    this.isAuthenticated = false,
+    this.account,
+  });
 
   @override
-  final Auction auction;
+  final AuctionDetail detail;
+  @override
+  @JsonKey()
+  final bool isAuthenticated;
+  @override
+  final ViewerAccountFlags? account;
 
   @override
   String toString() {
-    return 'AuctionDetailState.loaded(auction: $auction)';
+    return 'AuctionDetailState.loaded(detail: $detail, isAuthenticated: $isAuthenticated, account: $account)';
   }
 
   @override
@@ -378,11 +448,15 @@ class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuctionDetailLoadedImpl &&
-            (identical(other.auction, auction) || other.auction == auction));
+            (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.isAuthenticated, isAuthenticated) ||
+                other.isAuthenticated == isAuthenticated) &&
+            (identical(other.account, account) || other.account == account));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, auction);
+  int get hashCode =>
+      Object.hash(runtimeType, detail, isAuthenticated, account);
 
   /// Create a copy of AuctionDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -400,10 +474,15 @@ class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Auction auction) loaded,
+    required TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )
+    loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(auction);
+    return loaded(detail, isAuthenticated, account);
   }
 
   @override
@@ -411,10 +490,15 @@ class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Auction auction)? loaded,
+    TResult? Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(auction);
+    return loaded?.call(detail, isAuthenticated, account);
   }
 
   @override
@@ -422,12 +506,17 @@ class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Auction auction)? loaded,
+    TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(auction);
+      return loaded(detail, isAuthenticated, account);
     }
     return orElse();
   }
@@ -471,10 +560,15 @@ class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
 }
 
 abstract class AuctionDetailLoaded implements AuctionDetailState {
-  const factory AuctionDetailLoaded(final Auction auction) =
-      _$AuctionDetailLoadedImpl;
+  const factory AuctionDetailLoaded(
+    final AuctionDetail detail, {
+    final bool isAuthenticated,
+    final ViewerAccountFlags? account,
+  }) = _$AuctionDetailLoadedImpl;
 
-  Auction get auction;
+  AuctionDetail get detail;
+  bool get isAuthenticated;
+  ViewerAccountFlags? get account;
 
   /// Create a copy of AuctionDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -558,7 +652,12 @@ class _$AuctionDetailErrorImpl implements AuctionDetailError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Auction auction) loaded,
+    required TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )
+    loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -569,7 +668,12 @@ class _$AuctionDetailErrorImpl implements AuctionDetailError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Auction auction)? loaded,
+    TResult? Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -580,7 +684,12 @@ class _$AuctionDetailErrorImpl implements AuctionDetailError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Auction auction)? loaded,
+    TResult Function(
+      AuctionDetail detail,
+      bool isAuthenticated,
+      ViewerAccountFlags? account,
+    )?
+    loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

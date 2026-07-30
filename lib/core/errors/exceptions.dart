@@ -7,10 +7,16 @@ class ServerException implements Exception {
   final int? statusCode;
   final Map<String, List<String>>? errors;
 
+  /// كود خطأ يتقري من الباك (مثال: `already_bought_book`).
+  /// اختياري — الباك لسه بيرجّع الرسالة النصية بس في بعض المسارات
+  /// (طلب BE-16)، فالكود ممكن يكون null ووقتها بنرجع للنص.
+  final String? code;
+
   ServerException({
     required this.message,
     this.statusCode,
     this.errors,
+    this.code,
   });
 }
 

@@ -11,7 +11,13 @@ sealed class Failure with _$Failure {
     required String message,
     int? statusCode,
     Map<String, List<String>>? errors, // أخطاء التحقق {field: [msgs]}
+    // كود يتقري من الباك (BE-16) — null لو المسار لسه بيرجّع نص بس.
+    String? code,
   }) = ServerFailure;
+
+  // ملاحظة: التحويل من ServerException بيتم عبر `e.toFailure()` في
+  // exceptions_mapper.dart — مكان واحد، فأي حقل جديد بينتشر لكل الـ
+  // repositories تلقائيًا.
 
   /// مفيش اتصال بالإنترنت / timeout
   const factory Failure.network({

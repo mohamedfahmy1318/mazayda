@@ -17,6 +17,9 @@ class AuthConstants {
   /// أرقام الجزائر: 10 خانات تبدأ بـ 0 (05/06/07).
   static const int phoneLength = 10;
 
-  /// الحد الأدنى لطول كلمة المرور.
+  /// الحد الأدنى لطول كلمة المرور (Password::min(12) في الـ production).
   static const int minPasswordLength = 12;
+
+  /// الحد الأدنى للسن عند التسجيل — قاعدة الـ API: before:(اليوم - 18 سنة).
+  static const int minAgeYears = 18;
 }

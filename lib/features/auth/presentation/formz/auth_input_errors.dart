@@ -54,7 +54,31 @@ extension PasswordInputErrorText on PasswordInput {
     if (isPure || isValid) return null;
     return switch (error) {
       PasswordError.empty => t.valRequired,
-      PasswordError.tooShort => t.valPasswordShort,
+      _ => null,
+    };
+  }
+}
+
+extension NewPasswordInputErrorText on NewPasswordInput {
+  String? errorText(AppLocalizations t) {
+    if (isPure || isValid) return null;
+    return switch (error) {
+      NewPasswordError.empty => t.valRequired,
+      NewPasswordError.tooShort => t.valPasswordShort,
+      NewPasswordError.needsMixedCase => t.valPasswordMixedCase,
+      NewPasswordError.needsNumber => t.valPasswordNumber,
+      NewPasswordError.needsSymbol => t.valPasswordSymbol,
+      _ => null,
+    };
+  }
+}
+
+extension BirthDateInputErrorText on BirthDateInput {
+  String? errorText(AppLocalizations t) {
+    if (isPure || isValid) return null;
+    return switch (error) {
+      BirthDateError.empty => t.valRequired,
+      BirthDateError.under18 => t.valBirthDateUnder18,
       _ => null,
     };
   }

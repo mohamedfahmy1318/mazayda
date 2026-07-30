@@ -23,17 +23,42 @@ Map<String, dynamic> _$$PaymentInitModelImplToJson(
 _$PaymentStatusModelImpl _$$PaymentStatusModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$PaymentStatusModelImpl(
-  ref: json['ref'] as String?,
-  paymentType: json['payment_type'] as String?,
+  id: json['id'] as String?,
+  type: json['type'] as String?,
+  amount: json['amount'] == null
+      ? null
+      : MoneyModel.fromJson(json['amount'] as Map<String, dynamic>),
   status: json['status'] as String?,
-  isConfirmed: json['is_confirmed'] as bool? ?? false,
+  gatewayRef: json['gateway_ref'] as String?,
+  dueAt: json['due_at'] as String?,
+  confirmedAt: json['confirmed_at'] as String?,
+  createdAt: json['created_at'] as String?,
 );
 
 Map<String, dynamic> _$$PaymentStatusModelImplToJson(
   _$PaymentStatusModelImpl instance,
 ) => <String, dynamic>{
-  'ref': instance.ref,
-  'payment_type': instance.paymentType,
+  'id': instance.id,
+  'type': instance.type,
+  'amount': instance.amount,
   'status': instance.status,
-  'is_confirmed': instance.isConfirmed,
+  'gateway_ref': instance.gatewayRef,
+  'due_at': instance.dueAt,
+  'confirmed_at': instance.confirmedAt,
+  'created_at': instance.createdAt,
 };
+
+_$PaymentStatusResponseModelImpl _$$PaymentStatusResponseModelImplFromJson(
+  Map<String, dynamic> json,
+) => _$PaymentStatusResponseModelImpl(
+  ref: json['ref'] as String?,
+  payments:
+      (json['payments'] as List<dynamic>?)
+          ?.map((e) => PaymentStatusModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const <PaymentStatusModel>[],
+);
+
+Map<String, dynamic> _$$PaymentStatusResponseModelImplToJson(
+  _$PaymentStatusResponseModelImpl instance,
+) => <String, dynamic>{'ref': instance.ref, 'payments': instance.payments};

@@ -13,9 +13,12 @@ class NotificationModel with _$NotificationModel {
     required String id,
     String? title,
     String? body,
+    String? channel,
+    // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
+    // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
     String? type,
-    @JsonKey(name: 'read_at') String? readAt,
-    @JsonKey(name: 'is_read') bool? isRead,
+    @JsonKey(name: 'is_read') @Default(false) bool isRead,
+    @JsonKey(name: 'action_url') String? actionUrl,
     @JsonKey(name: 'created_at') String? createdAt,
   }) = _NotificationModel;
 
@@ -26,9 +29,10 @@ class NotificationModel with _$NotificationModel {
     id: id,
     title: title ?? '',
     body: body ?? '',
-    kind: NotificationKindX.fromApi(type),
-    // مقروء لو is_read=true أو فيه read_at
-    isRead: isRead ?? (readAt != null),
+    channel: NotificationChannelX.fromApi(channel),
+    event: NotificationEventX.fromApi(type),
+    actionUrl: actionUrl,
+    isRead: isRead,
     createdAt: DateTime.tryParse(createdAt ?? '') ?? DateTime.now(),
   );
 }

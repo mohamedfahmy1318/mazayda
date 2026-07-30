@@ -13,6 +13,7 @@ abstract class AuthRepository {
     required String email,
     required String birthDate,
     required String password,
+    required String passwordConfirmation,
     required String deviceName,
   });
 
@@ -38,6 +39,39 @@ abstract class AuthRepository {
 
   /// تسجيل الخروج (يمسح التوكنات محليًا أيضًا).
   Future<Either<Failure, Unit>> logout({bool allDevices});
+
+  // ===== استرجاع الحساب =====
+
+  /// طلب رمز إعادة التعيين — بينجح دايمًا حتى لو الحساب مش موجود.
+  Future<Either<Failure, Unit>> requestPasswordReset({
+    required String nin,
+    required String email,
+  });
+
+  /// تأكيد الرمز وتعيين كلمة سر جديدة.
+  /// السيرفر بيبطّل كل التوكنات، فبنمسح المخزّن محليًا كمان.
+  Future<Either<Failure, Unit>> verifyPasswordReset({
+    required String nin,
+    required String email,
+    required String otp,
+    required String password,
+    required String passwordConfirmation,
+  });
+
+  /// كشف مفتاح السؤال السرّي.
+  Future<Either<Failure, String>> revealSecretQuestion({
+    required String nin,
+    required String email,
+  });
+
+  /// استرجاع بالسؤال السرّي وتعيين كلمة سر جديدة.
+  Future<Either<Failure, Unit>> recoverBySecret({
+    required String nin,
+    required String email,
+    required String secretAnswer,
+    required String password,
+    required String passwordConfirmation,
+  });
 
   /// هل فيه جلسة محفوظة محليًا؟ (للـ splash).
   Future<bool> hasSession();

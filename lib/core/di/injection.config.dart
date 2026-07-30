@@ -44,10 +44,14 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart'
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/check_session.dart' as _i625;
 import '../../features/auth/domain/usecases/login_user.dart' as _i778;
+import '../../features/auth/domain/usecases/password_recovery_usecases.dart'
+    as _i38;
 import '../../features/auth/domain/usecases/register_user.dart' as _i198;
 import '../../features/auth/domain/usecases/verify_otp.dart' as _i975;
 import '../../features/auth/presentation/cubit/login_cubit.dart' as _i69;
 import '../../features/auth/presentation/cubit/otp_cubit.dart' as _i1033;
+import '../../features/auth/presentation/cubit/password_recovery_cubit.dart'
+    as _i648;
 import '../../features/auth/presentation/cubit/register_cubit.dart' as _i759;
 import '../../features/bidding/data/datasources/bidding_remote_data_source.dart'
     as _i620;
@@ -57,6 +61,26 @@ import '../../features/bidding/domain/repositories/bidding_repository.dart'
     as _i582;
 import '../../features/bidding/domain/usecases/bidding_usecases.dart' as _i581;
 import '../../features/bidding/presentation/cubit/bidding_cubit.dart' as _i107;
+import '../../features/commercial_register/data/datasources/commercial_register_remote_data_source.dart'
+    as _i798;
+import '../../features/commercial_register/data/repositories/commercial_register_repository_impl.dart'
+    as _i970;
+import '../../features/commercial_register/domain/repositories/commercial_register_repository.dart'
+    as _i95;
+import '../../features/commercial_register/domain/usecases/commercial_register_usecases.dart'
+    as _i624;
+import '../../features/commercial_register/presentation/cubit/commercial_register_cubit.dart'
+    as _i972;
+import '../../features/documents/data/datasources/documents_remote_data_source.dart'
+    as _i757;
+import '../../features/documents/data/repositories/documents_repository_impl.dart'
+    as _i270;
+import '../../features/documents/domain/repositories/documents_repository.dart'
+    as _i345;
+import '../../features/documents/domain/usecases/documents_usecases.dart'
+    as _i301;
+import '../../features/documents/presentation/cubit/documents_cubit.dart'
+    as _i783;
 import '../../features/kyc/data/datasources/kyc_remote_data_source.dart'
     as _i789;
 import '../../features/kyc/data/repositories/kyc_repository_impl.dart' as _i832;
@@ -69,6 +93,8 @@ import '../../features/my_auctions/data/repositories/my_auctions_repository_impl
     as _i685;
 import '../../features/my_auctions/domain/repositories/my_auctions_repository.dart'
     as _i489;
+import '../../features/my_auctions/domain/usecases/get_my_auctions.dart'
+    as _i919;
 import '../../features/my_auctions/presentation/cubit/my_auctions_cubit.dart'
     as _i115;
 import '../../features/notifications/data/datasources/notifications_remote_data_source.dart'
@@ -89,6 +115,8 @@ import '../../features/payments/domain/repositories/payments_repository.dart'
     as _i663;
 import '../../features/payments/domain/usecases/payments_usecases.dart'
     as _i306;
+import '../../features/payments/presentation/cubit/final_payment_preview_cubit.dart'
+    as _i212;
 import '../../features/payments/presentation/cubit/payment_flow_cubit.dart'
     as _i462;
 import '../../features/profile/data/datasources/profile_remote_data_source.dart'
@@ -107,6 +135,7 @@ import '../../features/qa/presentation/cubit/qa_cubit.dart' as _i487;
 import '../connectivity/connectivity_cubit.dart' as _i690;
 import '../network/api_client.dart' as _i557;
 import '../network/token_storage.dart' as _i964;
+import '../notifications/device_registrar.dart' as _i860;
 import '../notifications/push_notification_service.dart' as _i269;
 import '../realtime/pusher_realtime_service.dart' as _i345;
 import '../realtime/realtime_service.dart' as _i854;
@@ -159,6 +188,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1060.AppealsRepository>(
       () => _i851.AppealsRepositoryImpl(gh<_i459.AppealsRemoteDataSource>()),
     );
+    gh.lazySingleton<_i798.CommercialRegisterRemoteDataSource>(
+      () => _i798.CommercialRegisterRemoteDataSourceImpl(gh<_i557.ApiClient>()),
+    );
     gh.lazySingleton<_i340.PaymentsRemoteDataSource>(
       () => _i340.PaymentsRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
@@ -167,6 +199,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i847.ProfileRemoteDataSource>(
       () => _i847.ProfileRemoteDataSourceImpl(gh<_i557.ApiClient>()),
+    );
+    gh.lazySingleton<_i757.DocumentsRemoteDataSource>(
+      () => _i757.DocumentsRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
     gh.factory<_i896.SubmitAppeal>(
       () => _i896.SubmitAppeal(gh<_i1060.AppealsRepository>()),
@@ -180,6 +215,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
+    gh.lazySingleton<_i860.DeviceRegistrar>(
+      () => _i860.DeviceRegistrar(
+        gh<_i557.ApiClient>(),
+        gh<_i269.PushNotificationService>(),
+      ),
+    );
     gh.lazySingleton<_i92.QaRemoteDataSource>(
       () => _i92.QaRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
@@ -188,12 +229,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i838.AuctionRemoteDataSource>(
       () => _i838.AuctionRemoteDataSourceImpl(gh<_i557.ApiClient>()),
-    );
-    gh.lazySingleton<_i787.AuthRepository>(
-      () => _i153.AuthRepositoryImpl(
-        gh<_i107.AuthRemoteDataSource>(),
-        gh<_i964.TokenStorage>(),
-      ),
     );
     gh.lazySingleton<_i1017.KycRepository>(
       () => _i832.KycRepositoryImpl(gh<_i789.KycRemoteDataSource>()),
@@ -211,6 +246,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i459.MarkAllNotificationsRead>(
       () => _i459.MarkAllNotificationsRead(gh<_i563.NotificationsRepository>()),
+    );
+    gh.lazySingleton<_i345.DocumentsRepository>(
+      () =>
+          _i270.DocumentsRepositoryImpl(gh<_i757.DocumentsRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i95.CommercialRegisterRepository>(
+      () => _i970.CommercialRegisterRepositoryImpl(
+        gh<_i798.CommercialRegisterRemoteDataSource>(),
+      ),
     );
     gh.factory<_i433.AppealsCubit>(
       () =>
@@ -233,27 +277,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i894.ProfileRepository>(
       () => _i334.ProfileRepositoryImpl(gh<_i847.ProfileRemoteDataSource>()),
-    );
-    gh.factory<_i198.RegisterUser>(
-      () => _i198.RegisterUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i975.VerifyOtp>(
-      () => _i975.VerifyOtp(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i975.ResendOtp>(
-      () => _i975.ResendOtp(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i778.LoginUser>(
-      () => _i778.LoginUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i778.GetCurrentUser>(
-      () => _i778.GetCurrentUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i778.LogoutUser>(
-      () => _i778.LogoutUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i625.CheckSession>(
-      () => _i625.CheckSession(gh<_i787.AuthRepository>()),
     );
     gh.lazySingleton<_i663.PaymentsRepository>(
       () => _i565.PaymentsRepositoryImpl(gh<_i340.PaymentsRemoteDataSource>()),
@@ -278,6 +301,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i829.GetCommunes>(
       () => _i829.GetCommunes(gh<_i1017.KycRepository>()),
     );
+    gh.factory<_i301.GetDocuments>(
+      () => _i301.GetDocuments(gh<_i345.DocumentsRepository>()),
+    );
+    gh.factory<_i301.GetDocumentsSummary>(
+      () => _i301.GetDocumentsSummary(gh<_i345.DocumentsRepository>()),
+    );
+    gh.factory<_i301.DownloadDocument>(
+      () => _i301.DownloadDocument(gh<_i345.DocumentsRepository>()),
+    );
+    gh.factory<_i783.DocumentsCubit>(
+      () => _i783.DocumentsCubit(
+        gh<_i301.GetDocuments>(),
+        gh<_i301.GetDocumentsSummary>(),
+        gh<_i301.DownloadDocument>(),
+      ),
+    );
+    gh.lazySingleton<_i787.AuthRepository>(
+      () => _i153.AuthRepositoryImpl(
+        gh<_i107.AuthRemoteDataSource>(),
+        gh<_i964.TokenStorage>(),
+        gh<_i860.DeviceRegistrar>(),
+      ),
+    );
     gh.factory<_i581.GetLatestBids>(
       () => _i581.GetLatestBids(gh<_i582.BiddingRepository>()),
     );
@@ -286,6 +332,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i581.PlaceBid>(
       () => _i581.PlaceBid(gh<_i582.BiddingRepository>()),
+    );
+    gh.factory<_i624.GetCommercialRegister>(
+      () =>
+          _i624.GetCommercialRegister(gh<_i95.CommercialRegisterRepository>()),
+    );
+    gh.factory<_i624.SubmitCommercialRegister>(
+      () => _i624.SubmitCommercialRegister(
+        gh<_i95.CommercialRegisterRepository>(),
+      ),
     );
     gh.factory<_i405.NotificationsCubit>(
       () => _i405.NotificationsCubit(
@@ -309,13 +364,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i829.GetCommunes>(),
       ),
     );
-    gh.factory<_i1033.OtpCubit>(
-      () => _i1033.OtpCubit(gh<_i975.VerifyOtp>(), gh<_i975.ResendOtp>()),
+    gh.factory<_i972.CommercialRegisterCubit>(
+      () => _i972.CommercialRegisterCubit(
+        gh<_i624.GetCommercialRegister>(),
+        gh<_i624.SubmitCommercialRegister>(),
+      ),
     );
     gh.factory<_i487.QaCubit>(
       () => _i487.QaCubit(gh<_i420.GetQuestions>(), gh<_i420.AskQuestion>()),
     );
-    gh.factory<_i69.LoginCubit>(() => _i69.LoginCubit(gh<_i778.LoginUser>()));
     gh.factory<_i107.BiddingCubit>(
       () => _i107.BiddingCubit(
         gh<_i581.GetLatestBids>(),
@@ -333,11 +390,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i306.StartFinalPayment>(
       () => _i306.StartFinalPayment(gh<_i663.PaymentsRepository>()),
     );
+    gh.factory<_i306.GetFinalPaymentPreview>(
+      () => _i306.GetFinalPaymentPreview(gh<_i663.PaymentsRepository>()),
+    );
     gh.factory<_i306.GetPaymentStatus>(
       () => _i306.GetPaymentStatus(gh<_i663.PaymentsRepository>()),
-    );
-    gh.factory<_i759.RegisterCubit>(
-      () => _i759.RegisterCubit(gh<_i198.RegisterUser>()),
     );
     gh.factory<_i78.UpdateProfile>(
       () => _i78.UpdateProfile(gh<_i894.ProfileRepository>()),
@@ -345,11 +402,51 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i72.GetProfile>(
       () => _i72.GetProfile(gh<_i894.ProfileRepository>()),
     );
-    gh.factory<_i489.GetMyAuctions>(
-      () => _i489.GetMyAuctions(gh<_i489.MyAuctionsRepository>()),
-    );
     gh.factory<_i78.AuctionDetailCubit>(
-      () => _i78.AuctionDetailCubit(gh<_i357.GetAuctionById>()),
+      () => _i78.AuctionDetailCubit(
+        gh<_i357.GetAuctionById>(),
+        gh<_i72.GetProfile>(),
+        gh<_i964.TokenStorage>(),
+      ),
+    );
+    gh.factory<_i919.GetMyAuctions>(
+      () => _i919.GetMyAuctions(gh<_i489.MyAuctionsRepository>()),
+    );
+    gh.factory<_i198.RegisterUser>(
+      () => _i198.RegisterUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i975.VerifyOtp>(
+      () => _i975.VerifyOtp(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i975.ResendOtp>(
+      () => _i975.ResendOtp(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i625.CheckSession>(
+      () => _i625.CheckSession(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.LoginUser>(
+      () => _i778.LoginUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.GetCurrentUser>(
+      () => _i778.GetCurrentUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.LogoutUser>(
+      () => _i778.LogoutUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i38.RequestPasswordReset>(
+      () => _i38.RequestPasswordReset(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i38.VerifyPasswordReset>(
+      () => _i38.VerifyPasswordReset(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i38.RevealSecretQuestion>(
+      () => _i38.RevealSecretQuestion(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i38.RecoverBySecret>(
+      () => _i38.RecoverBySecret(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i212.FinalPaymentPreviewCubit>(
+      () => _i212.FinalPaymentPreviewCubit(gh<_i306.GetFinalPaymentPreview>()),
     );
     gh.factory<_i462.PaymentFlowCubit>(
       () => _i462.PaymentFlowCubit(
@@ -359,10 +456,25 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i306.GetPaymentStatus>(),
       ),
     );
+    gh.factory<_i115.MyAuctionsCubit>(
+      () => _i115.MyAuctionsCubit(gh<_i919.GetMyAuctions>()),
+    );
     gh.factory<_i577.AuctionsCubit>(
       () =>
           _i577.AuctionsCubit(gh<_i689.GetAuctions>(), gh<_i829.GetWilayas>()),
     );
+    gh.factory<_i648.PasswordRecoveryCubit>(
+      () => _i648.PasswordRecoveryCubit(
+        gh<_i38.RequestPasswordReset>(),
+        gh<_i38.VerifyPasswordReset>(),
+        gh<_i38.RevealSecretQuestion>(),
+        gh<_i38.RecoverBySecret>(),
+      ),
+    );
+    gh.factory<_i1033.OtpCubit>(
+      () => _i1033.OtpCubit(gh<_i975.VerifyOtp>(), gh<_i975.ResendOtp>()),
+    );
+    gh.factory<_i69.LoginCubit>(() => _i69.LoginCubit(gh<_i778.LoginUser>()));
     gh.factory<_i36.ProfileCubit>(
       () => _i36.ProfileCubit(
         gh<_i72.GetProfile>(),
@@ -370,8 +482,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i778.LogoutUser>(),
       ),
     );
-    gh.factory<_i115.MyAuctionsCubit>(
-      () => _i115.MyAuctionsCubit(gh<_i489.GetMyAuctions>()),
+    gh.factory<_i759.RegisterCubit>(
+      () => _i759.RegisterCubit(gh<_i198.RegisterUser>()),
     );
     return this;
   }

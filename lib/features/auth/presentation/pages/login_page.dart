@@ -86,7 +86,21 @@ class _LoginView extends StatelessWidget {
                   // الزرار يتقفل لحد ما البيانات تبقى صحيحة
                   onPressed: state.canSubmit ? () => cubit.submit() : null,
                 ),
-                Gap(16.h),
+                Gap(8.h),
+                // من غير المسارين دول، أي مستخدم بينسى كلمة سره بيفضل
+                // مقفول برّه التطبيق نهائيًا.
+                TextButton(
+                  onPressed: () => context.push(Routes.forgotPassword),
+                  child: Text(t.forgotPassword),
+                ),
+                TextButton(
+                  onPressed: () => context.push(Routes.recoverAccount),
+                  child: Text(
+                    t.recoverWithSecret,
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                ),
+                Gap(8.h),
                 TextButton(
                   onPressed: () => context.push(Routes.register),
                   child: Text(t.noAccountRegister),

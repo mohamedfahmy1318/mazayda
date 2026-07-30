@@ -7,6 +7,8 @@ import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
+import '../../features/auth/presentation/cubit/password_recovery_cubit.dart';
+import '../../features/auth/presentation/pages/password_recovery_page.dart';
 import '../../features/auctions/presentation/pages/auctions_page.dart';
 import '../../features/auctions/presentation/pages/auction_detail_page.dart';
 import '../../features/bidding/presentation/pages/live_bidding_page.dart';
@@ -15,6 +17,8 @@ import '../../features/my_auctions/presentation/pages/my_auctions_page.dart';
 import '../../features/notifications/presentation/pages/notifications_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/appeals/presentation/pages/appeals_page.dart';
+import '../../features/commercial_register/presentation/pages/commercial_register_page.dart';
+import '../../features/documents/presentation/pages/documents_page.dart';
 import '../../features/qa/presentation/pages/qa_page.dart';
 
 /// أسماء المسارات — مركزية لتجنّب الأخطاء الإملائية.
@@ -24,6 +28,8 @@ class Routes {
   static const login = '/login';
   static const register = '/register';
   static const otp = '/otp';
+  static const forgotPassword = '/forgot-password';
+  static const recoverAccount = '/recover-account';
   // تبويبات الـ Bottom Navigation
   static const home = '/home';
   static const myAuctions = '/my-auctions';
@@ -33,6 +39,8 @@ class Routes {
   static const auctionDetail = '/auction'; // /auction/:id
   static const liveBidding = '/bidding'; // /bidding/:id
   static const kyc = '/kyc';
+  static const commercialRegister = '/commercial-register';
+  static const documents = '/documents';
   static const appeals = '/appeals';
   static const qa = '/qa'; // /qa/:id
 }
@@ -73,6 +81,16 @@ GoRouter createRouter(SessionManager session) {
         builder: (_, _) => const LoginPage(),
       ),
       GoRoute(
+        path: Routes.forgotPassword,
+        builder: (_, _) =>
+            const PasswordRecoveryPage(mode: RecoveryMode.otp),
+      ),
+      GoRoute(
+        path: Routes.recoverAccount,
+        builder: (_, _) =>
+            const PasswordRecoveryPage(mode: RecoveryMode.secretQuestion),
+      ),
+      GoRoute(
         path: Routes.register,
         builder: (_, _) => const RegisterPage(),
       ),
@@ -104,6 +122,16 @@ GoRouter createRouter(SessionManager session) {
         parentNavigatorKey: _rootKey,
         path: Routes.kyc,
         builder: (_, _) => const KycPage(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.commercialRegister,
+        builder: (_, _) => const CommercialRegisterPage(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.documents,
+        builder: (_, _) => const DocumentsPage(),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,

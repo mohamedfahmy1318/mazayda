@@ -50,7 +50,10 @@ dependencies:
   formz: ^0.7.0 # تحقق نظيف للحقول
 
   # Media / Files
-  image_picker: ^1.1.2 # تصوير/اختيار مستندات الـ KYC
+  image_picker: ^1.1.2 # تصوير/اختيار مستندات الـ KYC (JPG/PNG فقط — قيد السيرفر)
+  file_picker: ^8.1.2 # اختيار PDF لمستندات السجل التجاري (الـ KYC لا يقبل PDF)
+  path_provider: ^2.1.4 # مجلد مؤقت لحفظ الوثائق المنزّلة
+  open_filex: ^4.5.0 # فتح الـ PDF المنزّل بعارض النظام
   url_launcher: ^6.3.0 # فتح بوابة الدفع / الروابط
   webview_flutter: ^4.8.0 # بوابة الدفع داخل التطبيق
 

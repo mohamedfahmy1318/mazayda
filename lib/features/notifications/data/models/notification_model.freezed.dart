@@ -24,11 +24,14 @@ mixin _$NotificationModel {
   String get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get body => throw _privateConstructorUsedError;
+  String? get channel =>
+      throw _privateConstructorUsedError; // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
+  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
   String? get type => throw _privateConstructorUsedError;
-  @JsonKey(name: 'read_at')
-  String? get readAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_read')
-  bool? get isRead => throw _privateConstructorUsedError;
+  bool get isRead => throw _privateConstructorUsedError;
+  @JsonKey(name: 'action_url')
+  String? get actionUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String? get createdAt => throw _privateConstructorUsedError;
 
@@ -53,9 +56,10 @@ abstract class $NotificationModelCopyWith<$Res> {
     String id,
     String? title,
     String? body,
+    String? channel,
     String? type,
-    @JsonKey(name: 'read_at') String? readAt,
-    @JsonKey(name: 'is_read') bool? isRead,
+    @JsonKey(name: 'is_read') bool isRead,
+    @JsonKey(name: 'action_url') String? actionUrl,
     @JsonKey(name: 'created_at') String? createdAt,
   });
 }
@@ -78,9 +82,10 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
     Object? id = null,
     Object? title = freezed,
     Object? body = freezed,
+    Object? channel = freezed,
     Object? type = freezed,
-    Object? readAt = freezed,
-    Object? isRead = freezed,
+    Object? isRead = null,
+    Object? actionUrl = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(
@@ -97,18 +102,22 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
                 ? _value.body
                 : body // ignore: cast_nullable_to_non_nullable
                       as String?,
+            channel: freezed == channel
+                ? _value.channel
+                : channel // ignore: cast_nullable_to_non_nullable
+                      as String?,
             type: freezed == type
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
                       as String?,
-            readAt: freezed == readAt
-                ? _value.readAt
-                : readAt // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            isRead: freezed == isRead
+            isRead: null == isRead
                 ? _value.isRead
                 : isRead // ignore: cast_nullable_to_non_nullable
-                      as bool?,
+                      as bool,
+            actionUrl: freezed == actionUrl
+                ? _value.actionUrl
+                : actionUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
             createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
@@ -132,9 +141,10 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
     String id,
     String? title,
     String? body,
+    String? channel,
     String? type,
-    @JsonKey(name: 'read_at') String? readAt,
-    @JsonKey(name: 'is_read') bool? isRead,
+    @JsonKey(name: 'is_read') bool isRead,
+    @JsonKey(name: 'action_url') String? actionUrl,
     @JsonKey(name: 'created_at') String? createdAt,
   });
 }
@@ -156,9 +166,10 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = freezed,
     Object? body = freezed,
+    Object? channel = freezed,
     Object? type = freezed,
-    Object? readAt = freezed,
-    Object? isRead = freezed,
+    Object? isRead = null,
+    Object? actionUrl = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(
@@ -175,18 +186,22 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
             ? _value.body
             : body // ignore: cast_nullable_to_non_nullable
                   as String?,
+        channel: freezed == channel
+            ? _value.channel
+            : channel // ignore: cast_nullable_to_non_nullable
+                  as String?,
         type: freezed == type
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String?,
-        readAt: freezed == readAt
-            ? _value.readAt
-            : readAt // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        isRead: freezed == isRead
+        isRead: null == isRead
             ? _value.isRead
             : isRead // ignore: cast_nullable_to_non_nullable
-                  as bool?,
+                  as bool,
+        actionUrl: freezed == actionUrl
+            ? _value.actionUrl
+            : actionUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
         createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
@@ -203,9 +218,10 @@ class _$NotificationModelImpl extends _NotificationModel {
     required this.id,
     this.title,
     this.body,
+    this.channel,
     this.type,
-    @JsonKey(name: 'read_at') this.readAt,
-    @JsonKey(name: 'is_read') this.isRead,
+    @JsonKey(name: 'is_read') this.isRead = false,
+    @JsonKey(name: 'action_url') this.actionUrl,
     @JsonKey(name: 'created_at') this.createdAt,
   }) : super._();
 
@@ -219,20 +235,24 @@ class _$NotificationModelImpl extends _NotificationModel {
   @override
   final String? body;
   @override
+  final String? channel;
+  // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
+  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+  @override
   final String? type;
   @override
-  @JsonKey(name: 'read_at')
-  final String? readAt;
-  @override
   @JsonKey(name: 'is_read')
-  final bool? isRead;
+  final bool isRead;
+  @override
+  @JsonKey(name: 'action_url')
+  final String? actionUrl;
   @override
   @JsonKey(name: 'created_at')
   final String? createdAt;
 
   @override
   String toString() {
-    return 'NotificationModel(id: $id, title: $title, body: $body, type: $type, readAt: $readAt, isRead: $isRead, createdAt: $createdAt)';
+    return 'NotificationModel(id: $id, title: $title, body: $body, channel: $channel, type: $type, isRead: $isRead, actionUrl: $actionUrl, createdAt: $createdAt)';
   }
 
   @override
@@ -243,9 +263,11 @@ class _$NotificationModelImpl extends _NotificationModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.body, body) || other.body == body) &&
+            (identical(other.channel, channel) || other.channel == channel) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.readAt, readAt) || other.readAt == readAt) &&
             (identical(other.isRead, isRead) || other.isRead == isRead) &&
+            (identical(other.actionUrl, actionUrl) ||
+                other.actionUrl == actionUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -257,9 +279,10 @@ class _$NotificationModelImpl extends _NotificationModel {
     id,
     title,
     body,
+    channel,
     type,
-    readAt,
     isRead,
+    actionUrl,
     createdAt,
   );
 
@@ -285,9 +308,10 @@ abstract class _NotificationModel extends NotificationModel {
     required final String id,
     final String? title,
     final String? body,
+    final String? channel,
     final String? type,
-    @JsonKey(name: 'read_at') final String? readAt,
-    @JsonKey(name: 'is_read') final bool? isRead,
+    @JsonKey(name: 'is_read') final bool isRead,
+    @JsonKey(name: 'action_url') final String? actionUrl,
     @JsonKey(name: 'created_at') final String? createdAt,
   }) = _$NotificationModelImpl;
   const _NotificationModel._() : super._();
@@ -302,13 +326,16 @@ abstract class _NotificationModel extends NotificationModel {
   @override
   String? get body;
   @override
+  String? get channel; // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
+  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+  @override
   String? get type;
   @override
-  @JsonKey(name: 'read_at')
-  String? get readAt;
-  @override
   @JsonKey(name: 'is_read')
-  bool? get isRead;
+  bool get isRead;
+  @override
+  @JsonKey(name: 'action_url')
+  String? get actionUrl;
   @override
   @JsonKey(name: 'created_at')
   String? get createdAt;

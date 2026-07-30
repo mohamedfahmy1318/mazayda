@@ -1,14 +1,11 @@
 {
   "@@locale": "fr",
   "appName": "Mazayada",
-
   "navHome": "Accueil",
   "navMyAuctions": "Mes enchères",
   "navPayments": "Paiements",
   "navProfile": "Profil",
-
   "splashTagline": "Plateforme Nationale des Enchères Publiques",
-
   "login": "Connexion",
   "loginButton": "Se connecter",
   "register": "Créer un compte",
@@ -16,6 +13,8 @@
   "ninOrEmail": "NIN ou e-mail",
   "password": "Mot de passe",
   "confirmPassword": "Confirmer le mot de passe",
+  "birthDate": "Date de naissance",
+  "selectBirthDate": "Choisir la date de naissance",
   "nin": "Numéro d'identification national (NIN)",
   "ninHint": "18 chiffres",
   "firstName": "Prénom",
@@ -23,20 +22,26 @@
   "phone": "Numéro de téléphone",
   "email": "E-mail",
   "nextVerify": "Suivant — Vérification",
-
   "verifyEmailTitle": "Vérification de l'e-mail",
   "otpHint": "Saisissez le code à 6 chiffres envoyé à votre e-mail",
   "confirm": "Confirmer",
   "resendCode": "Renvoyer le code",
   "resendIn": "Renvoyer dans {seconds} s",
   "@resendIn": {
-    "placeholders": { "seconds": { "type": "int" } }
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
   "resendInTimer": "Renvoyer dans {time}",
   "@resendInTimer": {
-    "placeholders": { "time": { "type": "String" } }
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   },
-
   "activeAuctions": "Enchères actives",
   "noAuctions": "Aucune enchère pour le moment",
   "currentPrice": "Prix actuel",
@@ -45,7 +50,11 @@
   "depositRequired": "Caution requise",
   "bidders": "{count} enchérisseurs",
   "@bidders": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "live": "En direct",
   "comingSoon": "Bientôt",
@@ -53,7 +62,6 @@
   "ended": "Terminé",
   "cancelled": "Annulé",
   "description": "Description",
-
   "auctionsTitle": "Enchères",
   "searchAuctionHint": "Rechercher une enchère...",
   "filter": "Filtrer",
@@ -62,11 +70,13 @@
   "filterStatusUpcoming": "À venir",
   "filterStatusExtended": "Prolongé",
   "filterStatusClosed": "Clôturé",
-  "auctionTypeSale": "Vente",
-  "auctionTypeLease": "Location",
   "auctionsCount": "{count} enchères",
   "@auctionsCount": {
-    "placeholders": { "count": { "type": "String" } }
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   },
   "clearAll": "Tout effacer",
   "noMoreResults": "— Plus de résultats —",
@@ -82,7 +92,6 @@
   "noWilayaMatch": "Aucune wilaya de ce nom",
   "reset": "Réinitialiser",
   "showResults": "Afficher les résultats",
-
   "registerAndPay": "S'inscrire et payer",
   "bid": "Enchérir",
   "liveBidding": "Enchère en direct",
@@ -91,15 +100,22 @@
   "youAreHighest": "Vous avez la meilleure offre",
   "placeBidAmount": "Enchérir à {amount}",
   "@placeBidAmount": {
-    "placeholders": { "amount": { "type": "String" } }
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   },
   "currentHighestBid": "Meilleure offre actuelle",
   "currencyDzd": "DA",
   "bidsCount": "{count} offres",
   "@bidsCount": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-
   "kycTitle": "Vérification d'identité (KYC)",
   "kycWarning": "Complétez le formulaire sous 30 jours, sinon le compte sera suspendu",
   "requiredDocuments": "Documents requis",
@@ -117,7 +133,11 @@
   "kycStatusRejected": "Rejeté",
   "kycStatusLabel": "Statut : {status}",
   "@kycStatusLabel": {
-    "placeholders": { "status": { "type": "String" } }
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
   },
   "firstNameFr": "Prénom (en français)",
   "lastNameFr": "Nom (en français)",
@@ -127,45 +147,56 @@
   "expectedIncome": "Revenu mensuel estimé",
   "idNumber": "Numéro de la carte d'identité",
   "commune": "Commune",
-
   "myAuctionsActive": "Actives",
   "myAuctionsWon": "Gagnées",
   "myAuctionsLost": "Perdues",
   "myAuctionsUpcoming": "À venir",
-
-  "myAuctionsStatusWinning": "Vous êtes en tête",
-  "myAuctionsStatusOutbid": "Vous êtes dépassé",
   "myAuctionsStatusAwaitingPayment": "En attente de paiement",
   "myAuctionsStatusCompleted": "Terminé",
   "myAuctionsStatusRefund": "Caution remboursée",
   "myAuctionsStatusUpcoming": "Pas encore commencé",
-
+  "myAuctionsStatusLive": "En cours",
+  "myAuctionsStatusEnded": "Terminé — résultat en attente",
+  "myAuctionsStatusParticipating": "Inscrit",
+  "myAuctionsStatusWinning": "Vous menez",
+  "myAuctionsStatusOutbid": "Vous êtes dépassé",
+  "myAuctionsStatusWon": "Enchère remportée",
+  "myAuctionsStatusLost": "Non retenu",
   "myAuctionsPriceCurrentBid": "Votre offre actuelle",
   "myAuctionsPriceKnockdown": "Prix d'adjudication",
   "myAuctionsPriceFinal": "Prix final",
-
   "myAuctionsEmptyActive": "Aucune enchère active",
   "myAuctionsEmptyWon": "Vous n'avez encore gagné aucune enchère",
   "myAuctionsEmptyLost": "Aucune enchère perdue",
   "myAuctionsEmptyUpcoming": "Aucune enchère à venir",
-
   "notifications": "Notifications",
   "markAllRead": "Tout marquer",
   "noNotifications": "Aucune notification",
   "timeNow": "Maintenant",
   "timeMinutesAgo": "il y a {minutes} min",
   "@timeMinutesAgo": {
-    "placeholders": { "minutes": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   },
   "timeHoursAgo": "il y a {hours} h",
   "@timeHoursAgo": {
-    "placeholders": { "hours": { "type": "int" } }
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
   },
   "timeDaysAgo": "il y a {days} j",
   "@timeDaysAgo": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
-
   "profile": "Profil",
   "verifiedKyc": "Vérifié — KYC complété",
   "kycBadgeRejected": "Rejeté — vérifiez à nouveau",
@@ -179,30 +210,33 @@
   "profession": "Profession",
   "address": "Adresse",
   "postalCode": "Code postal",
-
   "languageArabic": "Arabe",
   "languageFrench": "Français",
   "languageEnglish": "Anglais",
   "chooseLanguage": "Choisir la langue",
-
   "retry": "Réessayer",
   "errorGeneric": "Une erreur s'est produite, réessayez",
   "errorNetwork": "Vérifiez votre connexion Internet",
   "paymentSuccess": "Paiement réussi",
   "paymentCancelled": "Paiement annulé",
+  "paymentAlreadyDone": "Vous êtes déjà inscrit à cette enchère — vous pouvez enchérir",
+  "paymentNotConfirmed": "La confirmation du paiement n'est pas encore arrivée. Si vous avez payé, patientez puis réessayez.",
+  "paymentBookNotConfirmed": "La confirmation de l'achat du cahier des charges n'est pas encore arrivée. Si vous avez payé, patientez puis réessayez.",
   "securePayment": "Paiement sécurisé",
-
+  "paymentPageFailed": "Impossible de charger la page de paiement",
   "valRequired": "Ce champ est requis",
   "valEmailInvalid": "E-mail invalide",
   "valPasswordShort": "Mot de passe : 12 caractères minimum",
+  "valPasswordMixedCase": "Doit contenir une majuscule et une minuscule",
+  "valPasswordNumber": "Doit contenir au moins un chiffre",
+  "valPasswordSymbol": "Doit contenir au moins un symbole",
+  "valBirthDateUnder18": "Vous devez avoir au moins 18 ans",
   "valPasswordMismatch": "Les mots de passe ne correspondent pas",
   "valNinInvalid": "Le NIN doit comporter 18 chiffres",
   "valPhoneInvalid": "Numéro invalide (10 chiffres commençant par 0)",
   "valNameShort": "Nom trop court",
-
   "offlineBanner": "Pas de connexion Internet",
   "backOnline": "Connexion rétablie",
-
   "appealsTitle": "Réclamations",
   "appealsEmpty": "Aucune réclamation",
   "appealSubmitted": "Votre réclamation a été envoyée",
@@ -214,6 +248,184 @@
   "appealReasonHint": "Expliquez en détail le motif de la réclamation...",
   "submitAppeal": "Envoyer la réclamation",
   "appealStatusPending": "En cours d'examen",
-  "appealStatusAnswered": "Répondu",
-  "appealStatusRejected": "Rejeté"
+  "appealStatusApproved": "Accepté",
+  "appealStatusRejected": "Rejeté",
+  "appealFileFromAuction": "Le recours se dépose depuis la page de l'enchère après sa clôture — ouvrez l'enchère à laquelle vous avez participé puis choisissez « Déposer un recours ».",
+  "ctaLogin": "Connectez-vous pour participer",
+  "ctaParticipate": "Participer à l'enchère",
+  "ctaNeedsKyc": "Complétez la vérification de votre compte",
+  "ctaNeedsCommerceRegister": "Registre de commerce requis",
+  "ctaCommerceRegisterHint": "Cette enchère exige un registre de commerce valide avant tout paiement. Ajoutez-le sur la plateforme puis revenez.",
+  "ctaBuyBook": "Acheter le cahier des charges",
+  "ctaFinalPayment": "Effectuer le paiement final",
+  "ctaFinalPaymentDone": "Paiement final effectué",
+  "ctaAppeal": "Déposer un recours",
+  "ctaTrackAppeal": "Suivre le recours",
+  "crTitle": "Registre de commerce",
+  "crIntro": "Certaines enchères exigent un registre de commerce valide. Soumettez vos informations ainsi qu'une copie du registre et de la carte fiscale.",
+  "crStatusNone": "Aucun registre soumis",
+  "crStatusPending": "En cours de révision",
+  "crStatusApproved": "Approuvé",
+  "crStatusRejected": "Rejeté",
+  "crApprovedNote": "Votre registre est approuvé — vous pouvez participer aux enchères qui l’exigent.",
+  "crPendingNote": "Votre demande est en cours de révision. Vous pouvez la modifier et la renvoyer avant la décision.",
+  "crRejectedNote": "Demande rejetée. Corrigez les informations et renvoyez-la.",
+  "crCompanyName": "Nom de la société",
+  "crRegisterNumber": "Numéro du registre de commerce",
+  "crTaxNumber": "Numéro fiscal",
+  "crActivityType": "Type d'activité",
+  "crStartDate": "Date de délivrance du registre",
+  "crStartDateNotFuture": "La date de délivrance ne peut pas être dans le futur",
+  "crFileTooLarge": "La taille du fichier dépasse 2 Mo",
+  "crRegisterDocument": "Copie du registre de commerce",
+  "crTaxCardDocument": "Copie de la carte fiscale",
+  "crDocumentSelected": "Nouveau fichier sélectionné",
+  "crDocumentOnFile": "Copie enregistrée sur la plateforme",
+  "crDocumentMissing": "Requis",
+  "crCapture": "Photographier",
+  "crFromGallery": "Depuis la galerie",
+  "crFromFiles": "Fichier PDF",
+  "crSubmit": "Soumettre pour révision",
+  "crResubmit": "Renvoyer",
+  "crSubmitted": "Registre soumis pour révision",
+  "valTooLong": "Le texte dépasse la longueur autorisée",
+  "fpTitle": "Détail du paiement final",
+  "fpConfirmedDeposit": "Caution versée (déduite)",
+  "fpAmountDue": "Montant dû",
+  "fpCustomsImmediate": "Paiement immédiat (20 % douane)",
+  "fpDeadline": "Échéance : {date} (sous {days} jours)",
+  "@fpDeadline": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "fpAlreadyPaid": "Le paiement final a déjà été effectué",
+  "fpPay": "Procéder au paiement",
+  "assetClassMovable": "Bien meuble",
+  "assetClassRealEstate": "Bien immobilier",
+  "assetClassCustoms": "Marchandises douanières",
+  "conditionNew": "Neuf",
+  "conditionGood": "Bon",
+  "conditionFair": "Acceptable",
+  "conditionPoor": "Mauvais",
+  "conditionScrap": "Ferraille",
+  "auctionTypeSale": "Vente",
+  "auctionTypeLease": "Location",
+  "adSpecifications": "Spécifications",
+  "adPricing": "Prix et frais",
+  "adBookPrice": "Cahier des charges",
+  "adAssetInfo": "Informations sur le bien",
+  "adAuctionType": "Type d'enchère",
+  "adAssetClass": "Catégorie du bien",
+  "adCondition": "État",
+  "adUnitCount": "Nombre d’unités",
+  "adRequiresCr": "Registre de commerce requis",
+  "adRequiresNewspaper": "Annonce dans la presse",
+  "adYes": "Oui",
+  "adSchedule": "Calendrier",
+  "adStartTime": "Début de l’enchère",
+  "adEndTime": "Fin de l’enchère",
+  "adExtensions": "Prolongations",
+  "adLocation": "Emplacement",
+  "adCommune": "Commune",
+  "adMayor": "Maire",
+  "adOpenMap": "Ouvrir dans Maps",
+  "adInspection": "Visite",
+  "adInspectionState": "État de la visite",
+  "adInspectionOpen": "Ouverte",
+  "adInspectionClosed": "Fermée",
+  "adFrom": "Du",
+  "adTo": "Au",
+  "adInspectionPlace": "Lieu de la visite",
+  "adLease": "Conditions de location",
+  "adLeaseDuration": "Durée (années)",
+  "adLeaseRenewals": "Renouvellements",
+  "adTerms": "Conditions",
+  "adConditionTerms": "Conditions de participation",
+  "adAwardTerms": "Conditions d’adjudication",
+  "adResult": "Résultat de l’enchère",
+  "adWinner": "Adjudicataire",
+  "adNoWinner": "Aucun adjudicataire",
+  "adFinalPrice": "Prix final",
+  "adAppealWindow": "Délai de recours",
+  "adAppealOpen": "Ouvert ({days} jours)",
+  "@adAppealOpen": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "adAppealClosed": "Expiré",
+  "kycFileTooLarge": "Le fichier dépasse {maxKb} Ko — essayez une image plus petite",
+  "@kycFileTooLarge": {
+    "placeholders": {
+      "maxKb": {
+        "type": "int"
+      }
+    }
+  },
+  "docsTitle": "Mes documents",
+  "docsSearchHint": "Rechercher par enchère ou document",
+  "docsTotal": "Total",
+  "docsBooks": "Cahiers",
+  "docsAwards": "Adjudications",
+  "docsReceipts": "Reçus",
+  "docsFilters": "Filtrer les documents",
+  "docsType": "Type de document",
+  "docsPeriod": "Période",
+  "docsSort": "Tri",
+  "docsApply": "Appliquer",
+  "docsClearFilters": "Tout effacer",
+  "docTypeConditionBook": "Cahier des charges",
+  "docTypeAward": "Document d'adjudication",
+  "docTypeReceipt": "Reçu de paiement",
+  "docTypeDelivery": "PV de livraison",
+  "docsPresetAll": "Tout",
+  "docsPresetToday": "Aujourd'hui",
+  "docsPreset7d": "7 derniers jours",
+  "docsPreset30d": "30 derniers jours",
+  "docsPresetMonth": "Ce mois",
+  "docsPresetYear": "Cette année",
+  "docsSortRecent": "Plus récents",
+  "docsSortOldest": "Plus anciens",
+  "docsSortAuction": "Par enchère",
+  "docsEmpty": "Aucun document — les documents de vos enchères apparaîtront ici",
+  "docsNoResults": "Aucun document ne correspond aux filtres",
+  "docsVerify": "Vérifier",
+  "docsCannotOpen": "Impossible d'ouvrir le fichier — aucune application PDF",
+  "adAwardDocument": "Document d'adjudication",
+  "adDownloadAward": "Télécharger le document d'adjudication",
+  "forgotPassword": "Mot de passe oublié ?",
+  "forgotPasswordTitle": "Réinitialiser le mot de passe",
+  "recoverAccountTitle": "Récupération par question secrète",
+  "recoverWithSecret": "Récupérer via la question secrète",
+  "forgotPasswordHint": "Saisissez votre NIN et l’e-mail enregistré ; nous enverrons un code de réinitialisation.",
+  "recoverAccountHint": "Saisissez votre NIN et l’e-mail enregistré pour afficher votre question secrète.",
+  "sendCode": "Envoyer le code",
+  "showQuestion": "Afficher la question",
+  "codeSentHint": "Si un compte est associé à {email}, un code à 6 chiffres vient d’y être envoyé.",
+  "@codeSentHint": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "otpCode": "Code de vérification",
+  "secretAnswer": "Réponse secrète",
+  "secretAnswerHint": "La réponse est sensible à la casse et aux espaces — saisissez-la exactement comme enregistrée.",
+  "newPassword": "Nouveau mot de passe",
+  "setNewPassword": "Définir le mot de passe",
+  "recoveryDone": "Mot de passe modifié — connectez-vous avec le nouveau",
+  "secretQMotherMaiden": "Quel est le nom de jeune fille de votre mère ?",
+  "secretQFirstSchool": "Quel est le nom de votre première école ?",
+  "secretQBirthCity": "Dans quelle ville êtes-vous né(e) ?",
+  "secretQPetName": "Quel est le nom de votre premier animal ?",
+  "secretQFavTeacher": "Qui est votre enseignant préféré ?"
 }

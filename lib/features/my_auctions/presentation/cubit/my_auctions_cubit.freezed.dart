@@ -19,7 +19,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MyAuctionsState {
   MyAuctionTab get tab => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
-  List<Participation> get items => throw _privateConstructorUsedError;
+  List<AuctionListItem> get items => throw _privateConstructorUsedError;
+
+  /// أعداد كل التبويبات — بتيجي مع كل طلب في meta.counts.
+  MyAuctionCounts get counts => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   /// Create a copy of MyAuctionsState
@@ -39,7 +42,8 @@ abstract class $MyAuctionsStateCopyWith<$Res> {
   $Res call({
     MyAuctionTab tab,
     bool loading,
-    List<Participation> items,
+    List<AuctionListItem> items,
+    MyAuctionCounts counts,
     String? error,
   });
 }
@@ -62,6 +66,7 @@ class _$MyAuctionsStateCopyWithImpl<$Res, $Val extends MyAuctionsState>
     Object? tab = null,
     Object? loading = null,
     Object? items = null,
+    Object? counts = null,
     Object? error = freezed,
   }) {
     return _then(
@@ -77,7 +82,11 @@ class _$MyAuctionsStateCopyWithImpl<$Res, $Val extends MyAuctionsState>
             items: null == items
                 ? _value.items
                 : items // ignore: cast_nullable_to_non_nullable
-                      as List<Participation>,
+                      as List<AuctionListItem>,
+            counts: null == counts
+                ? _value.counts
+                : counts // ignore: cast_nullable_to_non_nullable
+                      as MyAuctionCounts,
             error: freezed == error
                 ? _value.error
                 : error // ignore: cast_nullable_to_non_nullable
@@ -100,7 +109,8 @@ abstract class _$$MyAuctionsStateImplCopyWith<$Res>
   $Res call({
     MyAuctionTab tab,
     bool loading,
-    List<Participation> items,
+    List<AuctionListItem> items,
+    MyAuctionCounts counts,
     String? error,
   });
 }
@@ -122,6 +132,7 @@ class __$$MyAuctionsStateImplCopyWithImpl<$Res>
     Object? tab = null,
     Object? loading = null,
     Object? items = null,
+    Object? counts = null,
     Object? error = freezed,
   }) {
     return _then(
@@ -137,7 +148,11 @@ class __$$MyAuctionsStateImplCopyWithImpl<$Res>
         items: null == items
             ? _value._items
             : items // ignore: cast_nullable_to_non_nullable
-                  as List<Participation>,
+                  as List<AuctionListItem>,
+        counts: null == counts
+            ? _value.counts
+            : counts // ignore: cast_nullable_to_non_nullable
+                  as MyAuctionCounts,
         error: freezed == error
             ? _value.error
             : error // ignore: cast_nullable_to_non_nullable
@@ -153,7 +168,8 @@ class _$MyAuctionsStateImpl implements _MyAuctionsState {
   const _$MyAuctionsStateImpl({
     this.tab = MyAuctionTab.active,
     this.loading = true,
-    final List<Participation> items = const <Participation>[],
+    final List<AuctionListItem> items = const <AuctionListItem>[],
+    this.counts = MyAuctionCounts.empty,
     this.error,
   }) : _items = items;
 
@@ -163,21 +179,25 @@ class _$MyAuctionsStateImpl implements _MyAuctionsState {
   @override
   @JsonKey()
   final bool loading;
-  final List<Participation> _items;
+  final List<AuctionListItem> _items;
   @override
   @JsonKey()
-  List<Participation> get items {
+  List<AuctionListItem> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
+  /// أعداد كل التبويبات — بتيجي مع كل طلب في meta.counts.
+  @override
+  @JsonKey()
+  final MyAuctionCounts counts;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'MyAuctionsState(tab: $tab, loading: $loading, items: $items, error: $error)';
+    return 'MyAuctionsState(tab: $tab, loading: $loading, items: $items, counts: $counts, error: $error)';
   }
 
   @override
@@ -188,6 +208,7 @@ class _$MyAuctionsStateImpl implements _MyAuctionsState {
             (identical(other.tab, tab) || other.tab == tab) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.counts, counts) || other.counts == counts) &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -197,6 +218,7 @@ class _$MyAuctionsStateImpl implements _MyAuctionsState {
     tab,
     loading,
     const DeepCollectionEquality().hash(_items),
+    counts,
     error,
   );
 
@@ -216,7 +238,8 @@ abstract class _MyAuctionsState implements MyAuctionsState {
   const factory _MyAuctionsState({
     final MyAuctionTab tab,
     final bool loading,
-    final List<Participation> items,
+    final List<AuctionListItem> items,
+    final MyAuctionCounts counts,
     final String? error,
   }) = _$MyAuctionsStateImpl;
 
@@ -225,7 +248,11 @@ abstract class _MyAuctionsState implements MyAuctionsState {
   @override
   bool get loading;
   @override
-  List<Participation> get items;
+  List<AuctionListItem> get items;
+
+  /// أعداد كل التبويبات — بتيجي مع كل طلب في meta.counts.
+  @override
+  MyAuctionCounts get counts;
   @override
   String? get error;
 

@@ -1,10 +1,19 @@
 import 'package:injectable/injectable.dart';
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
-import '../models/participation_model.dart';
+import '../../../../core/network/api_response.dart';
+import '../../../auctions/data/models/auction_list_model.dart';
+
+/// الرد الخام لـ `GET /my-auctions?tab=`:
+/// `data` = مصفوفة AuctionListResource، و`meta` = {tab, counts{...}}.
+typedef MyAuctionsRaw = ({
+  List<AuctionListModel> items,
+  String tab,
+  Map<String, dynamic> counts,
+});
 
 abstract class MyAuctionsRemoteDataSource {
-  Future<List<ParticipationModel>> getMyAuctions(String tab);
+  Future<MyAuctionsRaw> getMyAuctions(String tab);
 }
 
 @LazySingleton(as: MyAuctionsRemoteDataSource)
@@ -13,10 +22,18 @@ class MyAuctionsRemoteDataSourceImpl implements MyAuctionsRemoteDataSource {
   MyAuctionsRemoteDataSourceImpl(this.client);
 
   @override
-  Future<List<ParticipationModel>> getMyAuctions(String tab) async {
-    final data = await client.get(ApiConstants.myAuctions, query: {'tab': tab});
-    return (data as List)
-        .map((e) => ParticipationModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+  Future<MyAuctionsRaw> getMyAuctions(String tab) async {
+    // getEnvelope عشان نحتفظ بـ meta.counts (أعداد التبويبات).
+    // ملاحظة: الـ endpoint ده **مش مصفّح** — بيرجّع كل المشاركات دفعة واحدة.
+    final res = await client.getEnvelope(
+      ApiConstants.myAuctions,
+      query: {'tab': tab},
+    );
+
+    return (
+      items: Paginated.from(res, AuctionListModel.fromJson).items,
+      tab: (res.meta['tab'] as String?) ?? tab,
+      counts: res.metaMap('counts') ?? const <String, dynamic>{},
+    );
   }
 }

@@ -4,7 +4,7 @@ part of 'auctions_cubit.dart';
 class AuctionsState with _$AuctionsState {
   const factory AuctionsState({
     @Default(false) bool loading,
-    @Default(<Auction>[]) List<Auction> auctions,
+    @Default(<AuctionListItem>[]) List<AuctionListItem> auctions,
     @Default(false) bool hasMore,
     @Default(1) int page,
     String? error,

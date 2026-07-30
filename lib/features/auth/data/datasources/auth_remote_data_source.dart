@@ -11,6 +11,41 @@ abstract class AuthRemoteDataSource {
   Future<LoginResultModel> login(Map<String, dynamic> body);
   Future<AuthUserModel> getCurrentUser();
   Future<void> logout({bool allDevices});
+
+  // ===== استرجاع الحساب =====
+
+  /// طلب رمز إعادة تعيين كلمة السر.
+  /// ⚠️ الباك بيرجّع 200 **دايمًا** حتى لو الحساب مش موجود (حماية من
+  /// استكشاف الحسابات) — فمينفعش نستنتج وجود الحساب من الردّ.
+  Future<void> requestPasswordReset({
+    required String nin,
+    required String email,
+  });
+
+  /// التحقق من الرمز وتعيين كلمة سر جديدة. أخطاء الرمز بتيجي تحت `otp`.
+  Future<void> verifyPasswordReset({
+    required String nin,
+    required String email,
+    required String otp,
+    required String password,
+    required String passwordConfirmation,
+  });
+
+  /// كشف السؤال السرّي — بيرجّع **مفتاح** السؤال مش نصّه.
+  /// ⚠️ ده بيكشف وجود الحساب فعلًا (422 تحت `nin` لو مش متاح).
+  Future<String> revealSecretQuestion({
+    required String nin,
+    required String email,
+  });
+
+  /// استرجاع بالسؤال السرّي. أخطاء الإجابة بتيجي تحت `secret_answer`.
+  Future<void> recoverBySecret({
+    required String nin,
+    required String email,
+    required String secretAnswer,
+    required String password,
+    required String passwordConfirmation,
+  });
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -58,7 +93,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<AuthUserModel> getCurrentUser() async {
     final data = await client.get(ApiConstants.me);
-    return AuthUserModel.fromJson(data as Map<String, dynamic>);
+    // الردّ: { "user": {...} } — لازم نفك الغلاف. (لاحظ إن /profile بيرجّع
+    // الـ UserResource مباشرة من غير غلاف، فالشكلين مختلفين.)
+    final map = data as Map<String, dynamic>;
+    return AuthUserModel.fromJson(
+      (map['user'] ?? map) as Map<String, dynamic>,
+    );
   }
 
   @override
@@ -66,6 +106,70 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     await client.post(
       ApiConstants.logout,
       body: allDevices ? {'all': true} : null,
+    );
+  }
+
+  @override
+  Future<void> requestPasswordReset({
+    required String nin,
+    required String email,
+  }) async {
+    await client.post(
+      ApiConstants.passwordRequest,
+      body: {'nin': nin, 'email': email},
+    );
+  }
+
+  @override
+  Future<void> verifyPasswordReset({
+    required String nin,
+    required String email,
+    required String otp,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    await client.post(
+      ApiConstants.passwordVerify,
+      body: {
+        'nin': nin,
+        'email': email,
+        'otp': otp,
+        'password': password,
+        'password_confirmation': passwordConfirmation,
+      },
+    );
+  }
+
+  @override
+  Future<String> revealSecretQuestion({
+    required String nin,
+    required String email,
+  }) async {
+    final data = await client.post(
+      ApiConstants.recoverReveal,
+      body: {'nin': nin, 'email': email},
+    );
+    // data: { question: "<key>" } — مفتاح زي mother_maiden، بنترجمه محليًا.
+    return ((data as Map)['question'] ?? '').toString();
+  }
+
+  @override
+  Future<void> recoverBySecret({
+    required String nin,
+    required String email,
+    required String secretAnswer,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    await client.post(
+      ApiConstants.recoverVerify,
+      body: {
+        'nin': nin,
+        'email': email,
+        'secret_answer': secretAnswer,
+        'password': password,
+        'password_confirmation': passwordConfirmation,
+      },
     );
   }
 

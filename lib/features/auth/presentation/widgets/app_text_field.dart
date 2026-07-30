@@ -13,6 +13,8 @@ class AppTextField extends StatelessWidget {
   final int? maxLength;
   final String? errorText;
   final ValueChanged<String>? onChanged;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
   const AppTextField({
     super.key,
@@ -25,6 +27,8 @@ class AppTextField extends StatelessWidget {
     this.maxLength,
     this.errorText,
     this.onChanged,
+    this.readOnly = false,
+    this.onTap,
   });
 
   @override
@@ -47,6 +51,8 @@ class AppTextField extends StatelessWidget {
           obscureText: obscure,
           maxLength: maxLength,
           onChanged: onChanged,
+          readOnly: readOnly,
+          onTap: onTap,
           decoration: InputDecoration(
             hintText: hint,
             counterText: '',

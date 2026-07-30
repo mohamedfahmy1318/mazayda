@@ -3,19 +3,23 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/auction.dart';
+import '../../../../core/usecase/paged.dart';
+import '../entities/auction_list_item.dart';
 import '../repositories/auction_repository.dart';
 
 part 'get_auctions.freezed.dart';
 
-/// use case: جلب قائمة المزادات.
+/// use case: جلب قائمة المزادات (مصفّحة).
 @injectable
-class GetAuctions implements UseCase<List<Auction>, GetAuctionsParams> {
+class GetAuctions
+    implements UseCase<Paged<AuctionListItem>, GetAuctionsParams> {
   final AuctionRepository repository;
   GetAuctions(this.repository);
 
   @override
-  Future<Either<Failure, List<Auction>>> call(GetAuctionsParams params) {
+  Future<Either<Failure, Paged<AuctionListItem>>> call(
+    GetAuctionsParams params,
+  ) {
     return repository.getAuctions(
       query: params.query,
       category: params.category,

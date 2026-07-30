@@ -11,8 +11,14 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../../domain/entities/auction.dart';
+import '../../domain/entities/auction_viewer.dart';
 import '../cubit/auction_detail_cubit.dart';
+import '../widgets/detail/detail_sections.dart';
+import '../widgets/detail/media_gallery.dart';
+import '../../../appeals/presentation/cubit/appeals_cubit.dart';
+import '../../../appeals/presentation/widgets/new_appeal_sheet.dart';
 import '../../../payments/presentation/pages/payment_flow.dart';
+import '../../../payments/presentation/widgets/final_payment_sheet.dart';
 
 /// ارتفاع صورة الغلاف في صفحة التفاصيل.
 const _coverHeight = 200.0;
@@ -37,9 +43,16 @@ class AuctionDetailPage extends StatelessWidget {
                 onRetry: () =>
                     context.read<AuctionDetailCubit>().load(auctionId),
               ),
-              AuctionDetailLoaded(:final auction) => _DetailContent(
-                auction: auction,
-              ),
+              AuctionDetailLoaded(
+                :final detail,
+                :final isAuthenticated,
+                :final account,
+              ) =>
+                _DetailContent(
+                  detail: detail,
+                  isAuthenticated: isAuthenticated,
+                  account: account,
+                ),
             };
           },
         ),
@@ -49,18 +62,34 @@ class AuctionDetailPage extends StatelessWidget {
 }
 
 class _DetailContent extends StatelessWidget {
-  final Auction auction;
-  const _DetailContent({required this.auction});
+  final AuctionDetail detail;
+  final bool isAuthenticated;
+  final ViewerAccountFlags? account;
+
+  const _DetailContent({
+    required this.detail,
+    required this.isAuthenticated,
+    required this.account,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final auction = detail.auction;
+    // الخطوة التالية المتاحة — من meta.viewer لو موجود، وإلا من أعلام الحساب.
+    final cta = ctaFor(
+      auction,
+      detail.viewer,
+      isAuthenticated: isAuthenticated,
+      account: account,
+    );
+
     return Column(
       children: [
         Expanded(
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              _DetailHeaderImage(coverPhotoUrl: auction.coverPhotoUrl),
+              _DetailHeaderImage(auction: auction),
               Padding(
                 padding: EdgeInsets.all(16.w),
                 child: _DetailInfo(auction: auction),
@@ -68,33 +97,40 @@ class _DetailContent extends StatelessWidget {
             ],
           ),
         ),
-        if (auction.isBiddable) _DetailActionBar(auction: auction),
+        if (cta != AuctionCta.none)
+          _DetailActionBar(auction: auction, cta: cta, viewer: detail.viewer),
       ],
     );
   }
 }
 
-/// صورة الغلاف + زر الرجوع العائم.
+/// رأس الصفحة: معرض الصور (أو صورة الغلاف) + زر الرجوع العائم.
 class _DetailHeaderImage extends StatelessWidget {
-  final String? coverPhotoUrl;
-  const _DetailHeaderImage({required this.coverPhotoUrl});
+  final Auction auction;
+  const _DetailHeaderImage({required this.auction});
 
   @override
   Widget build(BuildContext context) {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final photos = auction.photos;
+
     return Stack(
       children: [
-        SizedBox(
-          height: _coverHeight.h,
-          width: double.infinity,
-          child: AppImage(
-            url: coverPhotoUrl,
+        // فيه أكتر من صورة → معرض قابل للتمرير والتكبير، غير كده الغلاف.
+        if (photos.isNotEmpty)
+          MediaGallery(photos: photos, height: _coverHeight.h)
+        else
+          SizedBox(
             height: _coverHeight.h,
             width: double.infinity,
-            fit: BoxFit.cover,
-            fallbackIcon: Icons.gavel,
+            child: AppImage(
+              url: auction.coverPhotoUrl,
+              height: _coverHeight.h,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              fallbackIcon: Icons.gavel,
+            ),
           ),
-        ),
         Positioned(
           // ننزل الزر أسفل شريط الحالة حتى لا يكون جزء منه خلفه (غير قابل للمس)
           top: MediaQuery.of(context).padding.top + 8.h,
@@ -216,6 +252,19 @@ class _DetailInfo extends StatelessWidget {
             ),
           ),
         ],
+
+        // أقسام التفاصيل — كل قسم بيخفي نفسه لو مفيش بيانات ليه،
+        // فالمزادات البسيطة بتفضل صفحتها قصيرة.
+        AuctionPricingSection(auction: auction),
+        AuctionAssetSection(auction: auction),
+        AuctionSpecsSection(auction: auction),
+        AuctionScheduleSection(auction: auction),
+        AuctionInspectionSection(auction: auction),
+        AuctionLocationSection(auction: auction),
+        AuctionLeaseSection(auction: auction),
+        AuctionTermsSection(auction: auction),
+        AuctionResultSection(auction: auction),
+        Gap(8.h),
       ],
     );
   }
@@ -285,44 +334,129 @@ class _DetailPriceCard extends StatelessWidget {
   }
 }
 
-/// الشريط السفلي: تسجيل ودفع + مزايدة.
+/// الشريط السفلي — **سلّم أزرار** مقاد بـ `meta.viewer`.
+///
+/// بيعرض إجراء واحد صحيح حسب موقع المستخدم في الرحلة، بدل زرارين ثابتين
+/// كانوا بيظهروا للكل ويوقعوا على 422 من السيرفر برسالة من غير كود يتقري.
 class _DetailActionBar extends StatelessWidget {
   final Auction auction;
-  const _DetailActionBar({required this.auction});
+  final AuctionCta cta;
+  final AuctionViewer? viewer;
+
+  const _DetailActionBar({
+    required this.auction,
+    required this.cta,
+    required this.viewer,
+  });
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
+    final (String label, IconData icon, VoidCallback? onPressed) = _action(
+      context,
+      t,
+    );
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: const BoxDecoration(
         color: AppColors.background,
         border: Border(top: BorderSide(color: AppColors.border, width: 0.5)),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: PrimaryButton(
-              label: t.registerAndPay,
-              icon: Icons.app_registration,
-              outlined: true,
-              onPressed: () => PaymentFlow.startRegistration(context, auction),
-            ),
-          ),
-          Gap(10.w),
-          Expanded(
-            child: PrimaryButton(
-              label: t.bid,
-              icon: Icons.gavel,
-              onPressed: () {
-                context.push(
-                  '${Routes.liveBidding}/${auction.id}',
-                  extra: {'title': auction.title},
-                );
-              },
-            ),
-          ),
-        ],
+      child: PrimaryButton(label: label, icon: icon, onPressed: onPressed),
+    );
+  }
+
+  (String, IconData, VoidCallback?) _action(
+    BuildContext context,
+    AppLocalizations t,
+  ) => switch (cta) {
+    AuctionCta.login => (
+      t.ctaLogin,
+      Icons.login,
+      () => context.push(Routes.login),
+    ),
+    AuctionCta.needsKyc => (
+      t.ctaNeedsKyc,
+      Icons.verified_user_outlined,
+      () => context.push(Routes.kyc),
+    ),
+    AuctionCta.needsCommerceRegister => (
+      t.ctaNeedsCommerceRegister,
+      Icons.store_outlined,
+      () => context.push(Routes.commercialRegister),
+    ),
+    AuctionCta.buyBook => (
+      t.ctaBuyBook,
+      Icons.menu_book_outlined,
+      () => PaymentFlow.startRegistration(context, auction),
+    ),
+    AuctionCta.register => (
+      t.registerAndPay,
+      Icons.app_registration,
+      () => PaymentFlow.startRegistration(context, auction),
+    ),
+    // وضع محدود: مش عارفين هل شارك أو اشترى الكراس — بنبدأ المسار
+    // والسيرفر بيرفض بالرسالة المناسبة لو الخطوة اتعملت قبل كده.
+    AuctionCta.participate => (
+      t.ctaParticipate,
+      Icons.app_registration,
+      () => PaymentFlow.startRegistration(context, auction),
+    ),
+    AuctionCta.bid => (
+      t.bid,
+      Icons.gavel,
+      () => context.push(
+        '${Routes.liveBidding}/${auction.id}',
+        extra: {'title': auction.title},
+      ),
+    ),
+    // نعرض تفصيل الرسوم والمهلة الأول — الفايز ما يدخلش بوابة دفع
+    // من غير ما يعرف المبلغ المستحق وآخر أجل.
+    AuctionCta.finalPayment => (
+      t.ctaFinalPayment,
+      Icons.payments_outlined,
+      () => _openFinalPaymentSheet(context),
+    ),
+    // مدفوع بالفعل — زرار معطّل كتأكيد بصري.
+    AuctionCta.finalPaymentDone => (
+      t.ctaFinalPaymentDone,
+      Icons.check_circle_outline,
+      null,
+    ),
+    AuctionCta.appeal => (
+      t.ctaAppeal,
+      Icons.balance,
+      () => _openAppealSheet(context),
+    ),
+    AuctionCta.trackAppeal => (
+      viewer?.existingAppeal?.statusLabel ?? t.ctaTrackAppeal,
+      Icons.balance,
+      () => context.push(Routes.appeals),
+    ),
+    AuctionCta.none => ('', Icons.info_outline, null),
+  };
+
+  void _openFinalPaymentSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => FinalPaymentSheet(
+        auctionId: auction.id,
+        onConfirm: () => PaymentFlow.startFinalPayment(context, auction.id),
+      ),
+    );
+  }
+
+  void _openAppealSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => BlocProvider(
+        create: (_) => getIt<AppealsCubit>(),
+        child: NewAppealSheet(auctionId: auction.id),
       ),
     );
   }

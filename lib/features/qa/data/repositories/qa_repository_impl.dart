@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/auction_question.dart';
 import '../../domain/repositories/qa_repository.dart';
@@ -36,11 +37,7 @@ class QaRepositoryImpl implements QaRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

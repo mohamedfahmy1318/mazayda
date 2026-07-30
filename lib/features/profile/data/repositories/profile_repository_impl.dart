@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/profile.dart';
 import '../../domain/repositories/profile_repository.dart';
@@ -44,13 +45,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(
-        Failure.server(
-          message: e.message,
-          statusCode: e.statusCode,
-          errors: e.errors,
-        ),
-      );
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

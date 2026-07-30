@@ -48,6 +48,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get confirmPassword => 'Confirmer le mot de passe';
 
   @override
+  String get birthDate => 'Date de naissance';
+
+  @override
+  String get selectBirthDate => 'Choisir la date de naissance';
+
+  @override
   String get nin => 'Numéro d\'identification national (NIN)';
 
   @override
@@ -154,12 +160,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get filterStatusClosed => 'Clôturé';
-
-  @override
-  String get auctionTypeSale => 'Vente';
-
-  @override
-  String get auctionTypeLease => 'Location';
 
   @override
   String auctionsCount(String count) {
@@ -332,12 +332,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get myAuctionsUpcoming => 'À venir';
 
   @override
-  String get myAuctionsStatusWinning => 'Vous êtes en tête';
-
-  @override
-  String get myAuctionsStatusOutbid => 'Vous êtes dépassé';
-
-  @override
   String get myAuctionsStatusAwaitingPayment => 'En attente de paiement';
 
   @override
@@ -348,6 +342,27 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get myAuctionsStatusUpcoming => 'Pas encore commencé';
+
+  @override
+  String get myAuctionsStatusLive => 'En cours';
+
+  @override
+  String get myAuctionsStatusEnded => 'Terminé — résultat en attente';
+
+  @override
+  String get myAuctionsStatusParticipating => 'Inscrit';
+
+  @override
+  String get myAuctionsStatusWinning => 'Vous menez';
+
+  @override
+  String get myAuctionsStatusOutbid => 'Vous êtes dépassé';
+
+  @override
+  String get myAuctionsStatusWon => 'Enchère remportée';
+
+  @override
+  String get myAuctionsStatusLost => 'Non retenu';
 
   @override
   String get myAuctionsPriceCurrentBid => 'Votre offre actuelle';
@@ -464,7 +479,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paymentCancelled => 'Paiement annulé';
 
   @override
+  String get paymentAlreadyDone =>
+      'Vous êtes déjà inscrit à cette enchère — vous pouvez enchérir';
+
+  @override
+  String get paymentNotConfirmed =>
+      'La confirmation du paiement n\'est pas encore arrivée. Si vous avez payé, patientez puis réessayez.';
+
+  @override
+  String get paymentBookNotConfirmed =>
+      'La confirmation de l\'achat du cahier des charges n\'est pas encore arrivée. Si vous avez payé, patientez puis réessayez.';
+
+  @override
   String get securePayment => 'Paiement sécurisé';
+
+  @override
+  String get paymentPageFailed => 'Impossible de charger la page de paiement';
 
   @override
   String get valRequired => 'Ce champ est requis';
@@ -474,6 +504,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get valPasswordShort => 'Mot de passe : 12 caractères minimum';
+
+  @override
+  String get valPasswordMixedCase =>
+      'Doit contenir une majuscule et une minuscule';
+
+  @override
+  String get valPasswordNumber => 'Doit contenir au moins un chiffre';
+
+  @override
+  String get valPasswordSymbol => 'Doit contenir au moins un symbole';
+
+  @override
+  String get valBirthDateUnder18 => 'Vous devez avoir au moins 18 ans';
 
   @override
   String get valPasswordMismatch => 'Les mots de passe ne correspondent pas';
@@ -530,8 +573,471 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appealStatusPending => 'En cours d\'examen';
 
   @override
-  String get appealStatusAnswered => 'Répondu';
+  String get appealStatusApproved => 'Accepté';
 
   @override
   String get appealStatusRejected => 'Rejeté';
+
+  @override
+  String get appealFileFromAuction =>
+      'Le recours se dépose depuis la page de l\'enchère après sa clôture — ouvrez l\'enchère à laquelle vous avez participé puis choisissez « Déposer un recours ».';
+
+  @override
+  String get ctaLogin => 'Connectez-vous pour participer';
+
+  @override
+  String get ctaParticipate => 'Participer à l\'enchère';
+
+  @override
+  String get ctaNeedsKyc => 'Complétez la vérification de votre compte';
+
+  @override
+  String get ctaNeedsCommerceRegister => 'Registre de commerce requis';
+
+  @override
+  String get ctaCommerceRegisterHint =>
+      'Cette enchère exige un registre de commerce valide avant tout paiement. Ajoutez-le sur la plateforme puis revenez.';
+
+  @override
+  String get ctaBuyBook => 'Acheter le cahier des charges';
+
+  @override
+  String get ctaFinalPayment => 'Effectuer le paiement final';
+
+  @override
+  String get ctaFinalPaymentDone => 'Paiement final effectué';
+
+  @override
+  String get ctaAppeal => 'Déposer un recours';
+
+  @override
+  String get ctaTrackAppeal => 'Suivre le recours';
+
+  @override
+  String get crTitle => 'Registre de commerce';
+
+  @override
+  String get crIntro =>
+      'Certaines enchères exigent un registre de commerce valide. Soumettez vos informations ainsi qu\'une copie du registre et de la carte fiscale.';
+
+  @override
+  String get crStatusNone => 'Aucun registre soumis';
+
+  @override
+  String get crStatusPending => 'En cours de révision';
+
+  @override
+  String get crStatusApproved => 'Approuvé';
+
+  @override
+  String get crStatusRejected => 'Rejeté';
+
+  @override
+  String get crApprovedNote =>
+      'Votre registre est approuvé — vous pouvez participer aux enchères qui l’exigent.';
+
+  @override
+  String get crPendingNote =>
+      'Votre demande est en cours de révision. Vous pouvez la modifier et la renvoyer avant la décision.';
+
+  @override
+  String get crRejectedNote =>
+      'Demande rejetée. Corrigez les informations et renvoyez-la.';
+
+  @override
+  String get crCompanyName => 'Nom de la société';
+
+  @override
+  String get crRegisterNumber => 'Numéro du registre de commerce';
+
+  @override
+  String get crTaxNumber => 'Numéro fiscal';
+
+  @override
+  String get crActivityType => 'Type d\'activité';
+
+  @override
+  String get crStartDate => 'Date de délivrance du registre';
+
+  @override
+  String get crStartDateNotFuture =>
+      'La date de délivrance ne peut pas être dans le futur';
+
+  @override
+  String get crFileTooLarge => 'La taille du fichier dépasse 2 Mo';
+
+  @override
+  String get crRegisterDocument => 'Copie du registre de commerce';
+
+  @override
+  String get crTaxCardDocument => 'Copie de la carte fiscale';
+
+  @override
+  String get crDocumentSelected => 'Nouveau fichier sélectionné';
+
+  @override
+  String get crDocumentOnFile => 'Copie enregistrée sur la plateforme';
+
+  @override
+  String get crDocumentMissing => 'Requis';
+
+  @override
+  String get crCapture => 'Photographier';
+
+  @override
+  String get crFromGallery => 'Depuis la galerie';
+
+  @override
+  String get crFromFiles => 'Fichier PDF';
+
+  @override
+  String get crSubmit => 'Soumettre pour révision';
+
+  @override
+  String get crResubmit => 'Renvoyer';
+
+  @override
+  String get crSubmitted => 'Registre soumis pour révision';
+
+  @override
+  String get valTooLong => 'Le texte dépasse la longueur autorisée';
+
+  @override
+  String get fpTitle => 'Détail du paiement final';
+
+  @override
+  String get fpConfirmedDeposit => 'Caution versée (déduite)';
+
+  @override
+  String get fpAmountDue => 'Montant dû';
+
+  @override
+  String get fpCustomsImmediate => 'Paiement immédiat (20 % douane)';
+
+  @override
+  String fpDeadline(String date, int days) {
+    return 'Échéance : $date (sous $days jours)';
+  }
+
+  @override
+  String get fpAlreadyPaid => 'Le paiement final a déjà été effectué';
+
+  @override
+  String get fpPay => 'Procéder au paiement';
+
+  @override
+  String get assetClassMovable => 'Bien meuble';
+
+  @override
+  String get assetClassRealEstate => 'Bien immobilier';
+
+  @override
+  String get assetClassCustoms => 'Marchandises douanières';
+
+  @override
+  String get conditionNew => 'Neuf';
+
+  @override
+  String get conditionGood => 'Bon';
+
+  @override
+  String get conditionFair => 'Acceptable';
+
+  @override
+  String get conditionPoor => 'Mauvais';
+
+  @override
+  String get conditionScrap => 'Ferraille';
+
+  @override
+  String get auctionTypeSale => 'Vente';
+
+  @override
+  String get auctionTypeLease => 'Location';
+
+  @override
+  String get adSpecifications => 'Spécifications';
+
+  @override
+  String get adPricing => 'Prix et frais';
+
+  @override
+  String get adBookPrice => 'Cahier des charges';
+
+  @override
+  String get adAssetInfo => 'Informations sur le bien';
+
+  @override
+  String get adAuctionType => 'Type d\'enchère';
+
+  @override
+  String get adAssetClass => 'Catégorie du bien';
+
+  @override
+  String get adCondition => 'État';
+
+  @override
+  String get adUnitCount => 'Nombre d’unités';
+
+  @override
+  String get adRequiresCr => 'Registre de commerce requis';
+
+  @override
+  String get adRequiresNewspaper => 'Annonce dans la presse';
+
+  @override
+  String get adYes => 'Oui';
+
+  @override
+  String get adSchedule => 'Calendrier';
+
+  @override
+  String get adStartTime => 'Début de l’enchère';
+
+  @override
+  String get adEndTime => 'Fin de l’enchère';
+
+  @override
+  String get adExtensions => 'Prolongations';
+
+  @override
+  String get adLocation => 'Emplacement';
+
+  @override
+  String get adCommune => 'Commune';
+
+  @override
+  String get adMayor => 'Maire';
+
+  @override
+  String get adOpenMap => 'Ouvrir dans Maps';
+
+  @override
+  String get adInspection => 'Visite';
+
+  @override
+  String get adInspectionState => 'État de la visite';
+
+  @override
+  String get adInspectionOpen => 'Ouverte';
+
+  @override
+  String get adInspectionClosed => 'Fermée';
+
+  @override
+  String get adFrom => 'Du';
+
+  @override
+  String get adTo => 'Au';
+
+  @override
+  String get adInspectionPlace => 'Lieu de la visite';
+
+  @override
+  String get adLease => 'Conditions de location';
+
+  @override
+  String get adLeaseDuration => 'Durée (années)';
+
+  @override
+  String get adLeaseRenewals => 'Renouvellements';
+
+  @override
+  String get adTerms => 'Conditions';
+
+  @override
+  String get adConditionTerms => 'Conditions de participation';
+
+  @override
+  String get adAwardTerms => 'Conditions d’adjudication';
+
+  @override
+  String get adResult => 'Résultat de l’enchère';
+
+  @override
+  String get adWinner => 'Adjudicataire';
+
+  @override
+  String get adNoWinner => 'Aucun adjudicataire';
+
+  @override
+  String get adFinalPrice => 'Prix final';
+
+  @override
+  String get adAppealWindow => 'Délai de recours';
+
+  @override
+  String adAppealOpen(int days) {
+    return 'Ouvert ($days jours)';
+  }
+
+  @override
+  String get adAppealClosed => 'Expiré';
+
+  @override
+  String kycFileTooLarge(int maxKb) {
+    return 'Le fichier dépasse $maxKb Ko — essayez une image plus petite';
+  }
+
+  @override
+  String get docsTitle => 'Mes documents';
+
+  @override
+  String get docsSearchHint => 'Rechercher par enchère ou document';
+
+  @override
+  String get docsTotal => 'Total';
+
+  @override
+  String get docsBooks => 'Cahiers';
+
+  @override
+  String get docsAwards => 'Adjudications';
+
+  @override
+  String get docsReceipts => 'Reçus';
+
+  @override
+  String get docsFilters => 'Filtrer les documents';
+
+  @override
+  String get docsType => 'Type de document';
+
+  @override
+  String get docsPeriod => 'Période';
+
+  @override
+  String get docsSort => 'Tri';
+
+  @override
+  String get docsApply => 'Appliquer';
+
+  @override
+  String get docsClearFilters => 'Tout effacer';
+
+  @override
+  String get docTypeConditionBook => 'Cahier des charges';
+
+  @override
+  String get docTypeAward => 'Document d\'adjudication';
+
+  @override
+  String get docTypeReceipt => 'Reçu de paiement';
+
+  @override
+  String get docTypeDelivery => 'PV de livraison';
+
+  @override
+  String get docsPresetAll => 'Tout';
+
+  @override
+  String get docsPresetToday => 'Aujourd\'hui';
+
+  @override
+  String get docsPreset7d => '7 derniers jours';
+
+  @override
+  String get docsPreset30d => '30 derniers jours';
+
+  @override
+  String get docsPresetMonth => 'Ce mois';
+
+  @override
+  String get docsPresetYear => 'Cette année';
+
+  @override
+  String get docsSortRecent => 'Plus récents';
+
+  @override
+  String get docsSortOldest => 'Plus anciens';
+
+  @override
+  String get docsSortAuction => 'Par enchère';
+
+  @override
+  String get docsEmpty =>
+      'Aucun document — les documents de vos enchères apparaîtront ici';
+
+  @override
+  String get docsNoResults => 'Aucun document ne correspond aux filtres';
+
+  @override
+  String get docsVerify => 'Vérifier';
+
+  @override
+  String get docsCannotOpen =>
+      'Impossible d\'ouvrir le fichier — aucune application PDF';
+
+  @override
+  String get adAwardDocument => 'Document d\'adjudication';
+
+  @override
+  String get adDownloadAward => 'Télécharger le document d\'adjudication';
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get forgotPasswordTitle => 'Réinitialiser le mot de passe';
+
+  @override
+  String get recoverAccountTitle => 'Récupération par question secrète';
+
+  @override
+  String get recoverWithSecret => 'Récupérer via la question secrète';
+
+  @override
+  String get forgotPasswordHint =>
+      'Saisissez votre NIN et l’e-mail enregistré ; nous enverrons un code de réinitialisation.';
+
+  @override
+  String get recoverAccountHint =>
+      'Saisissez votre NIN et l’e-mail enregistré pour afficher votre question secrète.';
+
+  @override
+  String get sendCode => 'Envoyer le code';
+
+  @override
+  String get showQuestion => 'Afficher la question';
+
+  @override
+  String codeSentHint(String email) {
+    return 'Si un compte est associé à $email, un code à 6 chiffres vient d’y être envoyé.';
+  }
+
+  @override
+  String get otpCode => 'Code de vérification';
+
+  @override
+  String get secretAnswer => 'Réponse secrète';
+
+  @override
+  String get secretAnswerHint =>
+      'La réponse est sensible à la casse et aux espaces — saisissez-la exactement comme enregistrée.';
+
+  @override
+  String get newPassword => 'Nouveau mot de passe';
+
+  @override
+  String get setNewPassword => 'Définir le mot de passe';
+
+  @override
+  String get recoveryDone =>
+      'Mot de passe modifié — connectez-vous avec le nouveau';
+
+  @override
+  String get secretQMotherMaiden =>
+      'Quel est le nom de jeune fille de votre mère ?';
+
+  @override
+  String get secretQFirstSchool => 'Quel est le nom de votre première école ?';
+
+  @override
+  String get secretQBirthCity => 'Dans quelle ville êtes-vous né(e) ?';
+
+  @override
+  String get secretQPetName => 'Quel est le nom de votre premier animal ?';
+
+  @override
+  String get secretQFavTeacher => 'Qui est votre enseignant préféré ?';
 }

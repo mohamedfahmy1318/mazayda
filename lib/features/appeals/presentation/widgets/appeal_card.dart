@@ -37,17 +37,17 @@ class AppealCard extends StatelessWidget {
                   ),
                 ),
               ),
-              AppealStatusChip(appeal.status),
+              AppealStatusChip(appeal.status, label: appeal.statusLabel),
             ],
           ),
-          if (appeal.auctionTitle != null) ...[
+          if (appeal.auction != null) ...[
             Gap(5.h),
             Row(
               children: [
                 Icon(Icons.gavel, size: 13.sp, color: AppColors.textHint),
                 Gap(4.w),
                 Text(
-                  appeal.auctionTitle!,
+                  appeal.auction!.title,
                   style: TextStyle(
                     fontSize: 11.sp,
                     color: AppColors.textSecondary,

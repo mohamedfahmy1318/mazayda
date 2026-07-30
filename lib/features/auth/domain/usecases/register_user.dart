@@ -23,6 +23,7 @@ class RegisterUser implements UseCase<RegisterResult, RegisterParams> {
       email: p.email,
       birthDate: p.birthDate,
       password: p.password,
+      passwordConfirmation: p.passwordConfirmation,
       deviceName: p.deviceName,
     );
   }
@@ -38,6 +39,7 @@ class RegisterParams with _$RegisterParams {
     required String email,
     required String birthDate,
     required String password,
+    required String passwordConfirmation,
     required String deviceName,
   }) = _RegisterParams;
 }

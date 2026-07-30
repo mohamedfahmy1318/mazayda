@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../auctions/domain/entities/money.dart';
 
 /// نتيجة بدء الدفع (تسجيل في مزاد أو دفع نهائي).
 /// redirectUrl: نفتحه في WebView. ref: نستطلع به الحالة بعد الرجوع.
@@ -12,8 +13,8 @@ class PaymentInit extends Equatable {
   List<Object?> get props => [redirectUrl, ref];
 }
 
-/// أنواع الدفع كما في الـ spec.
-enum PaymentType { deposit, entryFee, bookPurchase, finalPayment, refund, unknown }
+/// أنواع الدفع — مطابقة لـ app/Enums/PaymentType.php.
+enum PaymentType { deposit, entryFee, bookPurchase, finalPayment, unknown }
 
 extension PaymentTypeX on PaymentType {
   static PaymentType fromApi(String? v) => switch (v) {
@@ -21,22 +22,28 @@ extension PaymentTypeX on PaymentType {
         'ENTRY_FEE' => PaymentType.entryFee,
         'BOOK_PURCHASE' => PaymentType.bookPurchase,
         'FINAL_PAYMENT' => PaymentType.finalPayment,
-        'REFUND' => PaymentType.refund,
         _ => PaymentType.unknown,
       };
 
+  /// النصوص منقولة حرفيًا من lang/ar/enums.php في الباك.
   String get labelAr => switch (this) {
-        PaymentType.deposit => 'تأمين',
-        PaymentType.entryFee => 'رسوم مشاركة',
-        PaymentType.bookPurchase => 'كراس شروط',
+        PaymentType.deposit => 'كفالة',
+        PaymentType.entryFee => 'رسوم دخول',
+        PaymentType.bookPurchase => 'كراسة شروط',
         PaymentType.finalPayment => 'دفع نهائي',
-        PaymentType.refund => 'استرداد',
         PaymentType.unknown => 'دفعة',
       };
 }
 
-/// حالة الدفع لصف واحد.
-enum PaymentRowStatus { pending, confirmed, refunded, forfeited, unknown }
+/// حالة صف الدفع — مطابقة لـ app/Enums/PaymentStatus.php.
+enum PaymentRowStatus {
+  pending,
+  confirmed,
+  refunded,
+  forfeited,
+  failed,
+  unknown,
+}
 
 extension PaymentRowStatusX on PaymentRowStatus {
   static PaymentRowStatus fromApi(String? v) => switch (v) {
@@ -44,32 +51,65 @@ extension PaymentRowStatusX on PaymentRowStatus {
         'CONFIRMED' => PaymentRowStatus.confirmed,
         'REFUNDED' => PaymentRowStatus.refunded,
         'FORFEITED' => PaymentRowStatus.forfeited,
+        'FAILED' => PaymentRowStatus.failed,
         _ => PaymentRowStatus.unknown,
       };
 
   String get labelAr => switch (this) {
-        PaymentRowStatus.pending => 'قيد المعالجة',
-        PaymentRowStatus.confirmed => 'مؤكد',
-        PaymentRowStatus.refunded => 'مسترد',
-        PaymentRowStatus.forfeited => 'مصادر',
+        PaymentRowStatus.pending => 'قيد الانتظار',
+        PaymentRowStatus.confirmed => 'مؤكَّد',
+        PaymentRowStatus.refunded => 'مُسترَد',
+        PaymentRowStatus.forfeited => 'مُصادَر',
+        PaymentRowStatus.failed => 'فاشل',
         PaymentRowStatus.unknown => '—',
       };
 }
 
-/// صف دفع — نستطلعه بعد رجوع بوابة الدفع.
+/// صف دفع واحد — يطابق PaymentResource.
+/// ملاحظة: الباك **مبيرجّعش** حقل is_confirmed — الحالة نفسها هي المصدر.
 class PaymentStatus extends Equatable {
-  final String ref;
+  final String id;
   final PaymentType type;
+  final Money amount;
   final PaymentRowStatus status;
-  final bool isConfirmed;
+  final String? gatewayRef;
+  final DateTime? dueAt;
+  final DateTime? confirmedAt;
+  final DateTime? createdAt;
 
   const PaymentStatus({
-    required this.ref,
+    required this.id,
     required this.type,
+    required this.amount,
     required this.status,
-    required this.isConfirmed,
+    this.gatewayRef,
+    this.dueAt,
+    this.confirmedAt,
+    this.createdAt,
   });
 
+  bool get isConfirmed => status == PaymentRowStatus.confirmed;
+  bool get hasFailed => status == PaymentRowStatus.failed;
+
   @override
-  List<Object?> get props => [ref, type, status, isConfirmed];
+  List<Object?> get props => [id, type, amount, status, gatewayRef];
+}
+
+/// ردّ GET /payments/{ref}/status — `{ ref, payments[] }`.
+/// البحث في الباك بيتم بـ gateway_ref فقط (بيرجّع 404 لو مفيش صفوف).
+class PaymentStatusResult extends Equatable {
+  final String ref;
+  final List<PaymentStatus> payments;
+
+  const PaymentStatusResult({required this.ref, required this.payments});
+
+  /// كل الدفعات المرتبطة بالـ ref اتأكدت.
+  bool get allConfirmed =>
+      payments.isNotEmpty && payments.every((p) => p.isConfirmed);
+
+  /// واحدة على الأقل فشلت نهائيًا — نوقف الاستطلاع فورًا بدل ما نستنى.
+  bool get hasFailed => payments.any((p) => p.hasFailed);
+
+  @override
+  List<Object?> get props => [ref, payments];
 }

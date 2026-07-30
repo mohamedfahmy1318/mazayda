@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/appeal.dart';
 import '../../domain/repositories/appeals_repository.dart';
@@ -20,15 +21,15 @@ class AppealsRepositoryImpl implements AppealsRepository {
 
   @override
   Future<Either<Failure, Unit>> submitAppeal({
+    required String auctionId,
     required String subject,
     required String reason,
-    String? auctionId,
   }) {
     return _guard(() async {
-      await remote.submitAppeal({
+      // الـ body فيه subject و reason بس — المزاد جزء من المسار.
+      await remote.submitAppeal(auctionId, {
         'subject': subject,
         'reason': reason,
-        if (auctionId != null) 'auction_id': auctionId,
       });
       return unit;
     });
@@ -42,13 +43,7 @@ class AppealsRepositoryImpl implements AppealsRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(
-        Failure.server(
-          message: e.message,
-          statusCode: e.statusCode,
-          errors: e.errors,
-        ),
-      );
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

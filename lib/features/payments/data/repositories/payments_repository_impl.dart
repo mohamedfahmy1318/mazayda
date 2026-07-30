@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
+import '../../domain/entities/final_payment_preview.dart';
 import '../../domain/entities/payment_entities.dart';
 import '../../domain/repositories/payments_repository.dart';
 import '../datasources/payments_remote_data_source.dart';
@@ -29,10 +31,17 @@ class PaymentsRepositoryImpl implements PaymentsRepository {
   }
 
   @override
-  Future<Either<Failure, List<PaymentStatus>>> getPaymentStatus(String ref) {
-    return _guard(() async => (await remote.getPaymentStatus(ref))
-        .map((m) => m.toEntity())
-        .toList());
+  Future<Either<Failure, FinalPaymentPreview>> getFinalPaymentPreview(
+    String auctionId,
+  ) {
+    return _guard(
+      () async => (await remote.getFinalPaymentPreview(auctionId)).toEntity(),
+    );
+  }
+
+  @override
+  Future<Either<Failure, PaymentStatusResult>> getPaymentStatus(String ref) {
+    return _guard(() async => (await remote.getPaymentStatus(ref)).toEntity());
   }
 
   Future<Either<Failure, T>> _guard<T>(Future<T> Function() action) async {
@@ -43,11 +52,7 @@ class PaymentsRepositoryImpl implements PaymentsRepository {
     } on NetworkException catch (e) {
       return Left(Failure.network(message: e.message));
     } on ServerException catch (e) {
-      return Left(Failure.server(
-        message: e.message,
-        statusCode: e.statusCode,
-        errors: e.errors,
-      ));
+      return Left(e.toFailure());
     } catch (_) {
       return const Left(Failure.unexpected());
     }

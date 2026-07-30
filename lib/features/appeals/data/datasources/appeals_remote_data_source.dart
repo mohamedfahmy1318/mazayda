@@ -5,7 +5,9 @@ import '../models/appeal_model.dart';
 
 abstract class AppealsRemoteDataSource {
   Future<List<AppealModel>> getAppeals();
-  Future<void> submitAppeal(Map<String, dynamic> body);
+
+  /// الطعن دايمًا على مزاد — الباك مالوش مسار POST /appeals أصلًا.
+  Future<void> submitAppeal(String auctionId, Map<String, dynamic> body);
 }
 
 @LazySingleton(as: AppealsRemoteDataSource)
@@ -22,7 +24,7 @@ class AppealsRemoteDataSourceImpl implements AppealsRemoteDataSource {
   }
 
   @override
-  Future<void> submitAppeal(Map<String, dynamic> body) async {
-    await client.post(ApiConstants.appeals, body: body);
+  Future<void> submitAppeal(String auctionId, Map<String, dynamic> body) async {
+    await client.post(ApiConstants.submitAppeal(auctionId), body: body);
   }
 }

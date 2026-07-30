@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_image.dart';
-import '../../domain/entities/auction.dart';
+import '../../domain/entities/auction_list_item.dart';
 import 'auction_status_label.dart';
 
 /// ارتفاع صورة الغلاف في كارت القائمة.
@@ -12,7 +12,7 @@ const _cardImageHeight = 120.0;
 
 /// كارت مزاد في القائمة — صورة + حالة + سعر + عدد المزايدين.
 class AuctionCard extends StatelessWidget {
-  final Auction auction;
+  final AuctionListItem auction;
   final VoidCallback? onTap;
 
   const AuctionCard({super.key, required this.auction, this.onTap});
@@ -146,7 +146,7 @@ class _AuctionCardLocation extends StatelessWidget {
 
 /// عمود السعر (أعلى مزايدة للمباشر / سعر الافتتاح لغيره).
 class _AuctionCardPrice extends StatelessWidget {
-  final Auction auction;
+  final AuctionListItem auction;
   final bool isLive;
   const _AuctionCardPrice({required this.auction, required this.isLive});
 
