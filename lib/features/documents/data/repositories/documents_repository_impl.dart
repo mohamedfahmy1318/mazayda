@@ -5,6 +5,7 @@ import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/paged.dart';
 import '../../domain/entities/document.dart';
+import '../../domain/entities/document_filter_options.dart';
 import '../../domain/entities/document_filters.dart';
 import '../../domain/repositories/documents_repository.dart';
 import '../datasources/documents_remote_data_source.dart';
@@ -33,6 +34,11 @@ class DocumentsRepositoryImpl implements DocumentsRepository {
   @override
   Future<Either<Failure, DocumentsSummary>> getSummary() {
     return _guard(() async => (await remote.getSummary()).toEntity());
+  }
+
+  @override
+  Future<Either<Failure, DocumentFilterOptions>> getFilterOptions() {
+    return _guard(() async => remote.getFilterOptions());
   }
 
   @override

@@ -21,6 +21,10 @@ mixin _$DocumentsState {
   List<UserDocument> get items => throw _privateConstructorUsedError;
   DocumentsSummary? get summary => throw _privateConstructorUsedError;
   DocumentFilters get filters => throw _privateConstructorUsedError;
+
+  /// خيارات الفلاتر المتاحة للمستخدم ده (BE-4) — فاضية لو النداء فشل
+  /// أو المستخدم ملوش وثائق، وساعتها ما نعرضش الشرائح دي أصلًا.
+  DocumentFilterOptions get filterOptions => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -48,6 +52,7 @@ abstract class $DocumentsStateCopyWith<$Res> {
     List<UserDocument> items,
     DocumentsSummary? summary,
     DocumentFilters filters,
+    DocumentFilterOptions filterOptions,
     int page,
     bool hasMore,
     int total,
@@ -75,6 +80,7 @@ class _$DocumentsStateCopyWithImpl<$Res, $Val extends DocumentsState>
     Object? items = null,
     Object? summary = freezed,
     Object? filters = null,
+    Object? filterOptions = null,
     Object? page = null,
     Object? hasMore = null,
     Object? total = null,
@@ -99,6 +105,10 @@ class _$DocumentsStateCopyWithImpl<$Res, $Val extends DocumentsState>
                 ? _value.filters
                 : filters // ignore: cast_nullable_to_non_nullable
                       as DocumentFilters,
+            filterOptions: null == filterOptions
+                ? _value.filterOptions
+                : filterOptions // ignore: cast_nullable_to_non_nullable
+                      as DocumentFilterOptions,
             page: null == page
                 ? _value.page
                 : page // ignore: cast_nullable_to_non_nullable
@@ -139,6 +149,7 @@ abstract class _$$DocumentsStateImplCopyWith<$Res>
     List<UserDocument> items,
     DocumentsSummary? summary,
     DocumentFilters filters,
+    DocumentFilterOptions filterOptions,
     int page,
     bool hasMore,
     int total,
@@ -165,6 +176,7 @@ class __$$DocumentsStateImplCopyWithImpl<$Res>
     Object? items = null,
     Object? summary = freezed,
     Object? filters = null,
+    Object? filterOptions = null,
     Object? page = null,
     Object? hasMore = null,
     Object? total = null,
@@ -189,6 +201,10 @@ class __$$DocumentsStateImplCopyWithImpl<$Res>
             ? _value.filters
             : filters // ignore: cast_nullable_to_non_nullable
                   as DocumentFilters,
+        filterOptions: null == filterOptions
+            ? _value.filterOptions
+            : filterOptions // ignore: cast_nullable_to_non_nullable
+                  as DocumentFilterOptions,
         page: null == page
             ? _value.page
             : page // ignore: cast_nullable_to_non_nullable
@@ -222,6 +238,7 @@ class _$DocumentsStateImpl extends _DocumentsState {
     final List<UserDocument> items = const <UserDocument>[],
     this.summary,
     this.filters = const DocumentFilters(),
+    this.filterOptions = DocumentFilterOptions.empty,
     this.page = 1,
     this.hasMore = false,
     this.total = 0,
@@ -247,6 +264,12 @@ class _$DocumentsStateImpl extends _DocumentsState {
   @override
   @JsonKey()
   final DocumentFilters filters;
+
+  /// خيارات الفلاتر المتاحة للمستخدم ده (BE-4) — فاضية لو النداء فشل
+  /// أو المستخدم ملوش وثائق، وساعتها ما نعرضش الشرائح دي أصلًا.
+  @override
+  @JsonKey()
+  final DocumentFilterOptions filterOptions;
   @override
   @JsonKey()
   final int page;
@@ -265,7 +288,7 @@ class _$DocumentsStateImpl extends _DocumentsState {
 
   @override
   String toString() {
-    return 'DocumentsState(loading: $loading, items: $items, summary: $summary, filters: $filters, page: $page, hasMore: $hasMore, total: $total, error: $error, downloadingId: $downloadingId)';
+    return 'DocumentsState(loading: $loading, items: $items, summary: $summary, filters: $filters, filterOptions: $filterOptions, page: $page, hasMore: $hasMore, total: $total, error: $error, downloadingId: $downloadingId)';
   }
 
   @override
@@ -277,6 +300,8 @@ class _$DocumentsStateImpl extends _DocumentsState {
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.filters, filters) || other.filters == filters) &&
+            (identical(other.filterOptions, filterOptions) ||
+                other.filterOptions == filterOptions) &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
             (identical(other.total, total) || other.total == total) &&
@@ -292,6 +317,7 @@ class _$DocumentsStateImpl extends _DocumentsState {
     const DeepCollectionEquality().hash(_items),
     summary,
     filters,
+    filterOptions,
     page,
     hasMore,
     total,
@@ -317,6 +343,7 @@ abstract class _DocumentsState extends DocumentsState {
     final List<UserDocument> items,
     final DocumentsSummary? summary,
     final DocumentFilters filters,
+    final DocumentFilterOptions filterOptions,
     final int page,
     final bool hasMore,
     final int total,
@@ -333,6 +360,11 @@ abstract class _DocumentsState extends DocumentsState {
   DocumentsSummary? get summary;
   @override
   DocumentFilters get filters;
+
+  /// خيارات الفلاتر المتاحة للمستخدم ده (BE-4) — فاضية لو النداء فشل
+  /// أو المستخدم ملوش وثائق، وساعتها ما نعرضش الشرائح دي أصلًا.
+  @override
+  DocumentFilterOptions get filterOptions;
   @override
   int get page;
   @override

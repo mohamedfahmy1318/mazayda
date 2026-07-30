@@ -52,6 +52,8 @@ _$PaymentStatusResponseModelImpl _$$PaymentStatusResponseModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$PaymentStatusResponseModelImpl(
   ref: json['ref'] as String?,
+  gatewayRef: json['gateway_ref'] as String?,
+  confirmed: json['confirmed'] as bool?,
   payments:
       (json['payments'] as List<dynamic>?)
           ?.map((e) => PaymentStatusModel.fromJson(e as Map<String, dynamic>))
@@ -61,4 +63,9 @@ _$PaymentStatusResponseModelImpl _$$PaymentStatusResponseModelImplFromJson(
 
 Map<String, dynamic> _$$PaymentStatusResponseModelImplToJson(
   _$PaymentStatusResponseModelImpl instance,
-) => <String, dynamic>{'ref': instance.ref, 'payments': instance.payments};
+) => <String, dynamic>{
+  'ref': instance.ref,
+  'gateway_ref': instance.gatewayRef,
+  'confirmed': instance.confirmed,
+  'payments': instance.payments,
+};

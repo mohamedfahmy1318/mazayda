@@ -82,10 +82,19 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
 
   /// يرصد رجوع البوابة.
   ///
-  /// البوابات بترجع على `/payments/callback?ref=…&decision=success|fail`.
-  /// بنطابق على **مقطع المسار** مش على ثابت كامل، لأن الرابط اللي البوابة
-  /// بترجع عليه هو مسار الويب (`/payments/callback`) مش مسار الـ API
-  /// (`/api/v1/payments/callback`) — فالمطابقة على الثابت الكامل مبتشتغلش.
+  /// بعد BE-13 الرجوع بقى على مسار الـ API:
+  /// `/api/v1/payments/callback?ref={payment_id}&decision=success|fail`
+  /// (كان قبلها مسار الويب المحمي بجلسة، فالـ WebView كان بيقع على اللوجين).
+  ///
+  /// بنطابق على **نهاية المسار** مش على الثابت الكامل، فالاتنين بيتلقطوا —
+  /// ده مهم لأن البوابة ممكن ترجّع على أي واحد منهم حسب اللي السيرفر بعته.
+  ///
+  /// بنقفل الصفحة من غير ما نسيبها تحمّل: الرد نفسه JSON، والتأكيد الرسمي
+  /// بييجي من الـ webhook الموقّع + استطلاع `/status` بعد كده.
+  ///
+  /// الـ `ref` هنا هو `payment_id`، بينما إحنا بنستطلع بـ `ref` بتاع البوابة
+  /// اللي رجع من بدء الدفع. الاتنين مقبولين على `/status` (BE-13)، فبنكمّل
+  /// بالـ ref اللي معانا أصلًا وما نحتاجش نقرا اللي في الرابط.
   GatewayOutcome? _readCallback(String rawUrl) {
     final uri = Uri.tryParse(rawUrl);
     if (uri == null) return null;

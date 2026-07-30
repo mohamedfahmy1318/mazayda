@@ -2,20 +2,26 @@ import 'package:equatable/equatable.dart';
 import '../../../auctions/domain/entities/auction_list_item.dart';
 
 /// تبويبات «مزاداتي» — تطابق قيم الـ API (?tab=).
-enum MyAuctionTab { active, won, lost, upcoming }
+///
+/// ⚠️ التبويبات **مناظير مش تقسيم حصري**: المزاد المكسوب مقفول كمان، فهو
+/// موجود في `won` و`all`. `all` هو الشامل — المشاركة في مزاد اتلغى
+/// (`CANCELLED`) بتظهر فيه هو بس.
+enum MyAuctionTab { all, active, won, lost, upcoming }
 
 extension MyAuctionTabX on MyAuctionTab {
-  String get apiValue => name; // active / won / lost / upcoming
+  String get apiValue => name; // all / active / won / lost / upcoming
 }
 
 /// أعداد كل تبويب — بتيجي في `meta.counts` مع كل طلب.
 class MyAuctionCounts extends Equatable {
+  final int all;
   final int active;
   final int won;
   final int lost;
   final int upcoming;
 
   const MyAuctionCounts({
+    this.all = 0,
     this.active = 0,
     this.won = 0,
     this.lost = 0,
@@ -25,6 +31,7 @@ class MyAuctionCounts extends Equatable {
   static const empty = MyAuctionCounts();
 
   int of(MyAuctionTab tab) => switch (tab) {
+    MyAuctionTab.all => all,
     MyAuctionTab.active => active,
     MyAuctionTab.won => won,
     MyAuctionTab.lost => lost,
@@ -32,16 +39,13 @@ class MyAuctionCounts extends Equatable {
   };
 
   @override
-  List<Object?> get props => [active, won, lost, upcoming];
+  List<Object?> get props => [all, active, won, lost, upcoming];
 }
 
 /// شارة حالة الصف في «مزاداتي».
 ///
-/// ⚠️ **مفيش `winning` ولا `outbid`.** الـ API (`AuctionListResource`) مش
-/// بيرجّع أي بيانات عن مشاركة المستخدم نفسه — لا `my_bid` ولا `is_winning`
-/// ولا `deposit_paid`. الكود القديم كان بيفترضها فبيعرض «تم تجاوزك» على كل
-/// صف نشط حتى وأنت الأعلى. الشارات دي مشتقّة من بيانات حقيقية بس.
-/// لما يوصل طلب BE-3 نضيف الحالتين.
+/// `winning`/`outbid` بيعتمدوا على `is_winning` من `MyAuctionResource`
+/// (BE-3). لو المفتاح غاب (رد قديم) بنرجع لحالة المزاد ومابندّعيش حاجة.
 enum MyAuctionBadge {
   live,
   ended,
@@ -50,11 +54,10 @@ enum MyAuctionBadge {
   lost,
   upcoming,
 
-  /// المستخدم صاحب أعلى مزايدة — بيظهر **فقط** لما الـ API يبعت
-  /// `is_winning` (طلب BE-3).
+  /// المستخدم صاحب أعلى مزايدة حاليًا.
   winning,
 
-  /// اتجاوزوه — نفس الشرط.
+  /// اتجاوزوه.
   outbid,
 }
 
@@ -74,21 +77,38 @@ class MyAuctionsResult extends Equatable {
   List<Object?> get props => [items, tab, counts];
 }
 
-/// اشتقاق الشارة من التبويب + حالة المزاد الحقيقية.
+/// اشتقاق الشارة من التبويب + حالة المشاركة الحقيقية.
+///
+/// في التبويبات الحصرية (`won`/`lost`/`upcoming`) الشارة معروفة من التبويب
+/// نفسه. في `all`/`active` بنشتقّها من `is_winning` + حالة المزاد.
 MyAuctionBadge badgeFor(MyAuctionTab tab, AuctionListItem item) => switch (tab) {
   MyAuctionTab.won => MyAuctionBadge.won,
   MyAuctionTab.lost => MyAuctionBadge.lost,
   MyAuctionTab.upcoming => MyAuctionBadge.upcoming,
-  // لو الـ API بعت حالة المزايدة الحقيقية (BE-3) بنعرضها — وإلا بنكتفي
-  // بحالة المزاد. **ما بندّعيش** فوز أو تجاوز من غير بيانات.
-  MyAuctionTab.active => switch (item.isWinning) {
-    true => MyAuctionBadge.winning,
-    false => MyAuctionBadge.outbid,
-    null =>
-      item.isLive
-          ? MyAuctionBadge.live
-          : item.hasEnded
-          ? MyAuctionBadge.ended
-          : MyAuctionBadge.participating,
-  },
+  // `all` فيه المفتوح والمقفول والملغى مع بعض، فبنفصل على حالة المزاد الأول.
+  MyAuctionTab.all || MyAuctionTab.active => _openTabBadge(item),
 };
+
+MyAuctionBadge _openTabBadge(AuctionListItem item) {
+  // مزاد خلص: نتيجته معروفة من `is_winning` (الباك بيحوّل معناها للفائز بعد
+  // الإقفال). `is_winner` نفسه مكسور في الباك — راجع AuctionListItem.isWinner.
+  if (item.isOver) {
+    return switch (item.isWinnerResolved) {
+      true => MyAuctionBadge.won,
+      false => MyAuctionBadge.lost,
+      null => MyAuctionBadge.ended,
+    };
+  }
+
+  if (!item.isLive) return MyAuctionBadge.upcoming;
+
+  // مزاد شغّال: موقف المزايدة هو المعلومة المهمة.
+  return switch (item.isWinning) {
+    true => MyAuctionBadge.winning,
+    // مسجّل بس مزايدش لسه — «تم تجاوزك» هنا هتبقى كذب.
+    false => item.myHighestBid != null
+        ? MyAuctionBadge.outbid
+        : MyAuctionBadge.participating,
+    null => MyAuctionBadge.live,
+  };
+}

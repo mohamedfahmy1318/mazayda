@@ -35,6 +35,27 @@ class Profile extends Equatable {
   final String? locale;
   final String? role;
 
+  // ===== حقول فورم الـ KYC للتعبئة المسبقة (BE-8) =====
+  // مستخدم اترفض طلبه ومحتاج يعدّل حقل واحد ماينفعش يعيد كتابة 17 حقل.
+  // كلها بترجع من `/profile` و`/auth/me` و`/auth/login` (نفس الـ Resource).
+
+  /// الولاية — مشتقّة في الباك من البلدية، فما نحتاجش بحث عكسي في
+  /// `/wilayas` عشان نعرف ولاية المستخدم من `communeId`.
+  final int? wilayaId;
+
+  final String? birthDate; // Y-m-d زي ما الباك بيبعتها
+  final String? birthPlace;
+  final String? fatherName;
+  final String? motherName;
+  final String? motherSurname;
+  final int? expectedIncome;
+  final String? idCardNumber;
+  final String? passportNumber;
+  final String? licenseNumber;
+  final String? rip;
+  final String? nif;
+  final String? nis;
+
   /// ACTIVE | SUSPENDED | BANNED
   final String? accountStatus;
   final String? accountType;
@@ -75,6 +96,19 @@ class Profile extends Equatable {
     this.profession,
     this.locale,
     this.role,
+    this.wilayaId,
+    this.birthDate,
+    this.birthPlace,
+    this.fatherName,
+    this.motherName,
+    this.motherSurname,
+    this.expectedIncome,
+    this.idCardNumber,
+    this.passportNumber,
+    this.licenseNumber,
+    this.rip,
+    this.nif,
+    this.nis,
     this.accountStatus,
     this.accountType,
     this.isInstitution = false,

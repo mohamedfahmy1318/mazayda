@@ -7,7 +7,7 @@ import 'money_model.dart';
 part 'auction_list_model.freezed.dart';
 part 'auction_list_model.g.dart';
 
-/// يطابق `AuctionListResource` — 18 مفتاح، لا أكثر.
+/// يطابق `AuctionListResource` (21 مفتاح) + إضافات `MyAuctionResource`.
 ///
 /// ملاحظة: `category` و`wilaya` بيتحطّوا بـ `whenLoaded`، يعني المفتاح
 /// **بيختفي تمامًا** من الـ JSON لو العلاقة مش محمّلة (مش بيرجع null).
@@ -34,12 +34,19 @@ class AuctionListModel with _$AuctionListModel {
     @JsonKey(name: 'is_live') @Default(false) bool isLive,
     @JsonKey(name: 'is_biddable') @Default(false) bool isBiddable,
     @JsonKey(name: 'has_ended') @Default(false) bool hasEnded,
-    // ===== حقول لسه مش بيبعتها الباك — جاهزين ليها مسبقًا =====
-    // كلها nullable عن قصد: null = «غير معروف» مش «لا».
     @JsonKey(name: 'requires_commerce_register') bool? requiresCommerceRegister,
+    // نتيجة الإقفال — null قبل ما المزاد يقفل.
+    @JsonKey(name: 'final_price') MoneyModel? finalPrice,
+    @JsonKey(name: 'closed_at') String? closedAt,
+    // ===== حالة مشاركة المستخدم — `/my-auctions` فقط =====
+    // كلها nullable عن قصد: المفتاح بيغيب في باقي المسارات، وnull هنا
+    // معناها «مش معروف» مش «لا».
     @JsonKey(name: 'my_highest_bid') MoneyModel? myHighestBid,
     @JsonKey(name: 'is_winning') bool? isWinning,
+    @JsonKey(name: 'is_winner') bool? isWinner,
     @JsonKey(name: 'deposit_paid') bool? depositPaid,
+    @JsonKey(name: 'book_purchased') bool? bookPurchased,
+    @JsonKey(name: 'registered_at') String? registeredAt,
     @JsonKey(name: 'final_payment_status') String? finalPaymentStatus,
   }) = _AuctionListModel;
 
@@ -72,9 +79,14 @@ class AuctionListModel with _$AuctionListModel {
     isBiddable: isBiddable,
     hasEnded: hasEnded,
     requiresCommerceRegister: requiresCommerceRegister,
+    finalPrice: finalPrice?.toEntity(),
+    closedAt: DateTime.tryParse(closedAt ?? ''),
     myHighestBid: myHighestBid?.toEntity(),
     isWinning: isWinning,
+    isWinner: isWinner,
     depositPaid: depositPaid,
+    bookPurchased: bookPurchased,
+    registeredAt: DateTime.tryParse(registeredAt ?? ''),
     finalPaymentStatus: finalPaymentStatus,
   );
 }

@@ -35,11 +35,18 @@ _$AuctionListModelImpl _$$AuctionListModelImplFromJson(
   isBiddable: json['is_biddable'] as bool? ?? false,
   hasEnded: json['has_ended'] as bool? ?? false,
   requiresCommerceRegister: json['requires_commerce_register'] as bool?,
+  finalPrice: json['final_price'] == null
+      ? null
+      : MoneyModel.fromJson(json['final_price'] as Map<String, dynamic>),
+  closedAt: json['closed_at'] as String?,
   myHighestBid: json['my_highest_bid'] == null
       ? null
       : MoneyModel.fromJson(json['my_highest_bid'] as Map<String, dynamic>),
   isWinning: json['is_winning'] as bool?,
+  isWinner: json['is_winner'] as bool?,
   depositPaid: json['deposit_paid'] as bool?,
+  bookPurchased: json['book_purchased'] as bool?,
+  registeredAt: json['registered_at'] as String?,
   finalPaymentStatus: json['final_payment_status'] as String?,
 );
 
@@ -64,8 +71,13 @@ Map<String, dynamic> _$$AuctionListModelImplToJson(
   'is_biddable': instance.isBiddable,
   'has_ended': instance.hasEnded,
   'requires_commerce_register': instance.requiresCommerceRegister,
+  'final_price': instance.finalPrice,
+  'closed_at': instance.closedAt,
   'my_highest_bid': instance.myHighestBid,
   'is_winning': instance.isWinning,
+  'is_winner': instance.isWinner,
   'deposit_paid': instance.depositPaid,
+  'book_purchased': instance.bookPurchased,
+  'registered_at': instance.registeredAt,
   'final_payment_status': instance.finalPaymentStatus,
 };

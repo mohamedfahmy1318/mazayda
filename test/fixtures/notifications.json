@@ -1,0 +1,55 @@
+{
+  "data": [
+    {
+      "id": "a24bed1f-6d6b-46b1-84bf-c2e7db78c86d",
+      "title": "تم تأكيد الدفع",
+      "body": "تم تأكيد دفعتك (كفالة) بمبلغ ⁦100⁩ دج لمزايدة «اختبار».",
+      "type": null,
+      "channel": "IN_APP",
+      "is_read": false,
+      "action_url": "https://mazayada.findosystem.com/auctions/a24be9e2-5c28-421c-8c70-ab18ef5640a4",
+      "created_at": "2026-07-19T15:04:05+01:00"
+    },
+    {
+      "id": "a24bebc9-b9ec-4d19-82bb-e440b298cc0b",
+      "title": "تم تأكيد الدفع",
+      "body": "تم تأكيد دفعتك (كراسة شروط) بمبلغ ⁦100⁩ دج لمزايدة «اختبار».",
+      "type": null,
+      "channel": "IN_APP",
+      "is_read": false,
+      "action_url": "https://mazayada.findosystem.com/auctions/a24be9e2-5c28-421c-8c70-ab18ef5640a4",
+      "created_at": "2026-07-19T15:00:21+01:00"
+    },
+    {
+      "id": "a21b1474-79f9-4fc8-8d8e-2eab5f9ee2f8",
+      "title": "فشل الدفع",
+      "body": "تعذّر إتمام دفعتك (كراسة شروط) لمزايدة «zzzzzzzzzzzzzzz».",
+      "type": null,
+      "channel": "IN_APP",
+      "is_read": false,
+      "action_url": "https://mazayada.findosystem.com/auctions/a216a2a5-3a65-47bc-933c-f2e8c7724ab6",
+      "created_at": "2026-06-25T08:18:29+01:00"
+    },
+    {
+      "id": "a21b13db-ea9d-4a87-acff-ed07bc975ce6",
+      "title": "فشل الدفع",
+      "body": "تعذّر إتمام دفعتك (كراسة شروط) لمزايدة «zzzzzzzzzzzzzzz».",
+      "type": null,
+      "channel": "IN_APP",
+      "is_read": false,
+      "action_url": "https://mazayada.findosystem.com/auctions/a216a2a5-3a65-47bc-933c-f2e8c7724ab6",
+      "created_at": "2026-06-25T08:16:49+01:00"
+    }
+  ],
+  "message": null,
+  "meta": {
+    "unread_count": 4,
+    "pagination": {
+      "current_page": 1,
+      "last_page": 1,
+      "per_page": 20,
+      "total": 4,
+      "count": 4
+    }
+  }
+}

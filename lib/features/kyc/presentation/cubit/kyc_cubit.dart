@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../../profile/domain/entities/profile.dart';
+import '../../../profile/domain/usecases/get_profile.dart';
 import '../../domain/entities/kyc_entities.dart';
 import '../../domain/repositories/kyc_repository.dart';
 import '../../domain/usecases/kyc_usecases.dart';
@@ -14,6 +16,9 @@ class KycState with _$KycState {
   const factory KycState({
     @Default(KycViewStatus.initial) KycViewStatus status,
     KycStatus? kyc,
+    /// بيانات المستخدم للتعبئة المسبقة (BE-8) — `null` لو النداء فشل،
+    /// وساعتها الفورم يفتح فاضي زي الأول.
+    Profile? prefill,
     @Default(<Wilaya>[]) List<Wilaya> wilayas,
     @Default(<Commune>[]) List<Commune> communes,
     // أنواع المستندات اللي بترفع حاليًا (loading)
@@ -36,6 +41,7 @@ class KycCubit extends Cubit<KycState> {
   final SubmitKyc _submit;
   final GetWilayas _getWilayas;
   final GetCommunes _getCommunes;
+  final GetProfile _getProfile;
 
   KycCubit(
     this._getStatus,
@@ -43,14 +49,22 @@ class KycCubit extends Cubit<KycState> {
     this._submit,
     this._getWilayas,
     this._getCommunes,
+    this._getProfile,
   ) : super(const KycState());
 
-  /// تحميل الحالة + الولايات معًا عند فتح الشاشة.
+  /// تحميل الحالة + الولايات + بيانات التعبئة المسبقة عند فتح الشاشة.
+  ///
+  /// التعبئة المسبقة (BE-8) مهمة تحديدًا للمستخدم اللي طلبه اترفض ومحتاج
+  /// يعدّل حقل واحد — من غيرها كان لازم يعيد كتابة الفورم كله.
   Future<void> init() async {
     emit(state.copyWith(status: KycViewStatus.loading));
 
     final statusRes = await _getStatus(const NoParams());
     final wilayasRes = await _getWilayas(const NoParams());
+    final profileRes = await _getProfile(const NoParams());
+
+    // فشل البروفايل ما يمنعش الشاشة — الفورم بيفتح فاضي وبس.
+    final prefill = profileRes.fold((_) => null, (p) => p);
 
     statusRes.fold(
       (f) =>
@@ -64,12 +78,18 @@ class KycCubit extends Cubit<KycState> {
           state.copyWith(
             status: KycViewStatus.ready,
             kyc: kyc,
+            prefill: prefill,
             uploaded: uploaded,
             wilayas: wilayasRes.getOrElse(() => const []),
           ),
         );
       },
     );
+
+    // الولاية معروفة من البروفايل → نحمّل بلدياتها فورًا عشان المنسدلة
+    // تفتح متعبّية بدل ما تكون فاضية لحد ما المستخدم يعيد اختيار الولاية.
+    final wilayaId = prefill?.wilayaId;
+    if (wilayaId != null && !isClosed) await loadCommunes(wilayaId);
   }
 
   Future<void> loadCommunes(int wilayaId) async {

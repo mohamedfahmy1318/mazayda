@@ -19,9 +19,12 @@ class ProfileEntityRefModel with _$ProfileEntityRefModel {
       ProfileEntityRef(id: id ?? '', name: name ?? '');
 }
 
-/// يطابق UserResource (26 حقل). كل الحقول nullable لأن بعضها بيغيب
-/// حسب السياق — مثال: `entity` بيتشال لما العلاقة مش محمّلة، و PUT /profile
-/// بيرجّع الرد من غير `entity` أصلًا.
+/// يطابق UserResource. كل الحقول nullable لأن بعضها بيغيب حسب السياق —
+/// مثال: `entity` بيتشال لما العلاقة مش محمّلة، و PUT /profile بيرجّع الرد
+/// من غير `entity` أصلًا.
+///
+/// نفس الـ Resource بيرجع من `/profile` و`/auth/me` و`/auth/login`، فحقول
+/// التعبئة المسبقة (BE-8) متاحة في التلاتة.
 @freezed
 class ProfileModel with _$ProfileModel {
   const ProfileModel._();
@@ -42,6 +45,20 @@ class ProfileModel with _$ProfileModel {
     String? profession,
     String? locale,
     String? role,
+    // ===== حقول التعبئة المسبقة للـ KYC (BE-8) =====
+    @JsonKey(name: 'wilaya_id') int? wilayaId,
+    @JsonKey(name: 'birth_date') String? birthDate,
+    @JsonKey(name: 'birth_place') String? birthPlace,
+    @JsonKey(name: 'father_name') String? fatherName,
+    @JsonKey(name: 'mother_name') String? motherName,
+    @JsonKey(name: 'mother_surname') String? motherSurname,
+    @JsonKey(name: 'expected_income') int? expectedIncome,
+    @JsonKey(name: 'id_card_number') String? idCardNumber,
+    @JsonKey(name: 'passport_number') String? passportNumber,
+    @JsonKey(name: 'license_number') String? licenseNumber,
+    String? rip,
+    String? nif,
+    String? nis,
     @JsonKey(name: 'account_status') String? accountStatus,
     @JsonKey(name: 'account_type') String? accountType,
     @JsonKey(name: 'is_institution') @Default(false) bool isInstitution,
@@ -86,6 +103,19 @@ class ProfileModel with _$ProfileModel {
     profession: profession,
     locale: locale,
     role: role,
+    wilayaId: wilayaId,
+    birthDate: birthDate,
+    birthPlace: birthPlace,
+    fatherName: fatherName,
+    motherName: motherName,
+    motherSurname: motherSurname,
+    expectedIncome: expectedIncome,
+    idCardNumber: idCardNumber,
+    passportNumber: passportNumber,
+    licenseNumber: licenseNumber,
+    rip: rip,
+    nif: nif,
+    nis: nis,
     accountStatus: accountStatus,
     accountType: accountType,
     isInstitution: isInstitution,

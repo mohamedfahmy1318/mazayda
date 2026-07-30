@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MyAuctionsState {
+  // `all` هو الافتراضي: التبويبات مناظير مش تقسيم حصري، و`active` لوحده
+  // بيطلع فاضي لمستخدم كل مشاركاته مقفولة — أول انطباع غلط.
   MyAuctionTab get tab => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   List<AuctionListItem> get items => throw _privateConstructorUsedError;
@@ -166,13 +168,15 @@ class __$$MyAuctionsStateImplCopyWithImpl<$Res>
 
 class _$MyAuctionsStateImpl implements _MyAuctionsState {
   const _$MyAuctionsStateImpl({
-    this.tab = MyAuctionTab.active,
+    this.tab = MyAuctionTab.all,
     this.loading = true,
     final List<AuctionListItem> items = const <AuctionListItem>[],
     this.counts = MyAuctionCounts.empty,
     this.error,
   }) : _items = items;
 
+  // `all` هو الافتراضي: التبويبات مناظير مش تقسيم حصري، و`active` لوحده
+  // بيطلع فاضي لمستخدم كل مشاركاته مقفولة — أول انطباع غلط.
   @override
   @JsonKey()
   final MyAuctionTab tab;
@@ -243,6 +247,8 @@ abstract class _MyAuctionsState implements MyAuctionsState {
     final String? error,
   }) = _$MyAuctionsStateImpl;
 
+  // `all` هو الافتراضي: التبويبات مناظير مش تقسيم حصري، و`active` لوحده
+  // بيطلع فاضي لمستخدم كل مشاركاته مقفولة — أول انطباع غلط.
   @override
   MyAuctionTab get tab;
   @override

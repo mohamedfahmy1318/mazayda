@@ -5,6 +5,7 @@ import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/paged.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../entities/document.dart';
+import '../entities/document_filter_options.dart';
 import '../entities/document_filters.dart';
 import '../repositories/documents_repository.dart';
 
@@ -29,6 +30,18 @@ class GetDocumentsSummary implements UseCase<DocumentsSummary, NoParams> {
   @override
   Future<Either<Failure, DocumentsSummary>> call(NoParams params) =>
       repository.getSummary();
+}
+
+/// خيارات فلاتر الوثائق — مقيّدة بوثائق المستخدم (BE-4).
+@injectable
+class GetDocumentFilterOptions
+    implements UseCase<DocumentFilterOptions, NoParams> {
+  final DocumentsRepository repository;
+  GetDocumentFilterOptions(this.repository);
+
+  @override
+  Future<Either<Failure, DocumentFilterOptions>> call(NoParams params) =>
+      repository.getFilterOptions();
 }
 
 /// ينزّل الوثيقة ويرجّع مسارها المحلي.

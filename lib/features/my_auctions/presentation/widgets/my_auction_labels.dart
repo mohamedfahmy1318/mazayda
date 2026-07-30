@@ -6,6 +6,7 @@ import '../../domain/entities/my_auctions_result.dart';
 /// تسميات مترجمة لتبويبات «مزاداتي» (طبقة العرض — الـ domain لا يعرف اللغة).
 extension MyAuctionTabLabel on MyAuctionTab {
   String label(AppLocalizations t) => switch (this) {
+    MyAuctionTab.all => t.myAuctionsAll,
     MyAuctionTab.active => t.myAuctionsActive,
     MyAuctionTab.won => t.myAuctionsWon,
     MyAuctionTab.lost => t.myAuctionsLost,
@@ -13,12 +14,25 @@ extension MyAuctionTabLabel on MyAuctionTab {
   };
 
   String emptyMessage(AppLocalizations t) => switch (this) {
+    MyAuctionTab.all => t.myAuctionsEmptyAll,
     MyAuctionTab.active => t.myAuctionsEmptyActive,
     MyAuctionTab.won => t.myAuctionsEmptyWon,
     MyAuctionTab.lost => t.myAuctionsEmptyLost,
     MyAuctionTab.upcoming => t.myAuctionsEmptyUpcoming,
   };
 }
+
+/// حالة الدفع النهائي كنص — `final_payment_status` من `MyAuctionResource`.
+/// `null` معناها «مبدأش دفع نهائي» فمافيش سطر يتعرض أصلًا.
+String? finalPaymentLabel(String? status, AppLocalizations t) =>
+    switch (status) {
+      'PENDING' => t.myAuctionsFinalPaymentPending,
+      'CONFIRMED' => t.myAuctionsFinalPaymentDone,
+      'FAILED' => t.myAuctionsFinalPaymentFailed,
+      null => null,
+      // حالة جديدة من الباك (REFUNDED/FORFEITED …) — ما نخترعش لها نص.
+      _ => null,
+    };
 
 /// شكل الشارة (لون النص/الخلفية + الأيقونة).
 typedef MyAuctionBadgeStyle = ({Color fg, Color bg, IconData icon});
@@ -35,8 +49,8 @@ extension MyAuctionBadgeX on MyAuctionBadge {
     MyAuctionBadge.outbid => t.myAuctionsStatusOutbid,
   };
 
-  /// عنوان السعر المعروض. للمزادات المغلقة الـ `current_price` هو فعليًا
-  /// سعر الرسو (الـ list resource مافيهوش `final_price`).
+  /// عنوان السعر المعروض. للمزادات المقفولة بنعرض `final_price` الحقيقي
+  /// (BE-6) عبر `AuctionListItem.resultPrice`.
   String priceLabel(AppLocalizations t) => switch (this) {
     MyAuctionBadge.live ||
     MyAuctionBadge.ended ||

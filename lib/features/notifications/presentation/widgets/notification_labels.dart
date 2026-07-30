@@ -8,9 +8,9 @@ typedef NotificationStyle = ({Color fg, Color bg, IconData icon});
 
 /// شكل الإشعار حسب تصنيفه.
 ///
-/// التصنيفات الدلالية (فزت / تفوّق عليك / استرداد …) بتتفعّل بس لما الباك
-/// يبعت `type` (طلب BE-2). لحد ساعتها بيتشتقّ التصنيف من وجهة الرابط،
-/// فبتتعرض أيقونة المزاد/الطعن/العام.
+/// التصنيفات الدلالية (فزت / تفوّق عليك / استرداد …) بتتحدد من `type`
+/// (BE-2). الصفوف الأقدم من مهاجرة الباك `type` فيها null، فبيتشتقّ
+/// التصنيف من وجهة الرابط وبتتعرض أيقونة المزاد/الطعن/العام.
 extension NotificationKindStyle on NotificationKind {
   NotificationStyle get style => switch (this) {
     NotificationKind.won => (
@@ -47,6 +47,16 @@ extension NotificationKindStyle on NotificationKind {
       fg: AppColors.info,
       bg: AppColors.infoBg,
       icon: Icons.balance,
+    ),
+    NotificationKind.verificationApproved => (
+      fg: AppColors.success,
+      bg: AppColors.successBg,
+      icon: Icons.verified_user_outlined,
+    ),
+    NotificationKind.verificationRejected => (
+      fg: AppColors.danger,
+      bg: AppColors.dangerBg,
+      icon: Icons.gpp_bad_outlined,
     ),
     NotificationKind.generic => (
       fg: AppColors.neutral,

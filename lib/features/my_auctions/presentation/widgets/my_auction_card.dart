@@ -9,9 +9,9 @@ import 'my_auction_labels.dart';
 
 /// كارت مزاد في «مزاداتي».
 ///
-/// الشارة مشتقّة من التبويب + حالة المزاد الحقيقية فقط — الـ API مش بيرجّع
-/// حالة مشاركة المستخدم (مفيش is_winning ولا my_bid)، فمابندّعيش «أنت الأعلى»
-/// أو «تم تجاوزك». راجع طلب BE-3.
+/// الشارة + سطر «أعلى مزايدة لك» مشتقّين من حالة المشاركة اللي بيرجّعها
+/// `MyAuctionResource` (BE-3). لو أي مفتاح منهم غاب، السطر مايتعرضش —
+/// مابندّعيش «أنت الأعلى» ولا «تم تجاوزك» من غير بيانات.
 class MyAuctionCard extends StatelessWidget {
   final AuctionListItem item;
   final MyAuctionTab tab;
@@ -94,13 +94,23 @@ class MyAuctionCard extends StatelessWidget {
                     style: TextStyle(fontSize: 10.sp, color: AppColors.textHint),
                   ),
                   Text(
-                    item.displayPrice.formatted,
+                    item.resultPrice.formatted,
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.primary,
                     ),
                   ),
+                  // أعلى مزايدة للمستخدم — معلومة مختلفة عن سعر المزاد،
+                  // وبتظهر بس لما الباك يبعتها فعلًا.
+                  if (item.myHighestBid != null)
+                    Text(
+                      '${t.myAuctionsMyBid}: ${item.myHighestBid!.formatted}',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   SizedBox(height: 5.h),
                   Row(
                     children: [
@@ -115,6 +125,9 @@ class MyAuctionCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  // حالة الدفع: الكفالة للمزادات الشغّالة، والدفع النهائي
+                  // للفائز. الاتنين من BE-3 وبيغيبوا لو مبعتهمش.
+                  ..._paymentNotes(t),
                 ],
               ),
             ),
@@ -123,6 +136,53 @@ class MyAuctionCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// سطور حالة الدفع — الفائز بيشوف حالة الدفع النهائي، وباقي المشاركين
+  /// بيشوفوا إن الكفالة مدفوعة. مافيش سطر أصلًا لو الباك مبعتش الحقول.
+  List<Widget> _paymentNotes(AppLocalizations t) {
+    final finalNote = item.isOver
+        ? (item.isWinnerResolved == true
+              ? finalPaymentLabel(item.finalPaymentStatus, t) ??
+                    t.myAuctionsFinalPaymentDue
+              : null)
+        : null;
+
+    final note = finalNote ??
+        (item.depositPaid == true && !item.isOver
+            ? t.myAuctionsDepositPaid
+            : null);
+
+    if (note == null) return const [];
+
+    return [
+      SizedBox(height: 4.h),
+      Row(
+        children: [
+          Icon(
+            finalNote != null
+                ? Icons.account_balance_wallet_outlined
+                : Icons.verified_outlined,
+            size: 11.sp,
+            color: finalNote != null ? AppColors.warning : AppColors.success,
+          ),
+          SizedBox(width: 3.w),
+          Expanded(
+            child: Text(
+              note,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: finalNote != null
+                    ? AppColors.warning
+                    : AppColors.success,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ];
   }
 }
 

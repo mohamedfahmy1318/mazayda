@@ -117,6 +117,12 @@ class _NotificationsBody extends StatelessWidget {
       context.push('${Routes.auctionDetail}/$auctionId');
     } else if (n.pointsToAppeals) {
       context.push(Routes.appeals);
+    } else if (n.pointsToCommercialRegister) {
+      // قبل الـ KYC: رابط السجل التجاري مافيهوش المقطع `/kyc` فمافيش تعارض،
+      // بس بنتحقق منه الأول عشان الترتيب يفضل واضح.
+      context.push(Routes.commercialRegister);
+    } else if (n.pointsToKyc) {
+      context.push(Routes.kyc);
     }
     // مفيش وجهة معروفة → نكتفي بتعليمه كمقروء.
   }

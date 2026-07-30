@@ -47,6 +47,7 @@ class MyAuctionsRepositoryImpl implements MyAuctionsRepository {
   MyAuctionCounts _counts(Map<String, dynamic> raw) {
     int read(String key) => (raw[key] as num?)?.toInt() ?? 0;
     return MyAuctionCounts(
+      all: read('all'),
       active: read('active'),
       won: read('won'),
       lost: read('lost'),

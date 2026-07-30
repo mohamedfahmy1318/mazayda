@@ -29,9 +29,20 @@ sealed class PaymentFlowState with _$PaymentFlowState {
   /// فشل جاي **من السيرفر** — الرسالة مترجمة من الباك، بنعرضها زي ما هي.
   const factory PaymentFlowState.failed(String message) = PaymentFailed;
 
+  /// السيرفر رفض لسبب المستخدم يقدر يحلّه بنفسه في شاشة تانية (BE-16):
+  /// `not_eligible` → التوثيق، `commerce_register_required` → السجل التجاري.
+  /// [message] رسالة الباك المترجمة، و[target] الشاشة اللي نوديه لها.
+  const factory PaymentFlowState.needsAction(
+    PaymentRedirect target,
+    String message,
+  ) = PaymentNeedsAction;
+
   /// توقّف من جانب العميل — الواجهة هي اللي بتترجم [issue].
   const factory PaymentFlowState.issue(PaymentFlowIssue issue) = PaymentIssue;
 }
+
+/// الشاشة اللي المستخدم محتاج يعدّي عليها قبل ما يقدر يدفع.
+enum PaymentRedirect { kyc, commercialRegister }
 
 /// أسباب التوقّف اللي بيولّدها العميل نفسه (مش السيرفر).
 /// بنمرّرها كرمز مش كنص عشان الطبقة دي ما تعرفش لغة العرض.
@@ -58,7 +69,11 @@ enum _StepOutcome {
   /// السيرفر رفض لأن الخطوة **متعمّلة بالفعل** — نكمّل للي بعدها.
   alreadyDone,
 
-  /// رفض حقيقي — اتعرضت رسالة الفشل.
+  /// السيرفر قال إن الكراسة لازم تتشترى الأول (`must_purchase_book`) —
+  /// نرجع خطوة لورا بدل ما نوقف المستخدم على رسالة.
+  needsBookFirst,
+
+  /// رفض حقيقي — اتعرضت رسالة الفشل أو حالة needsAction.
   failed,
 }
 
@@ -79,6 +94,10 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
   String _auctionId = '';
   _FlowStep _step = _FlowStep.register;
 
+  /// رجعنا لخطوة الكراسة مرة واحدة بعد `must_purchase_book` — حرس ضد
+  /// تنطيط لا نهائي بين الخطوتين لو الباك فضل يرفض الاتنين.
+  bool _bookStepRetried = false;
+
   /// flow التسجيل في مزاد (قد يمرّ ببوابتين متتاليتين):
   /// - [hasBookAccess] == false: بوابة شراء كراس الشروط أولًا، وبعد تأكيد دفعها
   ///   ننتقل تلقائيًا لبوابة التسجيل.
@@ -88,8 +107,7 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
     emit(const PaymentFlowState.preparing());
 
     if (!hasBookAccess) {
-      _step = _FlowStep.buyBook;
-      final outcome = await _openGatewayFor(_buyBook(auctionId));
+      final outcome = await _openBookGateway();
       // البوابة اتفتحت → الـ WebView هو اللي هيكمّل، أو فشل حقيقي → وقفنا.
       if (outcome != _StepOutcome.alreadyDone) return;
       // الكراسة متملوكة بالفعل → نعدّي للتسجيل من غير ما نوقف المستخدم.
@@ -98,13 +116,42 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
     await _openRegistrationGateway();
   }
 
+  /// يفتح بوابة شراء الكراسة.
+  Future<_StepOutcome> _openBookGateway() async {
+    _step = _FlowStep.buyBook;
+    return _openGatewayFor(_buyBook(_auctionId));
+  }
+
   /// يفتح بوابة التسجيل، ولو المستخدم مسجّل بالفعل بيعتبرها اكتمال.
   Future<void> _openRegistrationGateway() async {
     _step = _FlowStep.register;
     final outcome = await _openGatewayFor(_register(_auctionId));
-    if (outcome == _StepOutcome.alreadyDone && !isClosed) {
-      // مسجّل بالفعل — مفيش دفع اتعمل، فما نقولش «تم الدفع».
-      emit(const PaymentFlowState.alreadySettled());
+    if (isClosed) return;
+
+    switch (outcome) {
+      case _StepOutcome.alreadyDone:
+        // مسجّل بالفعل — مفيش دفع اتعمل، فما نقولش «تم الدفع».
+        emit(const PaymentFlowState.alreadySettled());
+      case _StepOutcome.needsBookFirst:
+        // `must_purchase_book`: التطبيق كان فاهم إن الكراسة متحقّقة (مثلًا
+        // `has_book_access` قديم في الكاش) — نرجع لخطوة الكراسة مرة واحدة.
+        if (_bookStepRetried) {
+          emit(
+            const PaymentFlowState.issue(PaymentFlowIssue.bookNotConfirmed),
+          );
+          return;
+        }
+        _bookStepRetried = true;
+        emit(const PaymentFlowState.preparing());
+        final outcome = await _openBookGateway();
+        if (isClosed) return;
+        // اتضح إنها متملوكة فعلًا → نجرّب التسجيل تاني.
+        if (outcome == _StepOutcome.alreadyDone) {
+          await _openRegistrationGateway();
+        }
+      case _StepOutcome.opened:
+      case _StepOutcome.failed:
+        break;
     }
   }
 
@@ -113,18 +160,21 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
     _auctionId = auctionId;
     _step = _FlowStep.finalPayment;
     emit(const PaymentFlowState.preparing());
-    await _openGatewayFor(_finalPayment(auctionId));
+    final outcome = await _openGatewayFor(_finalPayment(auctionId));
+    if (outcome == _StepOutcome.alreadyDone && !isClosed) {
+      // `final_already_paid` / `nothing_due` — مفيش مستحقات، مش فشل.
+      emit(const PaymentFlowState.alreadySettled());
+    }
   }
 
   /// بعد رجوع الـ WebView: أكّد الخطوة الحالية ثم انتقل للي بعدها أو أنهِ.
   ///
-  /// كل الخطوات بتتأكد بـ `payments/{ref}/status` — اتحقّق من ردّ حقيقي إن
-  /// buy-book بيرجّع `ref` (معرّف checkout بتاع البوابة) وإنه بيتخزّن كـ
-  /// `gateway_ref` اللي الـ status بيطابق عليه.
+  /// كل الخطوات بتتأكد بـ `payments/{ref}/status`، اللي بيقبل `gateway_ref`
+  /// أو `payment id` (BE-13) — فالـ ref اللي رجع من بدء الدفع كفاية.
   ///
-  /// ⚠️ مبنعتمدش على `has_book_access` من المزاد للتأكيد: مسارات المزادات
-  /// عامة ومش بتحلّ التوكن، فالحقل بيرجع false دايمًا للموبايل (طلب BE-15)
-  /// وكان هيخلّي خطوة الكراس تفشل حتى بعد دفع ناجح.
+  /// ⚠️ مبنعتمدش على `has_book_access` من المزاد للتأكيد: الحقل بيتحدّث بعد
+  /// الـ webhook، فممكن يكون لسه قديم في اللحظة اللي بنرجع فيها من البوابة.
+  /// حالة الدفعة نفسها هي المصدر الوحيد.
   Future<void> confirmAfterGateway(String ref) async {
     emit(const PaymentFlowState.polling());
 
@@ -171,12 +221,45 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
 
     return res.fold(
       (f) {
-        // رفض معناه «الخطوة دي متعمّلة خلاص» — مش عطل، بنكمّل.
         final code = f is ServerFailure ? f.code : null;
-        final satisfied = _step == _FlowStep.buyBook
-            ? PaymentRejection.isBookStepSatisfied(f.message, code: code)
-            : PaymentRejection.isRegistrationSatisfied(f.message, code: code);
+
+        // بعض حالات الرفض معناها «الخطوة دي متعمّلة خلاص» — مش عطل، بنكمّل.
+        final satisfied = switch (_step) {
+          _FlowStep.buyBook => PaymentRejection.isBookStepSatisfied(
+            f.message,
+            code: code,
+          ),
+          _FlowStep.register => PaymentRejection.isRegistrationSatisfied(
+            f.message,
+            code: code,
+          ),
+          _FlowStep.finalPayment => PaymentRejection.isFinalPaymentSettled(
+            f.message,
+            code: code,
+          ),
+        };
         if (satisfied) return _StepOutcome.alreadyDone;
+
+        // بوابات الحساب: نودّي المستخدم للشاشة اللي بتحلّها بدل رسالة ميّتة.
+        final redirect = switch (PaymentRejectionCodeX.fromApi(code)) {
+          PaymentRejectionCode.notEligible => PaymentRedirect.kyc,
+          PaymentRejectionCode.commerceRegisterRequired =>
+            PaymentRedirect.commercialRegister,
+          _ => null,
+        };
+        if (redirect != null) {
+          emit(PaymentFlowState.needsAction(redirect, _msg(f)));
+          return _StepOutcome.failed;
+        }
+
+        // `must_purchase_book` منطقي بس في خطوة التسجيل. برّاها (أو لو الباك
+        // بعته في مكان غريب) بنعالجه كفشل عادي — يفضل أحسن من إننا نرجّع
+        // نتيجة مالهاش مستقبِل ونسيب الـ flow معلّق.
+        if (_step == _FlowStep.register &&
+            PaymentRejectionCodeX.fromApi(code) ==
+                PaymentRejectionCode.mustPurchaseBook) {
+          return _StepOutcome.needsBookFirst;
+        }
 
         emit(PaymentFlowState.failed(_msg(f)));
         return _StepOutcome.failed;

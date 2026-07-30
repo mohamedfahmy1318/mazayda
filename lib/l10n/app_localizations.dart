@@ -178,6 +178,18 @@ abstract class AppLocalizations {
   /// **'تأكيد كلمة المرور'**
   String get confirmPassword;
 
+  /// No description provided for @showPassword.
+  ///
+  /// In ar, this message translates to:
+  /// **'إظهار كلمة المرور'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In ar, this message translates to:
+  /// **'إخفاء كلمة المرور'**
+  String get hidePassword;
+
   /// No description provided for @birthDate.
   ///
   /// In ar, this message translates to:
@@ -688,6 +700,12 @@ abstract class AppLocalizations {
   /// **'البلدية'**
   String get commune;
 
+  /// No description provided for @myAuctionsAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'الكل'**
+  String get myAuctionsAll;
+
   /// No description provided for @myAuctionsActive.
   ///
   /// In ar, this message translates to:
@@ -796,6 +814,12 @@ abstract class AppLocalizations {
   /// **'السعر النهائي'**
   String get myAuctionsPriceFinal;
 
+  /// No description provided for @myAuctionsEmptyAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم تشارك في أي مزاد بعد'**
+  String get myAuctionsEmptyAll;
+
   /// No description provided for @myAuctionsEmptyActive.
   ///
   /// In ar, this message translates to:
@@ -819,6 +843,42 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'لا توجد مزادات قادمة'**
   String get myAuctionsEmptyUpcoming;
+
+  /// No description provided for @myAuctionsMyBid.
+  ///
+  /// In ar, this message translates to:
+  /// **'أعلى مزايدة لك'**
+  String get myAuctionsMyBid;
+
+  /// No description provided for @myAuctionsDepositPaid.
+  ///
+  /// In ar, this message translates to:
+  /// **'الكفالة مدفوعة'**
+  String get myAuctionsDepositPaid;
+
+  /// No description provided for @myAuctionsFinalPaymentDue.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدفع النهائي مطلوب'**
+  String get myAuctionsFinalPaymentDue;
+
+  /// No description provided for @myAuctionsFinalPaymentPending.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدفع النهائي قيد المعالجة'**
+  String get myAuctionsFinalPaymentPending;
+
+  /// No description provided for @myAuctionsFinalPaymentDone.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدفع النهائي مكتمل'**
+  String get myAuctionsFinalPaymentDone;
+
+  /// No description provided for @myAuctionsFinalPaymentFailed.
+  ///
+  /// In ar, this message translates to:
+  /// **'فشل الدفع النهائي'**
+  String get myAuctionsFinalPaymentFailed;
 
   /// No description provided for @notifications.
   ///
@@ -1809,6 +1869,18 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'الفترة'**
   String get docsPeriod;
+
+  /// No description provided for @docsCategory.
+  ///
+  /// In ar, this message translates to:
+  /// **'الفئة'**
+  String get docsCategory;
+
+  /// No description provided for @docsEntity.
+  ///
+  /// In ar, this message translates to:
+  /// **'الجهة'**
+  String get docsEntity;
 
   /// No description provided for @docsSort.
   ///

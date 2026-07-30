@@ -138,6 +138,7 @@ import '../network/token_storage.dart' as _i964;
 import '../notifications/device_registrar.dart' as _i860;
 import '../notifications/push_notification_service.dart' as _i269;
 import '../realtime/pusher_realtime_service.dart' as _i345;
+import '../realtime/realtime_config.dart' as _i867;
 import '../realtime/realtime_service.dart' as _i854;
 import '../session/session_manager.dart' as _i432;
 import '../utils/locale_cubit.dart' as _i218;
@@ -162,9 +163,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i432.SessionManager>(
       () => _i432.SessionManager(),
       dispose: (i) => i.dispose(),
-    );
-    gh.lazySingleton<_i854.RealtimeService>(
-      () => _i345.PusherRealtimeService(),
     );
     gh.lazySingleton<_i964.TokenStorage>(
       () => _i964.TokenStorage(gh<_i558.FlutterSecureStorage>()),
@@ -215,12 +213,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
-    gh.lazySingleton<_i860.DeviceRegistrar>(
-      () => _i860.DeviceRegistrar(
-        gh<_i557.ApiClient>(),
-        gh<_i269.PushNotificationService>(),
-      ),
-    );
     gh.lazySingleton<_i92.QaRemoteDataSource>(
       () => _i92.QaRemoteDataSourceImpl(gh<_i557.ApiClient>()),
     );
@@ -233,9 +225,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1017.KycRepository>(
       () => _i832.KycRepositoryImpl(gh<_i789.KycRemoteDataSource>()),
     );
+    gh.lazySingleton<_i867.RealtimeConfigProvider>(
+      () => _i867.RealtimeConfigProvider(gh<_i557.ApiClient>()),
+    );
     gh.lazySingleton<_i563.NotificationsRepository>(
       () => _i201.NotificationsRepositoryImpl(
         gh<_i951.NotificationsRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i860.DeviceRegistrar>(
+      () => _i860.DeviceRegistrar(
+        gh<_i557.ApiClient>(),
+        gh<_i269.PushNotificationService>(),
+        gh<_i964.TokenStorage>(),
       ),
     );
     gh.factory<_i459.GetNotifications>(
@@ -307,21 +309,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i301.GetDocumentsSummary>(
       () => _i301.GetDocumentsSummary(gh<_i345.DocumentsRepository>()),
     );
+    gh.factory<_i301.GetDocumentFilterOptions>(
+      () => _i301.GetDocumentFilterOptions(gh<_i345.DocumentsRepository>()),
+    );
     gh.factory<_i301.DownloadDocument>(
       () => _i301.DownloadDocument(gh<_i345.DocumentsRepository>()),
-    );
-    gh.factory<_i783.DocumentsCubit>(
-      () => _i783.DocumentsCubit(
-        gh<_i301.GetDocuments>(),
-        gh<_i301.GetDocumentsSummary>(),
-        gh<_i301.DownloadDocument>(),
-      ),
     );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         gh<_i107.AuthRemoteDataSource>(),
         gh<_i964.TokenStorage>(),
         gh<_i860.DeviceRegistrar>(),
+      ),
+    );
+    gh.factory<_i783.DocumentsCubit>(
+      () => _i783.DocumentsCubit(
+        gh<_i301.GetDocuments>(),
+        gh<_i301.GetDocumentsSummary>(),
+        gh<_i301.DownloadDocument>(),
+        gh<_i301.GetDocumentFilterOptions>(),
+      ),
+    );
+    gh.lazySingleton<_i854.RealtimeService>(
+      () => _i345.PusherRealtimeService(
+        gh<_i867.RealtimeConfigProvider>(),
+        gh<_i964.TokenStorage>(),
       ),
     );
     gh.factory<_i581.GetLatestBids>(
@@ -354,15 +366,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i689.GetAuctions>(
       () => _i689.GetAuctions(gh<_i793.AuctionRepository>()),
-    );
-    gh.factory<_i700.KycCubit>(
-      () => _i700.KycCubit(
-        gh<_i829.GetKycStatus>(),
-        gh<_i829.UploadKycDocument>(),
-        gh<_i829.SubmitKyc>(),
-        gh<_i829.GetWilayas>(),
-        gh<_i829.GetCommunes>(),
-      ),
     );
     gh.factory<_i972.CommercialRegisterCubit>(
       () => _i972.CommercialRegisterCubit(
@@ -424,15 +427,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i625.CheckSession>(
       () => _i625.CheckSession(gh<_i787.AuthRepository>()),
     );
-    gh.factory<_i778.LoginUser>(
-      () => _i778.LoginUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i778.GetCurrentUser>(
-      () => _i778.GetCurrentUser(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i778.LogoutUser>(
-      () => _i778.LogoutUser(gh<_i787.AuthRepository>()),
-    );
     gh.factory<_i38.RequestPasswordReset>(
       () => _i38.RequestPasswordReset(gh<_i787.AuthRepository>()),
     );
@@ -444,6 +438,25 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i38.RecoverBySecret>(
       () => _i38.RecoverBySecret(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.LoginUser>(
+      () => _i778.LoginUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.GetCurrentUser>(
+      () => _i778.GetCurrentUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i778.LogoutUser>(
+      () => _i778.LogoutUser(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i700.KycCubit>(
+      () => _i700.KycCubit(
+        gh<_i829.GetKycStatus>(),
+        gh<_i829.UploadKycDocument>(),
+        gh<_i829.SubmitKyc>(),
+        gh<_i829.GetWilayas>(),
+        gh<_i829.GetCommunes>(),
+        gh<_i72.GetProfile>(),
+      ),
     );
     gh.factory<_i212.FinalPaymentPreviewCubit>(
       () => _i212.FinalPaymentPreviewCubit(gh<_i306.GetFinalPaymentPreview>()),

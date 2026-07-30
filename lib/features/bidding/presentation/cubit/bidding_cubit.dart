@@ -54,6 +54,16 @@ class BiddingCubit extends Cubit<BiddingState> {
     _poll = Timer.periodic(const Duration(seconds: 10), (_) => _tick());
   }
 
+  /// الاشتراك في قناة المزاد العامة.
+  ///
+  /// إعدادات البثّ بتتقرا من `/ping` (BE-14). لو البثّ مش متاح — مطفي على
+  /// السيرفر، أو الحزمة الحالية مش قادرة توصل لسيرفر Reverb مستضاف بنفسه
+  /// (راجع `RealtimeConfig.supportedByClient`) — الاشتراك بيفشل بهدوء
+  /// و`isLive` تفضل false والـ polling كل 10 ثوانٍ هو اللي بيغطّي.
+  ///
+  /// القناة الخاصة `auction.{id}.user.{id}` (BE-10) بتضاف هنا أول ما
+  /// الترانسبورت يشتغل — العنوان جاهز في
+  /// `ApiConstants.personalAuctionChannel`.
   Future<void> _subscribeRealtime() async {
     _channel = ApiConstants.auctionChannel(_auctionId);
     try {
@@ -61,6 +71,7 @@ class BiddingCubit extends Cubit<BiddingState> {
       emit(state.copyWith(isLive: true));
     } catch (_) {
       // لو فشل الاتصال، نكتفي بالـ polling
+      _channel = null;
       emit(state.copyWith(isLive: false));
     }
   }

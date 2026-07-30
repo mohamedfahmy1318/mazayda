@@ -553,7 +553,15 @@ PaymentStatusResponseModel _$PaymentStatusResponseModelFromJson(
 
 /// @nodoc
 mixin _$PaymentStatusResponseModel {
+  /// الـ ref اللي إحنا بعتناه (gateway_ref أو payment id).
   String? get ref => throw _privateConstructorUsedError;
+
+  /// المرجع الرسمي من البوابة — نوحّد عليه (BE-13).
+  @JsonKey(name: 'gateway_ref')
+  String? get gatewayRef => throw _privateConstructorUsedError;
+
+  /// كل الصفوف مأكّدة — حساب السيرفر، أدقّ من إعادة اشتقاقه عندنا.
+  bool? get confirmed => throw _privateConstructorUsedError;
   List<PaymentStatusModel> get payments => throw _privateConstructorUsedError;
 
   /// Serializes this PaymentStatusResponseModel to a JSON map.
@@ -577,7 +585,12 @@ abstract class $PaymentStatusResponseModelCopyWith<$Res> {
         PaymentStatusResponseModel
       >;
   @useResult
-  $Res call({String? ref, List<PaymentStatusModel> payments});
+  $Res call({
+    String? ref,
+    @JsonKey(name: 'gateway_ref') String? gatewayRef,
+    bool? confirmed,
+    List<PaymentStatusModel> payments,
+  });
 }
 
 /// @nodoc
@@ -597,13 +610,26 @@ class _$PaymentStatusResponseModelCopyWithImpl<
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? ref = freezed, Object? payments = null}) {
+  $Res call({
+    Object? ref = freezed,
+    Object? gatewayRef = freezed,
+    Object? confirmed = freezed,
+    Object? payments = null,
+  }) {
     return _then(
       _value.copyWith(
             ref: freezed == ref
                 ? _value.ref
                 : ref // ignore: cast_nullable_to_non_nullable
                       as String?,
+            gatewayRef: freezed == gatewayRef
+                ? _value.gatewayRef
+                : gatewayRef // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            confirmed: freezed == confirmed
+                ? _value.confirmed
+                : confirmed // ignore: cast_nullable_to_non_nullable
+                      as bool?,
             payments: null == payments
                 ? _value.payments
                 : payments // ignore: cast_nullable_to_non_nullable
@@ -623,7 +649,12 @@ abstract class _$$PaymentStatusResponseModelImplCopyWith<$Res>
   ) = __$$PaymentStatusResponseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? ref, List<PaymentStatusModel> payments});
+  $Res call({
+    String? ref,
+    @JsonKey(name: 'gateway_ref') String? gatewayRef,
+    bool? confirmed,
+    List<PaymentStatusModel> payments,
+  });
 }
 
 /// @nodoc
@@ -643,13 +674,26 @@ class __$$PaymentStatusResponseModelImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? ref = freezed, Object? payments = null}) {
+  $Res call({
+    Object? ref = freezed,
+    Object? gatewayRef = freezed,
+    Object? confirmed = freezed,
+    Object? payments = null,
+  }) {
     return _then(
       _$PaymentStatusResponseModelImpl(
         ref: freezed == ref
             ? _value.ref
             : ref // ignore: cast_nullable_to_non_nullable
                   as String?,
+        gatewayRef: freezed == gatewayRef
+            ? _value.gatewayRef
+            : gatewayRef // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        confirmed: freezed == confirmed
+            ? _value.confirmed
+            : confirmed // ignore: cast_nullable_to_non_nullable
+                  as bool?,
         payments: null == payments
             ? _value._payments
             : payments // ignore: cast_nullable_to_non_nullable
@@ -664,6 +708,8 @@ class __$$PaymentStatusResponseModelImplCopyWithImpl<$Res>
 class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
   const _$PaymentStatusResponseModelImpl({
     this.ref,
+    @JsonKey(name: 'gateway_ref') this.gatewayRef,
+    this.confirmed,
     final List<PaymentStatusModel> payments = const <PaymentStatusModel>[],
   }) : _payments = payments,
        super._();
@@ -672,8 +718,18 @@ class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
     Map<String, dynamic> json,
   ) => _$$PaymentStatusResponseModelImplFromJson(json);
 
+  /// الـ ref اللي إحنا بعتناه (gateway_ref أو payment id).
   @override
   final String? ref;
+
+  /// المرجع الرسمي من البوابة — نوحّد عليه (BE-13).
+  @override
+  @JsonKey(name: 'gateway_ref')
+  final String? gatewayRef;
+
+  /// كل الصفوف مأكّدة — حساب السيرفر، أدقّ من إعادة اشتقاقه عندنا.
+  @override
+  final bool? confirmed;
   final List<PaymentStatusModel> _payments;
   @override
   @JsonKey()
@@ -685,7 +741,7 @@ class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
 
   @override
   String toString() {
-    return 'PaymentStatusResponseModel(ref: $ref, payments: $payments)';
+    return 'PaymentStatusResponseModel(ref: $ref, gatewayRef: $gatewayRef, confirmed: $confirmed, payments: $payments)';
   }
 
   @override
@@ -694,6 +750,10 @@ class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
         (other.runtimeType == runtimeType &&
             other is _$PaymentStatusResponseModelImpl &&
             (identical(other.ref, ref) || other.ref == ref) &&
+            (identical(other.gatewayRef, gatewayRef) ||
+                other.gatewayRef == gatewayRef) &&
+            (identical(other.confirmed, confirmed) ||
+                other.confirmed == confirmed) &&
             const DeepCollectionEquality().equals(other._payments, _payments));
   }
 
@@ -702,6 +762,8 @@ class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
   int get hashCode => Object.hash(
     runtimeType,
     ref,
+    gatewayRef,
+    confirmed,
     const DeepCollectionEquality().hash(_payments),
   );
 
@@ -725,6 +787,8 @@ class _$PaymentStatusResponseModelImpl extends _PaymentStatusResponseModel {
 abstract class _PaymentStatusResponseModel extends PaymentStatusResponseModel {
   const factory _PaymentStatusResponseModel({
     final String? ref,
+    @JsonKey(name: 'gateway_ref') final String? gatewayRef,
+    final bool? confirmed,
     final List<PaymentStatusModel> payments,
   }) = _$PaymentStatusResponseModelImpl;
   const _PaymentStatusResponseModel._() : super._();
@@ -732,8 +796,18 @@ abstract class _PaymentStatusResponseModel extends PaymentStatusResponseModel {
   factory _PaymentStatusResponseModel.fromJson(Map<String, dynamic> json) =
       _$PaymentStatusResponseModelImpl.fromJson;
 
+  /// الـ ref اللي إحنا بعتناه (gateway_ref أو payment id).
   @override
   String? get ref;
+
+  /// المرجع الرسمي من البوابة — نوحّد عليه (BE-13).
+  @override
+  @JsonKey(name: 'gateway_ref')
+  String? get gatewayRef;
+
+  /// كل الصفوف مأكّدة — حساب السيرفر، أدقّ من إعادة اشتقاقه عندنا.
+  @override
+  bool? get confirmed;
   @override
   List<PaymentStatusModel> get payments;
 

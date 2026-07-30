@@ -71,6 +71,7 @@ class _DocumentsView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       builder: (_) => DocumentFilterSheet(
         initial: state.filters,
+        options: state.filterOptions,
         onApply: cubit.applyFilters,
       ),
     );

@@ -10,7 +10,9 @@ part 'my_auctions_cubit.freezed.dart';
 @freezed
 class MyAuctionsState with _$MyAuctionsState {
   const factory MyAuctionsState({
-    @Default(MyAuctionTab.active) MyAuctionTab tab,
+    // `all` هو الافتراضي: التبويبات مناظير مش تقسيم حصري، و`active` لوحده
+    // بيطلع فاضي لمستخدم كل مشاركاته مقفولة — أول انطباع غلط.
+    @Default(MyAuctionTab.all) MyAuctionTab tab,
     @Default(true) bool loading,
     @Default(<AuctionListItem>[]) List<AuctionListItem> items,
     /// أعداد كل التبويبات — بتيجي مع كل طلب في meta.counts.

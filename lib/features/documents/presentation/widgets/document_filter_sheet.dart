@@ -5,6 +5,7 @@ import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../domain/entities/document.dart';
+import '../../domain/entities/document_filter_options.dart';
 import '../../domain/entities/document_filters.dart';
 
 /// نص نوع الوثيقة للفلتر.
@@ -35,18 +36,24 @@ String _sortLabel(DocumentSort s, AppLocalizations t) => switch (s) {
   DocumentSort.auction => t.docsSortAuction,
 };
 
-/// ورقة تصفية الوثائق — النوع + الفترة + الترتيب.
+/// ورقة تصفية الوثائق — النوع + الفترة + الفئة + الولاية + الجهة + الترتيب.
 ///
-/// فلاتر الفئة/الولاية/الجهة مش موجودة هنا لأن الـ API مالوش endpoint
-/// لخيارات الفلاتر مقيّدة بوثائق المستخدم (طلب BE-4).
+/// شرائح الفئة/الولاية/الجهة بتيجي من `GET /documents/filters` (BE-4)،
+/// وهي **مقيّدة بوثائق المستخدم** — عشان كده بتظهر بس لما يكون فيه خيارات
+/// فعلًا: مفيش معنى لفلتر بولاية المستخدم ملوش فيها ولا وثيقة.
 class DocumentFilterSheet extends StatefulWidget {
   final DocumentFilters initial;
+
+  /// الخيارات المتاحة — فاضية = ما نعرضش الشرائح دي.
+  final DocumentFilterOptions options;
+
   final ValueChanged<DocumentFilters> onApply;
 
   const DocumentFilterSheet({
     super.key,
     required this.initial,
     required this.onApply,
+    this.options = DocumentFilterOptions.empty,
   });
 
   @override
@@ -129,6 +136,72 @@ class _DocumentFilterSheetState extends State<DocumentFilterSheet> {
               ],
             ),
             Gap(14.h),
+
+            // ===== خيارات BE-4 — بتظهر بس لو المستخدم عنده وثائق منها =====
+            // اختيار واحد لكل مجموعة (الباك بياخد `category_id` واحد، مش
+            // مصفوفة)، والضغط على الشريحة المختارة بيلغي الاختيار.
+            if (widget.options.categories.isNotEmpty) ...[
+              _Label(t.docsCategory),
+              Wrap(
+                spacing: 7.w,
+                runSpacing: 7.h,
+                children: [
+                  for (final c in widget.options.categories)
+                    _Chip(
+                      label: c.name,
+                      selected: _draft.categoryId == c.id,
+                      onTap: () => setState(() {
+                        _draft = _draft.categoryId == c.id
+                            ? _draft.copyWith(clearCategory: true)
+                            : _draft.copyWith(categoryId: c.id);
+                      }),
+                    ),
+                ],
+              ),
+              Gap(14.h),
+            ],
+
+            if (widget.options.wilayas.isNotEmpty) ...[
+              _Label(t.wilaya),
+              Wrap(
+                spacing: 7.w,
+                runSpacing: 7.h,
+                children: [
+                  for (final w in widget.options.wilayas)
+                    _Chip(
+                      label: w.name,
+                      selected: _draft.wilayaId == w.id,
+                      onTap: () => setState(() {
+                        _draft = _draft.wilayaId == w.id
+                            ? _draft.copyWith(clearWilaya: true)
+                            : _draft.copyWith(wilayaId: w.id);
+                      }),
+                    ),
+                ],
+              ),
+              Gap(14.h),
+            ],
+
+            if (widget.options.entities.isNotEmpty) ...[
+              _Label(t.docsEntity),
+              Wrap(
+                spacing: 7.w,
+                runSpacing: 7.h,
+                children: [
+                  for (final e in widget.options.entities)
+                    _Chip(
+                      label: e.name,
+                      selected: _draft.entityId == e.id,
+                      onTap: () => setState(() {
+                        _draft = _draft.entityId == e.id
+                            ? _draft.copyWith(clearEntity: true)
+                            : _draft.copyWith(entityId: e.id);
+                      }),
+                    ),
+                ],
+              ),
+              Gap(14.h),
+            ],
 
             _Label(t.docsSort),
             Wrap(

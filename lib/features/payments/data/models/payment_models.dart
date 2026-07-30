@@ -55,13 +55,22 @@ class PaymentStatusModel with _$PaymentStatusModel {
       );
 }
 
-/// ردّ GET /payments/{ref}/status — `{ ref, payments[] }` (object مش list).
+/// ردّ GET /payments/{ref}/status —
+/// `{ ref, gateway_ref, confirmed, payments[] }` (object مش list).
 @freezed
 class PaymentStatusResponseModel with _$PaymentStatusResponseModel {
   const PaymentStatusResponseModel._();
 
   const factory PaymentStatusResponseModel({
+    /// الـ ref اللي إحنا بعتناه (gateway_ref أو payment id).
     String? ref,
+
+    /// المرجع الرسمي من البوابة — نوحّد عليه (BE-13).
+    @JsonKey(name: 'gateway_ref') String? gatewayRef,
+
+    /// كل الصفوف مأكّدة — حساب السيرفر، أدقّ من إعادة اشتقاقه عندنا.
+    bool? confirmed,
+
     @Default(<PaymentStatusModel>[]) List<PaymentStatusModel> payments,
   }) = _PaymentStatusResponseModel;
 
@@ -70,6 +79,8 @@ class PaymentStatusResponseModel with _$PaymentStatusResponseModel {
 
   PaymentStatusResult toEntity() => PaymentStatusResult(
         ref: ref ?? '',
+        gatewayRef: gatewayRef,
+        serverConfirmed: confirmed,
         payments: payments.map((p) => p.toEntity()).toList(),
       );
 }

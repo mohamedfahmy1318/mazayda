@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/document.dart';
+import '../../domain/entities/document_filter_options.dart';
 import '../../domain/entities/document_filters.dart';
 import '../../domain/usecases/documents_usecases.dart';
 
@@ -19,6 +20,10 @@ class DocumentsState with _$DocumentsState {
     @Default(<UserDocument>[]) List<UserDocument> items,
     DocumentsSummary? summary,
     @Default(DocumentFilters()) DocumentFilters filters,
+
+    /// خيارات الفلاتر المتاحة للمستخدم ده (BE-4) — فاضية لو النداء فشل
+    /// أو المستخدم ملوش وثائق، وساعتها ما نعرضش الشرائح دي أصلًا.
+    @Default(DocumentFilterOptions.empty) DocumentFilterOptions filterOptions,
     @Default(1) int page,
     @Default(false) bool hasMore,
     @Default(0) int total,
@@ -36,18 +41,42 @@ class DocumentsCubit extends Cubit<DocumentsState> {
   final GetDocuments _getDocuments;
   final GetDocumentsSummary _getSummary;
   final DownloadDocument _download;
+  final GetDocumentFilterOptions _getFilterOptions;
 
   Timer? _debounce;
 
-  DocumentsCubit(this._getDocuments, this._getSummary, this._download)
-    : super(const DocumentsState());
+  DocumentsCubit(
+    this._getDocuments,
+    this._getSummary,
+    this._download,
+    this._getFilterOptions,
+  ) : super(const DocumentsState());
 
   Future<void> init() async {
-    await Future.wait([_fetch(page: 1, reset: true), _loadSummary()]);
+    await Future.wait([
+      _fetch(page: 1, reset: true),
+      _loadSummary(),
+      _loadFilterOptions(),
+    ]);
   }
 
   Future<void> refresh() async {
-    await Future.wait([_fetch(page: 1, reset: true), _loadSummary()]);
+    // الخيارات مشتقّة من وثائق المستخدم، فبتتغيّر لما وثيقة جديدة تنزل.
+    await Future.wait([
+      _fetch(page: 1, reset: true),
+      _loadSummary(),
+      _loadFilterOptions(),
+    ]);
+  }
+
+  /// فشل تحميل الخيارات ما يوقّفش الشاشة — الشرائح بتختفي وبس.
+  Future<void> _loadFilterOptions() async {
+    final res = await _getFilterOptions(const NoParams());
+    if (isClosed) return;
+    res.fold(
+      (_) {},
+      (options) => emit(state.copyWith(filterOptions: options)),
+    );
   }
 
   /// بحث نصّي — بتأخير بسيط عشان ما نضربش الـ API مع كل حرف.

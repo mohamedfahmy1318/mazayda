@@ -1,0 +1,63 @@
+{
+  "data": [
+    {
+      "id": "a24be9e2-5c28-421c-8c70-ab18ef5640a4",
+      "title": "اختبار",
+      "cover_photo_url": "https://mazayada.findosystem.com/storage/auctions/a24be9e2-5c28-421c-8c70-ab18ef5640a4/Rl5SkaS9gG2t9FxiQrQHcV50JAm8tMXjz71GcLTQ.png",
+      "status": "CLOSED",
+      "auction_type": "SALE",
+      "asset_class": "MOVABLE",
+      "category": {
+        "id": 1,
+        "name": "مركبات"
+      },
+      "wilaya": {
+        "id": 1,
+        "code": "01",
+        "name": "أدرار"
+      },
+      "opening_price": {
+        "amount": 1000,
+        "formatted": "1 000 دج"
+      },
+      "current_price": {
+        "amount": 5567,
+        "formatted": "5 567 دج"
+      },
+      "requires_commerce_register": false,
+      "bid_count": 2,
+      "start_time": "2026-07-19T16:54:00+01:00",
+      "end_time": "2026-07-24T16:54:00+01:00",
+      "seconds_remaining": 0,
+      "is_live": false,
+      "is_biddable": false,
+      "has_ended": false,
+      "final_price": {
+        "amount": 5567,
+        "formatted": "5 567 دج"
+      },
+      "closed_at": "2026-07-24T16:54:05+01:00",
+      "my_highest_bid": {
+        "amount": 5567,
+        "formatted": "5 567 دج"
+      },
+      "is_winning": true,
+      "is_winner": false,
+      "deposit_paid": true,
+      "book_purchased": true,
+      "registered_at": "2026-07-19T15:00:18+01:00",
+      "final_payment_status": null
+    }
+  ],
+  "message": null,
+  "meta": {
+    "tab": "all",
+    "counts": {
+      "all": 1,
+      "active": 0,
+      "won": 1,
+      "lost": 0,
+      "upcoming": 0
+    }
+  }
+}

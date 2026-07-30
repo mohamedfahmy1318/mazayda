@@ -141,6 +141,7 @@ class _KycView extends StatelessWidget {
                 KycForm(
                   wilayas: state.wilayas,
                   communes: state.communes,
+                  prefill: state.prefill,
                   fieldErrors: state.fieldErrors,
                   submitting: state.submitting,
                   canSubmit: cubit.requiredDocsUploaded,

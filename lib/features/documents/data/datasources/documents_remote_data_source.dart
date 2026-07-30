@@ -6,7 +6,9 @@ import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_response.dart';
 import '../../domain/entities/document.dart';
+import '../../domain/entities/document_filter_options.dart';
 import '../../domain/entities/document_filters.dart';
+import '../models/document_filter_options_model.dart';
 import '../models/document_model.dart';
 
 typedef DocumentsPageRaw = ({List<DocumentModel> items, PageInfo page});
@@ -14,6 +16,9 @@ typedef DocumentsPageRaw = ({List<DocumentModel> items, PageInfo page});
 abstract class DocumentsRemoteDataSource {
   Future<DocumentsPageRaw> getDocuments(DocumentFilters filters, int page);
   Future<DocumentsSummaryModel> getSummary();
+
+  /// خيارات الفلاتر المقيّدة بوثائق المستخدم (BE-4).
+  Future<DocumentFilterOptions> getFilterOptions();
 
   /// ينزّل الوثيقة لملف مؤقت ويرجّع مساره.
   Future<String> downloadDocument(String id, String title);
@@ -46,6 +51,13 @@ class DocumentsRemoteDataSourceImpl implements DocumentsRemoteDataSource {
   Future<DocumentsSummaryModel> getSummary() async {
     final data = await client.get(ApiConstants.documentsSummary);
     return DocumentsSummaryModel.fromJson(data as Map<String, dynamic>);
+  }
+
+  @override
+  Future<DocumentFilterOptions> getFilterOptions() async {
+    final data = await client.get(ApiConstants.documentsFilters);
+    if (data is! Map<String, dynamic>) return DocumentFilterOptions.empty;
+    return DocumentFilterOptionsModel.fromJson(data);
   }
 
   @override

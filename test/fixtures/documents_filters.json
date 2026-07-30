@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "مركبات"
+    }
+  ],
+  "wilayas": [
+    {
+      "id": 1,
+      "code": "01",
+      "name": "أدرار"
+    }
+  ],
+  "entities": [
+    {
+      "id": "a1dcc2ab-efdb-4811-b78d-270ffc83ba5b",
+      "name": "المجلس الشعبي البلدي لخنشلة"
+    }
+  ],
+  "types": [
+    {
+      "value": "CONDITION_BOOK",
+      "label": "كراسة الشروط"
+    },
+    {
+      "value": "AWARD",
+      "label": "وثيقة الترسية"
+    },
+    {
+      "value": "PAYMENT_RECEIPT",
+      "label": "إيصال دفع"
+    },
+    {
+      "value": "DELIVERY_REPORT",
+      "label": "محضر التسليم"
+    }
+  ],
+  "presets": [
+    "today",
+    "7d",
+    "30d",
+    "this_month",
+    "this_year",
+    "all"
+  ],
+  "sorts": [
+    "recent",
+    "oldest",
+    "auction"
+  ]
+}

@@ -14,11 +14,16 @@ extension NotificationChannelX on NotificationChannel {
   };
 }
 
-/// حدث الإشعار الدلالي — مفاتيح `AuctionEventNotification::$event` في الباك.
+/// حدث الإشعار الدلالي — عمود `event` على جدول notifications (BE-2)،
+/// وبيوصل كـ `type` في `NotificationResource`.
 ///
-/// ⚠️ لسه **مش بيترجّع** في `NotificationResource` (طلب BE-2). التطبيق جاهز
-/// ليه مسبقًا: أول ما الباك يبعت `type`، الأيقونة واللون بيبقوا لكل حدث
-/// على حدة تلقائيًا — من غير أي تعديل هنا.
+/// نفس المفردات بالظبط بتوصل في:
+/// - `data.type` جوّه إشعار الـ Push (BE-11)
+/// - حمولة `auction.personal` على القناة الخاصة (BE-10)
+/// فالتوجيه بيتعمل مرة واحدة للتلات مسارات.
+///
+/// ⚠️ الصفوف الأقدم من المهاجرة `type: null` → [unknown]، ووقتها بنرجع
+/// لاشتقاق التصنيف من `action_url`.
 enum NotificationEvent {
   outbid,
   auctionWon,
@@ -32,8 +37,14 @@ enum NotificationEvent {
   inspectionAnswered,
   deliveryUpdate,
   appealUpdated,
+  // قرارات التوثيق — بتوصل للتطبيق من BE-5.
+  kycApproved,
+  kycRejected,
+  kycSuspended,
+  commercialRegisterApproved,
+  commercialRegisterRejected,
 
-  /// الباك لسه مبعتش النوع، أو نوع مش معروف.
+  /// صف قديم من غير `event`، أو نوع جديد مش معروف للإصدار ده.
   unknown,
 }
 
@@ -51,26 +62,37 @@ extension NotificationEventX on NotificationEvent {
     'inspection_answered' => NotificationEvent.inspectionAnswered,
     'delivery_update' => NotificationEvent.deliveryUpdate,
     'appeal_updated' => NotificationEvent.appealUpdated,
+    'kyc_approved' => NotificationEvent.kycApproved,
+    'kyc_rejected' => NotificationEvent.kycRejected,
+    'kyc_suspended' => NotificationEvent.kycSuspended,
+    'commercial_register_approved' =>
+      NotificationEvent.commercialRegisterApproved,
+    'commercial_register_rejected' =>
+      NotificationEvent.commercialRegisterRejected,
     _ => NotificationEvent.unknown,
   };
 }
 
-/// وجهة الإشعار — **مشتقّة من action_url** لأن الباك مش بيرسل أي نوع دلالي.
+/// تصنيف العرض (أيقونة + لون).
 ///
-/// ملاحظة مهمة: كل أحداث المزادات (تفوّق عليك / فزت / خسرت / تأكيد دفع /
-/// استرداد كفالة …) بتشترك في نفس الرابط `/auctions/{id}`، فمستحيل نفرّق
-/// بينها من العميل. لتفعيل أيقونة ولون لكل حدث لازم الباك يضيف حقل `type`
-/// في NotificationResource (طلب BE-2).
+/// بيتحدد من `type` (BE-2). كل أحداث المزادات بتشترك في نفس الـ
+/// `action_url` (`/auctions/{id}`) فالرابط لوحده مش كفاية — بيبقى مجرد
+/// fallback للصفوف القديمة اللي `type` فيها null.
 enum NotificationKind {
   auction,
   appeal,
   generic,
-  // التصنيفات دي بتتفعّل بس لما الباك يبعت `type` (BE-2).
   won,
   outbid,
   lost,
   refund,
   payment,
+
+  /// قرار توثيق (KYC أو سجل تجاري) — مقبول.
+  verificationApproved,
+
+  /// قرار توثيق مرفوض/موقوف.
+  verificationRejected,
 }
 
 /// إشعار واحد في الصندوق — يطابق NotificationResource:
@@ -116,8 +138,21 @@ class AppNotification extends Equatable {
   /// الإشعار بيشير لصفحة الطعون.
   bool get pointsToAppeals => (actionUrl ?? '').contains('/appeals');
 
-  /// تصنيف العرض — بيفضّل نوع الحدث لو الباك بعته (BE-2)، وبيرجع للوجهة
-  /// المشتقّة من الرابط لو مبعتوش.
+  /// قرار KYC — الباك بيوجّه لـ `citizen.kyc`.
+  bool get pointsToKyc =>
+      event == NotificationEvent.kycApproved ||
+      event == NotificationEvent.kycRejected ||
+      event == NotificationEvent.kycSuspended ||
+      (actionUrl ?? '').contains('/kyc');
+
+  /// قرار السجل التجاري — الباك بيوجّه لـ `citizen.commercial-register`.
+  bool get pointsToCommercialRegister =>
+      event == NotificationEvent.commercialRegisterApproved ||
+      event == NotificationEvent.commercialRegisterRejected ||
+      (actionUrl ?? '').contains('/commercial-register');
+
+  /// تصنيف العرض — بيتحدد من `type` (BE-2)، وبيرجع للوجهة المشتقّة من
+  /// الرابط للصفوف القديمة اللي `type` فيها null.
   NotificationKind get kind {
     switch (event) {
       case NotificationEvent.auctionWon:
@@ -139,16 +174,30 @@ class AppNotification extends Equatable {
         return NotificationKind.auction;
       case NotificationEvent.appealUpdated:
         return NotificationKind.appeal;
+      case NotificationEvent.kycApproved:
+      case NotificationEvent.commercialRegisterApproved:
+        return NotificationKind.verificationApproved;
+      case NotificationEvent.kycRejected:
+      case NotificationEvent.kycSuspended:
+      case NotificationEvent.commercialRegisterRejected:
+        return NotificationKind.verificationRejected;
       case NotificationEvent.unknown:
-        // الباك لسه مبعتش النوع — نشتقّ الوجهة من الرابط.
+        // صف قديم من غير `event` — نشتقّ الوجهة من الرابط.
         if (auctionId != null) return NotificationKind.auction;
         if (pointsToAppeals) return NotificationKind.appeal;
+        if (pointsToKyc || pointsToCommercialRegister) {
+          return NotificationKind.generic;
+        }
         return NotificationKind.generic;
     }
   }
 
   /// فيه وجهة نقدر نفتحها جوّه التطبيق.
-  bool get hasDestination => auctionId != null || pointsToAppeals;
+  bool get hasDestination =>
+      auctionId != null ||
+      pointsToAppeals ||
+      pointsToKyc ||
+      pointsToCommercialRegister;
 
   AppNotification copyWith({bool? isRead}) => AppNotification(
     id: id,

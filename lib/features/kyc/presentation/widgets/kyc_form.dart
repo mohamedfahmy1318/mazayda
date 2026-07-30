@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../../profile/domain/entities/profile.dart';
 import '../../domain/entities/kyc_entities.dart';
 import '../../domain/repositories/kyc_repository.dart';
 import 'kyc_labeled_dropdown.dart';
@@ -14,6 +15,10 @@ class KycForm extends StatefulWidget {
   final List<Commune> communes;
   final Map<String, List<String>>? fieldErrors;
   final bool submitting;
+
+  /// بيانات المستخدم المخزّنة عند السيرفر (BE-8) — بنعبّي بيها الحقول أول
+  /// مرة. `null` = مفيش تعبئة مسبقة (النداء فشل) فالفورم يفتح فاضي.
+  final Profile? prefill;
 
   /// كل المستندات المطلوبة اترفعت؟ (يتحكم في تفعيل زر الإرسال).
   final bool canSubmit;
@@ -31,6 +36,7 @@ class KycForm extends StatefulWidget {
     required this.canSubmit,
     required this.onWilayaSelected,
     required this.onSubmit,
+    this.prefill,
   });
 
   @override
@@ -51,6 +57,47 @@ class _KycFormState extends State<KycForm> {
 
   int? _wilayaId;
   int? _communeId;
+
+  @override
+  void initState() {
+    super.initState();
+    _applyPrefill();
+  }
+
+  @override
+  void didUpdateWidget(KycForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // البروفايل وصل متأخر (النداء غير متزامن) — نعبّي أول ما يوصل، وبس
+    // لو الحقول لسه فاضية عشان ما نمسحش كتابة المستخدم.
+    if (oldWidget.prefill == null && widget.prefill != null) _applyPrefill();
+  }
+
+  /// تعبئة الحقول من بيانات السيرفر (BE-8).
+  ///
+  /// بنعبّي الحقل **بس لو فاضي** — لو المستخدم بدأ يكتب، كتابته أولى.
+  void _applyPrefill() {
+    final p = widget.prefill;
+    if (p == null) return;
+
+    void seed(TextEditingController c, String? value) {
+      if (c.text.isEmpty && value != null && value.isNotEmpty) c.text = value;
+    }
+
+    seed(_firstFr, p.firstNameFr);
+    seed(_lastFr, p.lastNameFr);
+    seed(_father, p.fatherName);
+    seed(_motherName, p.motherName);
+    seed(_motherSurname, p.motherSurname);
+    seed(_address, p.address);
+    seed(_postal, p.postalCode);
+    seed(_profession, p.profession);
+    seed(_idNumber, p.idCardNumber);
+    seed(_income, p.expectedIncome?.toString());
+
+    // الولاية جاهزة من الباك (مشتقّة من البلدية) فما نحتاجش بحث عكسي.
+    _wilayaId ??= p.wilayaId;
+    _communeId ??= p.communeId;
+  }
 
   @override
   void dispose() {

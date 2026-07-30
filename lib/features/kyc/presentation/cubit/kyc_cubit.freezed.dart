@@ -19,6 +19,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$KycState {
   KycViewStatus get status => throw _privateConstructorUsedError;
   KycStatus? get kyc => throw _privateConstructorUsedError;
+
+  /// بيانات المستخدم للتعبئة المسبقة (BE-8) — `null` لو النداء فشل،
+  /// وساعتها الفورم يفتح فاضي زي الأول.
+  Profile? get prefill => throw _privateConstructorUsedError;
   List<Wilaya> get wilayas => throw _privateConstructorUsedError;
   List<Commune> get communes =>
       throw _privateConstructorUsedError; // أنواع المستندات اللي بترفع حاليًا (loading)
@@ -46,6 +50,7 @@ abstract class $KycStateCopyWith<$Res> {
   $Res call({
     KycViewStatus status,
     KycStatus? kyc,
+    Profile? prefill,
     List<Wilaya> wilayas,
     List<Commune> communes,
     Set<KycDocType> uploading,
@@ -74,6 +79,7 @@ class _$KycStateCopyWithImpl<$Res, $Val extends KycState>
   $Res call({
     Object? status = null,
     Object? kyc = freezed,
+    Object? prefill = freezed,
     Object? wilayas = null,
     Object? communes = null,
     Object? uploading = null,
@@ -93,6 +99,10 @@ class _$KycStateCopyWithImpl<$Res, $Val extends KycState>
                 ? _value.kyc
                 : kyc // ignore: cast_nullable_to_non_nullable
                       as KycStatus?,
+            prefill: freezed == prefill
+                ? _value.prefill
+                : prefill // ignore: cast_nullable_to_non_nullable
+                      as Profile?,
             wilayas: null == wilayas
                 ? _value.wilayas
                 : wilayas // ignore: cast_nullable_to_non_nullable
@@ -143,6 +153,7 @@ abstract class _$$KycStateImplCopyWith<$Res>
   $Res call({
     KycViewStatus status,
     KycStatus? kyc,
+    Profile? prefill,
     List<Wilaya> wilayas,
     List<Commune> communes,
     Set<KycDocType> uploading,
@@ -170,6 +181,7 @@ class __$$KycStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? kyc = freezed,
+    Object? prefill = freezed,
     Object? wilayas = null,
     Object? communes = null,
     Object? uploading = null,
@@ -189,6 +201,10 @@ class __$$KycStateImplCopyWithImpl<$Res>
             ? _value.kyc
             : kyc // ignore: cast_nullable_to_non_nullable
                   as KycStatus?,
+        prefill: freezed == prefill
+            ? _value.prefill
+            : prefill // ignore: cast_nullable_to_non_nullable
+                  as Profile?,
         wilayas: null == wilayas
             ? _value._wilayas
             : wilayas // ignore: cast_nullable_to_non_nullable
@@ -232,6 +248,7 @@ class _$KycStateImpl implements _KycState {
   const _$KycStateImpl({
     this.status = KycViewStatus.initial,
     this.kyc,
+    this.prefill,
     final List<Wilaya> wilayas = const <Wilaya>[],
     final List<Commune> communes = const <Commune>[],
     final Set<KycDocType> uploading = const <KycDocType>{},
@@ -251,6 +268,11 @@ class _$KycStateImpl implements _KycState {
   final KycViewStatus status;
   @override
   final KycStatus? kyc;
+
+  /// بيانات المستخدم للتعبئة المسبقة (BE-8) — `null` لو النداء فشل،
+  /// وساعتها الفورم يفتح فاضي زي الأول.
+  @override
+  final Profile? prefill;
   final List<Wilaya> _wilayas;
   @override
   @JsonKey()
@@ -311,7 +333,7 @@ class _$KycStateImpl implements _KycState {
 
   @override
   String toString() {
-    return 'KycState(status: $status, kyc: $kyc, wilayas: $wilayas, communes: $communes, uploading: $uploading, uploaded: $uploaded, submitting: $submitting, submitted: $submitted, error: $error, fieldErrors: $fieldErrors)';
+    return 'KycState(status: $status, kyc: $kyc, prefill: $prefill, wilayas: $wilayas, communes: $communes, uploading: $uploading, uploaded: $uploaded, submitting: $submitting, submitted: $submitted, error: $error, fieldErrors: $fieldErrors)';
   }
 
   @override
@@ -321,6 +343,7 @@ class _$KycStateImpl implements _KycState {
             other is _$KycStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.kyc, kyc) || other.kyc == kyc) &&
+            (identical(other.prefill, prefill) || other.prefill == prefill) &&
             const DeepCollectionEquality().equals(other._wilayas, _wilayas) &&
             const DeepCollectionEquality().equals(other._communes, _communes) &&
             const DeepCollectionEquality().equals(
@@ -344,6 +367,7 @@ class _$KycStateImpl implements _KycState {
     runtimeType,
     status,
     kyc,
+    prefill,
     const DeepCollectionEquality().hash(_wilayas),
     const DeepCollectionEquality().hash(_communes),
     const DeepCollectionEquality().hash(_uploading),
@@ -367,6 +391,7 @@ abstract class _KycState implements KycState {
   const factory _KycState({
     final KycViewStatus status,
     final KycStatus? kyc,
+    final Profile? prefill,
     final List<Wilaya> wilayas,
     final List<Commune> communes,
     final Set<KycDocType> uploading,
@@ -381,6 +406,11 @@ abstract class _KycState implements KycState {
   KycViewStatus get status;
   @override
   KycStatus? get kyc;
+
+  /// بيانات المستخدم للتعبئة المسبقة (BE-8) — `null` لو النداء فشل،
+  /// وساعتها الفورم يفتح فاضي زي الأول.
+  @override
+  Profile? get prefill;
   @override
   List<Wilaya> get wilayas;
   @override

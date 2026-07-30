@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'auction.dart';
 import 'money.dart';
 
-/// عنصر مزاد في القوائم — يطابق `AuctionListResource` بالظبط (18 مفتاح).
+/// عنصر مزاد في القوائم — يطابق `AuctionListResource` (21 مفتاح).
 ///
 /// ⚠️ متعمّد إنه **منفصل** عن [Auction] (كيان التفاصيل): الـ list resource
 /// مافيهوش `deposit_amount` ولا `book_price` ولا `photos` ولا `description`
-/// ولا `has_book_access` ولا `requires_commerce_register` ولا `final_price`.
-/// لو استخدمنا كيان التفاصيل هنا، الحقول دي هتترجم لأصفار/false بشكل صامت
-/// وتظهر للمستخدم كمعلومة غلط.
+/// ولا `has_book_access`. لو استخدمنا كيان التفاصيل هنا، الحقول دي هتترجم
+/// لأصفار/false بشكل صامت وتظهر للمستخدم كمعلومة غلط.
 ///
 /// بيرجع من: `GET /auctions`، `GET /auctions/search`، `GET /my-auctions`،
-/// و`dashboard.won_auctions`.
+/// و`dashboard.won_auctions`. مسار `/my-auctions` بيستخدم `MyAuctionResource`
+/// اللي بيورث ده ويزوّد عليه حالة مشاركة المستخدم (الحقول في القسم التاني).
 class AuctionListItem extends Equatable {
   final String id;
   final String title;
@@ -31,23 +31,46 @@ class AuctionListItem extends Equatable {
   final bool isBiddable;
   final bool hasEnded;
 
-  // ===== حقول اختيارية — التطبيق جاهز ليها قبل ما الباك يبعتها =====
-
-  /// المزاد يتطلّب سجلاً تجاريًا (طلب BE-1).
-  /// `null` = الباك لسه مبيبعتوش → ما نعرضش شارة أصلًا بدل ما ندّعي «لا».
+  /// المزاد يتطلّب سجلاً تجاريًا (BE-1 — نزل).
+  /// لسه nullable: `null` = مفتاح غايب (رد قديم/كاش) → ما نعرضش شارة أصلًا
+  /// بدل ما ندّعي «لا».
   final bool? requiresCommerceRegister;
 
-  /// أعلى مزايدة للمستخدم نفسه — بترجع في `/my-auctions` فقط (طلب BE-3).
+  /// سعر الرسو النهائي — `null` قبل إقفال المزاد (BE-6).
+  final Money? finalPrice;
+
+  /// لحظة الإقفال — `null` قبل الإقفال (BE-6).
+  final DateTime? closedAt;
+
+  // ===== حالة مشاركة المستخدم — `MyAuctionResource` فقط (BE-3) =====
+  // بتغيب تمامًا في `/auctions` و`dashboard.won_auctions`، فكلها nullable:
+  // `null` = «المسار ده مبيرجّعهاش» مش «لا».
+
+  /// أعلى مزايدة للمستخدم نفسه — `null` لو مازايدش.
   final Money? myHighestBid;
 
-  /// المستخدم صاحب أعلى مزايدة حاليًا (طلب BE-3).
-  /// `null` = غير معروف → **ما ندّعيش** فوز ولا تجاوز.
+  /// المزاد مفتوح: المستخدم صاحب أعلى عرض. المزاد مقفول: هو الفائز.
   final bool? isWinning;
 
-  /// دفع الكفالة (طلب BE-3).
+  /// الفائز المعلَن — للمزادات المقفولة بس.
+  ///
+  /// ⚠️ **ما تعتمدش عليه:** الباك بيحسبه `hasEnded() && is_winning`، و
+  /// `hasEnded()` عندهم معناها «الوقت خلص والمزاد لسه مش CLOSED» (حالة
+  /// انتقالية) — فبيبقى `false` بالضبط لما المزاد يقفل ويبقى فيه فائز.
+  /// النتيجة إنه **دايمًا false** عمليًا. استخدم [isWinnerResolved].
+  final bool? isWinner;
+
+  /// دفع الكفالة.
   final bool? depositPaid;
 
-  /// حالة الدفع النهائي للفائز (طلب BE-3).
+  /// اشترى كراسة الشروط.
+  final bool? bookPurchased;
+
+  /// لحظة التسجيل في المزاد.
+  final DateTime? registeredAt;
+
+  /// حالة الدفع النهائي للفائز — PENDING | CONFIRMED | FAILED …
+  /// `null` = مبدأش دفع نهائي.
   final String? finalPaymentStatus;
 
   const AuctionListItem({
@@ -69,16 +92,45 @@ class AuctionListItem extends Equatable {
     this.isBiddable = false,
     this.hasEnded = false,
     this.requiresCommerceRegister,
+    this.finalPrice,
+    this.closedAt,
     this.myHighestBid,
     this.isWinning,
+    this.isWinner,
     this.depositPaid,
+    this.bookPurchased,
+    this.registeredAt,
     this.finalPaymentStatus,
   });
 
   String? get wilayaName => wilaya?.name;
 
-  /// عندنا بيانات مشاركة حقيقية نقدر نعرضها (BE-3 نزل).
+  /// عندنا بيانات مشاركة حقيقية نقدر نعرضها (BE-3).
   bool get hasParticipationState => isWinning != null || myHighestBid != null;
+
+  /// المزاد منتهي فعليًا (مقفول أو الوقت خلص).
+  ///
+  /// `has_ended` من الباك مش كفاية: عندهم معناها «الوقت خلص ولسه مش CLOSED»
+  /// بس، فبترجع false للمزادات المقفولة.
+  bool get isOver =>
+      hasEnded ||
+      status == AuctionStatus.closed ||
+      closedAt != null ||
+      (endTime != null && endTime!.isBefore(DateTime.now()));
+
+  /// المستخدم هو الفائز — مشتقّ عندنا لأن `is_winner` من الباك مكسور.
+  /// راجع [isWinner].
+  bool? get isWinnerResolved {
+    if (isWinning == null) return null; // المسار مش بيرجّع حالة مشاركة
+    if (!isOver) return null; // لسه مفيش فائز
+    return isWinning;
+  }
+
+  /// الفائز بدأ الدفع النهائي بالفعل.
+  bool get hasFinalPayment => finalPaymentStatus != null;
+
+  /// السعر اللي يعبّر عن المزاد: سعر الرسو لو أقفل، وإلا سعر العرض الحالي.
+  Money get resultPrice => finalPrice ?? displayPrice;
 
   /// السعر المعروض في البطاقة: الحالي لو فيه مزايدات، وإلا سعر الافتتاح.
   Money get displayPrice => bidCount > 0 ? currentPrice : openingPrice;

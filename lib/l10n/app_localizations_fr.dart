@@ -48,6 +48,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get confirmPassword => 'Confirmer le mot de passe';
 
   @override
+  String get showPassword => 'Afficher le mot de passe';
+
+  @override
+  String get hidePassword => 'Masquer le mot de passe';
+
+  @override
   String get birthDate => 'Date de naissance';
 
   @override
@@ -320,6 +326,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commune => 'Commune';
 
   @override
+  String get myAuctionsAll => 'Toutes';
+
+  @override
   String get myAuctionsActive => 'Actives';
 
   @override
@@ -374,6 +383,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get myAuctionsPriceFinal => 'Prix final';
 
   @override
+  String get myAuctionsEmptyAll =>
+      'Vous n\'avez encore participé à aucune enchère';
+
+  @override
   String get myAuctionsEmptyActive => 'Aucune enchère active';
 
   @override
@@ -384,6 +397,24 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get myAuctionsEmptyUpcoming => 'Aucune enchère à venir';
+
+  @override
+  String get myAuctionsMyBid => 'Votre offre la plus élevée';
+
+  @override
+  String get myAuctionsDepositPaid => 'Caution payée';
+
+  @override
+  String get myAuctionsFinalPaymentDue => 'Paiement final requis';
+
+  @override
+  String get myAuctionsFinalPaymentPending => 'Paiement final en cours';
+
+  @override
+  String get myAuctionsFinalPaymentDone => 'Paiement final effectué';
+
+  @override
+  String get myAuctionsFinalPaymentFailed => 'Échec du paiement final';
 
   @override
   String get notifications => 'Notifications';
@@ -905,6 +936,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get docsPeriod => 'Période';
+
+  @override
+  String get docsCategory => 'Catégorie';
+
+  @override
+  String get docsEntity => 'Entité';
 
   @override
   String get docsSort => 'Tri';

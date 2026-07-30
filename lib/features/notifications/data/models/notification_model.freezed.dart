@@ -25,8 +25,8 @@ mixin _$NotificationModel {
   String? get title => throw _privateConstructorUsedError;
   String? get body => throw _privateConstructorUsedError;
   String? get channel =>
-      throw _privateConstructorUsedError; // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
-  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+      throw _privateConstructorUsedError; // نوع الحدث الدلالي (BE-2) — بيحدّد الأيقونة واللون والوجهة.
+  // `null` للصفوف الأقدم من مهاجرة الباك → بنرجع لاشتقاقه من الرابط.
   String? get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_read')
   bool get isRead => throw _privateConstructorUsedError;
@@ -236,8 +236,8 @@ class _$NotificationModelImpl extends _NotificationModel {
   final String? body;
   @override
   final String? channel;
-  // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
-  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+  // نوع الحدث الدلالي (BE-2) — بيحدّد الأيقونة واللون والوجهة.
+  // `null` للصفوف الأقدم من مهاجرة الباك → بنرجع لاشتقاقه من الرابط.
   @override
   final String? type;
   @override
@@ -326,8 +326,8 @@ abstract class _NotificationModel extends NotificationModel {
   @override
   String? get body;
   @override
-  String? get channel; // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
-  // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+  String? get channel; // نوع الحدث الدلالي (BE-2) — بيحدّد الأيقونة واللون والوجهة.
+  // `null` للصفوف الأقدم من مهاجرة الباك → بنرجع لاشتقاقه من الرابط.
   @override
   String? get type;
   @override

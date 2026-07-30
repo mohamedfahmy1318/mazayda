@@ -9,15 +9,28 @@ class ApiConstants {
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
 
-  // ===== Pusher (realtime) — استبدل بالقيم الفعلية من لوحة Pusher =====
-  static const String pusherKey = 'YOUR_PUSHER_KEY';
-  static const String pusherCluster = 'eu';
-  // قناة المزاد: نشترك فيها لتلقّي تحديثات السعر/المزايدات لحظيًا
+  // ===== Realtime (Reverb — بروتوكول Pusher) =====
+  // ⚠️ **مفيش مفاتيح hardcoded.** الإعدادات بتتقرا وقت التشغيل من
+  // `GET /ping → data.realtime` (BE-14)، فتغيير البيئة مايحتاجش إصدار جديد.
+  // راجع `core/realtime/realtime_config.dart`.
+
+  /// قناة المزاد العامة — «السعر اتحرك».
   static String auctionChannel(String auctionId) => 'auction.$auctionId';
+
+  /// قناة المستخدم الخاصة على مزاد — «عرضك إنت اللي اتغلب» (BE-10).
+  /// لازم البادئة `private-` لأن Pusher/Reverb بيميّزوا القنوات بالبادئة.
+  static String personalAuctionChannel(String auctionId, String userId) =>
+      'private-auction.$auctionId.user.$userId';
+
   // أسماء الأحداث المتوقّعة من الخادم (Laravel broadcasting)
   static const String evtNewBid = 'bid.placed';
   static const String evtPriceUpdate = 'price.updated';
-  // ⚠️ auth القنوات الخاصة — لاحظ أنه بدون /v1 (المسار /api/broadcasting/auth)
+
+  /// حدث القناة الخاصة (BE-10) — حمولته `{type, auction_id, timestamp, …}`.
+  static const String evtPersonalAuction = 'auction.personal';
+
+  // ⚠️ auth القنوات الخاصة — لاحظ أنه بدون /v1 (المسار /api/broadcasting/auth).
+  // بيتأكّد بالتوكن مش بالجلسة، والباك بيرجّعه في `realtime.auth_endpoint`.
   static const String broadcastingAuth = '/api/broadcasting/auth';
 
   // ===== Auth =====
@@ -76,8 +89,9 @@ class ApiConstants {
 
   // ===== Dashboard =====
   static const String dashboard = '$apiPrefix/dashboard';
+  // التبويبات مناظير مش تقسيم حصري، و`all` هو الشامل (BE-3).
   static const String myAuctions =
-      '$apiPrefix/my-auctions'; // ?tab=active|won|lost|upcoming
+      '$apiPrefix/my-auctions'; // ?tab=all|active|won|lost|upcoming
 
   // ===== Geographic =====
   static const String wilayas = '$apiPrefix/wilayas';
@@ -116,10 +130,18 @@ class ApiConstants {
   static const String reportsSummary = '$apiPrefix/reports/summary';
   static const String reportsTransactions = '$apiPrefix/reports/transactions';
 
-  // ===== Devices (Push) =====
-  // ⚠️ لسه غير موجود في الباك (طلب BE-11) — التطبيق بينادي عليه ويتجاهل
-  // الفشل بهدوء، فأول ما ينزل يشتغل من غير أي تعديل.
+  // ===== Documents — خيارات الفلاتر مقيّدة بوثائق المستخدم (BE-4) =====
+  static const String documentsFilters = '$apiPrefix/documents/filters';
+
+  // ===== Devices (Push) — BE-11 =====
+  // POST للتسجيل (idempotent) و DELETE لفكّ الربط، والاتنين بيرجّعوا 204.
   static const String devices = '$apiPrefix/devices';
+  static const String devicesStatus = '$apiPrefix/devices/status';
+
+  // ===== Document verification (قارئ QR) — BE-9 =====
+  // نسخة JSON من صفحة /verify: `?doc=&sig=` → {valid, document}.
+  // وثيقة مجهولة أو توقيع غلط = 200 مع valid:false (مش 404).
+  static const String verifyDocument = '$apiPrefix/verify';
 
   // ===== System =====
   static const String ping = '$apiPrefix/ping';

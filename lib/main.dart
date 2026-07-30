@@ -7,6 +7,7 @@ import 'package:mazayada/l10n/app_localizations.dart';
 import 'core/di/injection.dart';
 import 'core/connectivity/connectivity_cubit.dart';
 import 'core/connectivity/widgets/connectivity_banner.dart';
+import 'core/notifications/device_registrar.dart';
 import 'core/notifications/push_notification_service.dart';
 import 'core/router/app_router.dart';
 import 'core/session/session_manager.dart';
@@ -56,9 +57,18 @@ Future<bool> _initFirebase() async {
 }
 
 /// تهيئة خدمة الـ push notifications (بعد التأكد إن Firebase جاهز).
+///
+/// وبعدها ربط الجهاز بالحساب (BE-11): التسجيل idempotent، والمفروض يتنادى
+/// **كل إقلاع** مش بعد اللوجين بس — جلسة محفوظة من تشغيل قديم مش هيكون
+/// جهازها مسجّل لو الربط اتعمل قبل ما الـ endpoint ينزل، أو لو الـ FCM
+/// token اتدوّر والتطبيق مقفول.
 Future<void> _initPushNotifications() async {
   try {
     await getIt<PushNotificationService>().init();
+
+    final registrar = getIt<DeviceRegistrar>();
+    await registrar.registerIfAuthenticated();
+    registrar.watchTokenRefresh();
   } catch (e) {
     debugPrint('⚠️ تعذّر تهيئة خدمة الإشعارات: $e');
   }

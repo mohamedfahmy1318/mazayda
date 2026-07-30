@@ -48,11 +48,11 @@ class AuctionDetailCubit extends Cubit<AuctionDetailState> {
         final isAuthed = await _tokenStorage.hasTokens;
         if (isClosed) return;
 
-        // الـ API بيرجّع viewer=null لكل مستخدمي الموبايل (مسارات المزادات
-        // عامة ومش بتشغّل حارس Sanctum — طلب BE-15). فلما يغيب وإحنا
-        // مسجّلين دخول، بنجيب أعلام الحساب من البروفايل عشان على الأقل
-        // بوابات الحساب تفضل دقيقة.
-        // ملاحظة: النداء الإضافي ده بيختفي تلقائيًا أول ما الباك يتصلح.
+        // بعد BE-15 الـ viewer بيتعبّى عادي للمستخدم المسجّل، فالفرع ده
+        // بقى استثناء: بيحصل لو التوكن منتهي/مش `access` — المصادقة على
+        // المسار اختيارية فبتعدّينا كضيوف بدون 401. ساعتها بنجيب أعلام
+        // الحساب من البروفايل (مسار مصادَق، فبيجدّد التوكن لو محتاج) عشان
+        // بوابات الحساب تفضل دقيقة بدل وضع محدود.
         ViewerAccountFlags? account;
         if (isAuthed && detail.viewer == null) {
           final profileRes = await _getProfile(const NoParams());

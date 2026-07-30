@@ -48,6 +48,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirmPassword => 'تأكيد كلمة المرور';
 
   @override
+  String get showPassword => 'إظهار كلمة المرور';
+
+  @override
+  String get hidePassword => 'إخفاء كلمة المرور';
+
+  @override
   String get birthDate => 'تاريخ الميلاد';
 
   @override
@@ -317,6 +323,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get commune => 'البلدية';
 
   @override
+  String get myAuctionsAll => 'الكل';
+
+  @override
   String get myAuctionsActive => 'نشطة';
 
   @override
@@ -371,6 +380,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myAuctionsPriceFinal => 'السعر النهائي';
 
   @override
+  String get myAuctionsEmptyAll => 'لم تشارك في أي مزاد بعد';
+
+  @override
   String get myAuctionsEmptyActive => 'لا توجد مزادات نشطة';
 
   @override
@@ -381,6 +393,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get myAuctionsEmptyUpcoming => 'لا توجد مزادات قادمة';
+
+  @override
+  String get myAuctionsMyBid => 'أعلى مزايدة لك';
+
+  @override
+  String get myAuctionsDepositPaid => 'الكفالة مدفوعة';
+
+  @override
+  String get myAuctionsFinalPaymentDue => 'الدفع النهائي مطلوب';
+
+  @override
+  String get myAuctionsFinalPaymentPending => 'الدفع النهائي قيد المعالجة';
+
+  @override
+  String get myAuctionsFinalPaymentDone => 'الدفع النهائي مكتمل';
+
+  @override
+  String get myAuctionsFinalPaymentFailed => 'فشل الدفع النهائي';
 
   @override
   String get notifications => 'الإشعارات';
@@ -897,6 +927,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get docsPeriod => 'الفترة';
+
+  @override
+  String get docsCategory => 'الفئة';
+
+  @override
+  String get docsEntity => 'الجهة';
 
   @override
   String get docsSort => 'الترتيب';

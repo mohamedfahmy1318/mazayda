@@ -14,8 +14,8 @@ class NotificationModel with _$NotificationModel {
     String? title,
     String? body,
     String? channel,
-    // نوع الحدث الدلالي — لسه مش بيرجع من الباك (طلب BE-2).
-    // لما يوصل، بيحدّد الأيقونة واللون بدل ما نشتقّهم من الرابط.
+    // نوع الحدث الدلالي (BE-2) — بيحدّد الأيقونة واللون والوجهة.
+    // `null` للصفوف الأقدم من مهاجرة الباك → بنرجع لاشتقاقه من الرابط.
     String? type,
     @JsonKey(name: 'is_read') @Default(false) bool isRead,
     @JsonKey(name: 'action_url') String? actionUrl,

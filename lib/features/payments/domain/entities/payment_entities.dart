@@ -95,21 +95,43 @@ class PaymentStatus extends Equatable {
   List<Object?> get props => [id, type, amount, status, gatewayRef];
 }
 
-/// ردّ GET /payments/{ref}/status — `{ ref, payments[] }`.
-/// البحث في الباك بيتم بـ gateway_ref فقط (بيرجّع 404 لو مفيش صفوف).
+/// ردّ GET /payments/{ref}/status —
+/// `{ ref, gateway_ref, confirmed, payments[] }`.
+///
+/// الباك بيطابق الـ ref على `gateway_ref` **أو** `payment id` (BE-13)، فأي
+/// واحد منهم بيشتغل. دفعة مستخدم تاني = 404.
 class PaymentStatusResult extends Equatable {
   final String ref;
+
+  /// المرجع الرسمي من البوابة (BE-13) — نوحّد عليه في أي استطلاع بعد كده.
+  /// `null` لو الرد قديم.
+  final String? gatewayRef;
+
+  /// `confirmed` من السيرفر — المصدر الرسمي. `null` لو الرد قديم.
+  final bool? serverConfirmed;
+
   final List<PaymentStatus> payments;
 
-  const PaymentStatusResult({required this.ref, required this.payments});
+  const PaymentStatusResult({
+    required this.ref,
+    this.gatewayRef,
+    this.serverConfirmed,
+    required this.payments,
+  });
+
+  /// المرجع اللي نستطلع بيه بعد كده — الرسمي لو موجود.
+  String get pollRef => gatewayRef ?? ref;
 
   /// كل الدفعات المرتبطة بالـ ref اتأكدت.
+  ///
+  /// بنفضّل `confirmed` من السيرفر، وبنرجع للحساب المحلي لو المفتاح غاب.
   bool get allConfirmed =>
-      payments.isNotEmpty && payments.every((p) => p.isConfirmed);
+      serverConfirmed ??
+      (payments.isNotEmpty && payments.every((p) => p.isConfirmed));
 
   /// واحدة على الأقل فشلت نهائيًا — نوقف الاستطلاع فورًا بدل ما نستنى.
   bool get hasFailed => payments.any((p) => p.hasFailed);
 
   @override
-  List<Object?> get props => [ref, payments];
+  List<Object?> get props => [ref, gatewayRef, serverConfirmed, payments];
 }

@@ -48,6 +48,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmPassword => 'Confirm password';
 
   @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
   String get birthDate => 'Date of birth';
 
   @override
@@ -318,6 +324,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commune => 'Commune';
 
   @override
+  String get myAuctionsAll => 'All';
+
+  @override
   String get myAuctionsActive => 'Active';
 
   @override
@@ -372,6 +381,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myAuctionsPriceFinal => 'Final price';
 
   @override
+  String get myAuctionsEmptyAll => 'You haven\'t taken part in any auction yet';
+
+  @override
   String get myAuctionsEmptyActive => 'No active auctions';
 
   @override
@@ -382,6 +394,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myAuctionsEmptyUpcoming => 'No upcoming auctions';
+
+  @override
+  String get myAuctionsMyBid => 'Your highest bid';
+
+  @override
+  String get myAuctionsDepositPaid => 'Deposit paid';
+
+  @override
+  String get myAuctionsFinalPaymentDue => 'Final payment due';
+
+  @override
+  String get myAuctionsFinalPaymentPending => 'Final payment processing';
+
+  @override
+  String get myAuctionsFinalPaymentDone => 'Final payment complete';
+
+  @override
+  String get myAuctionsFinalPaymentFailed => 'Final payment failed';
 
   @override
   String get notifications => 'Notifications';
@@ -900,6 +930,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get docsPeriod => 'Period';
+
+  @override
+  String get docsCategory => 'Category';
+
+  @override
+  String get docsEntity => 'Entity';
 
   @override
   String get docsSort => 'Sort';

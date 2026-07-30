@@ -26,6 +26,8 @@ mixin _$PaymentFlowState {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,6 +39,7 @@ mixin _$PaymentFlowState {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +51,7 @@ mixin _$PaymentFlowState {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -60,6 +64,7 @@ mixin _$PaymentFlowState {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +76,7 @@ mixin _$PaymentFlowState {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,6 +88,7 @@ mixin _$PaymentFlowState {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -159,6 +166,8 @@ class _$PaymentIdleImpl implements PaymentIdle {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return idle();
@@ -174,6 +183,7 @@ class _$PaymentIdleImpl implements PaymentIdle {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return idle?.call();
@@ -189,6 +199,7 @@ class _$PaymentIdleImpl implements PaymentIdle {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -208,6 +219,7 @@ class _$PaymentIdleImpl implements PaymentIdle {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return idle(this);
@@ -223,6 +235,7 @@ class _$PaymentIdleImpl implements PaymentIdle {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return idle?.call(this);
@@ -238,6 +251,7 @@ class _$PaymentIdleImpl implements PaymentIdle {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -302,6 +316,8 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return preparing();
@@ -317,6 +333,7 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return preparing?.call();
@@ -332,6 +349,7 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -351,6 +369,7 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return preparing(this);
@@ -366,6 +385,7 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return preparing?.call(this);
@@ -381,6 +401,7 @@ class _$PaymentPreparingImpl implements PaymentPreparing {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -482,6 +503,8 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return openGateway(url, ref);
@@ -497,6 +520,7 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return openGateway?.call(url, ref);
@@ -512,6 +536,7 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -531,6 +556,7 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return openGateway(this);
@@ -546,6 +572,7 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return openGateway?.call(this);
@@ -561,6 +588,7 @@ class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -635,6 +663,8 @@ class _$PaymentPollingImpl implements PaymentPolling {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return polling();
@@ -650,6 +680,7 @@ class _$PaymentPollingImpl implements PaymentPolling {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return polling?.call();
@@ -665,6 +696,7 @@ class _$PaymentPollingImpl implements PaymentPolling {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -684,6 +716,7 @@ class _$PaymentPollingImpl implements PaymentPolling {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return polling(this);
@@ -699,6 +732,7 @@ class _$PaymentPollingImpl implements PaymentPolling {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return polling?.call(this);
@@ -714,6 +748,7 @@ class _$PaymentPollingImpl implements PaymentPolling {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -778,6 +813,8 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return confirmed();
@@ -793,6 +830,7 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return confirmed?.call();
@@ -808,6 +846,7 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -827,6 +866,7 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return confirmed(this);
@@ -842,6 +882,7 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return confirmed?.call(this);
@@ -857,6 +898,7 @@ class _$PaymentConfirmedImpl implements PaymentConfirmed {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -922,6 +964,8 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return alreadySettled();
@@ -937,6 +981,7 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return alreadySettled?.call();
@@ -952,6 +997,7 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -971,6 +1017,7 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return alreadySettled(this);
@@ -986,6 +1033,7 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return alreadySettled?.call(this);
@@ -1001,6 +1049,7 @@ class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -1092,6 +1141,8 @@ class _$PaymentFailedImpl implements PaymentFailed {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return failed(message);
@@ -1107,6 +1158,7 @@ class _$PaymentFailedImpl implements PaymentFailed {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return failed?.call(message);
@@ -1122,6 +1174,7 @@ class _$PaymentFailedImpl implements PaymentFailed {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -1141,6 +1194,7 @@ class _$PaymentFailedImpl implements PaymentFailed {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return failed(this);
@@ -1156,6 +1210,7 @@ class _$PaymentFailedImpl implements PaymentFailed {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return failed?.call(this);
@@ -1171,6 +1226,7 @@ class _$PaymentFailedImpl implements PaymentFailed {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {
@@ -1190,6 +1246,205 @@ abstract class PaymentFailed implements PaymentFlowState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentFailedImplCopyWith<_$PaymentFailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PaymentNeedsActionImplCopyWith<$Res> {
+  factory _$$PaymentNeedsActionImplCopyWith(
+    _$PaymentNeedsActionImpl value,
+    $Res Function(_$PaymentNeedsActionImpl) then,
+  ) = __$$PaymentNeedsActionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PaymentRedirect target, String message});
+}
+
+/// @nodoc
+class __$$PaymentNeedsActionImplCopyWithImpl<$Res>
+    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentNeedsActionImpl>
+    implements _$$PaymentNeedsActionImplCopyWith<$Res> {
+  __$$PaymentNeedsActionImplCopyWithImpl(
+    _$PaymentNeedsActionImpl _value,
+    $Res Function(_$PaymentNeedsActionImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of PaymentFlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? target = null, Object? message = null}) {
+    return _then(
+      _$PaymentNeedsActionImpl(
+        null == target
+            ? _value.target
+            : target // ignore: cast_nullable_to_non_nullable
+                  as PaymentRedirect,
+        null == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$PaymentNeedsActionImpl implements PaymentNeedsAction {
+  const _$PaymentNeedsActionImpl(this.target, this.message);
+
+  @override
+  final PaymentRedirect target;
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'PaymentFlowState.needsAction(target: $target, message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentNeedsActionImpl &&
+            (identical(other.target, target) || other.target == target) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, target, message);
+
+  /// Create a copy of PaymentFlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentNeedsActionImplCopyWith<_$PaymentNeedsActionImpl> get copyWith =>
+      __$$PaymentNeedsActionImplCopyWithImpl<_$PaymentNeedsActionImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() preparing,
+    required TResult Function(String url, String ref) openGateway,
+    required TResult Function() polling,
+    required TResult Function() confirmed,
+    required TResult Function() alreadySettled,
+    required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
+    required TResult Function(PaymentFlowIssue issue) issue,
+  }) {
+    return needsAction(target, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? idle,
+    TResult? Function()? preparing,
+    TResult? Function(String url, String ref)? openGateway,
+    TResult? Function()? polling,
+    TResult? Function()? confirmed,
+    TResult? Function()? alreadySettled,
+    TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
+    TResult? Function(PaymentFlowIssue issue)? issue,
+  }) {
+    return needsAction?.call(target, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? preparing,
+    TResult Function(String url, String ref)? openGateway,
+    TResult Function()? polling,
+    TResult Function()? confirmed,
+    TResult Function()? alreadySettled,
+    TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
+    TResult Function(PaymentFlowIssue issue)? issue,
+    required TResult orElse(),
+  }) {
+    if (needsAction != null) {
+      return needsAction(target, message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PaymentIdle value) idle,
+    required TResult Function(PaymentPreparing value) preparing,
+    required TResult Function(PaymentOpenGateway value) openGateway,
+    required TResult Function(PaymentPolling value) polling,
+    required TResult Function(PaymentConfirmed value) confirmed,
+    required TResult Function(PaymentAlreadySettled value) alreadySettled,
+    required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
+    required TResult Function(PaymentIssue value) issue,
+  }) {
+    return needsAction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PaymentIdle value)? idle,
+    TResult? Function(PaymentPreparing value)? preparing,
+    TResult? Function(PaymentOpenGateway value)? openGateway,
+    TResult? Function(PaymentPolling value)? polling,
+    TResult? Function(PaymentConfirmed value)? confirmed,
+    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
+    TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
+    TResult? Function(PaymentIssue value)? issue,
+  }) {
+    return needsAction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PaymentIdle value)? idle,
+    TResult Function(PaymentPreparing value)? preparing,
+    TResult Function(PaymentOpenGateway value)? openGateway,
+    TResult Function(PaymentPolling value)? polling,
+    TResult Function(PaymentConfirmed value)? confirmed,
+    TResult Function(PaymentAlreadySettled value)? alreadySettled,
+    TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
+    TResult Function(PaymentIssue value)? issue,
+    required TResult orElse(),
+  }) {
+    if (needsAction != null) {
+      return needsAction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PaymentNeedsAction implements PaymentFlowState {
+  const factory PaymentNeedsAction(
+    final PaymentRedirect target,
+    final String message,
+  ) = _$PaymentNeedsActionImpl;
+
+  PaymentRedirect get target;
+  String get message;
+
+  /// Create a copy of PaymentFlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaymentNeedsActionImplCopyWith<_$PaymentNeedsActionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1270,6 +1525,8 @@ class _$PaymentIssueImpl implements PaymentIssue {
     required TResult Function() confirmed,
     required TResult Function() alreadySettled,
     required TResult Function(String message) failed,
+    required TResult Function(PaymentRedirect target, String message)
+    needsAction,
     required TResult Function(PaymentFlowIssue issue) issue,
   }) {
     return issue(this.issue);
@@ -1285,6 +1542,7 @@ class _$PaymentIssueImpl implements PaymentIssue {
     TResult? Function()? confirmed,
     TResult? Function()? alreadySettled,
     TResult? Function(String message)? failed,
+    TResult? Function(PaymentRedirect target, String message)? needsAction,
     TResult? Function(PaymentFlowIssue issue)? issue,
   }) {
     return issue?.call(this.issue);
@@ -1300,6 +1558,7 @@ class _$PaymentIssueImpl implements PaymentIssue {
     TResult Function()? confirmed,
     TResult Function()? alreadySettled,
     TResult Function(String message)? failed,
+    TResult Function(PaymentRedirect target, String message)? needsAction,
     TResult Function(PaymentFlowIssue issue)? issue,
     required TResult orElse(),
   }) {
@@ -1319,6 +1578,7 @@ class _$PaymentIssueImpl implements PaymentIssue {
     required TResult Function(PaymentConfirmed value) confirmed,
     required TResult Function(PaymentAlreadySettled value) alreadySettled,
     required TResult Function(PaymentFailed value) failed,
+    required TResult Function(PaymentNeedsAction value) needsAction,
     required TResult Function(PaymentIssue value) issue,
   }) {
     return issue(this);
@@ -1334,6 +1594,7 @@ class _$PaymentIssueImpl implements PaymentIssue {
     TResult? Function(PaymentConfirmed value)? confirmed,
     TResult? Function(PaymentAlreadySettled value)? alreadySettled,
     TResult? Function(PaymentFailed value)? failed,
+    TResult? Function(PaymentNeedsAction value)? needsAction,
     TResult? Function(PaymentIssue value)? issue,
   }) {
     return issue?.call(this);
@@ -1349,6 +1610,7 @@ class _$PaymentIssueImpl implements PaymentIssue {
     TResult Function(PaymentConfirmed value)? confirmed,
     TResult Function(PaymentAlreadySettled value)? alreadySettled,
     TResult Function(PaymentFailed value)? failed,
+    TResult Function(PaymentNeedsAction value)? needsAction,
     TResult Function(PaymentIssue value)? issue,
     required TResult orElse(),
   }) {

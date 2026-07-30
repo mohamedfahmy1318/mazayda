@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../auctions/domain/entities/auction.dart';
 import '../cubit/payment_flow_cubit.dart';
 import '../widgets/acknowledge_sheet.dart';
@@ -115,6 +117,18 @@ class PaymentFlow {
           // رسالة السيرفر مترجمة أصلًا من الباك.
           hideLoader();
           if (context.mounted) _snack(context, message, AppColors.danger);
+          if (!done.isCompleted) done.complete();
+        case PaymentNeedsAction(:final target, :final message):
+          // رفض المستخدم يقدر يحلّه (توثيق / سجل تجاري) — نعرض سبب السيرفر
+          // ونوديه للشاشة الصح بدل ما نسيبه على رسالة من غير مخرج.
+          hideLoader();
+          if (context.mounted) {
+            _snack(context, message, AppColors.warning);
+            context.push(switch (target) {
+              PaymentRedirect.kyc => Routes.kyc,
+              PaymentRedirect.commercialRegister => Routes.commercialRegister,
+            });
+          }
           if (!done.isCompleted) done.complete();
         case PaymentIssue(:final issue):
           hideLoader();

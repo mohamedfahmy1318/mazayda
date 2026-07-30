@@ -1,15 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
 /// يدير الـ Push notifications:
 /// - يطلب الإذن ويجلب الـ FCM token (نرسله للسيرفر لربطه بالمستخدم).
 /// - يعرض الإشعار محليًا والتطبيق مفتوح (foreground) عبر flutter_local_notifications.
+///
+/// ⚠️ Firebase اختياري (شوف `_initFirebase` في main.dart): لو `google-services.json`
+/// ناقص، التطبيق يكمل بدون Push. عشان كده **ممنوع** نلمس
+/// `FirebaseMessaging.instance` في تعريف الحقول — الوصول له قبل
+/// `Firebase.initializeApp` يرمي `[core/no-app]` وقت بناء الكائن، وده يكسر
+/// كل الـ DI اللي معتمد عليه (DeviceRegistrar → AuthRepository → CheckSession).
+/// بدلها نجيبه كسول ومحميّ، وكل العمليات تبقى no-op لو Firebase مش جاهز.
 @lazySingleton
 class PushNotificationService {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _local =
       FlutterLocalNotificationsPlugin();
+
+  /// `Firebase.apps` آمنة للقراءة قبل التهيئة (ترجع قائمة فاضية).
+  static bool get isAvailable => Firebase.apps.isNotEmpty;
+
+  FirebaseMessaging? get _messaging =>
+      isAvailable ? FirebaseMessaging.instance : null;
 
   // قناة أندرويد للإشعارات المهمة (مزايدة/فوز/دفع)
   static const _channel = AndroidNotificationChannel(
@@ -21,8 +35,14 @@ class PushNotificationService {
 
   /// تهيئة كاملة — تُستدعى مرة عند بدء التطبيق بعد Firebase.initializeApp.
   Future<void> init() async {
+    final fcm = _messaging;
+    if (fcm == null) {
+      debugPrint('⚠️ Firebase غير مُهيّأ — تم تخطّي تهيئة الإشعارات.');
+      return;
+    }
+
     // 1) طلب الإذن (iOS + Android 13+)
-    await _fcm.requestPermission(alert: true, badge: true, sound: true);
+    await fcm.requestPermission(alert: true, badge: true, sound: true);
 
     // 2) إعداد عرض الإشعارات المحلية
     const androidInit =
@@ -42,7 +62,18 @@ class PushNotificationService {
   }
 
   /// الـ FCM token — أرسله لـ backend لربطه بحساب المستخدم.
-  Future<String?> getToken() => _fcm.getToken();
+  /// يرجّع `null` لو Firebase مش مُهيّأ (DeviceRegistrar بيتعامل مع ده عادي).
+  Future<String?> getToken() async {
+    final fcm = _messaging;
+    if (fcm == null) return null;
+    return fcm.getToken();
+  }
+
+  /// FCM بيدوّر التوكن من نفسه (إعادة تثبيت، مسح بيانات، ترقية…).
+  ///
+  /// التوكن القديم بيبقى ميّت والإشعارات بتتوقف بصمت، فلازم نعيد التسجيل
+  /// مع كل تدوير. `null` لو Firebase مش مُهيّأ.
+  Stream<String>? get onTokenRefresh => _messaging?.onTokenRefresh;
 
   /// عرض إشعار محلي من رسالة FCM واردة (foreground).
   void _showLocal(RemoteMessage message) {

@@ -219,7 +219,31 @@ mixin _$ProfileModel {
   String? get postalCode => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
   String? get locale => throw _privateConstructorUsedError;
-  String? get role => throw _privateConstructorUsedError;
+  String? get role =>
+      throw _privateConstructorUsedError; // ===== حقول التعبئة المسبقة للـ KYC (BE-8) =====
+  @JsonKey(name: 'wilaya_id')
+  int? get wilayaId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'birth_date')
+  String? get birthDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'birth_place')
+  String? get birthPlace => throw _privateConstructorUsedError;
+  @JsonKey(name: 'father_name')
+  String? get fatherName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mother_name')
+  String? get motherName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mother_surname')
+  String? get motherSurname => throw _privateConstructorUsedError;
+  @JsonKey(name: 'expected_income')
+  int? get expectedIncome => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id_card_number')
+  String? get idCardNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'passport_number')
+  String? get passportNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'license_number')
+  String? get licenseNumber => throw _privateConstructorUsedError;
+  String? get rip => throw _privateConstructorUsedError;
+  String? get nif => throw _privateConstructorUsedError;
+  String? get nis => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_status')
   String? get accountStatus => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_type')
@@ -283,6 +307,19 @@ abstract class $ProfileModelCopyWith<$Res> {
     String? profession,
     String? locale,
     String? role,
+    @JsonKey(name: 'wilaya_id') int? wilayaId,
+    @JsonKey(name: 'birth_date') String? birthDate,
+    @JsonKey(name: 'birth_place') String? birthPlace,
+    @JsonKey(name: 'father_name') String? fatherName,
+    @JsonKey(name: 'mother_name') String? motherName,
+    @JsonKey(name: 'mother_surname') String? motherSurname,
+    @JsonKey(name: 'expected_income') int? expectedIncome,
+    @JsonKey(name: 'id_card_number') String? idCardNumber,
+    @JsonKey(name: 'passport_number') String? passportNumber,
+    @JsonKey(name: 'license_number') String? licenseNumber,
+    String? rip,
+    String? nif,
+    String? nis,
     @JsonKey(name: 'account_status') String? accountStatus,
     @JsonKey(name: 'account_type') String? accountType,
     @JsonKey(name: 'is_institution') bool isInstitution,
@@ -334,6 +371,19 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? profession = freezed,
     Object? locale = freezed,
     Object? role = freezed,
+    Object? wilayaId = freezed,
+    Object? birthDate = freezed,
+    Object? birthPlace = freezed,
+    Object? fatherName = freezed,
+    Object? motherName = freezed,
+    Object? motherSurname = freezed,
+    Object? expectedIncome = freezed,
+    Object? idCardNumber = freezed,
+    Object? passportNumber = freezed,
+    Object? licenseNumber = freezed,
+    Object? rip = freezed,
+    Object? nif = freezed,
+    Object? nis = freezed,
     Object? accountStatus = freezed,
     Object? accountType = freezed,
     Object? isInstitution = null,
@@ -411,6 +461,58 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
             role: freezed == role
                 ? _value.role
                 : role // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            wilayaId: freezed == wilayaId
+                ? _value.wilayaId
+                : wilayaId // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            birthDate: freezed == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            birthPlace: freezed == birthPlace
+                ? _value.birthPlace
+                : birthPlace // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            fatherName: freezed == fatherName
+                ? _value.fatherName
+                : fatherName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            motherName: freezed == motherName
+                ? _value.motherName
+                : motherName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            motherSurname: freezed == motherSurname
+                ? _value.motherSurname
+                : motherSurname // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            expectedIncome: freezed == expectedIncome
+                ? _value.expectedIncome
+                : expectedIncome // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            idCardNumber: freezed == idCardNumber
+                ? _value.idCardNumber
+                : idCardNumber // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            passportNumber: freezed == passportNumber
+                ? _value.passportNumber
+                : passportNumber // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            licenseNumber: freezed == licenseNumber
+                ? _value.licenseNumber
+                : licenseNumber // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            rip: freezed == rip
+                ? _value.rip
+                : rip // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            nif: freezed == nif
+                ? _value.nif
+                : nif // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            nis: freezed == nis
+                ? _value.nis
+                : nis // ignore: cast_nullable_to_non_nullable
                       as String?,
             accountStatus: freezed == accountStatus
                 ? _value.accountStatus
@@ -517,6 +619,19 @@ abstract class _$$ProfileModelImplCopyWith<$Res>
     String? profession,
     String? locale,
     String? role,
+    @JsonKey(name: 'wilaya_id') int? wilayaId,
+    @JsonKey(name: 'birth_date') String? birthDate,
+    @JsonKey(name: 'birth_place') String? birthPlace,
+    @JsonKey(name: 'father_name') String? fatherName,
+    @JsonKey(name: 'mother_name') String? motherName,
+    @JsonKey(name: 'mother_surname') String? motherSurname,
+    @JsonKey(name: 'expected_income') int? expectedIncome,
+    @JsonKey(name: 'id_card_number') String? idCardNumber,
+    @JsonKey(name: 'passport_number') String? passportNumber,
+    @JsonKey(name: 'license_number') String? licenseNumber,
+    String? rip,
+    String? nif,
+    String? nis,
     @JsonKey(name: 'account_status') String? accountStatus,
     @JsonKey(name: 'account_type') String? accountType,
     @JsonKey(name: 'is_institution') bool isInstitution,
@@ -568,6 +683,19 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
     Object? profession = freezed,
     Object? locale = freezed,
     Object? role = freezed,
+    Object? wilayaId = freezed,
+    Object? birthDate = freezed,
+    Object? birthPlace = freezed,
+    Object? fatherName = freezed,
+    Object? motherName = freezed,
+    Object? motherSurname = freezed,
+    Object? expectedIncome = freezed,
+    Object? idCardNumber = freezed,
+    Object? passportNumber = freezed,
+    Object? licenseNumber = freezed,
+    Object? rip = freezed,
+    Object? nif = freezed,
+    Object? nis = freezed,
     Object? accountStatus = freezed,
     Object? accountType = freezed,
     Object? isInstitution = null,
@@ -645,6 +773,58 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
         role: freezed == role
             ? _value.role
             : role // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        wilayaId: freezed == wilayaId
+            ? _value.wilayaId
+            : wilayaId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        birthDate: freezed == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        birthPlace: freezed == birthPlace
+            ? _value.birthPlace
+            : birthPlace // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        fatherName: freezed == fatherName
+            ? _value.fatherName
+            : fatherName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        motherName: freezed == motherName
+            ? _value.motherName
+            : motherName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        motherSurname: freezed == motherSurname
+            ? _value.motherSurname
+            : motherSurname // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        expectedIncome: freezed == expectedIncome
+            ? _value.expectedIncome
+            : expectedIncome // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        idCardNumber: freezed == idCardNumber
+            ? _value.idCardNumber
+            : idCardNumber // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        passportNumber: freezed == passportNumber
+            ? _value.passportNumber
+            : passportNumber // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        licenseNumber: freezed == licenseNumber
+            ? _value.licenseNumber
+            : licenseNumber // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        rip: freezed == rip
+            ? _value.rip
+            : rip // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        nif: freezed == nif
+            ? _value.nif
+            : nif // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        nis: freezed == nis
+            ? _value.nis
+            : nis // ignore: cast_nullable_to_non_nullable
                   as String?,
         accountStatus: freezed == accountStatus
             ? _value.accountStatus
@@ -730,6 +910,19 @@ class _$ProfileModelImpl extends _ProfileModel {
     this.profession,
     this.locale,
     this.role,
+    @JsonKey(name: 'wilaya_id') this.wilayaId,
+    @JsonKey(name: 'birth_date') this.birthDate,
+    @JsonKey(name: 'birth_place') this.birthPlace,
+    @JsonKey(name: 'father_name') this.fatherName,
+    @JsonKey(name: 'mother_name') this.motherName,
+    @JsonKey(name: 'mother_surname') this.motherSurname,
+    @JsonKey(name: 'expected_income') this.expectedIncome,
+    @JsonKey(name: 'id_card_number') this.idCardNumber,
+    @JsonKey(name: 'passport_number') this.passportNumber,
+    @JsonKey(name: 'license_number') this.licenseNumber,
+    this.rip,
+    this.nif,
+    this.nis,
     @JsonKey(name: 'account_status') this.accountStatus,
     @JsonKey(name: 'account_type') this.accountType,
     @JsonKey(name: 'is_institution') this.isInstitution = false,
@@ -787,6 +980,43 @@ class _$ProfileModelImpl extends _ProfileModel {
   final String? locale;
   @override
   final String? role;
+  // ===== حقول التعبئة المسبقة للـ KYC (BE-8) =====
+  @override
+  @JsonKey(name: 'wilaya_id')
+  final int? wilayaId;
+  @override
+  @JsonKey(name: 'birth_date')
+  final String? birthDate;
+  @override
+  @JsonKey(name: 'birth_place')
+  final String? birthPlace;
+  @override
+  @JsonKey(name: 'father_name')
+  final String? fatherName;
+  @override
+  @JsonKey(name: 'mother_name')
+  final String? motherName;
+  @override
+  @JsonKey(name: 'mother_surname')
+  final String? motherSurname;
+  @override
+  @JsonKey(name: 'expected_income')
+  final int? expectedIncome;
+  @override
+  @JsonKey(name: 'id_card_number')
+  final String? idCardNumber;
+  @override
+  @JsonKey(name: 'passport_number')
+  final String? passportNumber;
+  @override
+  @JsonKey(name: 'license_number')
+  final String? licenseNumber;
+  @override
+  final String? rip;
+  @override
+  final String? nif;
+  @override
+  final String? nis;
   @override
   @JsonKey(name: 'account_status')
   final String? accountStatus;
@@ -834,7 +1064,7 @@ class _$ProfileModelImpl extends _ProfileModel {
 
   @override
   String toString() {
-    return 'ProfileModel(id: $id, ninMasked: $ninMasked, name: $name, firstNameAr: $firstNameAr, lastNameAr: $lastNameAr, firstNameFr: $firstNameFr, lastNameFr: $lastNameFr, email: $email, phone: $phone, address: $address, communeId: $communeId, postalCode: $postalCode, profession: $profession, locale: $locale, role: $role, accountStatus: $accountStatus, accountType: $accountType, isInstitution: $isInstitution, entity: $entity, kycStatus: $kycStatus, commercialRegisterStatus: $commercialRegisterStatus, hasCommerceRegister: $hasCommerceRegister, emailVerified: $emailVerified, phoneVerified: $phoneVerified, secretQuestion: $secretQuestion, hasSecretQuestion: $hasSecretQuestion, isKycComplete: $isKycComplete, canBid: $canBid, isPremium: $isPremium, isBlacklisted: $isBlacklisted)';
+    return 'ProfileModel(id: $id, ninMasked: $ninMasked, name: $name, firstNameAr: $firstNameAr, lastNameAr: $lastNameAr, firstNameFr: $firstNameFr, lastNameFr: $lastNameFr, email: $email, phone: $phone, address: $address, communeId: $communeId, postalCode: $postalCode, profession: $profession, locale: $locale, role: $role, wilayaId: $wilayaId, birthDate: $birthDate, birthPlace: $birthPlace, fatherName: $fatherName, motherName: $motherName, motherSurname: $motherSurname, expectedIncome: $expectedIncome, idCardNumber: $idCardNumber, passportNumber: $passportNumber, licenseNumber: $licenseNumber, rip: $rip, nif: $nif, nis: $nis, accountStatus: $accountStatus, accountType: $accountType, isInstitution: $isInstitution, entity: $entity, kycStatus: $kycStatus, commercialRegisterStatus: $commercialRegisterStatus, hasCommerceRegister: $hasCommerceRegister, emailVerified: $emailVerified, phoneVerified: $phoneVerified, secretQuestion: $secretQuestion, hasSecretQuestion: $hasSecretQuestion, isKycComplete: $isKycComplete, canBid: $canBid, isPremium: $isPremium, isBlacklisted: $isBlacklisted)';
   }
 
   @override
@@ -865,6 +1095,29 @@ class _$ProfileModelImpl extends _ProfileModel {
                 other.profession == profession) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.role, role) || other.role == role) &&
+            (identical(other.wilayaId, wilayaId) ||
+                other.wilayaId == wilayaId) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.birthPlace, birthPlace) ||
+                other.birthPlace == birthPlace) &&
+            (identical(other.fatherName, fatherName) ||
+                other.fatherName == fatherName) &&
+            (identical(other.motherName, motherName) ||
+                other.motherName == motherName) &&
+            (identical(other.motherSurname, motherSurname) ||
+                other.motherSurname == motherSurname) &&
+            (identical(other.expectedIncome, expectedIncome) ||
+                other.expectedIncome == expectedIncome) &&
+            (identical(other.idCardNumber, idCardNumber) ||
+                other.idCardNumber == idCardNumber) &&
+            (identical(other.passportNumber, passportNumber) ||
+                other.passportNumber == passportNumber) &&
+            (identical(other.licenseNumber, licenseNumber) ||
+                other.licenseNumber == licenseNumber) &&
+            (identical(other.rip, rip) || other.rip == rip) &&
+            (identical(other.nif, nif) || other.nif == nif) &&
+            (identical(other.nis, nis) || other.nis == nis) &&
             (identical(other.accountStatus, accountStatus) ||
                 other.accountStatus == accountStatus) &&
             (identical(other.accountType, accountType) ||
@@ -917,6 +1170,19 @@ class _$ProfileModelImpl extends _ProfileModel {
     profession,
     locale,
     role,
+    wilayaId,
+    birthDate,
+    birthPlace,
+    fatherName,
+    motherName,
+    motherSurname,
+    expectedIncome,
+    idCardNumber,
+    passportNumber,
+    licenseNumber,
+    rip,
+    nif,
+    nis,
     accountStatus,
     accountType,
     isInstitution,
@@ -965,6 +1231,19 @@ abstract class _ProfileModel extends ProfileModel {
     final String? profession,
     final String? locale,
     final String? role,
+    @JsonKey(name: 'wilaya_id') final int? wilayaId,
+    @JsonKey(name: 'birth_date') final String? birthDate,
+    @JsonKey(name: 'birth_place') final String? birthPlace,
+    @JsonKey(name: 'father_name') final String? fatherName,
+    @JsonKey(name: 'mother_name') final String? motherName,
+    @JsonKey(name: 'mother_surname') final String? motherSurname,
+    @JsonKey(name: 'expected_income') final int? expectedIncome,
+    @JsonKey(name: 'id_card_number') final String? idCardNumber,
+    @JsonKey(name: 'passport_number') final String? passportNumber,
+    @JsonKey(name: 'license_number') final String? licenseNumber,
+    final String? rip,
+    final String? nif,
+    final String? nis,
     @JsonKey(name: 'account_status') final String? accountStatus,
     @JsonKey(name: 'account_type') final String? accountType,
     @JsonKey(name: 'is_institution') final bool isInstitution,
@@ -1023,7 +1302,43 @@ abstract class _ProfileModel extends ProfileModel {
   @override
   String? get locale;
   @override
-  String? get role;
+  String? get role; // ===== حقول التعبئة المسبقة للـ KYC (BE-8) =====
+  @override
+  @JsonKey(name: 'wilaya_id')
+  int? get wilayaId;
+  @override
+  @JsonKey(name: 'birth_date')
+  String? get birthDate;
+  @override
+  @JsonKey(name: 'birth_place')
+  String? get birthPlace;
+  @override
+  @JsonKey(name: 'father_name')
+  String? get fatherName;
+  @override
+  @JsonKey(name: 'mother_name')
+  String? get motherName;
+  @override
+  @JsonKey(name: 'mother_surname')
+  String? get motherSurname;
+  @override
+  @JsonKey(name: 'expected_income')
+  int? get expectedIncome;
+  @override
+  @JsonKey(name: 'id_card_number')
+  String? get idCardNumber;
+  @override
+  @JsonKey(name: 'passport_number')
+  String? get passportNumber;
+  @override
+  @JsonKey(name: 'license_number')
+  String? get licenseNumber;
+  @override
+  String? get rip;
+  @override
+  String? get nif;
+  @override
+  String? get nis;
   @override
   @JsonKey(name: 'account_status')
   String? get accountStatus;

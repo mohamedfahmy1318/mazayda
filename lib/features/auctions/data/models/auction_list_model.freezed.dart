@@ -49,16 +49,27 @@ mixin _$AuctionListModel {
   @JsonKey(name: 'is_biddable')
   bool get isBiddable => throw _privateConstructorUsedError;
   @JsonKey(name: 'has_ended')
-  bool get hasEnded => throw _privateConstructorUsedError; // ===== حقول لسه مش بيبعتها الباك — جاهزين ليها مسبقًا =====
-  // كلها nullable عن قصد: null = «غير معروف» مش «لا».
+  bool get hasEnded => throw _privateConstructorUsedError;
   @JsonKey(name: 'requires_commerce_register')
-  bool? get requiresCommerceRegister => throw _privateConstructorUsedError;
+  bool? get requiresCommerceRegister => throw _privateConstructorUsedError; // نتيجة الإقفال — null قبل ما المزاد يقفل.
+  @JsonKey(name: 'final_price')
+  MoneyModel? get finalPrice => throw _privateConstructorUsedError;
+  @JsonKey(name: 'closed_at')
+  String? get closedAt => throw _privateConstructorUsedError; // ===== حالة مشاركة المستخدم — `/my-auctions` فقط =====
+  // كلها nullable عن قصد: المفتاح بيغيب في باقي المسارات، وnull هنا
+  // معناها «مش معروف» مش «لا».
   @JsonKey(name: 'my_highest_bid')
   MoneyModel? get myHighestBid => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_winning')
   bool? get isWinning => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_winner')
+  bool? get isWinner => throw _privateConstructorUsedError;
   @JsonKey(name: 'deposit_paid')
   bool? get depositPaid => throw _privateConstructorUsedError;
+  @JsonKey(name: 'book_purchased')
+  bool? get bookPurchased => throw _privateConstructorUsedError;
+  @JsonKey(name: 'registered_at')
+  String? get registeredAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'final_payment_status')
   String? get finalPaymentStatus => throw _privateConstructorUsedError;
 
@@ -98,9 +109,14 @@ abstract class $AuctionListModelCopyWith<$Res> {
     @JsonKey(name: 'is_biddable') bool isBiddable,
     @JsonKey(name: 'has_ended') bool hasEnded,
     @JsonKey(name: 'requires_commerce_register') bool? requiresCommerceRegister,
+    @JsonKey(name: 'final_price') MoneyModel? finalPrice,
+    @JsonKey(name: 'closed_at') String? closedAt,
     @JsonKey(name: 'my_highest_bid') MoneyModel? myHighestBid,
     @JsonKey(name: 'is_winning') bool? isWinning,
+    @JsonKey(name: 'is_winner') bool? isWinner,
     @JsonKey(name: 'deposit_paid') bool? depositPaid,
+    @JsonKey(name: 'book_purchased') bool? bookPurchased,
+    @JsonKey(name: 'registered_at') String? registeredAt,
     @JsonKey(name: 'final_payment_status') String? finalPaymentStatus,
   });
 
@@ -108,6 +124,7 @@ abstract class $AuctionListModelCopyWith<$Res> {
   $WilayaRefModelCopyWith<$Res>? get wilaya;
   $MoneyModelCopyWith<$Res>? get openingPrice;
   $MoneyModelCopyWith<$Res>? get currentPrice;
+  $MoneyModelCopyWith<$Res>? get finalPrice;
   $MoneyModelCopyWith<$Res>? get myHighestBid;
 }
 
@@ -144,9 +161,14 @@ class _$AuctionListModelCopyWithImpl<$Res, $Val extends AuctionListModel>
     Object? isBiddable = null,
     Object? hasEnded = null,
     Object? requiresCommerceRegister = freezed,
+    Object? finalPrice = freezed,
+    Object? closedAt = freezed,
     Object? myHighestBid = freezed,
     Object? isWinning = freezed,
+    Object? isWinner = freezed,
     Object? depositPaid = freezed,
+    Object? bookPurchased = freezed,
+    Object? registeredAt = freezed,
     Object? finalPaymentStatus = freezed,
   }) {
     return _then(
@@ -223,6 +245,14 @@ class _$AuctionListModelCopyWithImpl<$Res, $Val extends AuctionListModel>
                 ? _value.requiresCommerceRegister
                 : requiresCommerceRegister // ignore: cast_nullable_to_non_nullable
                       as bool?,
+            finalPrice: freezed == finalPrice
+                ? _value.finalPrice
+                : finalPrice // ignore: cast_nullable_to_non_nullable
+                      as MoneyModel?,
+            closedAt: freezed == closedAt
+                ? _value.closedAt
+                : closedAt // ignore: cast_nullable_to_non_nullable
+                      as String?,
             myHighestBid: freezed == myHighestBid
                 ? _value.myHighestBid
                 : myHighestBid // ignore: cast_nullable_to_non_nullable
@@ -231,10 +261,22 @@ class _$AuctionListModelCopyWithImpl<$Res, $Val extends AuctionListModel>
                 ? _value.isWinning
                 : isWinning // ignore: cast_nullable_to_non_nullable
                       as bool?,
+            isWinner: freezed == isWinner
+                ? _value.isWinner
+                : isWinner // ignore: cast_nullable_to_non_nullable
+                      as bool?,
             depositPaid: freezed == depositPaid
                 ? _value.depositPaid
                 : depositPaid // ignore: cast_nullable_to_non_nullable
                       as bool?,
+            bookPurchased: freezed == bookPurchased
+                ? _value.bookPurchased
+                : bookPurchased // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            registeredAt: freezed == registeredAt
+                ? _value.registeredAt
+                : registeredAt // ignore: cast_nullable_to_non_nullable
+                      as String?,
             finalPaymentStatus: freezed == finalPaymentStatus
                 ? _value.finalPaymentStatus
                 : finalPaymentStatus // ignore: cast_nullable_to_non_nullable
@@ -304,6 +346,20 @@ class _$AuctionListModelCopyWithImpl<$Res, $Val extends AuctionListModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $MoneyModelCopyWith<$Res>? get finalPrice {
+    if (_value.finalPrice == null) {
+      return null;
+    }
+
+    return $MoneyModelCopyWith<$Res>(_value.finalPrice!, (value) {
+      return _then(_value.copyWith(finalPrice: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AuctionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $MoneyModelCopyWith<$Res>? get myHighestBid {
     if (_value.myHighestBid == null) {
       return null;
@@ -343,9 +399,14 @@ abstract class _$$AuctionListModelImplCopyWith<$Res>
     @JsonKey(name: 'is_biddable') bool isBiddable,
     @JsonKey(name: 'has_ended') bool hasEnded,
     @JsonKey(name: 'requires_commerce_register') bool? requiresCommerceRegister,
+    @JsonKey(name: 'final_price') MoneyModel? finalPrice,
+    @JsonKey(name: 'closed_at') String? closedAt,
     @JsonKey(name: 'my_highest_bid') MoneyModel? myHighestBid,
     @JsonKey(name: 'is_winning') bool? isWinning,
+    @JsonKey(name: 'is_winner') bool? isWinner,
     @JsonKey(name: 'deposit_paid') bool? depositPaid,
+    @JsonKey(name: 'book_purchased') bool? bookPurchased,
+    @JsonKey(name: 'registered_at') String? registeredAt,
     @JsonKey(name: 'final_payment_status') String? finalPaymentStatus,
   });
 
@@ -357,6 +418,8 @@ abstract class _$$AuctionListModelImplCopyWith<$Res>
   $MoneyModelCopyWith<$Res>? get openingPrice;
   @override
   $MoneyModelCopyWith<$Res>? get currentPrice;
+  @override
+  $MoneyModelCopyWith<$Res>? get finalPrice;
   @override
   $MoneyModelCopyWith<$Res>? get myHighestBid;
 }
@@ -393,9 +456,14 @@ class __$$AuctionListModelImplCopyWithImpl<$Res>
     Object? isBiddable = null,
     Object? hasEnded = null,
     Object? requiresCommerceRegister = freezed,
+    Object? finalPrice = freezed,
+    Object? closedAt = freezed,
     Object? myHighestBid = freezed,
     Object? isWinning = freezed,
+    Object? isWinner = freezed,
     Object? depositPaid = freezed,
+    Object? bookPurchased = freezed,
+    Object? registeredAt = freezed,
     Object? finalPaymentStatus = freezed,
   }) {
     return _then(
@@ -472,6 +540,14 @@ class __$$AuctionListModelImplCopyWithImpl<$Res>
             ? _value.requiresCommerceRegister
             : requiresCommerceRegister // ignore: cast_nullable_to_non_nullable
                   as bool?,
+        finalPrice: freezed == finalPrice
+            ? _value.finalPrice
+            : finalPrice // ignore: cast_nullable_to_non_nullable
+                  as MoneyModel?,
+        closedAt: freezed == closedAt
+            ? _value.closedAt
+            : closedAt // ignore: cast_nullable_to_non_nullable
+                  as String?,
         myHighestBid: freezed == myHighestBid
             ? _value.myHighestBid
             : myHighestBid // ignore: cast_nullable_to_non_nullable
@@ -480,10 +556,22 @@ class __$$AuctionListModelImplCopyWithImpl<$Res>
             ? _value.isWinning
             : isWinning // ignore: cast_nullable_to_non_nullable
                   as bool?,
+        isWinner: freezed == isWinner
+            ? _value.isWinner
+            : isWinner // ignore: cast_nullable_to_non_nullable
+                  as bool?,
         depositPaid: freezed == depositPaid
             ? _value.depositPaid
             : depositPaid // ignore: cast_nullable_to_non_nullable
                   as bool?,
+        bookPurchased: freezed == bookPurchased
+            ? _value.bookPurchased
+            : bookPurchased // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        registeredAt: freezed == registeredAt
+            ? _value.registeredAt
+            : registeredAt // ignore: cast_nullable_to_non_nullable
+                  as String?,
         finalPaymentStatus: freezed == finalPaymentStatus
             ? _value.finalPaymentStatus
             : finalPaymentStatus // ignore: cast_nullable_to_non_nullable
@@ -515,9 +603,14 @@ class _$AuctionListModelImpl extends _AuctionListModel {
     @JsonKey(name: 'is_biddable') this.isBiddable = false,
     @JsonKey(name: 'has_ended') this.hasEnded = false,
     @JsonKey(name: 'requires_commerce_register') this.requiresCommerceRegister,
+    @JsonKey(name: 'final_price') this.finalPrice,
+    @JsonKey(name: 'closed_at') this.closedAt,
     @JsonKey(name: 'my_highest_bid') this.myHighestBid,
     @JsonKey(name: 'is_winning') this.isWinning,
+    @JsonKey(name: 'is_winner') this.isWinner,
     @JsonKey(name: 'deposit_paid') this.depositPaid,
+    @JsonKey(name: 'book_purchased') this.bookPurchased,
+    @JsonKey(name: 'registered_at') this.registeredAt,
     @JsonKey(name: 'final_payment_status') this.finalPaymentStatus,
   }) : super._();
 
@@ -570,11 +663,19 @@ class _$AuctionListModelImpl extends _AuctionListModel {
   @override
   @JsonKey(name: 'has_ended')
   final bool hasEnded;
-  // ===== حقول لسه مش بيبعتها الباك — جاهزين ليها مسبقًا =====
-  // كلها nullable عن قصد: null = «غير معروف» مش «لا».
   @override
   @JsonKey(name: 'requires_commerce_register')
   final bool? requiresCommerceRegister;
+  // نتيجة الإقفال — null قبل ما المزاد يقفل.
+  @override
+  @JsonKey(name: 'final_price')
+  final MoneyModel? finalPrice;
+  @override
+  @JsonKey(name: 'closed_at')
+  final String? closedAt;
+  // ===== حالة مشاركة المستخدم — `/my-auctions` فقط =====
+  // كلها nullable عن قصد: المفتاح بيغيب في باقي المسارات، وnull هنا
+  // معناها «مش معروف» مش «لا».
   @override
   @JsonKey(name: 'my_highest_bid')
   final MoneyModel? myHighestBid;
@@ -582,15 +683,24 @@ class _$AuctionListModelImpl extends _AuctionListModel {
   @JsonKey(name: 'is_winning')
   final bool? isWinning;
   @override
+  @JsonKey(name: 'is_winner')
+  final bool? isWinner;
+  @override
   @JsonKey(name: 'deposit_paid')
   final bool? depositPaid;
+  @override
+  @JsonKey(name: 'book_purchased')
+  final bool? bookPurchased;
+  @override
+  @JsonKey(name: 'registered_at')
+  final String? registeredAt;
   @override
   @JsonKey(name: 'final_payment_status')
   final String? finalPaymentStatus;
 
   @override
   String toString() {
-    return 'AuctionListModel(id: $id, title: $title, coverPhotoUrl: $coverPhotoUrl, status: $status, auctionType: $auctionType, assetClass: $assetClass, category: $category, wilaya: $wilaya, openingPrice: $openingPrice, currentPrice: $currentPrice, bidCount: $bidCount, startTime: $startTime, endTime: $endTime, secondsRemaining: $secondsRemaining, isLive: $isLive, isBiddable: $isBiddable, hasEnded: $hasEnded, requiresCommerceRegister: $requiresCommerceRegister, myHighestBid: $myHighestBid, isWinning: $isWinning, depositPaid: $depositPaid, finalPaymentStatus: $finalPaymentStatus)';
+    return 'AuctionListModel(id: $id, title: $title, coverPhotoUrl: $coverPhotoUrl, status: $status, auctionType: $auctionType, assetClass: $assetClass, category: $category, wilaya: $wilaya, openingPrice: $openingPrice, currentPrice: $currentPrice, bidCount: $bidCount, startTime: $startTime, endTime: $endTime, secondsRemaining: $secondsRemaining, isLive: $isLive, isBiddable: $isBiddable, hasEnded: $hasEnded, requiresCommerceRegister: $requiresCommerceRegister, finalPrice: $finalPrice, closedAt: $closedAt, myHighestBid: $myHighestBid, isWinning: $isWinning, isWinner: $isWinner, depositPaid: $depositPaid, bookPurchased: $bookPurchased, registeredAt: $registeredAt, finalPaymentStatus: $finalPaymentStatus)';
   }
 
   @override
@@ -631,12 +741,22 @@ class _$AuctionListModelImpl extends _AuctionListModel {
                   requiresCommerceRegister,
                 ) ||
                 other.requiresCommerceRegister == requiresCommerceRegister) &&
+            (identical(other.finalPrice, finalPrice) ||
+                other.finalPrice == finalPrice) &&
+            (identical(other.closedAt, closedAt) ||
+                other.closedAt == closedAt) &&
             (identical(other.myHighestBid, myHighestBid) ||
                 other.myHighestBid == myHighestBid) &&
             (identical(other.isWinning, isWinning) ||
                 other.isWinning == isWinning) &&
+            (identical(other.isWinner, isWinner) ||
+                other.isWinner == isWinner) &&
             (identical(other.depositPaid, depositPaid) ||
                 other.depositPaid == depositPaid) &&
+            (identical(other.bookPurchased, bookPurchased) ||
+                other.bookPurchased == bookPurchased) &&
+            (identical(other.registeredAt, registeredAt) ||
+                other.registeredAt == registeredAt) &&
             (identical(other.finalPaymentStatus, finalPaymentStatus) ||
                 other.finalPaymentStatus == finalPaymentStatus));
   }
@@ -663,9 +783,14 @@ class _$AuctionListModelImpl extends _AuctionListModel {
     isBiddable,
     hasEnded,
     requiresCommerceRegister,
+    finalPrice,
+    closedAt,
     myHighestBid,
     isWinning,
+    isWinner,
     depositPaid,
+    bookPurchased,
+    registeredAt,
     finalPaymentStatus,
   ]);
 
@@ -707,9 +832,14 @@ abstract class _AuctionListModel extends AuctionListModel {
     @JsonKey(name: 'has_ended') final bool hasEnded,
     @JsonKey(name: 'requires_commerce_register')
     final bool? requiresCommerceRegister,
+    @JsonKey(name: 'final_price') final MoneyModel? finalPrice,
+    @JsonKey(name: 'closed_at') final String? closedAt,
     @JsonKey(name: 'my_highest_bid') final MoneyModel? myHighestBid,
     @JsonKey(name: 'is_winning') final bool? isWinning,
+    @JsonKey(name: 'is_winner') final bool? isWinner,
     @JsonKey(name: 'deposit_paid') final bool? depositPaid,
+    @JsonKey(name: 'book_purchased') final bool? bookPurchased,
+    @JsonKey(name: 'registered_at') final String? registeredAt,
     @JsonKey(name: 'final_payment_status') final String? finalPaymentStatus,
   }) = _$AuctionListModelImpl;
   const _AuctionListModel._() : super._();
@@ -762,11 +892,18 @@ abstract class _AuctionListModel extends AuctionListModel {
   bool get isBiddable;
   @override
   @JsonKey(name: 'has_ended')
-  bool get hasEnded; // ===== حقول لسه مش بيبعتها الباك — جاهزين ليها مسبقًا =====
-  // كلها nullable عن قصد: null = «غير معروف» مش «لا».
+  bool get hasEnded;
   @override
   @JsonKey(name: 'requires_commerce_register')
-  bool? get requiresCommerceRegister;
+  bool? get requiresCommerceRegister; // نتيجة الإقفال — null قبل ما المزاد يقفل.
+  @override
+  @JsonKey(name: 'final_price')
+  MoneyModel? get finalPrice;
+  @override
+  @JsonKey(name: 'closed_at')
+  String? get closedAt; // ===== حالة مشاركة المستخدم — `/my-auctions` فقط =====
+  // كلها nullable عن قصد: المفتاح بيغيب في باقي المسارات، وnull هنا
+  // معناها «مش معروف» مش «لا».
   @override
   @JsonKey(name: 'my_highest_bid')
   MoneyModel? get myHighestBid;
@@ -774,8 +911,17 @@ abstract class _AuctionListModel extends AuctionListModel {
   @JsonKey(name: 'is_winning')
   bool? get isWinning;
   @override
+  @JsonKey(name: 'is_winner')
+  bool? get isWinner;
+  @override
   @JsonKey(name: 'deposit_paid')
   bool? get depositPaid;
+  @override
+  @JsonKey(name: 'book_purchased')
+  bool? get bookPurchased;
+  @override
+  @JsonKey(name: 'registered_at')
+  String? get registeredAt;
   @override
   @JsonKey(name: 'final_payment_status')
   String? get finalPaymentStatus;
