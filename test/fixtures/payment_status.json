@@ -1,0 +1,20 @@
+{
+  "ref": "01kysb65ep0ysr20qkzrva4hga",
+  "gateway_ref": "01kysb65ep0ysr20qkzrva4hga",
+  "confirmed": false,
+  "payments": [
+    {
+      "id": "a261cdf4-1041-480f-a345-30c6d5cad92b",
+      "type": "FINAL_PAYMENT",
+      "amount": {
+        "amount": 7385,
+        "formatted": "7 385 دج"
+      },
+      "status": "FAILED",
+      "gateway_ref": "01kysb65ep0ysr20qkzrva4hga",
+      "due_at": "2026-08-01T16:54:05+01:00",
+      "confirmed_at": null,
+      "created_at": "2026-07-30T12:05:08+01:00"
+    }
+  ]
+}

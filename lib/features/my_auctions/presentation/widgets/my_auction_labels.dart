@@ -51,12 +51,16 @@ extension MyAuctionBadgeX on MyAuctionBadge {
 
   /// عنوان السعر المعروض. للمزادات المقفولة بنعرض `final_price` الحقيقي
   /// (BE-6) عبر `AuctionListItem.resultPrice`.
+  ///
+  /// المزادات الشغّالة بتقول **«السعر الحالي»** مش «مزايدتك الحالية»: الرقم
+  /// ده سعر المزاد مش عرض المستخدم، وبقى فيه سطر منفصل لأعلى مزايدة له
+  /// (`my_highest_bid` من BE-3) — فالعنوان القديم بقى مضلّل جنبه.
   String priceLabel(AppLocalizations t) => switch (this) {
     MyAuctionBadge.live ||
     MyAuctionBadge.ended ||
     MyAuctionBadge.participating ||
     MyAuctionBadge.winning ||
-    MyAuctionBadge.outbid => t.myAuctionsPriceCurrentBid,
+    MyAuctionBadge.outbid => t.currentPrice,
     MyAuctionBadge.won || MyAuctionBadge.lost => t.myAuctionsPriceKnockdown,
     MyAuctionBadge.upcoming => t.openingPrice,
   };

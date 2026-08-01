@@ -1,0 +1,110 @@
+{
+  "summary": {
+    "net_revenue": {
+      "amount": 100,
+      "formatted": "100 دج"
+    },
+    "gross_confirmed": {
+      "amount": 200,
+      "formatted": "200 دج"
+    },
+    "final_payments": {
+      "amount": 0,
+      "formatted": "0 دج"
+    },
+    "deposits_held": {
+      "amount": 100,
+      "formatted": "100 دج"
+    },
+    "book_sales": {
+      "amount": 100,
+      "formatted": "100 دج"
+    },
+    "refunded": {
+      "amount": 0,
+      "formatted": "0 دج"
+    },
+    "forfeited": {
+      "amount": 0,
+      "formatted": "0 دج"
+    },
+    "pending": {
+      "amount": 2000,
+      "formatted": "2 000 دج"
+    },
+    "failed_count": 2,
+    "txn_count": 6,
+    "avg_txn": {
+      "amount": 700,
+      "formatted": "700 دج"
+    }
+  },
+  "by_type": [
+    {
+      "label": "كراسة شروط",
+      "total": {
+        "amount": 100,
+        "formatted": "100 دج"
+      },
+      "cnt": 1
+    },
+    {
+      "label": "كفالة",
+      "total": {
+        "amount": 100,
+        "formatted": "100 دج"
+      },
+      "cnt": 1
+    }
+  ],
+  "by_status": [
+    {
+      "status": "FAILED",
+      "label": "فاشل",
+      "total": {
+        "amount": 2000,
+        "formatted": "2 000 دج"
+      },
+      "cnt": 2
+    },
+    {
+      "status": "PENDING",
+      "label": "قيد الانتظار",
+      "total": {
+        "amount": 2000,
+        "formatted": "2 000 دج"
+      },
+      "cnt": 2
+    },
+    {
+      "status": "CONFIRMED",
+      "label": "مؤكَّد",
+      "total": {
+        "amount": 200,
+        "formatted": "200 دج"
+      },
+      "cnt": 2
+    }
+  ],
+  "by_category": [
+    {
+      "name": "مركبات",
+      "total": {
+        "amount": 200,
+        "formatted": "200 دج"
+      }
+    }
+  ],
+  "by_wilaya": [],
+  "by_entity": [],
+  "series": {
+    "categories": [
+      "2026-07"
+    ],
+    "data": [
+      200
+    ],
+    "unit": "DZD"
+  },
+  "fees": null
+}

@@ -1,0 +1,137 @@
+{
+  "data": {
+    "id": "a24be9e2-5c28-421c-8c70-ab18ef5640a4",
+    "title": "اختبار",
+    "titles": {
+      "ar": "اختبار",
+      "fr": "car",
+      "en": null
+    },
+    "description": "نصنينصيونصي",
+    "descriptions": {
+      "ar": "نصنينصيونصي",
+      "fr": "wdjndwdnjwd"
+    },
+    "specifications": [
+      {
+        "title": "هنبثص",
+        "body": "بصثبص",
+        "titles": {
+          "ar": "هنبثص",
+          "fr": "wdwdw"
+        },
+        "bodies": {
+          "ar": "بصثبص",
+          "fr": "dwwdw"
+        }
+      }
+    ],
+    "status": "CLOSED",
+    "auction_type": "SALE",
+    "asset_class": "MOVABLE",
+    "condition": "NEW",
+    "unit_count": 1,
+    "condition_terms": "صنمتيصتنينرتصيتصضرتنيضنتبضربنتضب",
+    "award_terms": "التنمضصينبترثسزايد",
+    "category": {
+      "id": 1,
+      "name": "مركبات"
+    },
+    "wilaya": {
+      "id": 1,
+      "code": "01",
+      "name": "أدرار"
+    },
+    "commune": {
+      "id": 1,
+      "name": "أدرار"
+    },
+    "entity": {
+      "id": "a1dcc2ab-efdb-4811-b78d-270ffc83ba5b",
+      "name": "المجلس الشعبي البلدي لخنشلة"
+    },
+    "asset_location": null,
+    "latitude": null,
+    "longitude": null,
+    "mayor_name": null,
+    "photos": [
+      "https://mazayada.findosystem.com/storage/auctions/a24be9e2-5c28-421c-8c70-ab18ef5640a4/Rl5SkaS9gG2t9FxiQrQHcV50JAm8tMXjz71GcLTQ.png"
+    ],
+    "cover_photo_url": "https://mazayada.findosystem.com/storage/auctions/a24be9e2-5c28-421c-8c70-ab18ef5640a4/Rl5SkaS9gG2t9FxiQrQHcV50JAm8tMXjz71GcLTQ.png",
+    "video_url": null,
+    "opening_price": {
+      "amount": 1000,
+      "formatted": "1 000 دج"
+    },
+    "current_price": {
+      "amount": 5567,
+      "formatted": "5 567 دج"
+    },
+    "deposit_amount": {
+      "amount": 100,
+      "formatted": "100 دج"
+    },
+    "deposit_percent": 10,
+    "book_price": {
+      "amount": 100,
+      "formatted": "100 دج"
+    },
+    "has_book_access": true,
+    "bid_count": 2,
+    "start_time": "2026-07-19T16:54:00+01:00",
+    "end_time": "2026-07-24T16:54:00+01:00",
+    "seconds_remaining": 0,
+    "is_live": false,
+    "is_biddable": false,
+    "has_ended": false,
+    "extension_count": 0,
+    "max_extensions": 10,
+    "inspection": {
+      "start": "2026-07-19T16:54:00+01:00",
+      "end": "2026-07-23T16:54:00+01:00",
+      "location": null,
+      "is_open": false
+    },
+    "appeal_window": {
+      "days": 8,
+      "is_open": true,
+      "deadline": "2026-08-01T16:54:05+01:00"
+    },
+    "requires_commerce_register": false,
+    "requires_newspaper_announcement": false,
+    "winner_alias": "Swift_Star_33",
+    "final_price": {
+      "amount": 5567,
+      "formatted": "5 567 دج"
+    },
+    "condition_book": {
+      "id": "17995024-f608-4bb0-8af6-29e3235683e4",
+      "type": "CONDITION_BOOK",
+      "type_label": "كراسة الشروط",
+      "title": "كراسة شروط — اختبار",
+      "is_public": false,
+      "file_size": 55005,
+      "file_size_human": "53.7 KB",
+      "issued_at": "2026-07-19T14:56:01+01:00",
+      "download_url": "https://mazayada.findosystem.com/api/v1/documents/17995024-f608-4bb0-8af6-29e3235683e4/download",
+      "verify_url": "https://mazayada.findosystem.com/verify?doc=17995024-f608-4bb0-8af6-29e3235683e4&sig=9f6743197fb3bd74996932cac8b9bd2223d4e70eda930ffd5e3506f648043b3b"
+    },
+    "award_document": null
+  },
+  "message": null,
+  "meta": {
+    "viewer": {
+      "can_bid": true,
+      "is_participant": true,
+      "has_commerce_register": false,
+      "commerce_register_blocked": false,
+      "has_book_access": true,
+      "book_purchased": true,
+      "deposit_paid": true,
+      "is_winner": true,
+      "can_appeal": true,
+      "existing_appeal": null,
+      "has_final_payment": false
+    }
+  }
+}
