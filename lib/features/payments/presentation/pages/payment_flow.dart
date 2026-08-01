@@ -16,9 +16,13 @@ import 'payment_webview_page.dart';
 /// يفتح اشتراكًا واحدًا على الـ cubit يعيش طول الـ flow (قد يمرّ ببوابتين
 /// متتاليتين: كراس الشروط ثم التسجيل)، ويفتح WebView لكل [PaymentOpenGateway]،
 /// ثم يستطلع الحالة بعد رجوع كل واحدة، لحد ما يصل لحالة نهائية.
+///
+/// بيرجّع `true` لو حالة المزاد على السيرفر اتغيّرت (اتدفع / طلع إنه مدفوع
+/// أصلًا) — اللي بيستدعي لازم يعيد تحميل المزاد ساعتها، وإلا الشاشة بتفضل
+/// بتعرض «سجّل وادفع» لحد ما التطبيق يتقفل ويتفتح.
 class PaymentFlow {
   /// flow التسجيل في المزاد: موافقة (bottom sheet) ← بوابة/بوابتين ← تأكيد.
-  static Future<void> startRegistration(
+  static Future<bool> startRegistration(
     BuildContext context,
     Auction auction,
   ) async {
@@ -38,10 +42,10 @@ class PaymentFlow {
     // قفل الشيت بدون بدء الـ flow — لا ننتظر شيئًا معلّقًا.
     if (proceed != true || !context.mounted) {
       await cubit.close();
-      return;
+      return false;
     }
 
-    await _runFlow(
+    return _runFlow(
       context,
       cubit,
       () => cubit.startRegistration(auction.id, auction.hasBookAccess),
@@ -49,16 +53,16 @@ class PaymentFlow {
   }
 
   /// flow الدفع النهائي للفائز — بوابة واحدة بدون sheet.
-  static Future<void> startFinalPayment(
+  static Future<bool> startFinalPayment(
     BuildContext context,
     String auctionId,
   ) async {
     final cubit = getIt<PaymentFlowCubit>();
-    await _runFlow(context, cubit, () => cubit.startFinalPayment(auctionId));
+    return _runFlow(context, cubit, () => cubit.startFinalPayment(auctionId));
   }
 
   /// اشتراك واحد يعيش طول الـ flow لحد حالة نهائية (confirmed/failed).
-  static Future<void> _runFlow(
+  static Future<bool> _runFlow(
     BuildContext context,
     PaymentFlowCubit cubit,
     Future<void> Function() start,
@@ -77,6 +81,8 @@ class PaymentFlow {
     }
 
     final done = Completer<void>();
+    // اتغيّرت حالة المزاد على السيرفر؟ اللي بيستدعي بيعيد التحميل بناءً عليها.
+    var changed = false;
 
     final sub = cubit.stream.listen((state) async {
       switch (state) {
@@ -86,7 +92,7 @@ class PaymentFlow {
         case PaymentOpenGateway(:final url, :final ref):
           hideLoader();
           if (!context.mounted) {
-            cubit.cancel();
+            await cubit.cancel(ref);
             return;
           }
           // بوابة الدفع — WebView يرجّع true لو نجح الدفع، غير كده إلغاء.
@@ -99,16 +105,20 @@ class PaymentFlow {
           if (paid == true) {
             cubit.confirmAfterGateway(ref);
           } else {
-            cubit.cancel();
+            // مش بالضرورة إلغاء — الـ cubit بيسأل السيرفر الأول، لأن الدفعة
+            // بتتأكّد بـ webhook مستقل عن الـ WebView.
+            cubit.cancel(ref);
           }
         case PaymentConfirmed():
           hideLoader();
+          changed = true;
           if (context.mounted) {
             _snack(context, _t(context).paymentSuccess, AppColors.success);
           }
           if (!done.isCompleted) done.complete();
         case PaymentAlreadySettled():
           hideLoader();
+          changed = true;
           if (context.mounted) {
             _snack(context, _t(context).paymentAlreadyDone, AppColors.info);
           }
@@ -146,6 +156,7 @@ class PaymentFlow {
     hideLoader();
     await sub.cancel();
     await cubit.close();
+    return changed;
   }
 
   static AppLocalizations _t(BuildContext ctx) => AppLocalizations.of(ctx);

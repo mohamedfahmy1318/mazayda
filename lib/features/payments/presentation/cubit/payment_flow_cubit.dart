@@ -167,7 +167,7 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
     }
   }
 
-  /// بعد رجوع الـ WebView: أكّد الخطوة الحالية ثم انتقل للي بعدها أو أنهِ.
+  /// بعد رجوع الـ WebView بنجاح: أكّد الخطوة الحالية ثم انتقل للي بعدها أو أنهِ.
   ///
   /// كل الخطوات بتتأكد بـ `payments/{ref}/status`، اللي بيقبل `gateway_ref`
   /// أو `payment id` (BE-13) — فالـ ref اللي رجع من بدء الدفع كفاية.
@@ -175,40 +175,56 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
   /// ⚠️ مبنعتمدش على `has_book_access` من المزاد للتأكيد: الحقل بيتحدّث بعد
   /// الـ webhook، فممكن يكون لسه قديم في اللحظة اللي بنرجع فيها من البوابة.
   /// حالة الدفعة نفسها هي المصدر الوحيد.
-  Future<void> confirmAfterGateway(String ref) async {
+  Future<void> confirmAfterGateway(String ref) =>
+      _settle(ref, attempts: 5, gatewaySaidPaid: true);
+
+  /// الـ WebView قفل من غير نجاح صريح: المستخدم رجع، أو صفحة البوابة فشلت
+  /// في التحميل (ATS / 404 / انقطاع شبكة).
+  ///
+  /// ⚠️ ده **مش** دليل إن الدفع ما تمّش. الدفعة بتتأكّد بـ webhook موقّع من
+  /// البوابة بره دورة الـ WebView خالص، فممكن تكون اتأكّدت والصفحة وقعت في
+  /// طريق الرجوع. من غير الاستطلاع ده كنا بنقول للمستخدم «اتلغى» وهو دافع —
+  /// وميعرفش غير لما يفتح التطبيق تاني. بنسأل السيرفر الأول.
+  Future<void> cancel(String ref) =>
+      _settle(ref, attempts: 2, gatewaySaidPaid: false);
+
+  /// ينهي الـ flow حسب حالة الدفعة على السيرفر.
+  ///
+  /// [gatewaySaidPaid] بيغيّر التفسير لما الاستطلاع مايأكّدش: لو البوابة قالت
+  /// نجاح يبقى فيه مشكلة حقيقية نبلّغ عنها، ولو الصفحة اتقفلت من غير نتيجة
+  /// يبقى ده إلغاء عادي.
+  Future<void> _settle(
+    String ref, {
+    required int attempts,
+    required bool gatewaySaidPaid,
+  }) async {
+    if (isClosed) return;
     emit(const PaymentFlowState.polling());
 
+    final confirmed = await _pollConfirmed(ref, attempts: attempts);
+    if (isClosed) return;
+
+    if (!confirmed) {
+      emit(
+        PaymentFlowState.issue(
+          !gatewaySaidPaid
+              ? PaymentFlowIssue.cancelled
+              : _step == _FlowStep.buyBook
+              ? PaymentFlowIssue.bookNotConfirmed
+              : PaymentFlowIssue.paymentNotConfirmed,
+        ),
+      );
+      return;
+    }
+
+    // اتأكّد شراء الكراس — ننتقل تلقائيًا لبوابة التسجيل.
     if (_step == _FlowStep.buyBook) {
-      final bought = await _pollConfirmed(ref);
-      if (isClosed) return;
-      if (!bought) {
-        emit(
-          const PaymentFlowState.issue(PaymentFlowIssue.bookNotConfirmed),
-        );
-        return;
-      }
-      // اتأكّد شراء الكراس — ننتقل تلقائيًا لبوابة التسجيل.
       emit(const PaymentFlowState.preparing());
       await _openRegistrationGateway();
       return;
     }
 
-    final paid = await _pollConfirmed(ref);
-    if (isClosed) return;
-    if (!paid) {
-      emit(
-        const PaymentFlowState.issue(PaymentFlowIssue.paymentNotConfirmed),
-      );
-      return;
-    }
     emit(const PaymentFlowState.confirmed());
-  }
-
-  /// المستخدم أغلق الـ WebView بدون إتمام الدفع.
-  void cancel() {
-    if (!isClosed) {
-      emit(const PaymentFlowState.issue(PaymentFlowIssue.cancelled));
-    }
   }
 
   /// ينفّذ usecase يرجّع PaymentInit ويصدر openGateway، أو يبلّغ إن الخطوة
@@ -271,17 +287,21 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
     );
   }
 
-  /// استطلاع الحالة حتى 5 مرات بفاصل ثانيتين — يرجّع true لو تأكّد الدفع.
+  /// استطلاع الحالة [attempts] مرة بفاصل ثانيتين — يرجّع true لو تأكّد الدفع.
   /// لو رجعت حالة FAILED نوقف فورًا بدل ما نستنى باقي المحاولات.
-  Future<bool> _pollConfirmed(String ref) async {
-    for (var attempt = 0; attempt < 5; attempt++) {
+  Future<bool> _pollConfirmed(String ref, {required int attempts}) async {
+    for (var attempt = 0; attempt < attempts; attempt++) {
       final res = await _status(ref);
+      if (isClosed) return false;
       final result = res.fold((_) => null, (r) => r);
       if (result != null) {
         if (result.allConfirmed) return true;
         if (result.hasFailed) return false;
       }
-      await Future.delayed(const Duration(seconds: 2));
+      // مفيش داعي نستنى بعد آخر محاولة — كان بيضيّف ثانيتين على كل flow.
+      if (attempt < attempts - 1) {
+        await Future.delayed(const Duration(seconds: 2));
+      }
     }
     return false;
   }

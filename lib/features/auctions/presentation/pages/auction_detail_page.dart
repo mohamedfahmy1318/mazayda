@@ -389,19 +389,19 @@ class _DetailActionBar extends StatelessWidget {
     AuctionCta.buyBook => (
       t.ctaBuyBook,
       Icons.menu_book_outlined,
-      () => PaymentFlow.startRegistration(context, auction),
+      () => _register(context),
     ),
     AuctionCta.register => (
       t.registerAndPay,
       Icons.app_registration,
-      () => PaymentFlow.startRegistration(context, auction),
+      () => _register(context),
     ),
     // وضع محدود: مش عارفين هل شارك أو اشترى الكراس — بنبدأ المسار
     // والسيرفر بيرفض بالرسالة المناسبة لو الخطوة اتعملت قبل كده.
     AuctionCta.participate => (
       t.ctaParticipate,
       Icons.app_registration,
-      () => PaymentFlow.startRegistration(context, auction),
+      () => _register(context),
     ),
     AuctionCta.bid => (
       t.bid,
@@ -437,14 +437,31 @@ class _DetailActionBar extends StatelessWidget {
     AuctionCta.none => ('', Icons.info_outline, null),
   };
 
+  /// مسار التسجيل + إعادة تحميل المزاد لو حالته اتغيّرت.
+  ///
+  /// من غير إعادة التحميل الشاشة بتفضل بتعرض «سجّل وادفع» بعد دفعة ناجحة —
+  /// حالة المزاد محمّلة مرة واحدة عند فتح الصفحة، فالمستخدم مكانش بيشوف
+  /// النتيجة غير لما يقفل التطبيق ويفتحه.
+  Future<void> _register(BuildContext context) async {
+    final cubit = context.read<AuctionDetailCubit>();
+    if (await PaymentFlow.startRegistration(context, auction)) {
+      await cubit.load(auction.id);
+    }
+  }
+
   void _openFinalPaymentSheet(BuildContext context) {
+    final cubit = context.read<AuctionDetailCubit>();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => FinalPaymentSheet(
         auctionId: auction.id,
-        onConfirm: () => PaymentFlow.startFinalPayment(context, auction.id),
+        onConfirm: () async {
+          if (await PaymentFlow.startFinalPayment(context, auction.id)) {
+            await cubit.load(auction.id);
+          }
+        },
       ),
     );
   }
