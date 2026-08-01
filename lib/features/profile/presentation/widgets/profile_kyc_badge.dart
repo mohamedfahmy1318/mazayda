@@ -23,7 +23,13 @@ class ProfileKycBadge extends StatelessWidget {
       bg: style.bg,
     );
     if (status == 'VERIFIED' || status == 'COMPLETE') return pill;
-    return GestureDetector(onTap: () => context.push(Routes.kyc), child: pill);
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: () => context.push(Routes.kyc),
+        child: pill,
+      ),
+    );
   }
 
   ({IconData icon, String label, Color fg, Color bg}) _styleFor(
@@ -83,9 +89,13 @@ class _BadgePill extends StatelessWidget {
         children: [
           Icon(icon, size: 14.sp, color: fg),
           Gap(5.w),
-          Text(
-            label,
-            style: TextStyle(fontSize: 11.sp, color: fg),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 11.sp, color: fg),
+            ),
           ),
         ],
       ),

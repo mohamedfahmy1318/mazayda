@@ -19,19 +19,42 @@ class ProfileLanguageSwitcher extends StatelessWidget {
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.border, width: 0.5),
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.82)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF102A21).withValues(alpha: 0.045),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.language, size: 19.sp, color: AppColors.primary),
-              Gap(8.w),
+              Container(
+                width: 36.w,
+                height: 36.w,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.075),
+                  borderRadius: BorderRadius.circular(11.r),
+                ),
+                child: Icon(
+                  Icons.language_rounded,
+                  size: 18.sp,
+                  color: AppColors.primary,
+                ),
+              ),
+              Gap(9.w),
               Text(
                 t.language,
-                style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
               ),
             ],
           ),
@@ -65,22 +88,52 @@ class _LangChip extends StatelessWidget {
         bloc: cubit,
         builder: (context, locale) {
           final selected = locale.languageCode == code;
-          return GestureDetector(
-            onTap: () => cubit.setLocale(code),
-            child: Container(
-              height: 40.h,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: selected ? AppColors.primary : AppColors.white,
+          return Semantics(
+            button: true,
+            selected: selected,
+            child: Material(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(11.r),
+              child: InkWell(
+                onTap: () => cubit.setLocale(code),
                 borderRadius: BorderRadius.circular(11.r),
-                border: Border.all(color: AppColors.primary, width: 0.8),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: selected ? Colors.white : AppColors.primary,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 220),
+                  curve: Curves.easeOutCubic,
+                  height: 40.h,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: selected
+                        ? AppColors.primary
+                        : AppColors.background.withValues(alpha: 0.75),
+                    borderRadius: BorderRadius.circular(11.r),
+                    border: Border.all(
+                      color: selected ? AppColors.primary : AppColors.border,
+                    ),
+                    boxShadow: selected
+                        ? [
+                            BoxShadow(
+                              color: AppColors.primary.withValues(alpha: 0.16),
+                              blurRadius: 9,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: AnimatedDefaultTextStyle(
+                    duration: const Duration(milliseconds: 180),
+                    style: TextStyle(
+                      fontFamily: 'Cairo',
+                      fontSize: 11.sp,
+                      fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                      color: selected ? Colors.white : AppColors.textSecondary,
+                    ),
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ),
             ),

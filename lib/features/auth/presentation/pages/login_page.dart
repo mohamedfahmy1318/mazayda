@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
-import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
@@ -11,8 +11,7 @@ import '../../../../core/widgets/primary_button.dart';
 import '../cubit/login_cubit.dart';
 import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
-import '../widgets/auth_circle_badge.dart';
-import '../widgets/auth_entrance_animation.dart';
+import '../widgets/auth_page_shell.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -32,84 +31,136 @@ class _LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text(t.login)),
-      body: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          switch (state.status) {
-            case LoginStatus.success:
-              context.go(Routes.home);
-            case LoginStatus.needsVerification:
-              context.push('${Routes.otp}/${state.userId ?? ''}');
-            case LoginStatus.failure:
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage ?? t.errorGeneric)),
-              );
-            default:
-              break;
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<LoginCubit>();
-          return SingleChildScrollView(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        switch (state.status) {
+          case LoginStatus.success:
+            context.go(Routes.home);
+          case LoginStatus.needsVerification:
+            context.push('${Routes.otp}/${state.userId ?? ''}');
+          default:
+            break;
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<LoginCubit>();
+        final submitting = state.status == LoginStatus.submitting;
+
+        return AuthPageShell(
+          title: t.login,
+          subtitle: t.splashTagline,
+          icon: Icons.login_rounded,
+          showBackButton: false,
+          child: AutofillGroup(
+            child: ListView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: EdgeInsets.fromLTRB(18.w, 22.h, 18.w, 24.h),
               children: [
-                Gap(30.h),
-                const AuthCircleBadge(
-                  icon: Icons.gavel,
-                  color: AppColors.white,
-                  backgroundColor: AppColors.primary,
-                  radius: 36,
-                ).authEntrance(),
-                Gap(24.h),
+                AuthFormSectionTitle(
+                  text: t.login,
+                  icon: Icons.lock_open_rounded,
+                ),
+                Gap(18.h),
                 AppTextField(
                   label: t.ninOrEmail,
                   hint: t.ninOrEmail,
-                  icon: Icons.person_outline,
+                  icon: Icons.person_outline_rounded,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.username],
+                  enabled: !submitting,
                   onChanged: cubit.identifierChanged,
                   errorText: state.identifier.errorText(t),
                 ),
                 AppTextField(
                   label: t.password,
-                  hint: '••••••••',
-                  icon: Icons.lock_outline,
+                  hint: '••••••••••••',
+                  icon: Icons.lock_outline_rounded,
                   obscure: true,
+                  textInputAction: TextInputAction.done,
+                  autofillHints: const [AutofillHints.password],
+                  enabled: !submitting,
                   onChanged: cubit.passwordChanged,
+                  onSubmitted: (_) {
+                    if (state.canSubmit) cubit.submit();
+                  },
                   errorText: state.password.errorText(t),
                 ),
-                Gap(12.h),
+                Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: TextButton(
+                    onPressed: submitting
+                        ? null
+                        : () => context.push(Routes.forgotPassword),
+                    child: Text(
+                      t.forgotPassword,
+                      style: TextStyle(
+                        fontSize: 11.5.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 220),
+                  child: state.status == LoginStatus.failure
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: 13.h),
+                          child: AuthErrorBanner(
+                            message: state.errorMessage ?? t.errorGeneric,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
                 PrimaryButton(
                   label: t.loginButton,
-                  icon: Icons.login,
-                  isLoading: state.status == LoginStatus.submitting,
-                  // الزرار يتقفل لحد ما البيانات تبقى صحيحة
-                  onPressed: state.canSubmit ? () => cubit.submit() : null,
+                  icon: Icons.login_rounded,
+                  isLoading: submitting,
+                  onPressed: state.canSubmit ? cubit.submit : null,
                 ),
-                Gap(8.h),
-                // من غير المسارين دول، أي مستخدم بينسى كلمة سره بيفضل
-                // مقفول برّه التطبيق نهائيًا.
-                TextButton(
-                  onPressed: () => context.push(Routes.forgotPassword),
-                  child: Text(t.forgotPassword),
-                ),
-                TextButton(
-                  onPressed: () => context.push(Routes.recoverAccount),
-                  child: Text(
-                    t.recoverWithSecret,
-                    style: TextStyle(fontSize: 12.sp),
+                Gap(12.h),
+                Center(
+                  child: TextButton.icon(
+                    onPressed: submitting
+                        ? null
+                        : () => context.push(Routes.recoverAccount),
+                    icon: Icon(Icons.help_outline_rounded, size: 16.sp),
+                    label: Text(
+                      t.recoverWithSecret,
+                      style: TextStyle(fontSize: 11.sp),
+                    ),
                   ),
                 ),
                 Gap(8.h),
-                TextButton(
-                  onPressed: () => context.push(Routes.register),
-                  child: Text(t.noAccountRegister),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 5.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.065),
+                    borderRadius: BorderRadius.circular(14.r),
+                  ),
+                  child: TextButton(
+                    onPressed: submitting
+                        ? null
+                        : () => context.push(Routes.register),
+                    child: Text(
+                      t.noAccountRegister,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

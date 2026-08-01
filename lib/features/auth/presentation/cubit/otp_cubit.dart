@@ -66,6 +66,11 @@ class OtpCubit extends Cubit<OtpState> {
     result.fold((f) => emit(OtpState.error(f.message)), (_) => startCooldown());
   }
 
+  /// يخفي رسالة الخطأ بمجرد تعديل المستخدم للكود، مع إبقاء العداد يعمل.
+  void clearError() {
+    if (state is OtpError) emit(const OtpState.initial());
+  }
+
   @override
   Future<void> close() {
     _timer?.cancel();

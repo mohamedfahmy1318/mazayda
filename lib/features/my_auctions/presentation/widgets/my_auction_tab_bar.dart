@@ -24,14 +24,29 @@ class MyAuctionTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0),
+    return Container(
+      height: 58.h,
+      margin: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 0),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.035),
+            blurRadius: 14,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Row(
           children: MyAuctionTab.values.map((tab) {
             return Padding(
-              padding: EdgeInsets.only(left: 7.w),
+              padding: EdgeInsetsDirectional.only(end: 7.w),
               child: _TabChip(
                 label: tab.label(t),
                 count: counts.of(tab),
@@ -61,55 +76,83 @@ class _TabChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 160),
-        curve: Curves.easeOut,
-        height: 36.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: selected ? AppColors.primary : AppColors.white,
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20.r),
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(
-            color: selected ? AppColors.primary : AppColors.borderStrong,
-            width: 0.5,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w500,
-                color: selected ? Colors.white : AppColors.textSecondary,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            height: 38.h,
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: selected
+                  ? AppColors.primary
+                  : AppColors.background.withValues(alpha: 0.72),
+              borderRadius: BorderRadius.circular(20.r),
+              border: Border.all(
+                color: selected ? AppColors.primary : AppColors.border,
               ),
+              boxShadow: selected
+                  ? [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: 0.18),
+                        blurRadius: 9,
+                        offset: const Offset(0, 4),
+                      ),
+                    ]
+                  : null,
             ),
-            // العدّاد يظهر فقط لما يكون فيه عناصر فعلًا.
-            if (count > 0) ...[
-              SizedBox(width: 6.w),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
-                decoration: BoxDecoration(
-                  color: selected
-                      ? Colors.white.withValues(alpha: 0.22)
-                      : AppColors.neutralBg,
-                  borderRadius: BorderRadius.circular(9.r),
-                ),
-                child: Text(
-                  '$count',
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 180),
                   style: TextStyle(
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Cairo',
+                    fontSize: 12.sp,
+                    fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                     color: selected ? Colors.white : AppColors.textSecondary,
                   ),
+                  child: Text(label),
                 ),
-              ),
-            ],
-          ],
+                if (count > 0) ...[
+                  SizedBox(width: 6.w),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 180),
+                    constraints: BoxConstraints(minWidth: 20.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.w,
+                      vertical: 1.h,
+                    ),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? Colors.white.withValues(alpha: 0.20)
+                          : AppColors.white,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Text(
+                      '$count',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w700,
+                        color: selected
+                            ? Colors.white
+                            : AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );

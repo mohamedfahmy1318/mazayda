@@ -14,17 +14,26 @@ class ProfileLogoutButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 48.h,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(Icons.logout, size: 19.sp, color: AppColors.danger),
-        label: Text(
-          t.logout,
-          style: TextStyle(fontSize: 15.sp, color: AppColors.danger),
-        ),
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.danger),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.r),
+      child: Material(
+        color: AppColors.dangerBg,
+        borderRadius: BorderRadius.circular(14.r),
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(14.r),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.logout_rounded, size: 18.sp, color: AppColors.danger),
+              SizedBox(width: 7.w),
+              Text(
+                t.logout,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.danger,
+                ),
+              ),
+            ],
           ),
         ),
       ),

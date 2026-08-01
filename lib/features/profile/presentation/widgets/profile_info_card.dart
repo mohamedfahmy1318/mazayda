@@ -11,13 +11,31 @@ class ProfileInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14.w),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 2.h),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.border, width: 0.5),
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.82)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF102A21).withValues(alpha: 0.045),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
-      child: Column(children: rows),
+      child: Column(
+        children: [
+          for (var i = 0; i < rows.length; i++) ...[
+            rows[i],
+            if (i != rows.length - 1)
+              Divider(
+                height: 1,
+                color: AppColors.border.withValues(alpha: 0.7),
+              ),
+          ],
+        ],
+      ),
     );
   }
 }
@@ -38,36 +56,46 @@ class ProfileInfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 11.h),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // الـ label قد يطول (خاصة بالفرنسية) → نجعله مرنًا مع ellipsis
+          Container(
+            width: 38.w,
+            height: 38.w,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.075),
+              borderRadius: BorderRadius.circular(11.r),
+            ),
+            child: Icon(icon, size: 18.sp, color: AppColors.primary),
+          ),
+          Gap(10.w),
           Expanded(
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, size: 17.sp, color: AppColors.primary),
-                Gap(8.w),
-                Expanded(
-                  child: Text(
-                    label,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      color: AppColors.textSecondary,
-                    ),
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 9.5.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textHint,
+                  ),
+                ),
+                Gap(2.h),
+                Text(
+                  value,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12.5.sp,
+                    height: 1.4,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
                   ),
                 ),
               ],
-            ),
-          ),
-          Gap(8.w),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textPrimary,
             ),
           ),
         ],

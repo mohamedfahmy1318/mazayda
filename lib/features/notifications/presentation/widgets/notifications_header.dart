@@ -5,18 +5,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../domain/entities/profile.dart';
-import 'profile_kyc_badge.dart';
+import 'mark_all_read_button.dart';
+import 'unread_count_badge.dart';
 
-/// هيدر الملف الشخصي: هوية الحساب وحالة التوثيق في مساحة واحدة واضحة.
-class ProfileHeader extends StatelessWidget {
-  final Profile profile;
-  final VoidCallback onNotificationsTap;
+/// هيدر صندوق الإشعارات مع عدّاد حي وإجراء سريع لتعليم الكل.
+class NotificationsHeader extends StatelessWidget {
+  final int unreadCount;
+  final int totalCount;
+  final bool loading;
+  final VoidCallback onMarkAllRead;
 
-  const ProfileHeader({
+  const NotificationsHeader({
     super.key,
-    required this.profile,
-    required this.onNotificationsTap,
+    required this.unreadCount,
+    required this.totalCount,
+    required this.loading,
+    required this.onMarkAllRead,
   });
 
   @override
@@ -24,9 +28,6 @@ class ProfileHeader extends StatelessWidget {
     final t = AppLocalizations.of(context);
     final topInset = MediaQuery.paddingOf(context).top;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
-    final initial = profile.fullName.trim().isNotEmpty
-        ? profile.fullName.trim().characters.first
-        : '?';
 
     final header = Container(
       clipBehavior: Clip.antiAlias,
@@ -52,26 +53,26 @@ class ProfileHeader extends StatelessWidget {
       child: Stack(
         children: [
           PositionedDirectional(
-            top: topInset + 42.h,
-            end: -58.w,
+            top: topInset + 8.h,
+            end: -44.w,
             child: Container(
-              width: 178.w,
-              height: 178.w,
+              width: 154.w,
+              height: 154.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: AppColors.white.withValues(alpha: 0.065),
-                  width: 34.w,
+                  color: AppColors.white.withValues(alpha: 0.07),
+                  width: 29.w,
                 ),
               ),
             ),
           ),
           PositionedDirectional(
             top: -52.h,
-            start: -58.w,
+            start: -56.w,
             child: Container(
-              width: 142.w,
-              height: 142.w,
+              width: 138.w,
+              height: 138.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.gold.withValues(alpha: 0.075),
@@ -79,7 +80,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(18.w, topInset + 10.h, 18.w, 22.h),
+            padding: EdgeInsets.fromLTRB(18.w, topInset + 10.h, 18.w, 20.h),
             child: Column(
               children: [
                 Row(
@@ -96,9 +97,9 @@ class ProfileHeader extends StatelessWidget {
                       ),
                       alignment: Alignment.center,
                       child: Icon(
-                        Icons.person_outline_rounded,
+                        Icons.notifications_active_outlined,
                         color: AppColors.gold,
-                        size: 23.sp,
+                        size: 22.sp,
                       ),
                     ),
                     Gap(10.w),
@@ -117,7 +118,7 @@ class ProfileHeader extends StatelessWidget {
                           ),
                           Gap(2.h),
                           Text(
-                            t.profile,
+                            t.notifications,
                             style: TextStyle(
                               color: AppColors.white.withValues(alpha: 0.64),
                               fontSize: 10.5.sp,
@@ -127,91 +128,84 @@ class ProfileHeader extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Tooltip(
-                      message: t.notifications,
-                      child: Material(
-                        color: AppColors.white.withValues(alpha: 0.11),
-                        borderRadius: BorderRadius.circular(14.r),
-                        child: InkWell(
-                          onTap: onNotificationsTap,
-                          borderRadius: BorderRadius.circular(14.r),
-                          child: SizedBox(
-                            width: 42.w,
-                            height: 42.w,
-                            child: Icon(
-                              Icons.notifications_none_rounded,
-                              color: AppColors.white,
-                              size: 22.sp,
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 240),
+                      child: loading
+                          ? Container(
+                              key: const ValueKey('loading'),
+                              width: 36.w,
+                              height: 36.w,
+                              padding: EdgeInsets.all(9.w),
+                              decoration: BoxDecoration(
+                                color: AppColors.white.withValues(alpha: 0.11),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppColors.white,
+                              ),
+                            )
+                          : unreadCount > 0
+                          ? UnreadCountBadge(
+                              key: ValueKey(unreadCount),
+                              count: unreadCount,
+                            )
+                          : Container(
+                              key: const ValueKey('all-read'),
+                              width: 36.w,
+                              height: 36.w,
+                              decoration: BoxDecoration(
+                                color: AppColors.white.withValues(alpha: 0.11),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.done_all_rounded,
+                                size: 19.sp,
+                                color: const Color(0xFF8FE3BF),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
-                Gap(23.h),
+                Gap(21.h),
                 Row(
                   children: [
-                    Container(
-                      width: 82.w,
-                      height: 82.w,
-                      padding: EdgeInsets.all(4.w),
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withValues(alpha: 0.10),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.18),
-                        ),
-                      ),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          initial,
-                          style: TextStyle(
-                            fontSize: 27.sp,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Gap(14.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            profile.fullName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                            t.notifications,
                             style: TextStyle(
-                              fontSize: 18.sp,
-                              height: 1.35,
-                              fontWeight: FontWeight.w800,
                               color: AppColors.white,
+                              fontSize: 24.sp,
+                              height: 1.2,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.3,
                             ),
                           ),
-                          if (profile.email?.isNotEmpty == true) ...[
-                            Gap(4.h),
-                            Text(
-                              profile.email!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                fontSize: 10.5.sp,
-                                color: AppColors.white.withValues(alpha: 0.62),
-                              ),
+                          Gap(4.h),
+                          Text(
+                            loading ? '—' : '$totalCount',
+                            style: TextStyle(
+                              color: AppColors.white.withValues(alpha: 0.62),
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ],
-                          Gap(9.h),
-                          ProfileKycBadge(profile.kycStatus),
+                          ),
                         ],
                       ),
+                    ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 220),
+                      child: !loading && unreadCount > 0
+                          ? MarkAllReadButton(
+                              key: const ValueKey('mark-all'),
+                              onPressed: onMarkAllRead,
+                            )
+                          : const SizedBox.shrink(
+                              key: ValueKey('empty-action'),
+                            ),
                     ),
                   ],
                 ),

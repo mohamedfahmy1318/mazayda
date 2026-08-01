@@ -30,21 +30,23 @@ class AuctionsHomeHeader extends StatelessWidget {
     final topInset = MediaQuery.paddingOf(context).top;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
-    final ornament = PositionedDirectional(
-      top: topInset + 42.h,
-      end: -44.w,
-      child: Container(
-        width: 150.w,
-        height: 150.w,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: AppColors.white.withValues(alpha: 0.08),
-            width: 28.w,
-          ),
+    Widget ornament = Container(
+      width: 150.w,
+      height: 150.w,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: AppColors.white.withValues(alpha: 0.08),
+          width: 28.w,
         ),
       ),
     );
+
+    if (!reduceMotion) {
+      ornament = ornament
+          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+          .moveY(begin: -5, end: 5, duration: 3200.ms, curve: Curves.easeInOut);
+    }
 
     final header = Container(
       clipBehavior: Clip.antiAlias,
@@ -69,18 +71,11 @@ class AuctionsHomeHeader extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          reduceMotion
-              ? ornament
-              : ornament
-                    .animate(
-                      onPlay: (controller) => controller.repeat(reverse: true),
-                    )
-                    .moveY(
-                      begin: -5,
-                      end: 5,
-                      duration: 3200.ms,
-                      curve: Curves.easeInOut,
-                    ),
+          PositionedDirectional(
+            top: topInset + 42.h,
+            end: -44.w,
+            child: ornament,
+          ),
           PositionedDirectional(
             top: -42.h,
             start: -54.w,

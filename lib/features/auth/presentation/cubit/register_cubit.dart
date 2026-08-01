@@ -51,7 +51,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       s.password,
       s.confirmPassword,
     ]);
-    emit(s.copyWith(isValid: valid, status: RegisterStatus.idle));
+    emit(
+      s.copyWith(
+        isValid: valid,
+        status: RegisterStatus.idle,
+        errorMessage: null,
+        serverErrors: null,
+      ),
+    );
   }
 
   void ninChanged(String v) =>

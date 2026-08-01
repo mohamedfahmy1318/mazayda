@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/widgets/list_entrance_animation.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../../domain/entities/profile.dart';
 import '../cubit/profile_cubit.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/profile_info_card.dart';
 import '../widgets/profile_language_switcher.dart';
+import '../widgets/profile_loading_view.dart';
 import '../widgets/profile_logout_button.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -32,25 +34,16 @@ class _ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(t.profile)),
+      backgroundColor: AppColors.background,
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
-          if (state is ProfileLoggedOut) {
-            context.go(Routes.login);
-          }
+          if (state is ProfileLoggedOut) context.go(Routes.login);
         },
-        builder: (context, state) {
-          return switch (state) {
-            ProfileLoading() => const LoadingView(),
-            ProfileError(:final message) => ErrorView(
-              message: message,
-              onRetry: () => context.read<ProfileCubit>().load(),
-            ),
-            ProfileLoggedOut() => const LoadingView(),
-            ProfileLoaded(:final profile) => _ProfileContent(profile: profile),
-          };
+        builder: (context, state) => switch (state) {
+          ProfileLoading() || ProfileLoggedOut() => const ProfileLoadingView(),
+          ProfileError(:final message) => _ProfileErrorView(message: message),
+          ProfileLoaded(:final profile) => _ProfileContent(profile: profile),
         },
       ),
     );
@@ -59,82 +52,167 @@ class _ProfileView extends StatelessWidget {
 
 class _ProfileContent extends StatelessWidget {
   final Profile profile;
+
   const _ProfileContent({required this.profile});
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    return SingleChildScrollView(
-      child: Column(
+    final cubit = context.read<ProfileCubit>();
+
+    final sections = <Widget>[
+      _SectionTitle(text: t.personalData),
+      ProfileInfoCard(
+        rows: [
+          ProfileInfoRow(
+            icon: Icons.badge_outlined,
+            label: t.nin,
+            value: profile.ninMasked ?? '—',
+          ),
+          ProfileInfoRow(
+            icon: Icons.phone_outlined,
+            label: t.phone,
+            value: profile.phone ?? '—',
+          ),
+          ProfileInfoRow(
+            icon: Icons.mail_outline_rounded,
+            label: t.email,
+            value: profile.email ?? '—',
+          ),
+          if (profile.address?.isNotEmpty ?? false)
+            ProfileInfoRow(
+              icon: Icons.location_on_outlined,
+              label: t.address,
+              value: profile.address!,
+            ),
+        ],
+      ),
+      _ProfileActionsCard(
         children: [
-          ProfileHeader(profile: profile),
-          Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              children: [
-                ProfileInfoCard(
-                  rows: [
-                    ProfileInfoRow(
-                      icon: Icons.badge_outlined,
-                      label: t.nin,
-                      value: profile.ninMasked ?? '—',
-                    ),
-                    ProfileInfoRow(
-                      icon: Icons.phone_outlined,
-                      label: t.phone,
-                      value: profile.phone ?? '—',
-                    ),
-                    ProfileInfoRow(
-                      icon: Icons.mail_outline,
-                      label: t.email,
-                      value: profile.email ?? '—',
-                    ),
-                    // الـ API مبيرجّعش اسم ولاية — العنوان النصي هو الحقل الحقيقي.
-                    if (profile.address?.isNotEmpty ?? false)
-                      ProfileInfoRow(
-                        icon: Icons.location_on_outlined,
-                        label: t.address,
-                        value: profile.address!,
-                      ),
-                  ],
-                ),
-                Gap(16.h),
-                _ProfileNavRow(
-                  icon: Icons.folder_outlined,
-                  label: AppLocalizations.of(context).docsTitle,
-                  onTap: () => context.push(Routes.documents),
-                ),
-                Gap(10.h),
-                // مدخل السجل التجاري — عشان المستخدم يقدر يقدّمه استباقيًا
-                // بدل ما يكتشفه لما يصطدم بمزاد بيتطلبه.
-                _ProfileNavRow(
-                  icon: Icons.store_outlined,
-                  label: AppLocalizations.of(context).crTitle,
-                  trailing: profile.hasCommerceRegister
-                      ? Icon(
-                          Icons.verified,
-                          size: 17.sp,
-                          color: AppColors.success,
-                        )
-                      : null,
-                  onTap: () => context.push(Routes.commercialRegister),
-                ),
-                Gap(16.h),
-                const ProfileLanguageSwitcher(),
-                Gap(16.h),
-                ProfileLogoutButton(
-                  onPressed: () => context.read<ProfileCubit>().logout(),
-                ),
-              ],
+          _ProfileNavRow(
+            icon: Icons.folder_copy_outlined,
+            label: t.docsTitle,
+            onTap: () => context.push(Routes.documents),
+          ),
+          _ProfileNavRow(
+            icon: Icons.storefront_outlined,
+            label: t.crTitle,
+            trailing: profile.hasCommerceRegister
+                ? Icon(
+                    Icons.verified_rounded,
+                    size: 17.sp,
+                    color: AppColors.success,
+                  )
+                : null,
+            onTap: () => context.push(Routes.commercialRegister),
+          ),
+        ],
+      ),
+      const ProfileLanguageSwitcher(),
+      ProfileLogoutButton(onPressed: cubit.logout),
+    ];
+
+    return Column(
+      children: [
+        ProfileHeader(
+          profile: profile,
+          onNotificationsTap: () => context.go(Routes.notifications),
+        ),
+        Expanded(
+          child: RefreshIndicator(
+            color: AppColors.primary,
+            onRefresh: cubit.load,
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.fromLTRB(16.w, 17.h, 16.w, 22.h),
+              itemCount: sections.length,
+              separatorBuilder: (_, __) => Gap(14.h),
+              itemBuilder: (context, index) {
+                final section = sections[index];
+                if (MediaQuery.disableAnimationsOf(context)) return section;
+                return section.staggeredEntrance(
+                  index,
+                  duration: const Duration(milliseconds: 360),
+                  slideBegin: 0.045,
+                );
+              },
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String text;
+
+  const _SectionTitle({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 4.w,
+          height: 22.h,
+          decoration: BoxDecoration(
+            color: AppColors.gold,
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+        ),
+        Gap(8.w),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textPrimary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProfileActionsCard extends StatelessWidget {
+  final List<Widget> children;
+
+  const _ProfileActionsCard({required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.82)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF102A21).withValues(alpha: 0.045),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          for (var i = 0; i < children.length; i++) ...[
+            children[i],
+            if (i != children.length - 1)
+              Divider(
+                height: 1,
+                indent: 48.w,
+                color: AppColors.border.withValues(alpha: 0.72),
+              ),
+          ],
         ],
       ),
     );
   }
 }
 
-/// صف تنقّل في البروفايل — أيقونة + عنوان + سهم.
 class _ProfileNavRow extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -150,39 +228,90 @@ class _ProfileNavRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(13.r),
-      child: Container(
-        padding: EdgeInsets.all(14.w),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(13.r),
-          border: Border.all(color: AppColors.border, width: 0.5),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 19.sp, color: AppColors.primary),
-            Gap(10.w),
-            Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.textPrimary,
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14.r),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 11.h),
+          child: Row(
+            children: [
+              Container(
+                width: 38.w,
+                height: 38.w,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.075),
+                  borderRadius: BorderRadius.circular(11.r),
+                ),
+                child: Icon(icon, size: 18.sp, color: AppColors.primary),
+              ),
+              Gap(10.w),
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12.5.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
               ),
-            ),
-            if (trailing != null) ...[trailing!, Gap(6.w)],
-            Icon(
-              Icons.chevron_left,
-              size: 19.sp,
-              color: AppColors.borderStrong,
-            ),
-          ],
+              if (trailing != null) ...[trailing!, Gap(7.w)],
+              Icon(
+                isRtl
+                    ? Icons.arrow_back_ios_new_rounded
+                    : Icons.arrow_forward_ios_rounded,
+                size: 13.sp,
+                color: AppColors.textHint,
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _ProfileErrorView extends StatelessWidget {
+  final String message;
+
+  const _ProfileErrorView({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.fromLTRB(
+            18.w,
+            MediaQuery.paddingOf(context).top + 18.h,
+            18.w,
+            18.h,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(24.r)),
+          ),
+          child: Text(
+            t.profile,
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        Expanded(
+          child: ErrorView(
+            message: message,
+            onRetry: context.read<ProfileCubit>().load,
+          ),
+        ),
+      ],
     );
   }
 }

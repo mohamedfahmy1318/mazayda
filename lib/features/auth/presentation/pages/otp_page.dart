@@ -10,12 +10,12 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../auth_constants.dart';
 import '../cubit/otp_cubit.dart';
-import '../widgets/auth_circle_badge.dart';
-import '../widgets/auth_entrance_animation.dart';
+import '../widgets/auth_page_shell.dart';
 import '../widgets/otp_code_field.dart';
 
 class OtpPage extends StatelessWidget {
   final String userId;
+
   const OtpPage({super.key, required this.userId});
 
   @override
@@ -29,7 +29,9 @@ class OtpPage extends StatelessWidget {
 
 class _OtpView extends StatefulWidget {
   final String userId;
+
   const _OtpView({required this.userId});
+
   @override
   State<_OtpView> createState() => _OtpViewState();
 }
@@ -40,71 +42,71 @@ class _OtpViewState extends State<_OtpView> {
   bool get _isComplete => _code.length == AuthConstants.otpLength;
 
   void _verify() {
+    FocusScope.of(context).unfocus();
     context.read<OtpCubit>().verify(userId: widget.userId, otp: _code);
   }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text(t.verifyEmailTitle)),
-      body: BlocConsumer<OtpCubit, OtpState>(
-        listener: (context, state) {
-          if (state is OtpVerified) {
-            context.go(Routes.home);
-          } else if (state is OtpError) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
-        builder: (context, state) {
-          final cooldown = state is OtpInitial ? state.cooldown : 0;
-          final isVerifying = state is OtpVerifying;
 
-          return Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              children: [
-                Gap(20.h),
-                const AuthCircleBadge(
-                  icon: Icons.mark_email_read_outlined,
-                  color: AppColors.success,
-                  backgroundColor: AppColors.successBg,
-                ).authEntrance(),
-                Gap(12.h),
-                Text(
-                  t.otpHint,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                Gap(24.h),
-                OtpCodeField(
-                  length: AuthConstants.otpLength,
-                  onChanged: (code) => setState(() => _code = code),
-                ),
-                Gap(20.h),
-                _ResendControl(userId: widget.userId, cooldown: cooldown),
-                Gap(20.h),
-                PrimaryButton(
-                  label: t.confirm,
-                  icon: Icons.check,
-                  isLoading: isVerifying,
-                  onPressed: _isComplete ? _verify : null,
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+    return BlocConsumer<OtpCubit, OtpState>(
+      listener: (context, state) {
+        if (state is OtpVerified) context.go(Routes.home);
+      },
+      builder: (context, state) {
+        final cooldown = state is OtpInitial ? state.cooldown : 0;
+        final isVerifying = state is OtpVerifying;
+
+        return AuthPageShell(
+          title: t.verifyEmailTitle,
+          subtitle: t.otpHint,
+          icon: Icons.mark_email_read_outlined,
+          child: ListView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            padding: EdgeInsets.fromLTRB(18.w, 23.h, 18.w, 26.h),
+            children: [
+              AuthFormSectionTitle(
+                text: t.otpCode,
+                icon: Icons.password_rounded,
+              ),
+              Gap(22.h),
+              OtpCodeField(
+                length: AuthConstants.otpLength,
+                enabled: !isVerifying,
+                onChanged: (code) {
+                  if (state is OtpError) {
+                    context.read<OtpCubit>().clearError();
+                  }
+                  setState(() => _code = code);
+                },
+              ),
+              Gap(18.h),
+              _ResendControl(userId: widget.userId, cooldown: cooldown),
+              Gap(16.h),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 220),
+                child: state is OtpError
+                    ? Padding(
+                        padding: EdgeInsets.only(bottom: 14.h),
+                        child: AuthErrorBanner(message: state.message),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+              PrimaryButton(
+                label: t.confirm,
+                icon: Icons.verified_outlined,
+                isLoading: isVerifying,
+                onPressed: _isComplete && !isVerifying ? _verify : null,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-/// عدّاد إعادة الإرسال — يعرض الوقت المتبقّي أو زر إعادة الإرسال.
 class _ResendControl extends StatelessWidget {
   final String userId;
   final int cooldown;
@@ -117,14 +119,65 @@ class _ResendControl extends StatelessWidget {
     if (cooldown > 0) {
       final minutes = cooldown ~/ 60;
       final seconds = (cooldown % 60).toString().padLeft(2, '0');
-      return Text(
-        t.resendInTimer('$minutes:$seconds'),
-        style: TextStyle(fontSize: 13.sp, color: AppColors.textHint),
+      final progress = cooldown / AuthConstants.resendCooldownSeconds;
+
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 29.w,
+              height: 29.w,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    value: progress.clamp(0, 1),
+                    strokeWidth: 2.4,
+                    backgroundColor: AppColors.border,
+                    color: AppColors.primary,
+                  ),
+                  Icon(
+                    Icons.schedule_rounded,
+                    size: 13.sp,
+                    color: AppColors.primary,
+                  ),
+                ],
+              ),
+            ),
+            Gap(9.w),
+            Expanded(
+              child: Text(
+                t.resendInTimer('$minutes:$seconds'),
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     }
-    return TextButton(
+
+    return OutlinedButton.icon(
       onPressed: () => context.read<OtpCubit>().resend(userId),
-      child: Text(t.resendCode),
+      icon: Icon(Icons.refresh_rounded, size: 17.sp),
+      label: Text(t.resendCode),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.primary,
+        side: const BorderSide(color: AppColors.primary),
+        padding: EdgeInsets.symmetric(vertical: 11.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(13.r),
+        ),
+      ),
     );
   }
 }

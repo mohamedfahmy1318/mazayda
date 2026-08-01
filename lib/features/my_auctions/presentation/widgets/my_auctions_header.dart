@@ -5,17 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../domain/entities/profile.dart';
-import 'profile_kyc_badge.dart';
+import '../../domain/entities/my_auctions_result.dart';
 
-/// هيدر الملف الشخصي: هوية الحساب وحالة التوثيق في مساحة واحدة واضحة.
-class ProfileHeader extends StatelessWidget {
-  final Profile profile;
+/// هيدر «مزايداتي» كلوحة متابعة مختصرة لحالة مشاركات المستخدم.
+class MyAuctionsHeader extends StatelessWidget {
+  final MyAuctionCounts counts;
   final VoidCallback onNotificationsTap;
 
-  const ProfileHeader({
+  const MyAuctionsHeader({
     super.key,
-    required this.profile,
+    required this.counts,
     required this.onNotificationsTap,
   });
 
@@ -24,9 +23,6 @@ class ProfileHeader extends StatelessWidget {
     final t = AppLocalizations.of(context);
     final topInset = MediaQuery.paddingOf(context).top;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
-    final initial = profile.fullName.trim().isNotEmpty
-        ? profile.fullName.trim().characters.first
-        : '?';
 
     final header = Container(
       clipBehavior: Clip.antiAlias,
@@ -52,22 +48,22 @@ class ProfileHeader extends StatelessWidget {
       child: Stack(
         children: [
           PositionedDirectional(
-            top: topInset + 42.h,
+            top: topInset + 22.h,
             end: -58.w,
             child: Container(
-              width: 178.w,
-              height: 178.w,
+              width: 176.w,
+              height: 176.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: AppColors.white.withValues(alpha: 0.065),
-                  width: 34.w,
+                  width: 32.w,
                 ),
               ),
             ),
           ),
           PositionedDirectional(
-            top: -52.h,
+            top: -54.h,
             start: -58.w,
             child: Container(
               width: 142.w,
@@ -79,7 +75,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(18.w, topInset + 10.h, 18.w, 22.h),
+            padding: EdgeInsets.fromLTRB(18.w, topInset + 10.h, 18.w, 19.h),
             child: Column(
               children: [
                 Row(
@@ -96,9 +92,9 @@ class ProfileHeader extends StatelessWidget {
                       ),
                       alignment: Alignment.center,
                       child: Icon(
-                        Icons.person_outline_rounded,
+                        Icons.account_balance_wallet_outlined,
                         color: AppColors.gold,
-                        size: 23.sp,
+                        size: 22.sp,
                       ),
                     ),
                     Gap(10.w),
@@ -117,7 +113,7 @@ class ProfileHeader extends StatelessWidget {
                           ),
                           Gap(2.h),
                           Text(
-                            t.profile,
+                            t.navMyAuctions,
                             style: TextStyle(
                               color: AppColors.white.withValues(alpha: 0.64),
                               fontSize: 10.5.sp,
@@ -149,68 +145,71 @@ class ProfileHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                Gap(23.h),
+                Gap(20.h),
                 Row(
                   children: [
-                    Container(
-                      width: 82.w,
-                      height: 82.w,
-                      padding: EdgeInsets.all(4.w),
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withValues(alpha: 0.10),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.18),
-                        ),
-                      ),
-                      child: Container(
-                        decoration: const BoxDecoration(
+                    Expanded(
+                      child: Text(
+                        t.navMyAuctions,
+                        style: TextStyle(
                           color: AppColors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          initial,
-                          style: TextStyle(
-                            fontSize: 27.sp,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primary,
-                          ),
+                          fontSize: 24.sp,
+                          height: 1.2,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.3,
                         ),
                       ),
                     ),
-                    Gap(14.w),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 5.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.white.withValues(alpha: 0.11),
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                          color: AppColors.white.withValues(alpha: 0.12),
+                        ),
+                      ),
+                      child: Text(
+                        t.auctionsCount('${counts.all}'),
+                        style: TextStyle(
+                          color: AppColors.white.withValues(alpha: 0.86),
+                          fontSize: 10.5.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Gap(14.h),
+                Row(
+                  children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            profile.fullName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              height: 1.35,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.white,
-                            ),
-                          ),
-                          if (profile.email?.isNotEmpty == true) ...[
-                            Gap(4.h),
-                            Text(
-                              profile.email!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textDirection: TextDirection.ltr,
-                              style: TextStyle(
-                                fontSize: 10.5.sp,
-                                color: AppColors.white.withValues(alpha: 0.62),
-                              ),
-                            ),
-                          ],
-                          Gap(9.h),
-                          ProfileKycBadge(profile.kycStatus),
-                        ],
+                      child: _SummaryMetric(
+                        label: t.myAuctionsActive,
+                        count: counts.active,
+                        icon: Icons.bolt_rounded,
+                        accent: const Color(0xFF7DE2B8),
+                      ),
+                    ),
+                    Gap(8.w),
+                    Expanded(
+                      child: _SummaryMetric(
+                        label: t.myAuctionsWon,
+                        count: counts.won,
+                        icon: Icons.emoji_events_outlined,
+                        accent: AppColors.gold,
+                      ),
+                    ),
+                    Gap(8.w),
+                    Expanded(
+                      child: _SummaryMetric(
+                        label: t.myAuctionsUpcoming,
+                        count: counts.upcoming,
+                        icon: Icons.schedule_rounded,
+                        accent: const Color(0xFFAEC8FF),
                       ),
                     ),
                   ],
@@ -239,5 +238,78 @@ class ProfileHeader extends StatelessWidget {
           duration: 520.ms,
           curve: Curves.easeOutCubic,
         );
+  }
+}
+
+class _SummaryMetric extends StatelessWidget {
+  final String label;
+  final int count;
+  final IconData icon;
+  final Color accent;
+
+  const _SummaryMetric({
+    required this.label,
+    required this.count,
+    required this.icon,
+    required this.accent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 62.h,
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: AppColors.white.withValues(alpha: 0.085),
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.white.withValues(alpha: 0.10)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 29.w,
+            height: 29.w,
+            decoration: BoxDecoration(
+              color: accent.withValues(alpha: 0.14),
+              borderRadius: BorderRadius.circular(9.r),
+            ),
+            child: Icon(icon, size: 16.sp, color: accent),
+          ),
+          Gap(7.w),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 260),
+                  child: Text(
+                    '$count',
+                    key: ValueKey(count),
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: 16.sp,
+                      height: 1,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                Gap(4.h),
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: AppColors.white.withValues(alpha: 0.62),
+                    fontSize: 8.5.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

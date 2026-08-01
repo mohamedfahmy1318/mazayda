@@ -11,21 +11,33 @@ class UnreadCountBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(20.r),
+    final badge = Container(
+      constraints: BoxConstraints(minWidth: 36.w, minHeight: 36.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(18.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.10),
+            blurRadius: 12,
+            offset: const Offset(0, 5),
           ),
-          child: Text(
-            '$count',
-            style: TextStyle(
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primary,
-            ),
-          ),
-        )
+        ],
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        '$count',
+        style: TextStyle(
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w800,
+          color: AppColors.primary,
+        ),
+      ),
+    );
+
+    if (MediaQuery.disableAnimationsOf(context)) return badge;
+    return badge
         .animate(key: ValueKey(count))
         .fadeIn(duration: 200.ms)
         .scale(

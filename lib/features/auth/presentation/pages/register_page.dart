@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
-import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -12,6 +11,7 @@ import '../auth_constants.dart';
 import '../cubit/register_cubit.dart';
 import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
+import '../widgets/auth_page_shell.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -31,134 +31,180 @@ class _RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text(t.register)),
-      body: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) {
-          if (state.status == RegisterStatus.success) {
-            context.push('${Routes.otp}/${state.userId}');
-          } else if (state.status == RegisterStatus.failure &&
-              state.serverErrors == null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? t.errorGeneric)),
-            );
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<RegisterCubit>();
-          final srv = state.serverErrors;
 
-          return SingleChildScrollView(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
+    return BlocConsumer<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state.status == RegisterStatus.success) {
+          context.push('${Routes.otp}/${state.userId}');
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<RegisterCubit>();
+        final srv = state.serverErrors;
+        final submitting = state.status == RegisterStatus.submitting;
+
+        return AuthPageShell(
+          title: t.register,
+          subtitle: t.splashTagline,
+          icon: Icons.person_add_alt_1_rounded,
+          child: AutofillGroup(
+            child: ListView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: EdgeInsets.fromLTRB(18.w, 22.h, 18.w, 28.h),
               children: [
+                AuthFormSectionTitle(
+                  text: t.personalData,
+                  icon: Icons.badge_outlined,
+                ),
+                Gap(17.h),
                 AppTextField(
                   label: t.nin,
                   hint: t.ninHint,
                   icon: Icons.badge_outlined,
                   keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
                   maxLength: AuthConstants.ninLength,
+                  enabled: !submitting,
                   onChanged: cubit.ninChanged,
                   errorText: state.nin.errorText(t) ?? srv?['nin']?.first,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: AppTextField(
-                        label: t.firstName,
-                        hint: t.firstName,
-                        onChanged: cubit.firstNameChanged,
-                        errorText:
-                            state.firstName.errorText(t) ??
-                            srv?['first_name_ar']?.first,
-                      ),
-                    ),
-                    Gap(10.w),
-                    Expanded(
-                      child: AppTextField(
-                        label: t.lastName,
-                        hint: t.lastName,
-                        onChanged: cubit.lastNameChanged,
-                        errorText:
-                            state.lastName.errorText(t) ??
-                            srv?['last_name_ar']?.first,
-                      ),
-                    ),
-                  ],
+                AppTextField(
+                  label: t.firstName,
+                  hint: t.firstName,
+                  icon: Icons.person_outline_rounded,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.words,
+                  autofillHints: const [AutofillHints.givenName],
+                  enabled: !submitting,
+                  onChanged: cubit.firstNameChanged,
+                  errorText:
+                      state.firstName.errorText(t) ??
+                      srv?['first_name_ar']?.first,
+                ),
+                AppTextField(
+                  label: t.lastName,
+                  hint: t.lastName,
+                  icon: Icons.person_outline_rounded,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.words,
+                  autofillHints: const [AutofillHints.familyName],
+                  enabled: !submitting,
+                  onChanged: cubit.lastNameChanged,
+                  errorText:
+                      state.lastName.errorText(t) ??
+                      srv?['last_name_ar']?.first,
                 ),
                 AppTextField(
                   label: t.phone,
                   hint: '05 / 06 / 07 ...',
                   icon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.telephoneNumber],
                   maxLength: AuthConstants.phoneLength,
+                  enabled: !submitting,
                   onChanged: cubit.phoneChanged,
                   errorText: state.phone.errorText(t) ?? srv?['phone']?.first,
                 ),
                 AppTextField(
                   label: t.email,
                   hint: 'example@mail.com',
-                  icon: Icons.mail_outline,
+                  icon: Icons.mail_outline_rounded,
                   keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.email],
+                  enabled: !submitting,
                   onChanged: cubit.emailChanged,
                   errorText: state.email.errorText(t) ?? srv?['email']?.first,
                 ),
                 _BirthDateField(
                   value: state.birthDate.value,
+                  enabled: !submitting,
                   errorText:
                       state.birthDate.errorText(t) ?? srv?['birth_date']?.first,
                   onPicked: cubit.birthDateChanged,
                 ),
+                Gap(9.h),
+                AuthFormSectionTitle(
+                  text: t.password,
+                  icon: Icons.security_rounded,
+                ),
+                Gap(17.h),
                 AppTextField(
                   label: t.password,
-                  hint: '••••••••',
-                  icon: Icons.lock_outline,
+                  hint: '••••••••••••',
+                  icon: Icons.lock_outline_rounded,
                   obscure: true,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.newPassword],
+                  enabled: !submitting,
                   onChanged: cubit.passwordChanged,
                   errorText:
                       state.password.errorText(t) ?? srv?['password']?.first,
                 ),
                 AppTextField(
                   label: t.confirmPassword,
-                  hint: '••••••••',
-                  icon: Icons.lock_outline,
+                  hint: '••••••••••••',
+                  icon: Icons.lock_reset_rounded,
                   obscure: true,
+                  textInputAction: TextInputAction.done,
+                  autofillHints: const [AutofillHints.newPassword],
+                  enabled: !submitting,
                   onChanged: cubit.confirmPasswordChanged,
+                  onSubmitted: (_) {
+                    if (state.canSubmit) cubit.submit();
+                  },
                   errorText: state.confirmPassword.errorText(t),
                 ),
-                Gap(12.h),
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 220),
+                  child: state.status == RegisterStatus.failure
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: 13.h),
+                          child: AuthErrorBanner(
+                            message: state.errorMessage ?? t.errorGeneric,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
                 PrimaryButton(
                   label: t.nextVerify,
-                  // سهم "للأمام" يتقلب حسب اتجاه اللغة (RTL: لليسار، LTR: لليمين).
                   icon: Directionality.of(context) == TextDirection.rtl
-                      ? Icons.arrow_back
-                      : Icons.arrow_forward,
-                  isLoading: state.status == RegisterStatus.submitting,
-                  onPressed: state.canSubmit ? () => cubit.submit() : null,
+                      ? Icons.arrow_back_rounded
+                      : Icons.arrow_forward_rounded,
+                  isLoading: submitting,
+                  onPressed: state.canSubmit ? cubit.submit : null,
                 ),
               ],
-            ).animate().fadeIn(duration: 350.ms),
-          );
-        },
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-/// حقل تاريخ الميلاد — يفتح date picker ويرجّع القيمة بصيغة YYYY-MM-DD
-/// (الصيغة اللي بيتوقّعها الـ API). الـ picker نفسه بيمنع اختيار أي تاريخ
-/// يخلّي العمر أقل من 18 سنة، فالقاعدة متطبّقة في الواجهة قبل السيرفر.
-class _BirthDateField extends StatelessWidget {
+class _BirthDateField extends StatefulWidget {
   final String value;
   final String? errorText;
   final ValueChanged<String> onPicked;
+  final bool enabled;
 
   const _BirthDateField({
     required this.value,
     required this.errorText,
     required this.onPicked,
+    required this.enabled,
   });
+
+  @override
+  State<_BirthDateField> createState() => _BirthDateFieldState();
+}
+
+class _BirthDateFieldState extends State<_BirthDateField> {
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.value,
+  );
 
   static String _fmt(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-'
@@ -166,10 +212,23 @@ class _BirthDateField extends StatelessWidget {
       '${d.day.toString().padLeft(2, '0')}';
 
   @override
+  void didUpdateWidget(_BirthDateField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.value != widget.value && _controller.text != widget.value) {
+      _controller.text = widget.value;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     final now = DateTime.now();
-    // آخر تاريخ مسموح = (اليوم - 18 سنة) - يوم، مطابقة لـ before: في الـ API.
     final lastAllowed = DateTime(
       now.year - AuthConstants.minAgeYears,
       now.month,
@@ -181,17 +240,18 @@ class _BirthDateField extends StatelessWidget {
       hint: t.selectBirthDate,
       icon: Icons.cake_outlined,
       readOnly: true,
-      controller: TextEditingController(text: value),
-      errorText: errorText,
+      enabled: widget.enabled,
+      controller: _controller,
+      errorText: widget.errorText,
       onTap: () async {
         final picked = await showDatePicker(
           context: context,
-          initialDate: DateTime.tryParse(value) ?? lastAllowed,
+          initialDate: DateTime.tryParse(widget.value) ?? lastAllowed,
           firstDate: DateTime(1900),
           lastDate: lastAllowed,
           helpText: t.selectBirthDate,
         );
-        if (picked != null) onPicked(_fmt(picked));
+        if (picked != null) widget.onPicked(_fmt(picked));
       },
     );
   }
