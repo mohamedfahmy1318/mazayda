@@ -29,6 +29,7 @@ _$PriceSnapshotModelImpl _$$PriceSnapshotModelImplFromJson(
   currentPriceFormatted: json['current_price_formatted'] as String? ?? '',
   bidCount: (json['bid_count'] as num?)?.toInt() ?? 0,
   status: json['status'] as String? ?? '',
+  endTime: json['end_time'] as String?,
   isBiddable: json['is_biddable'] as bool? ?? false,
   hasEnded: json['has_ended'] as bool? ?? false,
 );
@@ -40,6 +41,7 @@ Map<String, dynamic> _$$PriceSnapshotModelImplToJson(
   'current_price_formatted': instance.currentPriceFormatted,
   'bid_count': instance.bidCount,
   'status': instance.status,
+  'end_time': instance.endTime,
   'is_biddable': instance.isBiddable,
   'has_ended': instance.hasEnded,
 };

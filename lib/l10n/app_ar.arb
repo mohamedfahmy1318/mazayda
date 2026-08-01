@@ -439,5 +439,36 @@
   "secretQFirstSchool": "ما اسم أول مدرسة التحقت بها؟",
   "secretQBirthCity": "في أي مدينة وُلدت؟",
   "secretQPetName": "ما اسم أول حيوان أليف لديك؟",
-  "secretQFavTeacher": "من هو معلّمك المفضّل؟"
+  "secretQFavTeacher": "من هو معلّمك المفضّل؟",
+  "bidsSoFar": "{count} عرض حتى الآن",
+  "@bidsSoFar": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unitDays": "يوم",
+  "unitHours": "ساعة",
+  "unitMinutes": "دقيقة",
+  "unitSeconds": "ثانية",
+  "bidAmountHint": "مبلغ العرض ({currency})",
+  "@bidAmountHint": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "minBidHint": "الحد الأدنى للمزايدة: {amount}",
+  "@minBidHint": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "submitYourBid": "قدّم عرضك",
+  "bidBelowMinimum": "المبلغ أقل من الحد الأدنى للمزايدة",
+  "biddingClosed": "أُغلق باب المزايدة"
 }

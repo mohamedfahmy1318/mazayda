@@ -22,6 +22,8 @@ mixin _$BiddingState {
   int get currentPrice => throw _privateConstructorUsedError;
   String get currentPriceFormatted => throw _privateConstructorUsedError;
   int get bidCount => throw _privateConstructorUsedError;
+  DateTime? get endTime =>
+      throw _privateConstructorUsedError; // وقت الإقفال — مصدر العدّاد التنازلي
   bool get isBiddable => throw _privateConstructorUsedError;
   bool get hasEnded => throw _privateConstructorUsedError;
   bool get placingBid => throw _privateConstructorUsedError;
@@ -49,6 +51,7 @@ abstract class $BiddingStateCopyWith<$Res> {
     int currentPrice,
     String currentPriceFormatted,
     int bidCount,
+    DateTime? endTime,
     bool isBiddable,
     bool hasEnded,
     bool placingBid,
@@ -78,6 +81,7 @@ class _$BiddingStateCopyWithImpl<$Res, $Val extends BiddingState>
     Object? currentPrice = null,
     Object? currentPriceFormatted = null,
     Object? bidCount = null,
+    Object? endTime = freezed,
     Object? isBiddable = null,
     Object? hasEnded = null,
     Object? placingBid = null,
@@ -107,6 +111,10 @@ class _$BiddingStateCopyWithImpl<$Res, $Val extends BiddingState>
                 ? _value.bidCount
                 : bidCount // ignore: cast_nullable_to_non_nullable
                       as int,
+            endTime: freezed == endTime
+                ? _value.endTime
+                : endTime // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
             isBiddable: null == isBiddable
                 ? _value.isBiddable
                 : isBiddable // ignore: cast_nullable_to_non_nullable
@@ -152,6 +160,7 @@ abstract class _$$BiddingStateImplCopyWith<$Res>
     int currentPrice,
     String currentPriceFormatted,
     int bidCount,
+    DateTime? endTime,
     bool isBiddable,
     bool hasEnded,
     bool placingBid,
@@ -180,6 +189,7 @@ class __$$BiddingStateImplCopyWithImpl<$Res>
     Object? currentPrice = null,
     Object? currentPriceFormatted = null,
     Object? bidCount = null,
+    Object? endTime = freezed,
     Object? isBiddable = null,
     Object? hasEnded = null,
     Object? placingBid = null,
@@ -209,6 +219,10 @@ class __$$BiddingStateImplCopyWithImpl<$Res>
             ? _value.bidCount
             : bidCount // ignore: cast_nullable_to_non_nullable
                   as int,
+        endTime: freezed == endTime
+            ? _value.endTime
+            : endTime // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
         isBiddable: null == isBiddable
             ? _value.isBiddable
             : isBiddable // ignore: cast_nullable_to_non_nullable
@@ -247,6 +261,7 @@ class _$BiddingStateImpl implements _BiddingState {
     this.currentPrice = 0,
     this.currentPriceFormatted = '',
     this.bidCount = 0,
+    this.endTime,
     this.isBiddable = false,
     this.hasEnded = false,
     this.placingBid = false,
@@ -277,6 +292,9 @@ class _$BiddingStateImpl implements _BiddingState {
   @JsonKey()
   final int bidCount;
   @override
+  final DateTime? endTime;
+  // وقت الإقفال — مصدر العدّاد التنازلي
+  @override
   @JsonKey()
   final bool isBiddable;
   @override
@@ -297,7 +315,7 @@ class _$BiddingStateImpl implements _BiddingState {
 
   @override
   String toString() {
-    return 'BiddingState(loading: $loading, bids: $bids, currentPrice: $currentPrice, currentPriceFormatted: $currentPriceFormatted, bidCount: $bidCount, isBiddable: $isBiddable, hasEnded: $hasEnded, placingBid: $placingBid, isLive: $isLive, error: $error, bidError: $bidError)';
+    return 'BiddingState(loading: $loading, bids: $bids, currentPrice: $currentPrice, currentPriceFormatted: $currentPriceFormatted, bidCount: $bidCount, endTime: $endTime, isBiddable: $isBiddable, hasEnded: $hasEnded, placingBid: $placingBid, isLive: $isLive, error: $error, bidError: $bidError)';
   }
 
   @override
@@ -313,6 +331,7 @@ class _$BiddingStateImpl implements _BiddingState {
                 other.currentPriceFormatted == currentPriceFormatted) &&
             (identical(other.bidCount, bidCount) ||
                 other.bidCount == bidCount) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.isBiddable, isBiddable) ||
                 other.isBiddable == isBiddable) &&
             (identical(other.hasEnded, hasEnded) ||
@@ -333,6 +352,7 @@ class _$BiddingStateImpl implements _BiddingState {
     currentPrice,
     currentPriceFormatted,
     bidCount,
+    endTime,
     isBiddable,
     hasEnded,
     placingBid,
@@ -357,6 +377,7 @@ abstract class _BiddingState implements BiddingState {
     final int currentPrice,
     final String currentPriceFormatted,
     final int bidCount,
+    final DateTime? endTime,
     final bool isBiddable,
     final bool hasEnded,
     final bool placingBid,
@@ -375,6 +396,8 @@ abstract class _BiddingState implements BiddingState {
   String get currentPriceFormatted;
   @override
   int get bidCount;
+  @override
+  DateTime? get endTime; // وقت الإقفال — مصدر العدّاد التنازلي
   @override
   bool get isBiddable;
   @override

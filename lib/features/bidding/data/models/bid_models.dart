@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../../core/utils/money_format.dart';
 import '../../../auctions/data/models/money_model.dart';
 import '../../domain/entities/bid_entities.dart';
 
@@ -38,6 +39,7 @@ class PriceSnapshotModel with _$PriceSnapshotModel {
     String currentPriceFormatted,
     @JsonKey(name: 'bid_count') @Default(0) int bidCount,
     @Default('') String status,
+    @JsonKey(name: 'end_time') String? endTime,
     @JsonKey(name: 'is_biddable') @Default(false) bool isBiddable,
     @JsonKey(name: 'has_ended') @Default(false) bool hasEnded,
   }) = _PriceSnapshotModel;
@@ -47,10 +49,11 @@ class PriceSnapshotModel with _$PriceSnapshotModel {
 
   PriceSnapshot toEntity() => PriceSnapshot(
     currentPrice: currentPrice,
-    currentPriceFormatted: currentPriceFormatted,
+    currentPriceFormatted: bidiSafeNumber(currentPriceFormatted),
     bidCount: bidCount,
     status: status,
     isBiddable: isBiddable,
     hasEnded: hasEnded,
+    endTime: DateTime.tryParse(endTime ?? ''),
   );
 }

@@ -258,6 +258,8 @@ mixin _$PriceSnapshotModel {
   @JsonKey(name: 'bid_count')
   int get bidCount => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_time')
+  String? get endTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_biddable')
   bool get isBiddable => throw _privateConstructorUsedError;
   @JsonKey(name: 'has_ended')
@@ -285,6 +287,7 @@ abstract class $PriceSnapshotModelCopyWith<$Res> {
     @JsonKey(name: 'current_price_formatted') String currentPriceFormatted,
     @JsonKey(name: 'bid_count') int bidCount,
     String status,
+    @JsonKey(name: 'end_time') String? endTime,
     @JsonKey(name: 'is_biddable') bool isBiddable,
     @JsonKey(name: 'has_ended') bool hasEnded,
   });
@@ -309,6 +312,7 @@ class _$PriceSnapshotModelCopyWithImpl<$Res, $Val extends PriceSnapshotModel>
     Object? currentPriceFormatted = null,
     Object? bidCount = null,
     Object? status = null,
+    Object? endTime = freezed,
     Object? isBiddable = null,
     Object? hasEnded = null,
   }) {
@@ -330,6 +334,10 @@ class _$PriceSnapshotModelCopyWithImpl<$Res, $Val extends PriceSnapshotModel>
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
                       as String,
+            endTime: freezed == endTime
+                ? _value.endTime
+                : endTime // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isBiddable: null == isBiddable
                 ? _value.isBiddable
                 : isBiddable // ignore: cast_nullable_to_non_nullable
@@ -358,6 +366,7 @@ abstract class _$$PriceSnapshotModelImplCopyWith<$Res>
     @JsonKey(name: 'current_price_formatted') String currentPriceFormatted,
     @JsonKey(name: 'bid_count') int bidCount,
     String status,
+    @JsonKey(name: 'end_time') String? endTime,
     @JsonKey(name: 'is_biddable') bool isBiddable,
     @JsonKey(name: 'has_ended') bool hasEnded,
   });
@@ -381,6 +390,7 @@ class __$$PriceSnapshotModelImplCopyWithImpl<$Res>
     Object? currentPriceFormatted = null,
     Object? bidCount = null,
     Object? status = null,
+    Object? endTime = freezed,
     Object? isBiddable = null,
     Object? hasEnded = null,
   }) {
@@ -402,6 +412,10 @@ class __$$PriceSnapshotModelImplCopyWithImpl<$Res>
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
                   as String,
+        endTime: freezed == endTime
+            ? _value.endTime
+            : endTime // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isBiddable: null == isBiddable
             ? _value.isBiddable
             : isBiddable // ignore: cast_nullable_to_non_nullable
@@ -423,6 +437,7 @@ class _$PriceSnapshotModelImpl extends _PriceSnapshotModel {
     @JsonKey(name: 'current_price_formatted') this.currentPriceFormatted = '',
     @JsonKey(name: 'bid_count') this.bidCount = 0,
     this.status = '',
+    @JsonKey(name: 'end_time') this.endTime,
     @JsonKey(name: 'is_biddable') this.isBiddable = false,
     @JsonKey(name: 'has_ended') this.hasEnded = false,
   }) : super._();
@@ -443,6 +458,9 @@ class _$PriceSnapshotModelImpl extends _PriceSnapshotModel {
   @JsonKey()
   final String status;
   @override
+  @JsonKey(name: 'end_time')
+  final String? endTime;
+  @override
   @JsonKey(name: 'is_biddable')
   final bool isBiddable;
   @override
@@ -451,7 +469,7 @@ class _$PriceSnapshotModelImpl extends _PriceSnapshotModel {
 
   @override
   String toString() {
-    return 'PriceSnapshotModel(currentPrice: $currentPrice, currentPriceFormatted: $currentPriceFormatted, bidCount: $bidCount, status: $status, isBiddable: $isBiddable, hasEnded: $hasEnded)';
+    return 'PriceSnapshotModel(currentPrice: $currentPrice, currentPriceFormatted: $currentPriceFormatted, bidCount: $bidCount, status: $status, endTime: $endTime, isBiddable: $isBiddable, hasEnded: $hasEnded)';
   }
 
   @override
@@ -466,6 +484,7 @@ class _$PriceSnapshotModelImpl extends _PriceSnapshotModel {
             (identical(other.bidCount, bidCount) ||
                 other.bidCount == bidCount) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.isBiddable, isBiddable) ||
                 other.isBiddable == isBiddable) &&
             (identical(other.hasEnded, hasEnded) ||
@@ -480,6 +499,7 @@ class _$PriceSnapshotModelImpl extends _PriceSnapshotModel {
     currentPriceFormatted,
     bidCount,
     status,
+    endTime,
     isBiddable,
     hasEnded,
   );
@@ -508,6 +528,7 @@ abstract class _PriceSnapshotModel extends PriceSnapshotModel {
     final String currentPriceFormatted,
     @JsonKey(name: 'bid_count') final int bidCount,
     final String status,
+    @JsonKey(name: 'end_time') final String? endTime,
     @JsonKey(name: 'is_biddable') final bool isBiddable,
     @JsonKey(name: 'has_ended') final bool hasEnded,
   }) = _$PriceSnapshotModelImpl;
@@ -527,6 +548,9 @@ abstract class _PriceSnapshotModel extends PriceSnapshotModel {
   int get bidCount;
   @override
   String get status;
+  @override
+  @JsonKey(name: 'end_time')
+  String? get endTime;
   @override
   @JsonKey(name: 'is_biddable')
   bool get isBiddable;

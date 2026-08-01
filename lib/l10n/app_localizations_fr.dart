@@ -1077,4 +1077,41 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get secretQFavTeacher => 'Qui est votre enseignant préféré ?';
+
+  @override
+  String bidsSoFar(int count) {
+    return '$count offre(s) jusqu\'à présent';
+  }
+
+  @override
+  String get unitDays => 'jour';
+
+  @override
+  String get unitHours => 'heure';
+
+  @override
+  String get unitMinutes => 'minute';
+
+  @override
+  String get unitSeconds => 'seconde';
+
+  @override
+  String bidAmountHint(String currency) {
+    return 'Montant de l\'offre ($currency)';
+  }
+
+  @override
+  String minBidHint(String amount) {
+    return 'Enchère minimale : $amount';
+  }
+
+  @override
+  String get submitYourBid => 'Soumettre votre offre';
+
+  @override
+  String get bidBelowMinimum =>
+      'Le montant est inférieur à l\'enchère minimale';
+
+  @override
+  String get biddingClosed => 'Les enchères sont closes';
 }

@@ -439,5 +439,15 @@
   "secretQFirstSchool": "Quel est le nom de votre première école ?",
   "secretQBirthCity": "Dans quelle ville êtes-vous né(e) ?",
   "secretQPetName": "Quel est le nom de votre premier animal ?",
-  "secretQFavTeacher": "Qui est votre enseignant préféré ?"
+  "secretQFavTeacher": "Qui est votre enseignant préféré ?",
+  "bidsSoFar": "{count} offre(s) jusqu'à présent",
+  "unitDays": "jour",
+  "unitHours": "heure",
+  "unitMinutes": "minute",
+  "unitSeconds": "seconde",
+  "bidAmountHint": "Montant de l'offre ({currency})",
+  "minBidHint": "Enchère minimale : {amount}",
+  "submitYourBid": "Soumettre votre offre",
+  "bidBelowMinimum": "Le montant est inférieur à l'enchère minimale",
+  "biddingClosed": "Les enchères sont closes"
 }

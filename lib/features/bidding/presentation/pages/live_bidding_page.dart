@@ -37,6 +37,8 @@ class _LiveBiddingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: BlocConsumer<BiddingCubit, BiddingState>(
@@ -54,21 +56,59 @@ class _LiveBiddingView extends StatelessWidget {
         builder: (context, state) {
           if (state.loading) return const LoadingView();
           final cubit = context.read<BiddingCubit>();
+          final canBid = state.isBiddable && !state.hasEnded;
 
-          return Column(
-            children: [
-              LivePriceCard(
-                isLive: state.isLive,
-                currentPrice: state.currentPrice,
-                currentPriceFormatted: state.currentPriceFormatted,
-                bidCount: state.bidCount,
-              ),
-              Expanded(child: _BidHistory(bids: state.bids)),
-              if (state.isBiddable && !state.hasEnded)
-                BidControls(
+          // الصفحة كلها بتتمرّر: الكارت طويل (سعر + عدّاد + أدوات) والكيبورد
+          // بيقفل نص الشاشة وقت إدخال المبلغ.
+          return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: LiveBidPanel(
+                  isActive: canBid,
                   currentPrice: state.currentPrice,
-                  placingBid: state.placingBid,
-                  onPlaceBid: cubit.placeBid,
+                  currentPriceFormatted: state.currentPriceFormatted,
+                  bidCount: state.bidCount,
+                  endTime: state.endTime,
+                  onCountdownFinished: cubit.refresh,
+                  controls: canBid
+                      ? BidControls(
+                          currentPrice: state.currentPrice,
+                          placingBid: state.placingBid,
+                          onPlaceBid: cubit.placeBid,
+                        )
+                      : null,
+                ),
+              ),
+              if (!canBid)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: _ClosedNotice(message: t.biddingClosed),
+                  ),
+                ),
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(16.w, 18.h, 16.w, 8.h),
+                sliver: SliverToBoxAdapter(
+                  child: Text(
+                    t.bidHistory,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              if (state.bids.isEmpty)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 32.h),
+                    child: EmptyView(message: t.noBidsYet, icon: Icons.gavel),
+                  ),
+                )
+              else
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 24.h),
+                  sliver: _BidHistorySliver(bids: state.bids),
                 ),
             ],
           );
@@ -78,35 +118,46 @@ class _LiveBiddingView extends StatelessWidget {
   }
 }
 
-/// سجل المزايدات — عنوان + قائمة الصفوف أو حالة فارغة.
-class _BidHistory extends StatelessWidget {
+/// سجل المزايدات كـ sliver — نفس صفوف [BidRow] بنفس أنيميشن الدخول.
+class _BidHistorySliver extends StatelessWidget {
   final List<BidEntry> bids;
-  const _BidHistory({required this.bids});
+  const _BidHistorySliver({required this.bids});
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SliverList.builder(
+      itemCount: bids.length,
+      itemBuilder: (_, i) => BidRow(bid: bids[i], highlighted: i == 0)
+          .animate()
+          .fadeIn(duration: 250.ms)
+          .slideY(begin: 0.08, end: 0, curve: Curves.easeOut),
+    );
+  }
+}
+
+/// المزايدة مقفولة — بديل واضح بدل ما الأدوات تختفي من غير سبب.
+class _ClosedNotice extends StatelessWidget {
+  final String message;
+  const _ClosedNotice({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 14.w),
+      decoration: BoxDecoration(
+        color: AppColors.neutralBg,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
         children: [
-          Text(
-            t.bidHistory,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 10.h),
+          Icon(Icons.lock_clock, size: 17.sp, color: AppColors.neutral),
+          SizedBox(width: 8.w),
           Expanded(
-            child: bids.isEmpty
-                ? EmptyView(message: t.noBidsYet, icon: Icons.gavel)
-                : ListView.builder(
-                    itemCount: bids.length,
-                    itemBuilder: (_, i) =>
-                        BidRow(bid: bids[i], highlighted: i == 0)
-                            .animate()
-                            .fadeIn(duration: 250.ms)
-                            .slideY(begin: 0.08, end: 0, curve: Curves.easeOut),
-                  ),
+            child: Text(
+              message,
+              style: TextStyle(fontSize: 12.sp, color: AppColors.neutral),
+            ),
           ),
         ],
       ),

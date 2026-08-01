@@ -1066,4 +1066,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get secretQFavTeacher => 'من هو معلّمك المفضّل؟';
+
+  @override
+  String bidsSoFar(int count) {
+    return '$count عرض حتى الآن';
+  }
+
+  @override
+  String get unitDays => 'يوم';
+
+  @override
+  String get unitHours => 'ساعة';
+
+  @override
+  String get unitMinutes => 'دقيقة';
+
+  @override
+  String get unitSeconds => 'ثانية';
+
+  @override
+  String bidAmountHint(String currency) {
+    return 'مبلغ العرض ($currency)';
+  }
+
+  @override
+  String minBidHint(String amount) {
+    return 'الحد الأدنى للمزايدة: $amount';
+  }
+
+  @override
+  String get submitYourBid => 'قدّم عرضك';
+
+  @override
+  String get bidBelowMinimum => 'المبلغ أقل من الحد الأدنى للمزايدة';
+
+  @override
+  String get biddingClosed => 'أُغلق باب المزايدة';
 }

@@ -1070,4 +1070,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get secretQFavTeacher => 'Who was your favourite teacher?';
+
+  @override
+  String bidsSoFar(int count) {
+    return '$count bids so far';
+  }
+
+  @override
+  String get unitDays => 'day';
+
+  @override
+  String get unitHours => 'hour';
+
+  @override
+  String get unitMinutes => 'min';
+
+  @override
+  String get unitSeconds => 'sec';
+
+  @override
+  String bidAmountHint(String currency) {
+    return 'Bid amount ($currency)';
+  }
+
+  @override
+  String minBidHint(String amount) {
+    return 'Minimum bid: $amount';
+  }
+
+  @override
+  String get submitYourBid => 'Place your bid';
+
+  @override
+  String get bidBelowMinimum => 'Amount is below the minimum bid';
+
+  @override
+  String get biddingClosed => 'Bidding is closed';
 }

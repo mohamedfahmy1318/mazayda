@@ -28,7 +28,7 @@ class AuctionStatusStrip extends StatelessWidget {
         children: [
           // زر التصفية (ثابت)
           Padding(
-            padding: EdgeInsets.only(right: 16.w, left: 4.w),
+            padding: EdgeInsetsDirectional.only(start: 16.w, end: 4.w),
             child: _FilterButton(count: filterCount, onTap: onOpenFilters),
           ),
           // شيبس الحالة (قابلة للتمرير)

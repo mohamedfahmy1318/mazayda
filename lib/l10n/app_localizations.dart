@@ -2133,6 +2133,66 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'من هو معلّمك المفضّل؟'**
   String get secretQFavTeacher;
+
+  /// No description provided for @bidsSoFar.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} عرض حتى الآن'**
+  String bidsSoFar(int count);
+
+  /// No description provided for @unitDays.
+  ///
+  /// In ar, this message translates to:
+  /// **'يوم'**
+  String get unitDays;
+
+  /// No description provided for @unitHours.
+  ///
+  /// In ar, this message translates to:
+  /// **'ساعة'**
+  String get unitHours;
+
+  /// No description provided for @unitMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'دقيقة'**
+  String get unitMinutes;
+
+  /// No description provided for @unitSeconds.
+  ///
+  /// In ar, this message translates to:
+  /// **'ثانية'**
+  String get unitSeconds;
+
+  /// No description provided for @bidAmountHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مبلغ العرض ({currency})'**
+  String bidAmountHint(String currency);
+
+  /// No description provided for @minBidHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأدنى للمزايدة: {amount}'**
+  String minBidHint(String amount);
+
+  /// No description provided for @submitYourBid.
+  ///
+  /// In ar, this message translates to:
+  /// **'قدّم عرضك'**
+  String get submitYourBid;
+
+  /// No description provided for @bidBelowMinimum.
+  ///
+  /// In ar, this message translates to:
+  /// **'المبلغ أقل من الحد الأدنى للمزايدة'**
+  String get bidBelowMinimum;
+
+  /// No description provided for @biddingClosed.
+  ///
+  /// In ar, this message translates to:
+  /// **'أُغلق باب المزايدة'**
+  String get biddingClosed;
 }
 
 class _AppLocalizationsDelegate

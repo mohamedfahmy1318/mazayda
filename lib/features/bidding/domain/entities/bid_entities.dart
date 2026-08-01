@@ -26,6 +26,9 @@ class PriceSnapshot extends Equatable {
   final bool isBiddable;
   final bool hasEnded;
 
+  /// وقت إقفال المزاد — مصدر العدّاد التنازلي. `null` لو الباك مابعتهوش.
+  final DateTime? endTime;
+
   const PriceSnapshot({
     required this.currentPrice,
     required this.currentPriceFormatted,
@@ -33,6 +36,7 @@ class PriceSnapshot extends Equatable {
     required this.status,
     required this.isBiddable,
     required this.hasEnded,
+    this.endTime,
   });
 
   @override
@@ -42,5 +46,6 @@ class PriceSnapshot extends Equatable {
     status,
     isBiddable,
     hasEnded,
+    endTime,
   ];
 }

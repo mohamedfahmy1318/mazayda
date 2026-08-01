@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../../core/utils/money_format.dart';
 import '../../domain/entities/final_payment_preview.dart';
 
 part 'final_payment_preview_model.freezed.dart';
@@ -24,7 +25,7 @@ class FeeLineModel with _$FeeLineModel {
     key: key ?? '',
     label: label ?? '',
     amount: amount,
-    formatted: formatted ?? '',
+    formatted: bidiSafeNumber(formatted ?? ''),
   );
 }
 
@@ -53,7 +54,7 @@ class FinalPaymentPreviewModel with _$FinalPaymentPreviewModel {
     lines: lines.map((l) => l.toEntity()).toList(),
     confirmedDeposit: confirmedDeposit,
     amountDue: amountDue,
-    amountDueFormatted: amountDueFormatted ?? '',
+    amountDueFormatted: bidiSafeNumber(amountDueFormatted ?? ''),
     customsImmediateDue: customsImmediateDue,
     dueAt: DateTime.tryParse(dueAt ?? ''),
     deadlineDays: deadlineDays,

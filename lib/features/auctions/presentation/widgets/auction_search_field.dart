@@ -8,6 +8,9 @@ class AuctionSearchField extends StatelessWidget {
   final bool hasText;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
+  final EdgeInsetsGeometry? padding;
+  final Color fillColor;
+  final bool showShadow;
 
   const AuctionSearchField({
     super.key,
@@ -15,17 +18,31 @@ class AuctionSearchField extends StatelessWidget {
     required this.hasText,
     required this.onChanged,
     required this.onClear,
+    this.padding,
+    this.fillColor = AppColors.background,
+    this.showShadow = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
-      child: SizedBox(
+      padding: padding ?? EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
+      child: Container(
         height: 46.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14.r),
+          boxShadow: showShadow
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.10),
+                    blurRadius: 18,
+                    offset: const Offset(0, 7),
+                  ),
+                ]
+              : null,
+        ),
         child: TextField(
           controller: controller,
-          textDirection: TextDirection.rtl,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyle(fontSize: 14.sp, color: AppColors.textPrimary),
           decoration: InputDecoration(
@@ -47,19 +64,19 @@ class AuctionSearchField extends StatelessWidget {
                   )
                 : null,
             filled: true,
-            fillColor: AppColors.background,
+            fillColor: fillColor,
             isDense: true,
             contentPadding: EdgeInsets.zero,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(13.r),
+              borderRadius: BorderRadius.circular(14.r),
               borderSide: BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(13.r),
+              borderRadius: BorderRadius.circular(14.r),
               borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(13.r),
+              borderRadius: BorderRadius.circular(14.r),
               borderSide: const BorderSide(
                 color: AppColors.primary,
                 width: 1.3,

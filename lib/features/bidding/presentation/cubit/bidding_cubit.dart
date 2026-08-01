@@ -18,6 +18,7 @@ class BiddingState with _$BiddingState {
     @Default(0) int currentPrice,
     @Default('') String currentPriceFormatted,
     @Default(0) int bidCount,
+    DateTime? endTime, // وقت الإقفال — مصدر العدّاد التنازلي
     @Default(false) bool isBiddable,
     @Default(false) bool hasEnded,
     @Default(false) bool placingBid,
@@ -95,6 +96,10 @@ class BiddingCubit extends Cubit<BiddingState> {
     );
   }
 
+  /// إعادة قراءة فورية للسعر والحالة — بينادى لما العدّاد التنازلي يوصل صفر،
+  /// عشان الشاشة تعرف إن المزاد قفل من غير ما تستنى دورة الـ polling.
+  Future<void> refresh() => _tick();
+
   Future<void> _tick() async {
     final res = await _getPrice(_auctionId);
     if (isClosed) return;
@@ -104,6 +109,7 @@ class BiddingCubit extends Cubit<BiddingState> {
           currentPrice: snap.currentPrice,
           currentPriceFormatted: snap.currentPriceFormatted,
           bidCount: snap.bidCount,
+          endTime: snap.endTime,
           isBiddable: snap.isBiddable,
           hasEnded: snap.hasEnded,
         ),

@@ -37,4 +37,9 @@ class AppColors {
   // محايد
   static const Color neutral = Color(0xFF5F5E5A);
   static const Color neutralBg = Color(0xFFF1EFE8);
+
+  // كارت المزايدة الحية — تدرّج داكن + زر ذهبي (تصميم شاشة المزاد المباشر)
+  static const Color primaryDeep = Color(0xFF163F31);
+  static const Color primarySoft = Color(0xFF2E6B54);
+  static const Color gold = Color(0xFFD9AB3D);
 }

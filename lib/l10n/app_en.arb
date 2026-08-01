@@ -439,5 +439,15 @@
   "secretQFirstSchool": "What was the name of your first school?",
   "secretQBirthCity": "In which city were you born?",
   "secretQPetName": "What was your first pet's name?",
-  "secretQFavTeacher": "Who was your favourite teacher?"
+  "secretQFavTeacher": "Who was your favourite teacher?",
+  "bidsSoFar": "{count} bids so far",
+  "unitDays": "day",
+  "unitHours": "hour",
+  "unitMinutes": "min",
+  "unitSeconds": "sec",
+  "bidAmountHint": "Bid amount ({currency})",
+  "minBidHint": "Minimum bid: {amount}",
+  "submitYourBid": "Place your bid",
+  "bidBelowMinimum": "Amount is below the minimum bid",
+  "biddingClosed": "Bidding is closed"
 }

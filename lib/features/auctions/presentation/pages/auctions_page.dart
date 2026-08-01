@@ -12,11 +12,11 @@ import '../../../../core/widgets/state_views.dart';
 import '../cubit/auctions_cubit.dart';
 import '../widgets/auction_card.dart';
 import '../widgets/auction_filter_options.dart';
-import '../widgets/auction_search_field.dart';
 import '../widgets/auction_status_strip.dart';
 import '../widgets/auction_context_bar.dart';
 import '../widgets/auctions_list_states.dart';
 import '../widgets/auction_filter_sheet.dart';
+import '../widgets/auctions_home_header.dart';
 
 /// مسافة من نهاية القائمة (بكسل) نبدأ عندها تحميل الصفحة التالية.
 const _loadMoreThreshold = 240.0;
@@ -103,32 +103,40 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
 
         return Scaffold(
           backgroundColor: AppColors.background,
-          appBar: AppBar(title: Text(t.auctionsTitle), elevation: 0),
           body: Column(
             children: [
-              // — رأس البحث والفلاتر (على خلفية بيضاء كبلوك واحد) —
+              AuctionsHomeHeader(
+                searchController: _searchCtrl,
+                hasSearchText: state.query.isNotEmpty,
+                onSearchChanged: cubit.search,
+                onClearSearch: () {
+                  _searchCtrl.clear();
+                  cubit.search('');
+                },
+                onNotificationsTap: () => context.go(Routes.notifications),
+              ),
               Container(
-                color: AppColors.white,
-                padding: EdgeInsets.only(bottom: 10.h),
-                child: Column(
-                  children: [
-                    AuctionSearchField(
-                      controller: _searchCtrl,
-                      hasText: state.query.isNotEmpty,
-                      onChanged: cubit.search,
-                      onClear: () {
-                        _searchCtrl.clear();
-                        cubit.search('');
-                      },
-                    ),
-                    Gap(4.h),
-                    AuctionStatusStrip(
-                      current: state.statusFilter,
-                      filterCount: cubit.activeFilterCount,
-                      onSelectStatus: cubit.setStatus,
-                      onOpenFilters: () => _openFilterSheet(cubit),
+                margin: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 0),
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(18.r),
+                  border: Border.all(
+                    color: AppColors.border.withValues(alpha: 0.8),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.035),
+                      blurRadius: 14,
+                      offset: const Offset(0, 5),
                     ),
                   ],
+                ),
+                child: AuctionStatusStrip(
+                  current: state.statusFilter,
+                  filterCount: cubit.activeFilterCount,
+                  onSelectStatus: cubit.setStatus,
+                  onOpenFilters: () => _openFilterSheet(cubit),
                 ),
               ),
               // — شريط السياق (نتائج + فلاتر نشطة) —
@@ -167,7 +175,9 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
     AuctionsCubit cubit,
     AuctionsState state,
   ) {
-    if (state.loading && state.auctions.isEmpty) return const LoadingView();
+    if (state.loading && state.auctions.isEmpty) {
+      return const AuctionsLoadingList();
+    }
     if (state.error != null && state.auctions.isEmpty) {
       return ErrorView(message: state.error!, onRetry: cubit.refresh);
     }
@@ -180,21 +190,83 @@ class _AuctionsBodyState extends State<_AuctionsBody> {
       child: ListView.builder(
         controller: _scroll,
         padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
-        itemCount: state.auctions.length + 1,
+        itemCount: state.auctions.length + 2,
         itemBuilder: (_, i) {
-          if (i == state.auctions.length) {
+          if (i == 0) {
+            return _ResultsHeader(state: state);
+          }
+          if (i == state.auctions.length + 1) {
             return AuctionsListFooter(state: state);
           }
-          final a = state.auctions[i];
+          final auctionIndex = i - 1;
+          final a = state.auctions[auctionIndex];
           return AuctionCard(
             auction: a,
             onTap: () => context.push('${Routes.auctionDetail}/${a.id}'),
           ).staggeredEntrance(
-            i,
-            duration: const Duration(milliseconds: 280),
-            slideBegin: 0.06,
+            auctionIndex,
+            duration: const Duration(milliseconds: 360),
+            slideBegin: 0.045,
           );
         },
+      ),
+    );
+  }
+}
+
+class _ResultsHeader extends StatelessWidget {
+  final AuctionsState state;
+  const _ResultsHeader({required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final label = auctionStatusFilterLabel(state.statusFilter, t);
+    final count = '${state.auctions.length}${state.hasMore ? '+' : ''}';
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: 11.h, top: 2.h),
+      child: Row(
+        children: [
+          Container(
+            width: 4.w,
+            height: 22.h,
+            decoration: BoxDecoration(
+              color: AppColors.gold,
+              borderRadius: BorderRadius.circular(4.r),
+            ),
+          ),
+          Gap(8.w),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              child: Text(
+                label,
+                key: ValueKey(state.statusFilter),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.075),
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Text(
+              t.auctionsCount(count),
+              style: TextStyle(
+                fontSize: 10.5.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
