@@ -679,20 +679,66 @@ class AppLocalizationsFr extends AppLocalizations {
   String get crCompanyName => 'Nom de la société';
 
   @override
+  String get crCompanyNameHint => 'ex. Sarl Mazayada Commerce';
+
+  @override
   String get crRegisterNumber => 'Numéro du registre de commerce';
+
+  @override
+  String get crRegisterNumberHint => 'ex. 16/00-1234567 B 19';
+
+  @override
+  String get crRegisterNumberIncomplete =>
+      'Le numéro de registre semble incomplet';
 
   @override
   String get crTaxNumber => 'Numéro fiscal';
 
   @override
+  String get crTaxNumberHint => '15 chiffres — ex. 000116001234567';
+
+  @override
+  String get crTaxNumberDigitsOnly =>
+      'Le numéro fiscal ne doit contenir que des chiffres';
+
+  @override
+  String crTaxNumberLength(int count) {
+    return 'Le numéro fiscal comporte $count chiffres';
+  }
+
+  @override
   String get crActivityType => 'Type d\'activité';
+
+  @override
+  String get crActivityTypeHint => 'ex. Commerce de véhicules';
 
   @override
   String get crStartDate => 'Date de délivrance du registre';
 
   @override
+  String get crStartDateHint => 'Choisissez la date de délivrance';
+
+  @override
   String get crStartDateNotFuture =>
       'La date de délivrance ne peut pas être dans le futur';
+
+  @override
+  String get crSectionCompany => 'Informations de la société';
+
+  @override
+  String get crSectionDocuments => 'Documents requis';
+
+  @override
+  String crProgress(int done, int total) {
+    return '$done sur $total complétés';
+  }
+
+  @override
+  String get crFixErrors => 'Vérifiez les champs signalés en rouge';
+
+  @override
+  String get crDocumentsNote =>
+      'Formats acceptés : PDF ou image (JPG/PNG) — 2 Mo max.';
 
   @override
   String get crFileTooLarge => 'La taille du fichier dépasse 2 Mo';
@@ -732,6 +778,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get valTooLong => 'Le texte dépasse la longueur autorisée';
+
+  @override
+  String get valTooShort => 'Le texte est plus court que requis';
 
   @override
   String get fpTitle => 'Détail du paiement final';

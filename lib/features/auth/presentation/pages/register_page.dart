@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../auth_constants.dart';
 import '../cubit/register_cubit.dart';
@@ -64,6 +65,8 @@ class _RegisterView extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   maxLength: AuthConstants.ninLength,
+                  // نقبل الأرقام العربية زي اللاتينية — التحويل بيحصل في الـ cubit.
+                  inputFormatters: [AppInputFormatters.anyNumeralDigitsOnly],
                   enabled: !submitting,
                   onChanged: cubit.ninChanged,
                   errorText: state.nin.errorText(t) ?? srv?['nin']?.first,
@@ -102,6 +105,7 @@ class _RegisterView extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   autofillHints: const [AutofillHints.telephoneNumber],
                   maxLength: AuthConstants.phoneLength,
+                  inputFormatters: [AppInputFormatters.anyNumeralDigitsOnly],
                   enabled: !submitting,
                   onChanged: cubit.phoneChanged,
                   errorText: state.phone.errorText(t) ?? srv?['phone']?.first,

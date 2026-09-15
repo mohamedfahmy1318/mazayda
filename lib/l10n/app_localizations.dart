@@ -1366,11 +1366,29 @@ abstract class AppLocalizations {
   /// **'اسم الشركة'**
   String get crCompanyName;
 
+  /// No description provided for @crCompanyNameHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: ذ.م.م مزايدة للتجارة'**
+  String get crCompanyNameHint;
+
   /// No description provided for @crRegisterNumber.
   ///
   /// In ar, this message translates to:
   /// **'رقم السجل التجاري'**
   String get crRegisterNumber;
+
+  /// No description provided for @crRegisterNumberHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: 16/00-1234567 B 19'**
+  String get crRegisterNumberHint;
+
+  /// No description provided for @crRegisterNumberIncomplete.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم السجل غير مكتمل'**
+  String get crRegisterNumberIncomplete;
 
   /// No description provided for @crTaxNumber.
   ///
@@ -1378,11 +1396,35 @@ abstract class AppLocalizations {
   /// **'الرقم الجبائي'**
   String get crTaxNumber;
 
+  /// No description provided for @crTaxNumberHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'15 رقمًا — مثال: 000116001234567'**
+  String get crTaxNumberHint;
+
+  /// No description provided for @crTaxNumberDigitsOnly.
+  ///
+  /// In ar, this message translates to:
+  /// **'الرقم الجبائي أرقام فقط'**
+  String get crTaxNumberDigitsOnly;
+
+  /// No description provided for @crTaxNumberLength.
+  ///
+  /// In ar, this message translates to:
+  /// **'الرقم الجبائي يتكوّن من {count} رقمًا'**
+  String crTaxNumberLength(int count);
+
   /// No description provided for @crActivityType.
   ///
   /// In ar, this message translates to:
   /// **'نوع النشاط'**
   String get crActivityType;
+
+  /// No description provided for @crActivityTypeHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: تجارة السيارات'**
+  String get crActivityTypeHint;
 
   /// No description provided for @crStartDate.
   ///
@@ -1390,11 +1432,47 @@ abstract class AppLocalizations {
   /// **'تاريخ إصدار السجل'**
   String get crStartDate;
 
+  /// No description provided for @crStartDateHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختر تاريخ الإصدار'**
+  String get crStartDateHint;
+
   /// No description provided for @crStartDateNotFuture.
   ///
   /// In ar, this message translates to:
   /// **'تاريخ الإصدار لا يمكن أن يكون في المستقبل'**
   String get crStartDateNotFuture;
+
+  /// No description provided for @crSectionCompany.
+  ///
+  /// In ar, this message translates to:
+  /// **'بيانات الشركة'**
+  String get crSectionCompany;
+
+  /// No description provided for @crSectionDocuments.
+  ///
+  /// In ar, this message translates to:
+  /// **'المستندات المطلوبة'**
+  String get crSectionDocuments;
+
+  /// No description provided for @crProgress.
+  ///
+  /// In ar, this message translates to:
+  /// **'{done} من {total} مكتملة'**
+  String crProgress(int done, int total);
+
+  /// No description provided for @crFixErrors.
+  ///
+  /// In ar, this message translates to:
+  /// **'راجع الحقول المعلّمة بالأحمر'**
+  String get crFixErrors;
+
+  /// No description provided for @crDocumentsNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'صيغ مقبولة: PDF أو صورة (JPG/PNG) — بحد أقصى 2 ميغابايت.'**
+  String get crDocumentsNote;
 
   /// No description provided for @crFileTooLarge.
   ///
@@ -1473,6 +1551,12 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'النص أطول من المسموح'**
   String get valTooLong;
+
+  /// No description provided for @valTooShort.
+  ///
+  /// In ar, this message translates to:
+  /// **'النص أقصر من المطلوب'**
+  String get valTooShort;
 
   /// No description provided for @fpTitle.
   ///

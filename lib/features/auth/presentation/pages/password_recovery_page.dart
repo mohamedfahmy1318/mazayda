@@ -8,6 +8,7 @@ import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../auth_constants.dart';
 import '../cubit/password_recovery_cubit.dart';
@@ -123,6 +124,7 @@ class _IdentifyStep extends StatelessWidget {
           icon: Icons.badge_outlined,
           keyboardType: TextInputType.number,
           maxLength: AuthConstants.ninLength,
+          inputFormatters: [AppInputFormatters.anyNumeralDigitsOnly],
           onChanged: cubit.ninChanged,
           errorText: state.nin.errorText(t) ?? srv?['nin']?.first,
         ),

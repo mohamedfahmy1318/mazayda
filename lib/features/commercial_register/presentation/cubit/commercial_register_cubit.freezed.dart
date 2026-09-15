@@ -32,8 +32,16 @@ mixin _$CommercialRegisterState {
   String? get registerDocumentPath => throw _privateConstructorUsedError;
   String? get taxCardDocumentPath => throw _privateConstructorUsedError;
 
-  /// نعرض أخطاء الحقول بعد أول محاولة إرسال فقط.
+  /// حجم كل مرفق (بايت) — بنقيسه مرة واحدة وقت الاختيار بدل ما نقرا من
+  /// الديسك في كل rebuild (يعني مع كل حرف بيتكتب في النموذج).
+  int? get registerDocumentBytes => throw _privateConstructorUsedError;
+  int? get taxCardDocumentBytes => throw _privateConstructorUsedError;
+
+  /// بعد أول محاولة إرسال بنعرض أخطاء كل الحقول.
   bool get showErrors => throw _privateConstructorUsedError;
+
+  /// الحقول اللي المستخدم دخلها وخرج منها — بنعرض خطأها لوحدها قبل الإرسال.
+  Set<CrFormField> get touched => throw _privateConstructorUsedError;
 
   /// Create a copy of CommercialRegisterState
   /// with the given fields replaced by the non-null parameter values.
@@ -63,7 +71,10 @@ abstract class $CommercialRegisterStateCopyWith<$Res> {
     String? startDate,
     String? registerDocumentPath,
     String? taxCardDocumentPath,
+    int? registerDocumentBytes,
+    int? taxCardDocumentBytes,
     bool showErrors,
+    Set<CrFormField> touched,
   });
 }
 
@@ -98,7 +109,10 @@ class _$CommercialRegisterStateCopyWithImpl<
     Object? startDate = freezed,
     Object? registerDocumentPath = freezed,
     Object? taxCardDocumentPath = freezed,
+    Object? registerDocumentBytes = freezed,
+    Object? taxCardDocumentBytes = freezed,
     Object? showErrors = null,
+    Object? touched = null,
   }) {
     return _then(
       _value.copyWith(
@@ -154,10 +168,22 @@ class _$CommercialRegisterStateCopyWithImpl<
                 ? _value.taxCardDocumentPath
                 : taxCardDocumentPath // ignore: cast_nullable_to_non_nullable
                       as String?,
+            registerDocumentBytes: freezed == registerDocumentBytes
+                ? _value.registerDocumentBytes
+                : registerDocumentBytes // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            taxCardDocumentBytes: freezed == taxCardDocumentBytes
+                ? _value.taxCardDocumentBytes
+                : taxCardDocumentBytes // ignore: cast_nullable_to_non_nullable
+                      as int?,
             showErrors: null == showErrors
                 ? _value.showErrors
                 : showErrors // ignore: cast_nullable_to_non_nullable
                       as bool,
+            touched: null == touched
+                ? _value.touched
+                : touched // ignore: cast_nullable_to_non_nullable
+                      as Set<CrFormField>,
           )
           as $Val,
     );
@@ -187,7 +213,10 @@ abstract class _$$CommercialRegisterStateImplCopyWith<$Res>
     String? startDate,
     String? registerDocumentPath,
     String? taxCardDocumentPath,
+    int? registerDocumentBytes,
+    int? taxCardDocumentBytes,
     bool showErrors,
+    Set<CrFormField> touched,
   });
 }
 
@@ -222,7 +251,10 @@ class __$$CommercialRegisterStateImplCopyWithImpl<$Res>
     Object? startDate = freezed,
     Object? registerDocumentPath = freezed,
     Object? taxCardDocumentPath = freezed,
+    Object? registerDocumentBytes = freezed,
+    Object? taxCardDocumentBytes = freezed,
     Object? showErrors = null,
+    Object? touched = null,
   }) {
     return _then(
       _$CommercialRegisterStateImpl(
@@ -278,10 +310,22 @@ class __$$CommercialRegisterStateImplCopyWithImpl<$Res>
             ? _value.taxCardDocumentPath
             : taxCardDocumentPath // ignore: cast_nullable_to_non_nullable
                   as String?,
+        registerDocumentBytes: freezed == registerDocumentBytes
+            ? _value.registerDocumentBytes
+            : registerDocumentBytes // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        taxCardDocumentBytes: freezed == taxCardDocumentBytes
+            ? _value.taxCardDocumentBytes
+            : taxCardDocumentBytes // ignore: cast_nullable_to_non_nullable
+                  as int?,
         showErrors: null == showErrors
             ? _value.showErrors
             : showErrors // ignore: cast_nullable_to_non_nullable
                   as bool,
+        touched: null == touched
+            ? _value._touched
+            : touched // ignore: cast_nullable_to_non_nullable
+                  as Set<CrFormField>,
       ),
     );
   }
@@ -304,8 +348,12 @@ class _$CommercialRegisterStateImpl extends _CommercialRegisterState {
     this.startDate,
     this.registerDocumentPath,
     this.taxCardDocumentPath,
+    this.registerDocumentBytes,
+    this.taxCardDocumentBytes,
     this.showErrors = false,
+    final Set<CrFormField> touched = const <CrFormField>{},
   }) : _serverErrors = serverErrors,
+       _touched = touched,
        super._();
 
   @override
@@ -352,14 +400,33 @@ class _$CommercialRegisterStateImpl extends _CommercialRegisterState {
   @override
   final String? taxCardDocumentPath;
 
-  /// نعرض أخطاء الحقول بعد أول محاولة إرسال فقط.
+  /// حجم كل مرفق (بايت) — بنقيسه مرة واحدة وقت الاختيار بدل ما نقرا من
+  /// الديسك في كل rebuild (يعني مع كل حرف بيتكتب في النموذج).
+  @override
+  final int? registerDocumentBytes;
+  @override
+  final int? taxCardDocumentBytes;
+
+  /// بعد أول محاولة إرسال بنعرض أخطاء كل الحقول.
   @override
   @JsonKey()
   final bool showErrors;
 
+  /// الحقول اللي المستخدم دخلها وخرج منها — بنعرض خطأها لوحدها قبل الإرسال.
+  final Set<CrFormField> _touched;
+
+  /// الحقول اللي المستخدم دخلها وخرج منها — بنعرض خطأها لوحدها قبل الإرسال.
+  @override
+  @JsonKey()
+  Set<CrFormField> get touched {
+    if (_touched is EqualUnmodifiableSetView) return _touched;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_touched);
+  }
+
   @override
   String toString() {
-    return 'CommercialRegisterState(loading: $loading, submitting: $submitting, submitted: $submitted, register: $register, error: $error, serverErrors: $serverErrors, companyName: $companyName, registerNumber: $registerNumber, taxNumber: $taxNumber, activityType: $activityType, startDate: $startDate, registerDocumentPath: $registerDocumentPath, taxCardDocumentPath: $taxCardDocumentPath, showErrors: $showErrors)';
+    return 'CommercialRegisterState(loading: $loading, submitting: $submitting, submitted: $submitted, register: $register, error: $error, serverErrors: $serverErrors, companyName: $companyName, registerNumber: $registerNumber, taxNumber: $taxNumber, activityType: $activityType, startDate: $startDate, registerDocumentPath: $registerDocumentPath, taxCardDocumentPath: $taxCardDocumentPath, registerDocumentBytes: $registerDocumentBytes, taxCardDocumentBytes: $taxCardDocumentBytes, showErrors: $showErrors, touched: $touched)';
   }
 
   @override
@@ -393,8 +460,13 @@ class _$CommercialRegisterStateImpl extends _CommercialRegisterState {
                 other.registerDocumentPath == registerDocumentPath) &&
             (identical(other.taxCardDocumentPath, taxCardDocumentPath) ||
                 other.taxCardDocumentPath == taxCardDocumentPath) &&
+            (identical(other.registerDocumentBytes, registerDocumentBytes) ||
+                other.registerDocumentBytes == registerDocumentBytes) &&
+            (identical(other.taxCardDocumentBytes, taxCardDocumentBytes) ||
+                other.taxCardDocumentBytes == taxCardDocumentBytes) &&
             (identical(other.showErrors, showErrors) ||
-                other.showErrors == showErrors));
+                other.showErrors == showErrors) &&
+            const DeepCollectionEquality().equals(other._touched, _touched));
   }
 
   @override
@@ -413,7 +485,10 @@ class _$CommercialRegisterStateImpl extends _CommercialRegisterState {
     startDate,
     registerDocumentPath,
     taxCardDocumentPath,
+    registerDocumentBytes,
+    taxCardDocumentBytes,
     showErrors,
+    const DeepCollectionEquality().hash(_touched),
   );
 
   /// Create a copy of CommercialRegisterState
@@ -443,7 +518,10 @@ abstract class _CommercialRegisterState extends CommercialRegisterState {
     final String? startDate,
     final String? registerDocumentPath,
     final String? taxCardDocumentPath,
+    final int? registerDocumentBytes,
+    final int? taxCardDocumentBytes,
     final bool showErrors,
+    final Set<CrFormField> touched,
   }) = _$CommercialRegisterStateImpl;
   const _CommercialRegisterState._() : super._();
 
@@ -474,9 +552,20 @@ abstract class _CommercialRegisterState extends CommercialRegisterState {
   @override
   String? get taxCardDocumentPath;
 
-  /// نعرض أخطاء الحقول بعد أول محاولة إرسال فقط.
+  /// حجم كل مرفق (بايت) — بنقيسه مرة واحدة وقت الاختيار بدل ما نقرا من
+  /// الديسك في كل rebuild (يعني مع كل حرف بيتكتب في النموذج).
+  @override
+  int? get registerDocumentBytes;
+  @override
+  int? get taxCardDocumentBytes;
+
+  /// بعد أول محاولة إرسال بنعرض أخطاء كل الحقول.
   @override
   bool get showErrors;
+
+  /// الحقول اللي المستخدم دخلها وخرج منها — بنعرض خطأها لوحدها قبل الإرسال.
+  @override
+  Set<CrFormField> get touched;
 
   /// Create a copy of CommercialRegisterState
   /// with the given fields replaced by the non-null parameter values.

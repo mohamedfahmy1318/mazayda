@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 
 /// حقل OTP واحد منطقيًا مع ست خانات بصريًا؛ يدعم اللصق وملء SMS التلقائي.
 class OtpCodeField extends StatefulWidget {
@@ -38,7 +39,9 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
 
   void _handleChanged(String value) {
     setState(() {});
-    widget.onChanged(value);
+    // الخانات بتعرض اللي كتبه المستخدم (ممكن أرقام عربية)، والـ cubit بياخد
+    // النسخة اللاتينية اللي هتتبعت للسيرفر.
+    widget.onChanged(toLatinDigits(value));
   }
 
   void _requestFocus() {
@@ -185,7 +188,8 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
                         showCursor: false,
                         maxLength: widget.length,
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
+                          // digitsOnly بترمي الأرقام العربية (regex بتاعها [^0-9]).
+                          AppInputFormatters.anyNumeralDigitsOnly,
                           LengthLimitingTextInputFormatter(widget.length),
                         ],
                         decoration: const InputDecoration(

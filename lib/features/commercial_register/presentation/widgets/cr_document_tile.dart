@@ -40,23 +40,41 @@ class CrDocumentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     final picked = pickedPath != null;
+    final hasError = errorText != null;
     // اتاختار دلوقتي > محفوظ على السيرفر > مطلوب.
     final (Color fg, IconData icon, String hint) = picked
-        ? (AppColors.success, Icons.check_circle_outline, t.crDocumentSelected)
+        ? (
+            AppColors.success,
+            Icons.check_circle_outline,
+            // اسم الملف أوضح من «تم اختيار ملف» — المستخدم يتأكد إنه الصح.
+            pickedPath!.split('/').last,
+          )
         : onFile
         ? (AppColors.info, Icons.cloud_done_outlined, t.crDocumentOnFile)
-        : (AppColors.textHint, Icons.upload_file_outlined, t.crDocumentMissing);
+        : (
+            hasError ? AppColors.danger : AppColors.textHint,
+            Icons.upload_file_outlined,
+            t.crDocumentMissing,
+          );
 
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 240),
+        curve: Curves.easeOutCubic,
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: picked
+              ? AppColors.successBg.withValues(alpha: 0.45)
+              : AppColors.white,
           borderRadius: BorderRadius.circular(13.r),
           border: Border.all(
-            color: errorText != null ? AppColors.danger : AppColors.border,
-            width: 0.5,
+            color: hasError
+                ? AppColors.danger
+                : picked
+                ? AppColors.success.withValues(alpha: 0.5)
+                : AppColors.border,
+            width: hasError || picked ? 1 : 0.5,
           ),
         ),
         child: Column(
@@ -64,7 +82,17 @@ class CrDocumentTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon, size: 20.sp, color: fg),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 240),
+                  transitionBuilder: (child, animation) =>
+                      ScaleTransition(scale: animation, child: child),
+                  child: Icon(
+                    icon,
+                    key: ValueKey(icon),
+                    size: 20.sp,
+                    color: fg,
+                  ),
+                ),
                 Gap(9.w),
                 Expanded(
                   child: Column(
@@ -80,6 +108,8 @@ class CrDocumentTile extends StatelessWidget {
                       Gap(2.h),
                       Text(
                         hint,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 10.sp, color: fg),
                       ),
                     ],
@@ -111,13 +141,35 @@ class CrDocumentTile extends StatelessWidget {
                 ],
               ),
             ],
-            if (errorText != null) ...[
-              Gap(6.h),
-              Text(
-                errorText!,
-                style: TextStyle(fontSize: 10.sp, color: AppColors.danger),
-              ),
-            ],
+            AnimatedSize(
+              duration: const Duration(milliseconds: 190),
+              curve: Curves.easeOutCubic,
+              alignment: Alignment.topCenter,
+              child: hasError
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 6.h),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 13.sp,
+                            color: AppColors.danger,
+                          ),
+                          Gap(4.w),
+                          Expanded(
+                            child: Text(
+                              errorText!,
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                color: AppColors.danger,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const SizedBox(width: double.infinity),
+            ),
           ],
         ),
       ),

@@ -670,20 +670,64 @@ class AppLocalizationsAr extends AppLocalizations {
   String get crCompanyName => 'اسم الشركة';
 
   @override
+  String get crCompanyNameHint => 'مثال: ذ.م.م مزايدة للتجارة';
+
+  @override
   String get crRegisterNumber => 'رقم السجل التجاري';
+
+  @override
+  String get crRegisterNumberHint => 'مثال: 16/00-1234567 B 19';
+
+  @override
+  String get crRegisterNumberIncomplete => 'رقم السجل غير مكتمل';
 
   @override
   String get crTaxNumber => 'الرقم الجبائي';
 
   @override
+  String get crTaxNumberHint => '15 رقمًا — مثال: 000116001234567';
+
+  @override
+  String get crTaxNumberDigitsOnly => 'الرقم الجبائي أرقام فقط';
+
+  @override
+  String crTaxNumberLength(int count) {
+    return 'الرقم الجبائي يتكوّن من $count رقمًا';
+  }
+
+  @override
   String get crActivityType => 'نوع النشاط';
+
+  @override
+  String get crActivityTypeHint => 'مثال: تجارة السيارات';
 
   @override
   String get crStartDate => 'تاريخ إصدار السجل';
 
   @override
+  String get crStartDateHint => 'اختر تاريخ الإصدار';
+
+  @override
   String get crStartDateNotFuture =>
       'تاريخ الإصدار لا يمكن أن يكون في المستقبل';
+
+  @override
+  String get crSectionCompany => 'بيانات الشركة';
+
+  @override
+  String get crSectionDocuments => 'المستندات المطلوبة';
+
+  @override
+  String crProgress(int done, int total) {
+    return '$done من $total مكتملة';
+  }
+
+  @override
+  String get crFixErrors => 'راجع الحقول المعلّمة بالأحمر';
+
+  @override
+  String get crDocumentsNote =>
+      'صيغ مقبولة: PDF أو صورة (JPG/PNG) — بحد أقصى 2 ميغابايت.';
 
   @override
   String get crFileTooLarge => 'حجم الملف يتجاوز 2 ميغابايت';
@@ -723,6 +767,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get valTooLong => 'النص أطول من المسموح';
+
+  @override
+  String get valTooShort => 'النص أقصر من المطلوب';
 
   @override
   String get fpTitle => 'تفصيل الدفع النهائي';

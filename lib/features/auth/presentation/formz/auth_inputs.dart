@@ -1,12 +1,17 @@
 import 'package:formz/formz.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 import '../auth_constants.dart';
+
+/// كل حقل بيمرّ بـ [toLatinDigits] وهو داخل الـ state، فلو المستخدم كتب
+/// «٢٣٢٣» بالكيبورد العربي يتحقق ويتبعت «2323» — والحقل نفسه يفضل يعرض
+/// العربي زي ما كتبه.
 
 /// أخطاء التحقق — نترجمها في الواجهة حسب اللغة.
 enum EmailError { empty, invalid }
 
 class EmailInput extends FormzInput<String, EmailError> {
   const EmailInput.pure() : super.pure('');
-  const EmailInput.dirty([super.value = '']) : super.dirty();
+  EmailInput.dirty([String value = '']) : super.dirty(toLatinDigits(value));
 
   static final _regex = RegExp(r'^[\w\.\-]+@([\w\-]+\.)+[\w\-]{2,}$');
 
@@ -26,7 +31,7 @@ enum PasswordError { empty }
 /// في بيئة تانية لازم يفضل قادر يسجّل دخول.
 class PasswordInput extends FormzInput<String, PasswordError> {
   const PasswordInput.pure() : super.pure('');
-  const PasswordInput.dirty([super.value = '']) : super.dirty();
+  PasswordInput.dirty([String value = '']) : super.dirty(toLatinDigits(value));
 
   @override
   PasswordError? validator(String value) =>
@@ -40,7 +45,11 @@ enum NewPasswordError { empty, tooShort, needsMixedCase, needsNumber, needsSymbo
 /// ملاحظة: شرط uncompromised (كلمة سر مسرّبة) بيتحقق منه السيرفر فقط.
 class NewPasswordInput extends FormzInput<String, NewPasswordError> {
   const NewPasswordInput.pure() : super.pure('');
-  const NewPasswordInput.dirty([super.value = '']) : super.dirty();
+
+  /// التحويل هنا مهم مرتين: علشان شرط `[0-9]` يعدّي لو المستخدم كتب الرقم
+  /// بالعربي، وعلشان نفس الكلمة تنفع بعدين في تسجيل الدخول (اللي بيحوّل بردو).
+  NewPasswordInput.dirty([String value = ''])
+    : super.dirty(toLatinDigits(value));
 
   static final _upper = RegExp(r'[A-Z]');
   static final _lower = RegExp(r'[a-z]');
@@ -92,8 +101,9 @@ class ConfirmPasswordInput extends FormzInput<String, ConfirmPasswordError> {
   final String password;
 
   const ConfirmPasswordInput.pure({this.password = ''}) : super.pure('');
-  const ConfirmPasswordInput.dirty({this.password = '', String value = ''})
-    : super.dirty(value);
+  ConfirmPasswordInput.dirty({String password = '', String value = ''})
+    : password = toLatinDigits(password),
+      super.dirty(toLatinDigits(value));
 
   @override
   ConfirmPasswordError? validator(String value) {
@@ -106,7 +116,7 @@ enum NinError { empty, invalid }
 
 class NinInput extends FormzInput<String, NinError> {
   const NinInput.pure() : super.pure('');
-  const NinInput.dirty([super.value = '']) : super.dirty();
+  NinInput.dirty([String value = '']) : super.dirty(toLatinDigits(value));
 
   @override
   NinError? validator(String value) {
@@ -123,7 +133,7 @@ enum PhoneError { empty, invalid }
 
 class PhoneInput extends FormzInput<String, PhoneError> {
   const PhoneInput.pure() : super.pure('');
-  const PhoneInput.dirty([super.value = '']) : super.dirty();
+  PhoneInput.dirty([String value = '']) : super.dirty(toLatinDigits(value));
 
   @override
   PhoneError? validator(String value) {
@@ -154,7 +164,9 @@ enum RequiredError { empty }
 
 class RequiredInput extends FormzInput<String, RequiredError> {
   const RequiredInput.pure() : super.pure('');
-  const RequiredInput.dirty([super.value = '']) : super.dirty();
+
+  /// معرّف الدخول ممكن يكون NIN — فبنحوّل أرقامه بردو.
+  RequiredInput.dirty([String value = '']) : super.dirty(toLatinDigits(value));
 
   @override
   RequiredError? validator(String value) =>

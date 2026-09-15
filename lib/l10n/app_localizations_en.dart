@@ -674,19 +674,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get crCompanyName => 'Company name';
 
   @override
+  String get crCompanyNameHint => 'e.g. Mazayada Trading LLC';
+
+  @override
   String get crRegisterNumber => 'Commercial register number';
+
+  @override
+  String get crRegisterNumberHint => 'e.g. 16/00-1234567 B 19';
+
+  @override
+  String get crRegisterNumberIncomplete => 'Register number looks incomplete';
 
   @override
   String get crTaxNumber => 'Tax number';
 
   @override
+  String get crTaxNumberHint => '15 digits — e.g. 000116001234567';
+
+  @override
+  String get crTaxNumberDigitsOnly => 'The tax number must contain digits only';
+
+  @override
+  String crTaxNumberLength(int count) {
+    return 'The tax number is $count digits long';
+  }
+
+  @override
   String get crActivityType => 'Activity type';
+
+  @override
+  String get crActivityTypeHint => 'e.g. Car trading';
 
   @override
   String get crStartDate => 'Register issue date';
 
   @override
+  String get crStartDateHint => 'Pick the issue date';
+
+  @override
   String get crStartDateNotFuture => 'The issue date cannot be in the future';
+
+  @override
+  String get crSectionCompany => 'Company details';
+
+  @override
+  String get crSectionDocuments => 'Required documents';
+
+  @override
+  String crProgress(int done, int total) {
+    return '$done of $total complete';
+  }
+
+  @override
+  String get crFixErrors => 'Check the fields marked in red';
+
+  @override
+  String get crDocumentsNote => 'Accepted: PDF or image (JPG/PNG) — 2 MB max.';
 
   @override
   String get crFileTooLarge => 'File exceeds 2 MB';
@@ -726,6 +769,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get valTooLong => 'Text is longer than allowed';
+
+  @override
+  String get valTooShort => 'Text is shorter than required';
 
   @override
   String get fpTitle => 'Final payment breakdown';

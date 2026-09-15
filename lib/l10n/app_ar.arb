@@ -281,11 +281,41 @@
   "crPendingNote": "طلبك قيد المراجعة. يمكنك تعديل البيانات وإعادة الإرسال قبل صدور القرار.",
   "crRejectedNote": "تم رفض الطلب. صحّح البيانات وأعد الإرسال.",
   "crCompanyName": "اسم الشركة",
+  "crCompanyNameHint": "مثال: ذ.م.م مزايدة للتجارة",
   "crRegisterNumber": "رقم السجل التجاري",
+  "crRegisterNumberHint": "مثال: 16/00-1234567 B 19",
+  "crRegisterNumberIncomplete": "رقم السجل غير مكتمل",
   "crTaxNumber": "الرقم الجبائي",
+  "crTaxNumberHint": "15 رقمًا — مثال: 000116001234567",
+  "crTaxNumberDigitsOnly": "الرقم الجبائي أرقام فقط",
+  "crTaxNumberLength": "الرقم الجبائي يتكوّن من {count} رقمًا",
+  "@crTaxNumberLength": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "crActivityType": "نوع النشاط",
+  "crActivityTypeHint": "مثال: تجارة السيارات",
   "crStartDate": "تاريخ إصدار السجل",
+  "crStartDateHint": "اختر تاريخ الإصدار",
   "crStartDateNotFuture": "تاريخ الإصدار لا يمكن أن يكون في المستقبل",
+  "crSectionCompany": "بيانات الشركة",
+  "crSectionDocuments": "المستندات المطلوبة",
+  "crProgress": "{done} من {total} مكتملة",
+  "@crProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "crFixErrors": "راجع الحقول المعلّمة بالأحمر",
+  "crDocumentsNote": "صيغ مقبولة: PDF أو صورة (JPG/PNG) — بحد أقصى 2 ميغابايت.",
   "crFileTooLarge": "حجم الملف يتجاوز 2 ميغابايت",
   "crRegisterDocument": "نسخة السجل التجاري",
   "crTaxCardDocument": "نسخة البطاقة الجبائية",
@@ -299,6 +329,7 @@
   "crResubmit": "إعادة الإرسال",
   "crSubmitted": "تم إرسال السجل للمراجعة",
   "valTooLong": "النص أطول من المسموح",
+  "valTooShort": "النص أقصر من المطلوب",
   "fpTitle": "تفصيل الدفع النهائي",
   "fpConfirmedDeposit": "الكفالة المدفوعة (تُخصم)",
   "fpAmountDue": "المبلغ المستحق",

@@ -281,11 +281,41 @@
   "crPendingNote": "Your submission is under review. You can edit and resend it before a decision is made.",
   "crRejectedNote": "Submission rejected. Correct the details and resend.",
   "crCompanyName": "Company name",
+  "crCompanyNameHint": "e.g. Mazayada Trading LLC",
   "crRegisterNumber": "Commercial register number",
+  "crRegisterNumberHint": "e.g. 16/00-1234567 B 19",
+  "crRegisterNumberIncomplete": "Register number looks incomplete",
   "crTaxNumber": "Tax number",
+  "crTaxNumberHint": "15 digits — e.g. 000116001234567",
+  "crTaxNumberDigitsOnly": "The tax number must contain digits only",
+  "crTaxNumberLength": "The tax number is {count} digits long",
+  "@crTaxNumberLength": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "crActivityType": "Activity type",
+  "crActivityTypeHint": "e.g. Car trading",
   "crStartDate": "Register issue date",
+  "crStartDateHint": "Pick the issue date",
   "crStartDateNotFuture": "The issue date cannot be in the future",
+  "crSectionCompany": "Company details",
+  "crSectionDocuments": "Required documents",
+  "crProgress": "{done} of {total} complete",
+  "@crProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "crFixErrors": "Check the fields marked in red",
+  "crDocumentsNote": "Accepted: PDF or image (JPG/PNG) — 2 MB max.",
   "crFileTooLarge": "File exceeds 2 MB",
   "crRegisterDocument": "Commercial register scan",
   "crTaxCardDocument": "Tax card scan",
@@ -299,6 +329,7 @@
   "crResubmit": "Resend",
   "crSubmitted": "Register submitted for review",
   "valTooLong": "Text is longer than allowed",
+  "valTooShort": "Text is shorter than required",
   "fpTitle": "Final payment breakdown",
   "fpConfirmedDeposit": "Deposit paid (deducted)",
   "fpAmountDue": "Amount due",

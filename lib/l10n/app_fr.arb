@@ -281,11 +281,41 @@
   "crPendingNote": "Votre demande est en cours de révision. Vous pouvez la modifier et la renvoyer avant la décision.",
   "crRejectedNote": "Demande rejetée. Corrigez les informations et renvoyez-la.",
   "crCompanyName": "Nom de la société",
+  "crCompanyNameHint": "ex. Sarl Mazayada Commerce",
   "crRegisterNumber": "Numéro du registre de commerce",
+  "crRegisterNumberHint": "ex. 16/00-1234567 B 19",
+  "crRegisterNumberIncomplete": "Le numéro de registre semble incomplet",
   "crTaxNumber": "Numéro fiscal",
+  "crTaxNumberHint": "15 chiffres — ex. 000116001234567",
+  "crTaxNumberDigitsOnly": "Le numéro fiscal ne doit contenir que des chiffres",
+  "crTaxNumberLength": "Le numéro fiscal comporte {count} chiffres",
+  "@crTaxNumberLength": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "crActivityType": "Type d'activité",
+  "crActivityTypeHint": "ex. Commerce de véhicules",
   "crStartDate": "Date de délivrance du registre",
+  "crStartDateHint": "Choisissez la date de délivrance",
   "crStartDateNotFuture": "La date de délivrance ne peut pas être dans le futur",
+  "crSectionCompany": "Informations de la société",
+  "crSectionDocuments": "Documents requis",
+  "crProgress": "{done} sur {total} complétés",
+  "@crProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "crFixErrors": "Vérifiez les champs signalés en rouge",
+  "crDocumentsNote": "Formats acceptés : PDF ou image (JPG/PNG) — 2 Mo max.",
   "crFileTooLarge": "La taille du fichier dépasse 2 Mo",
   "crRegisterDocument": "Copie du registre de commerce",
   "crTaxCardDocument": "Copie de la carte fiscale",
@@ -299,6 +329,7 @@
   "crResubmit": "Renvoyer",
   "crSubmitted": "Registre soumis pour révision",
   "valTooLong": "Le texte dépasse la longueur autorisée",
+  "valTooShort": "Le texte est plus court que requis",
   "fpTitle": "Détail du paiement final",
   "fpConfirmedDeposit": "Caution versée (déduite)",
   "fpAmountDue": "Montant dû",

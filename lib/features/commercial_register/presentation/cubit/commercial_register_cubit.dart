@@ -5,16 +5,29 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 import '../../domain/entities/commercial_register.dart';
 import '../../domain/usecases/commercial_register_usecases.dart';
+import '../cr_constants.dart';
 
 part 'commercial_register_cubit.freezed.dart';
 
-/// الحد الأقصى لحجم المرفق (KB) — مطابق لـ setting('commercial_register.doc_max_kb').
-const _kMaxDocKb = 2048;
+/// أخطاء التحقق المحلية — قواعد SubmitCommercialRegisterRequest + شكل
+/// المعرّفات الجزائرية (شوف [CrConstants]).
+enum CrFieldError {
+  required,
+  tooShort,
+  tooLong,
+  incomplete,
+  digitsOnly,
+  taxLength,
+  futureDate,
+  fileTooLarge,
+}
 
-/// أخطاء التحقق المحلية — نفس قواعد SubmitCommercialRegisterRequest.
-enum CrFieldError { required, tooLong, futureDate, fileTooLarge }
+/// حقول النموذج — نستخدمها لتتبّع الحقل اللي المستخدم خلّص منه (blur)
+/// عشان نعرض خطأه من غير ما نزعّقله وهو لسه بيكتب.
+enum CrFormField { companyName, registerNumber, taxNumber, activityType, startDate }
 
 @freezed
 class CommercialRegisterState with _$CommercialRegisterState {
@@ -37,8 +50,16 @@ class CommercialRegisterState with _$CommercialRegisterState {
     String? registerDocumentPath,
     String? taxCardDocumentPath,
 
-    /// نعرض أخطاء الحقول بعد أول محاولة إرسال فقط.
+    /// حجم كل مرفق (بايت) — بنقيسه مرة واحدة وقت الاختيار بدل ما نقرا من
+    /// الديسك في كل rebuild (يعني مع كل حرف بيتكتب في النموذج).
+    int? registerDocumentBytes,
+    int? taxCardDocumentBytes,
+
+    /// بعد أول محاولة إرسال بنعرض أخطاء كل الحقول.
     @Default(false) bool showErrors,
+
+    /// الحقول اللي المستخدم دخلها وخرج منها — بنعرض خطأها لوحدها قبل الإرسال.
+    @Default(<CrFormField>{}) Set<CrFormField> touched,
   }) = _CommercialRegisterState;
 
   bool get isApproved =>
@@ -47,10 +68,33 @@ class CommercialRegisterState with _$CommercialRegisterState {
   /// السيرفر قافل الإرسال (سجل معتمد).
   bool get isLocked => register != null && !register!.canSubmit;
 
-  CrFieldError? get companyNameError => _text(companyName, 255);
-  CrFieldError? get registerNumberError => _text(registerNumber, 100);
-  CrFieldError? get taxNumberError => _text(taxNumber, 100);
-  CrFieldError? get activityTypeError => _text(activityType, 255);
+  CrFieldError? get companyNameError =>
+      _text(companyName, CrConstants.companyNameMax);
+
+  CrFieldError? get activityTypeError =>
+      _text(activityType, CrConstants.activityTypeMax);
+
+  /// رقم السجل فيه حروف وشرطات (16/00-1234567 B 19) — فبنتأكد إنه مش ناقص
+  /// بدل ما نفرض صيغة واحدة تقفل على أشكال قديمة.
+  CrFieldError? get registerNumberError {
+    final v = toLatinDigits(registerNumber.trim());
+    if (v.isEmpty) return CrFieldError.required;
+    if (v.length > CrConstants.registerNumberMax) return CrFieldError.tooLong;
+    final digits = v.replaceAll(RegExp(r'[^0-9]'), '').length;
+    return digits < CrConstants.registerNumberMinDigits
+        ? CrFieldError.incomplete
+        : null;
+  }
+
+  /// الرقم الجبائي (NIF) أرقام فقط بطول ثابت.
+  CrFieldError? get taxNumberError {
+    final v = toLatinDigits(taxNumber.trim());
+    if (v.isEmpty) return CrFieldError.required;
+    if (!RegExp(r'^[0-9]+$').hasMatch(v)) return CrFieldError.digitsOnly;
+    return v.length != CrConstants.taxNumberDigits
+        ? CrFieldError.taxLength
+        : null;
+  }
 
   CrFieldError? get startDateError {
     if ((startDate ?? '').isEmpty) return CrFieldError.required;
@@ -64,9 +108,11 @@ class CommercialRegisterState with _$CommercialRegisterState {
 
   /// الملف مطلوب فقط لو مفيش نسخة محفوظة على السيرفر.
   CrFieldError? documentError(CrDocumentType type) {
-    final path = pathFor(type);
-    if (path != null) {
-      return _fileTooLarge(path) ? CrFieldError.fileTooLarge : null;
+    if (pathFor(type) != null) {
+      final bytes = bytesFor(type) ?? 0;
+      return bytes > CrConstants.maxDocKb * 1024
+          ? CrFieldError.fileTooLarge
+          : null;
     }
     final needed = register?.requiresUpload(type) ?? true;
     return needed ? CrFieldError.required : null;
@@ -75,6 +121,11 @@ class CommercialRegisterState with _$CommercialRegisterState {
   String? pathFor(CrDocumentType type) => switch (type) {
     CrDocumentType.register => registerDocumentPath,
     CrDocumentType.taxCard => taxCardDocumentPath,
+  };
+
+  int? bytesFor(CrDocumentType type) => switch (type) {
+    CrDocumentType.register => registerDocumentBytes,
+    CrDocumentType.taxCard => taxCardDocumentBytes,
   };
 
   bool get isValid =>
@@ -88,18 +139,39 @@ class CommercialRegisterState with _$CommercialRegisterState {
 
   bool get canSubmit => isValid && !submitting && !isLocked;
 
-  static CrFieldError? _text(String v, int max) {
-    if (v.trim().isEmpty) return CrFieldError.required;
-    if (v.trim().length > max) return CrFieldError.tooLong;
-    return null;
-  }
+  /// خطأ الحقل النصّي/التاريخ حسب نوعه — مكان واحد تسأله الواجهة.
+  CrFieldError? errorFor(CrFormField field) => switch (field) {
+    CrFormField.companyName => companyNameError,
+    CrFormField.registerNumber => registerNumberError,
+    CrFormField.taxNumber => taxNumberError,
+    CrFormField.activityType => activityTypeError,
+    CrFormField.startDate => startDateError,
+  };
 
-  static bool _fileTooLarge(String path) {
-    try {
-      return File(path).lengthSync() > _kMaxDocKb * 1024;
-    } catch (_) {
-      return false;
-    }
+  /// نعرض الخطأ بعد ما المستخدم يسيب الحقل، أو بعد أول محاولة إرسال.
+  CrFieldError? visibleErrorFor(CrFormField field) =>
+      showErrors || touched.contains(field) ? errorFor(field) : null;
+
+  /// الحقل مكتمل وسليم — للعلامة الخضرا ولشريط التقدّم.
+  bool isFieldDone(CrFormField field) => errorFor(field) == null;
+
+  /// أول حقل ناقص — بنسكرول ليه لما الإرسال يفشل محليًا.
+  CrFormField? get firstInvalidField =>
+      CrFormField.values.where((f) => errorFor(f) != null).firstOrNull;
+
+  /// خطوات النموذج = 5 حقول + مستندين.
+  static const int totalSteps = 7;
+
+  int get completedSteps =>
+      CrFormField.values.where(isFieldDone).length +
+      CrDocumentType.values.where((d) => documentError(d) == null).length;
+
+  static CrFieldError? _text(String v, int max) {
+    final trimmed = v.trim();
+    if (trimmed.isEmpty) return CrFieldError.required;
+    if (trimmed.length < CrConstants.textMin) return CrFieldError.tooShort;
+    if (trimmed.length > max) return CrFieldError.tooLong;
+    return null;
   }
 }
 
@@ -135,20 +207,74 @@ class CommercialRegisterCubit extends Cubit<CommercialRegisterState> {
     );
   }
 
-  void companyNameChanged(String v) => emit(state.copyWith(companyName: v));
-  void registerNumberChanged(String v) =>
-      emit(state.copyWith(registerNumber: v));
-  void taxNumberChanged(String v) => emit(state.copyWith(taxNumber: v));
-  void activityTypeChanged(String v) => emit(state.copyWith(activityType: v));
-  void startDateChanged(DateTime d) =>
-      emit(state.copyWith(startDate: _fmtDate(d)));
-
-  void documentPicked(CrDocumentType type, String path) => emit(
-    switch (type) {
-      CrDocumentType.register => state.copyWith(registerDocumentPath: path),
-      CrDocumentType.taxCard => state.copyWith(taxCardDocumentPath: path),
-    },
+  void companyNameChanged(String v) => emit(
+    state.copyWith(companyName: v, serverErrors: _without('company_name')),
   );
+
+  void registerNumberChanged(String v) => emit(
+    state.copyWith(
+      registerNumber: v,
+      serverErrors: _without('register_number'),
+    ),
+  );
+
+  void taxNumberChanged(String v) =>
+      emit(state.copyWith(taxNumber: v, serverErrors: _without('tax_number')));
+
+  void activityTypeChanged(String v) => emit(
+    state.copyWith(activityType: v, serverErrors: _without('activity_type')),
+  );
+
+  void startDateChanged(DateTime d) => emit(
+    state.copyWith(
+      startDate: _fmtDate(d),
+      // التاريخ من الـ picker — يعتبر «اتلمس» بمجرد الاختيار.
+      touched: {...state.touched, CrFormField.startDate},
+      serverErrors: _without('start_date'),
+    ),
+  );
+
+  /// المستخدم سـاب الحقل — من هنا ونازل نعرض خطأه لو فيه.
+  void fieldBlurred(CrFormField field) {
+    if (state.touched.contains(field)) return;
+    emit(state.copyWith(touched: {...state.touched, field}));
+  }
+
+  void documentPicked(CrDocumentType type, String path) {
+    final bytes = _sizeOf(path);
+    emit(
+      switch (type) {
+        CrDocumentType.register => state.copyWith(
+          registerDocumentPath: path,
+          registerDocumentBytes: bytes,
+          serverErrors: _without('register_document'),
+        ),
+        CrDocumentType.taxCard => state.copyWith(
+          taxCardDocumentPath: path,
+          taxCardDocumentBytes: bytes,
+          serverErrors: _without('tax_card_document'),
+        ),
+      },
+    );
+  }
+
+  /// لو قراءة الحجم فشلت بنعتبره صفر — السيرفر هو خط الدفاع الأخير للحجم.
+  static int _sizeOf(String path) {
+    try {
+      return File(path).lengthSync();
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  /// خطأ السيرفر بتاع حقل بيروح أول ما المستخدم يعدّله — رسالة قديمة على
+  /// قيمة اتغيّرت بتبقى مضلّلة.
+  Map<String, List<String>>? _without(String key) {
+    final errors = state.serverErrors;
+    if (errors == null || !errors.containsKey(key)) return errors;
+    final rest = {...errors}..remove(key);
+    return rest.isEmpty ? null : rest;
+  }
 
   Future<void> submit() async {
     if (!state.isValid) {
@@ -167,8 +293,11 @@ class CommercialRegisterCubit extends Cubit<CommercialRegisterState> {
     final res = await _submit(
       SubmitCommercialRegisterParams(
         companyName: state.companyName.trim(),
-        registerNumber: state.registerNumber.trim(),
-        taxNumber: state.taxNumber.trim(),
+        // رقمَي السجل والتعريف الجبائي معرّفات — لو المستخدم كتبهم بأرقام
+        // عربية بالكيبورد العربي، بيتبعتوا لاتيني. الحقل نفسه بيفضل يعرض
+        // اللي كتبه. اسم الشركة/النشاط نص حر فبيتساب زي ما هو.
+        registerNumber: toLatinDigits(state.registerNumber.trim()),
+        taxNumber: toLatinDigits(state.taxNumber.trim()),
         activityType: state.activityType.trim(),
         startDate: state.startDate!,
         registerDocumentPath: state.registerDocumentPath,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -22,6 +23,7 @@ class AppTextField extends StatefulWidget {
   final ValueChanged<String>? onSubmitted;
   final TextCapitalization textCapitalization;
   final bool enabled;
+  final List<TextInputFormatter>? inputFormatters;
 
   const AppTextField({
     super.key,
@@ -41,6 +43,7 @@ class AppTextField extends StatefulWidget {
     this.onSubmitted,
     this.textCapitalization = TextCapitalization.none,
     this.enabled = true,
+    this.inputFormatters,
   });
 
   @override
@@ -109,6 +112,7 @@ class _AppTextFieldState extends State<AppTextField> {
           enableSuggestions: !widget.obscure,
           autocorrect: !widget.obscure,
           maxLength: widget.maxLength,
+          inputFormatters: widget.inputFormatters,
           onChanged: widget.onChanged,
           readOnly: widget.readOnly,
           onTap: widget.onTap,

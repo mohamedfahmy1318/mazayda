@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/arabic_numerals.dart';
 import '../../../../core/utils/money_format.dart';
 
 /// قيم الزيادة السريعة (بالدينار الكامل) — بترتيب التصميم من اليمين للشمال.
@@ -318,4 +319,7 @@ class _ThousandsInputFormatter extends TextInputFormatter {
   }
 }
 
-String _digitsOnly(String s) => s.replaceAll(RegExp(r'[^0-9]'), '');
+/// الأرقام اللاتينية اللي جوّه النص — بنحوّل العربي/الفارسي الأول، فالكيبورد
+/// العربي (٢٥٠٠٠) بيدخل مبلغ عادي زي اللاتيني بالظبط.
+String _digitsOnly(String s) =>
+    toLatinDigits(s).replaceAll(RegExp(r'[^0-9]'), '');
