@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
 import '../models/auth_models.dart';
+import '../models/email_recovery_model.dart';
 
 /// مصدر بيانات الـ auth — بيكلّم الـ API endpoints.
 abstract class AuthRemoteDataSource {
@@ -46,6 +48,21 @@ abstract class AuthRemoteDataSource {
     required String password,
     required String passwordConfirmation,
   });
+
+  // ===== استرجاع البريد الإلكتروني المفقود (تعديل العميل رقم 1) =====
+
+  /// رفع طلب تغيير بريد — multipart لأن فيه صورة سيلفي مع بطاقة الهوية.
+  /// أخطاء التحقق بتيجي تحت أسماء الحقول (`nin` / `new_email` / `selfie`).
+  Future<EmailRecoveryModel> submitEmailRecovery({
+    required String nin,
+    required String birthDate,
+    required String phone,
+    required String newEmail,
+    required String selfiePath,
+  });
+
+  /// متابعة آخر طلب لنفس رقم التعريف — بيرجّع `null` لو مفيش طلب.
+  Future<EmailRecoveryModel?> getEmailRecoveryStatus({required String nin});
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -171,6 +188,39 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'password_confirmation': passwordConfirmation,
       },
     );
+  }
+
+  @override
+  Future<EmailRecoveryModel> submitEmailRecovery({
+    required String nin,
+    required String birthDate,
+    required String phone,
+    required String newEmail,
+    required String selfiePath,
+  }) async {
+    final formData = FormData.fromMap({
+      'nin': nin,
+      'birth_date': birthDate,
+      'phone': phone,
+      'new_email': newEmail,
+      'selfie_with_id': await MultipartFile.fromFile(selfiePath),
+    });
+    final data = await client.upload(ApiConstants.emailRecovery, formData);
+    return EmailRecoveryModel.fromJson(data as Map<String, dynamic>);
+  }
+
+  @override
+  Future<EmailRecoveryModel?> getEmailRecoveryStatus({
+    required String nin,
+  }) async {
+    final data = await client.post(
+      ApiConstants.emailRecoveryStatus,
+      body: {'nin': nin},
+    );
+    // مفيش طلب سابق → الباك بيرجّع `data: null` مش 404، عشان الشاشة
+    // تفرّق بين «مفيش طلب» و«حصل خطأ».
+    if (data == null) return null;
+    return EmailRecoveryModel.fromJson(data as Map<String, dynamic>);
   }
 
   /// الـ envelope ممكن يرجّع التوكنات متداخلة تحت "tokens" أو في الجذر مباشرة.

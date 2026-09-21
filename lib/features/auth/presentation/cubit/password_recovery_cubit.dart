@@ -24,7 +24,7 @@ enum RecoveryStep { identify, complete, done }
 enum RecoveryStatus { idle, submitting, failure }
 
 @freezed
-class PasswordRecoveryState with _$PasswordRecoveryState {
+abstract class PasswordRecoveryState with _$PasswordRecoveryState {
   const PasswordRecoveryState._();
 
   const factory PasswordRecoveryState({

@@ -107,6 +107,8 @@ class _NotificationsBody extends StatelessWidget {
       context.push(Routes.commercialRegister);
     } else if (n.pointsToKyc) {
       context.push(Routes.kyc);
+    } else if (n.pointsToPremium) {
+      context.push(Routes.premium);
     }
     // مفيش وجهة معروفة → نكتفي بتعليمه كمقروء.
   }

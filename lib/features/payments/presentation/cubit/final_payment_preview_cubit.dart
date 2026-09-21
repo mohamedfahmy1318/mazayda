@@ -7,7 +7,7 @@ import '../../domain/usecases/payments_usecases.dart';
 part 'final_payment_preview_cubit.freezed.dart';
 
 @freezed
-class FinalPaymentPreviewState with _$FinalPaymentPreviewState {
+abstract class FinalPaymentPreviewState with _$FinalPaymentPreviewState {
   const factory FinalPaymentPreviewState({
     @Default(true) bool loading,
     FinalPaymentPreview? preview,

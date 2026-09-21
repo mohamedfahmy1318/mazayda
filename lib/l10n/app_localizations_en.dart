@@ -1152,4 +1152,325 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get biddingClosed => 'Bidding is closed';
+
+  @override
+  String get ackTitle => 'Auction registration';
+
+  @override
+  String get ackSubtitleHasBook =>
+      'Accept the participation terms to start registration through the secure payment gateway';
+
+  @override
+  String get ackSubtitleNeedsBook =>
+      'Buying the condition book is required to register — two payments will open in sequence: the book, then the registration';
+
+  @override
+  String get ackDepositRow => 'Deposit (refundable)';
+
+  @override
+  String get ackBookRow => 'Condition book (non-refundable)';
+
+  @override
+  String get ackAgree =>
+      'I confirm I have read the condition book and accept the participation terms';
+
+  @override
+  String get ackContinue => 'Continue to payment';
+
+  @override
+  String get ackGatewayNote => 'The secure payment gateway (CIBWeb) will open';
+
+  @override
+  String minBidSectorHint(String amount, String percent) {
+    return 'Minimum bid $amount (sector rate $percent%)';
+  }
+
+  @override
+  String bidBelowSectorMinimum(String amount, String percent) {
+    return 'You cannot bid below $amount — the increment set for this sector is $percent%';
+  }
+
+  @override
+  String get adSession => 'Auction session';
+
+  @override
+  String get adSessionNumber => 'Session number';
+
+  @override
+  String sessionRound(int round) {
+    return 'Session no. $round';
+  }
+
+  @override
+  String get adSessionCode => 'Reference';
+
+  @override
+  String get adRescheduleCount => 'Times rescheduled';
+
+  @override
+  String get adReduction => 'Reduction applied to the opening price';
+
+  @override
+  String percentValue(String percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get adOriginalOpeningPrice => 'Original opening price';
+
+  @override
+  String get adSessionHistory => 'Previous sessions';
+
+  @override
+  String get adSector => 'Sector';
+
+  @override
+  String get adSectorIncrement => 'Sector minimum increment';
+
+  @override
+  String get adMinBid => 'Minimum accepted bid';
+
+  @override
+  String get auctionFeatured => 'Featured';
+
+  @override
+  String sessionRescheduledBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: 'once',
+    );
+    return 'This auction has been rescheduled $_temp0 — the opening price shown includes the reduction';
+  }
+
+  @override
+  String get lostEmailLink => 'Lost your email?';
+
+  @override
+  String get lostEmailTitle => 'Email recovery';
+
+  @override
+  String get lostEmailHint =>
+      'If you have lost access to your email, enter your details and attach a selfie holding your ID card. The relevant department will review the request and approve the new address.';
+
+  @override
+  String get lostEmailNewEmail => 'New email address';
+
+  @override
+  String get lostEmailSelfie => 'Selfie with ID card';
+
+  @override
+  String get lostEmailSelfieHint =>
+      'Hold the ID card next to your face; keep the photo and its details clearly readable';
+
+  @override
+  String get lostEmailRetake => 'Retake the photo';
+
+  @override
+  String get lostEmailSubmit => 'Submit for review';
+
+  @override
+  String get lostEmailSubmittedTitle => 'Request submitted';
+
+  @override
+  String get lostEmailSubmittedBody =>
+      'Your request is under review by the relevant department. You will be able to sign in with the new address once it is approved.';
+
+  @override
+  String get lostEmailApprovedBody =>
+      'Your new address has been approved. You can now sign in with it.';
+
+  @override
+  String get lostEmailRejectedBody =>
+      'The request was rejected. Review the reason below and resubmit after correcting your details.';
+
+  @override
+  String get lostEmailRejectionReason => 'Rejection reason';
+
+  @override
+  String get lostEmailRefreshStatus => 'Refresh status';
+
+  @override
+  String get lostEmailResubmit => 'Edit and resubmit';
+
+  @override
+  String get lostEmailRequestRef => 'Request number';
+
+  @override
+  String get lostEmailSubmittedAt => 'Submitted on';
+
+  @override
+  String get lostEmailSelfieRequired =>
+      'The selfie with your ID card is required';
+
+  @override
+  String lostEmailImageTooLarge(int max) {
+    return 'The image exceeds $max KB — take a smaller photo';
+  }
+
+  @override
+  String get docTypeParticipationReceipt => 'Participation receipt';
+
+  @override
+  String get docTypeAuctionResult => 'Auction result receipt';
+
+  @override
+  String get adDocuments => 'Auction documents';
+
+  @override
+  String get adDownloadParticipationReceipt => 'Download participation receipt';
+
+  @override
+  String get adDownloadResult => 'Download result receipt';
+
+  @override
+  String get adDownloadConditionBook => 'Download the condition book';
+
+  @override
+  String get adReceiptHint =>
+      'You can print or save the receipt after downloading';
+
+  @override
+  String get premiumTitle => 'Premium membership';
+
+  @override
+  String get premiumTagline => 'Hear about new auctions before anyone else';
+
+  @override
+  String get premiumActive => 'Your subscription is active';
+
+  @override
+  String get premiumInactive => 'No active subscription';
+
+  @override
+  String get premiumPlanLabel => 'Plan';
+
+  @override
+  String get premiumStatus => 'Status';
+
+  @override
+  String get premiumStartedAt => 'Start date';
+
+  @override
+  String get premiumExpiresAt => 'Expiry date';
+
+  @override
+  String get premiumAutoRenew => 'Auto-renewal';
+
+  @override
+  String get premiumAutoRenewOn => 'On';
+
+  @override
+  String get premiumAutoRenewOff => 'Off';
+
+  @override
+  String get premiumStopAutoRenew => 'Turn off auto-renewal';
+
+  @override
+  String get premiumStopAutoRenewConfirm =>
+      'Your subscription stays active until its expiry date and will not renew after that. Continue?';
+
+  @override
+  String premiumDaysRemaining(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days left',
+      one: '1 day left',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get premiumExpiringSoon =>
+      'Your subscription is about to expire — renew it so you keep the alerts';
+
+  @override
+  String get premiumChoosePlan => 'Choose your plan';
+
+  @override
+  String get premiumSubscribe => 'Subscribe now';
+
+  @override
+  String get premiumRenew => 'Renew subscription';
+
+  @override
+  String get premiumRecommended => 'Best value';
+
+  @override
+  String get premiumPeriodMonthly => 'per month';
+
+  @override
+  String get premiumPeriodYearly => 'per year';
+
+  @override
+  String get premiumNoPlans => 'No plans are available right now';
+
+  @override
+  String get premiumPaymentDone => 'Your subscription is now active';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get prefsTitle => 'Notification preferences';
+
+  @override
+  String get prefsChannelsTitle => 'Delivery channels';
+
+  @override
+  String get prefsChannelPush => 'App notifications';
+
+  @override
+  String get prefsChannelPushHint => 'Delivered to your phone as things happen';
+
+  @override
+  String get prefsChannelEmail => 'Email';
+
+  @override
+  String get prefsChannelEmailHint =>
+      'A summary of new auctions matching your interests';
+
+  @override
+  String get prefsChannelEmailPremiumOnly => 'Available to Premium members';
+
+  @override
+  String get prefsChannelSms => 'SMS';
+
+  @override
+  String get prefsNewAuctionAlerts => 'New auction alerts';
+
+  @override
+  String get prefsNewAuctionAlertsHint =>
+      'We alert you as soon as an auction in your chosen categories is published';
+
+  @override
+  String get prefsCategoriesTitle => 'Categories you care about';
+
+  @override
+  String get prefsCategoriesHint =>
+      'Pick one or more. With none selected you get alerts for every category.';
+
+  @override
+  String get prefsCategoriesAll => 'All categories';
+
+  @override
+  String get prefsNoCategories => 'No categories are available';
+
+  @override
+  String get prefsSave => 'Save preferences';
+
+  @override
+  String get prefsSaved => 'Your preferences were saved';
+
+  @override
+  String get prefsDiscardChanges =>
+      'You have unsaved changes. Leave without saving?';
+
+  @override
+  String get prefsLeave => 'Leave';
+
+  @override
+  String get prefsGoPremium => 'Get Premium';
 }

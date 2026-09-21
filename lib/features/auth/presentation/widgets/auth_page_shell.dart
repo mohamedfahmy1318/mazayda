@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/brand_mark.dart';
 import '../../../../core/router/app_router.dart';
 
 /// الهيكل البصري المشترك لشاشات الدخول والتسجيل والتحقق.
@@ -80,22 +81,7 @@ class AuthPageShell extends StatelessWidget {
                       ),
                       Gap(9.w),
                     ],
-                    Container(
-                      width: 40.w,
-                      height: 40.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withValues(alpha: 0.11),
-                        borderRadius: BorderRadius.circular(13.r),
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.13),
-                        ),
-                      ),
-                      child: Icon(
-                        Icons.gavel_rounded,
-                        size: 21.sp,
-                        color: AppColors.gold,
-                      ),
-                    ),
+                    const BrandMark(size: 40, radius: 13),
                     Gap(9.w),
                     Expanded(
                       child: Text(

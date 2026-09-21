@@ -11,7 +11,7 @@ import '../../domain/usecases/bidding_usecases.dart';
 part 'bidding_cubit.freezed.dart';
 
 @freezed
-class BiddingState with _$BiddingState {
+abstract class BiddingState with _$BiddingState {
   const factory BiddingState({
     @Default(true) bool loading,
     @Default(<BidEntry>[]) List<BidEntry> bids,
@@ -21,6 +21,11 @@ class BiddingState with _$BiddingState {
     DateTime? endTime, // وقت الإقفال — مصدر العدّاد التنازلي
     @Default(false) bool isBiddable,
     @Default(false) bool hasEnded,
+    // الحد الأدنى للمزايدة حسب القطاع (تعديلات العميل 11 · 12).
+    // null = الباك مابعتوش، والواجهة بترجع لقاعدة «أي زيادة فوق السعر».
+    int? minBid,
+    String? minBidFormatted,
+    double? minIncrementPercent,
     @Default(false) bool placingBid,
     @Default(false) bool isLive, // متصل بالـ realtime؟
     String? error, // خطأ عام
@@ -112,6 +117,9 @@ class BiddingCubit extends Cubit<BiddingState> {
           endTime: snap.endTime,
           isBiddable: snap.isBiddable,
           hasEnded: snap.hasEnded,
+          minBid: snap.minBid,
+          minBidFormatted: snap.minBidFormatted,
+          minIncrementPercent: snap.minIncrementPercent,
         ),
       );
       if (snap.bidCount != state.bids.length) _loadBids();

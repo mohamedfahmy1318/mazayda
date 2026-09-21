@@ -12,7 +12,7 @@ import '../../domain/usecases/kyc_usecases.dart';
 part 'kyc_cubit.freezed.dart';
 
 @freezed
-class KycState with _$KycState {
+abstract class KycState with _$KycState {
   const factory KycState({
     @Default(KycViewStatus.initial) KycViewStatus status,
     KycStatus? kyc,

@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/money_format.dart';
 import '../../../../documents/presentation/widgets/document_download_button.dart';
 import '../../../domain/entities/auction.dart';
+import '../../../domain/entities/auction_session.dart';
 import 'detail_section.dart';
 
 String _date(DateTime d) => DateFormat('yyyy/MM/dd — HH:mm').format(d);
@@ -60,7 +62,7 @@ class AuctionSpecsSection extends StatelessWidget {
   }
 }
 
-/// الأسعار والرسوم — الكفالة مستردّة، كراس الشروط غير مسترد.
+/// الأسعار والرسوم — الكفالة مستردّة، دفتر الشروط غير مسترد.
 class AuctionPricingSection extends StatelessWidget {
   final Auction auction;
   const AuctionPricingSection({super.key, required this.auction});
@@ -92,7 +94,204 @@ class AuctionPricingSection extends StatelessWidget {
             label: t.adBookPrice,
             value: auction.bookPrice!.formatted,
           ),
+        // القطاع ونسبته والحد الأدنى المحسوب — تعديلات العميل 11 و12.
+        if (auction.sector != null)
+          DetailFactRow(label: t.adSector, value: auction.sector!.name),
+        if ((auction.sector?.minIncrementPercent ?? 0) > 0)
+          DetailFactRow(
+            label: t.adSectorIncrement,
+            value: t.percentValue(
+              formatPercent(auction.sector!.minIncrementPercent!),
+            ),
+          ),
+        if (auction.minBid != null && !auction.isEndedNow)
+          DetailFactRow(
+            label: t.adMinBid,
+            value: auction.minBid!.formatted,
+            tone: AppColors.primary,
+          ),
       ],
+    );
+  }
+}
+
+/// وثائق المزايدة القابلة للتحميل/الطباعة — تعديلات العميل 21 · 22 · 23.
+///
+/// كل وثيقة بتظهر لما السيرفر يرجّعها بس: دفتر الشروط بعد الشراء، وصل
+/// المشاركة بعد التسجيل، ووصل النتيجة بعد الإقفال. القسم كله بيختفي لو
+/// مفيش ولا واحدة — فالزائر والمزايدة اللي لسه مابدأتش مايشوفوش قسم فاضي.
+class AuctionDocumentsSection extends StatelessWidget {
+  final Auction auction;
+  const AuctionDocumentsSection({super.key, required this.auction});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+
+    final book = auction.conditionBook;
+    final receipt = auction.participationReceipt;
+    final result = auction.resultDocument;
+
+    final buttons = <Widget>[
+      if (book?.id != null)
+        DocumentDownloadButton(
+          documentId: book!.id!,
+          title: book.title ?? t.docTypeConditionBook,
+          label: t.adDownloadConditionBook,
+          icon: Icons.menu_book_outlined,
+        ),
+      if (receipt?.id != null)
+        DocumentDownloadButton(
+          documentId: receipt!.id!,
+          title: receipt.title ?? t.docTypeParticipationReceipt,
+          label: t.adDownloadParticipationReceipt,
+          icon: Icons.confirmation_number_outlined,
+        ),
+      if (result?.id != null)
+        DocumentDownloadButton(
+          documentId: result!.id!,
+          title: result.title ?? t.docTypeAuctionResult,
+          label: t.adDownloadResult,
+          icon: Icons.fact_check_outlined,
+        ),
+    ];
+    if (buttons.isEmpty) return const SizedBox.shrink();
+
+    return DetailSection(
+      title: t.adDocuments,
+      icon: Icons.folder_copy_outlined,
+      children: [
+        for (final (i, button) in buttons.indexed) ...[
+          if (i > 0) Gap(8.h),
+          Align(alignment: AlignmentDirectional.centerStart, child: button),
+        ],
+        Gap(7.h),
+        Text(
+          t.adReceiptHint,
+          style: TextStyle(fontSize: 10.5.sp, color: AppColors.textHint),
+        ),
+      ],
+    );
+  }
+}
+
+/// جلسة المزايدة وسجل إعادة الجدولة — تعديلات العميل 5 · 7 · 8 · 9 · 10.
+///
+/// القسم كله بيختفي لو الباك مابعتش `session`، فالمزايدات اللي لسه ماتعادش
+/// جدولتها بتفضل صفحتها زي ما هي.
+class AuctionSessionSection extends StatelessWidget {
+  final Auction auction;
+  const AuctionSessionSection({super.key, required this.auction});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final info = auction.session;
+    if (info == null) return const SizedBox.shrink();
+
+    final current = info.current;
+    final rows = <Widget>[
+      DetailFactRow(
+        label: t.adSessionNumber,
+        value: t.sessionRound(current.round),
+        tone: current.isRescheduled ? AppColors.warning : null,
+      ),
+      if (current.code?.isNotEmpty ?? false)
+        DetailFactRow(label: t.adSessionCode, value: current.code!),
+      if (info.rescheduleCount > 0)
+        DetailFactRow(
+          label: t.adRescheduleCount,
+          value: info.rescheduleCount.toString(),
+        ),
+      // الخفض بيتعرض بس لما يكون اتطبّق فعلًا — الجلسة الأولى نسبتها صفر.
+      if ((current.reductionPercent ?? 0) > 0)
+        DetailFactRow(
+          label: t.adReduction,
+          value: t.percentValue(formatPercent(current.reductionPercent!)),
+          tone: AppColors.warning,
+        ),
+      if (info.originalOpeningPrice != null && info.rescheduleCount > 0)
+        DetailFactRow(
+          label: t.adOriginalOpeningPrice,
+          value: info.originalOpeningPrice!.formatted,
+        ),
+    ];
+
+    return DetailSection(
+      title: t.adSession,
+      icon: Icons.event_repeat_outlined,
+      children: [
+        ...rows,
+        if (info.history.isNotEmpty) ...[
+          Divider(height: 18.h),
+          Text(
+            t.adSessionHistory,
+            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+          ),
+          Gap(6.h),
+          for (final past in info.history) _SessionHistoryRow(session: past),
+        ],
+      ],
+    );
+  }
+}
+
+/// صف جلسة سابقة: رقمها ومواعيدها وسعرها الافتتاحي (تعديل العميل رقم 10).
+class _SessionHistoryRow extends StatelessWidget {
+  final AuctionSession session;
+  const _SessionHistoryRow({required this.session});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final range = [
+      if (session.startTime != null) _date(session.startTime!),
+      if (session.endTime != null) _date(session.endTime!),
+    ].join(' ← ');
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  t.sessionRound(session.round),
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              if (session.openingPrice != null)
+                Text(
+                  session.openingPrice!.formatted,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primary,
+                  ),
+                ),
+            ],
+          ),
+          if (range.isNotEmpty)
+            Text(
+              range,
+              style: TextStyle(fontSize: 10.5.sp, color: AppColors.textHint),
+            ),
+          if (session.resultLabel?.isNotEmpty ?? false)
+            Text(
+              session.resultLabel!,
+              style: TextStyle(
+                fontSize: 10.5.sp,
+                color: AppColors.textSecondary,
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -322,8 +521,9 @@ class AuctionResultSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    final closed = auction.hasEnded || auction.status == AuctionStatus.closed;
-    if (!closed) return const SizedBox.shrink();
+    // `isEndedNow` بتحسب عدّاد الإقفال كمان، فالنتيجة بتظهر لحظة انتهاء
+    // الوقت من غير ما نستنى إعادة تحميل (تعديل العميل رقم 3).
+    if (!auction.isEndedNow) return const SizedBox.shrink();
 
     final appeal = auction.appealWindow;
     return DetailSection(

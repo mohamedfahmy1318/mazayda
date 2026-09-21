@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'auction_session.dart';
 import 'money.dart';
 
 /// حالة المزاد كما يرجّعها الـ API.
@@ -85,7 +86,7 @@ class LeaseTerms extends Equatable {
   List<Object?> get props => [durationYears, renewals];
 }
 
-/// مرجع وثيقة (كراس الشروط / وثيقة الترسية) — الملف نفسه بيتجاب من
+/// مرجع وثيقة (دفتر الشروط / وثيقة الترسية) — الملف نفسه بيتجاب من
 /// endpoint التحميل.
 class AuctionDocumentRef extends Equatable {
   final String? id;
@@ -114,7 +115,7 @@ class Auction extends Equatable {
   final Money currentPrice;
   final Money depositAmount;
   final Money? bookPrice;
-  final bool hasBookAccess; // هل اشترى المستخدم كراس الشروط مسبقًا
+  final bool hasBookAccess; // هل اشترى المستخدم دفتر الشروط مسبقًا
   final int bidCount;
   final int secondsRemaining;
   final bool isLive;
@@ -148,6 +149,35 @@ class Auction extends Equatable {
   final bool requiresNewspaperAnnouncement;
   final AuctionDocumentRef? conditionBook;
   final AuctionDocumentRef? awardDocument;
+
+  /// وصل المشاركة — بيتولّد بعد شراء دفتر الشروط، وفيه بيانات المزايدة
+  /// والمواطن ورقم العملية (تعديلات العميل 21 و22). `null` قبل الشراء.
+  final AuctionDocumentRef? participationReceipt;
+
+  /// وصل نتيجة المزايدة — بيتاح بعد الإقفال لكل مشارك (تعديل العميل رقم 23).
+  final AuctionDocumentRef? resultDocument;
+
+  // ===== الجلسات وإعادة الجدولة (تعديلات العميل 5 · 7 · 8 · 9 · 10) =====
+
+  /// ترقيم الجلسة الحالية + سجل الجلسات السابقة.
+  /// `null` لو الباك لسه مانزّلش الحقل — والواجهة بتخفي الأقسام دي ساعتها.
+  final AuctionSessionInfo? session;
+
+  // ===== القطاع والحد الأدنى للمزايدة (تعديلات العميل 11 · 12) =====
+
+  /// القطاع اللي حدّدته الجهة المنظمة.
+  final AuctionSector? sector;
+
+  /// أقل مبلغ مزايدة مقبول **محسوب من السيرفر** (السعر الحالي + نسبة القطاع).
+  ///
+  /// بنعرضه ونمنع الإرسال تحته، بس القرار النهائي يفضل للسيرفر: لو الحقل ده
+  /// ما جاش بنرجع لقاعدة «أي زيادة فوق السعر الحالي» زي الأول.
+  final Money? minBid;
+
+  // ===== أولوية النشر (تعديلات العميل 13–17 — الجانب المرئي منها) =====
+
+  /// مستوى النشر اللي دفعت الجهة مقابله — بيحدد وسم «مميّزة».
+  final PublicationPriority publicationPriority;
 
   const Auction({
     required this.id,
@@ -197,6 +227,12 @@ class Auction extends Equatable {
     this.requiresNewspaperAnnouncement = false,
     this.conditionBook,
     this.awardDocument,
+    this.participationReceipt,
+    this.resultDocument,
+    this.session,
+    this.sector,
+    this.minBid,
+    this.publicationPriority = PublicationPriority.unknown,
   });
 
   /// إحداثيات صالحة للفتح في الخرائط.
@@ -204,6 +240,25 @@ class Auction extends Equatable {
 
   /// المزاد اتمدّ على الأقل مرة (يستحق عرض عدّاد التمديد).
   bool get wasExtended => extensionCount > 0;
+
+  /// المزاد منتهي **دلوقتي** — علم السيرفر أو عدّاد الإقفال، أيهما أسبق.
+  ///
+  /// `hasEnded` بيتحسب في السيرفر لحظة الطلب، فبيقدم لو المستخدم فاضل
+  /// فاتح صفحة التفاصيل والمزاد قفل وهو قاعد. المقارنة بـ [endTime] بتقفل
+  /// الفجوة دي فورًا (تعديل العميل رقم 3 — تعطيل «شراء دفتر الشروط» بمجرد
+  /// انتهاء وقت المزايدة)، والواجهة بتعيد القراءة من السيرفر عند نفس
+  /// اللحظة فالحقيقة النهائية تفضل للباك.
+  /// أقل مبلغ مزايدة مقبول بالدينار.
+  ///
+  /// السيرفر هو المصدر (نسبة القطاع بتتحسب هناك). من غيره بنرجع لأضعف
+  /// قاعدة ممكنة — أي زيادة فوق السعر الحالي — والسيرفر بيرفض الباقي بـ422.
+  int get minBidAmount => minBid?.amount ?? (currentPrice.amount + 1);
+
+  bool get isEndedNow {
+    if (hasEnded || status == AuctionStatus.closed) return true;
+    final end = endTime;
+    return end != null && !end.isAfter(DateTime.now());
+  }
 
   @override
   List<Object?> get props => [

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +63,7 @@ class AuctionDetailPage extends StatelessWidget {
   }
 }
 
-class _DetailContent extends StatelessWidget {
+class _DetailContent extends StatefulWidget {
   final AuctionDetail detail;
   final bool isAuthenticated;
   final ViewerAccountFlags? account;
@@ -73,14 +75,63 @@ class _DetailContent extends StatelessWidget {
   });
 
   @override
+  State<_DetailContent> createState() => _DetailContentState();
+}
+
+class _DetailContentState extends State<_DetailContent> {
+  /// مؤقّت لقطة واحدة على لحظة إقفال المزاد.
+  ///
+  /// من غيره الزراير بتفضل على حالتها وقت التحميل: مستخدم قاعد على الصفحة
+  /// وقت ما المزاد بيقفل كان يفضل شايف «شراء دفتر الشروط» شغّال لحد ما
+  /// يقفل الشاشة ويفتحها. دلوقتي بنعيد القراءة من السيرفر في نفس اللحظة،
+  /// فالزرار بيتغيّر لوحده (تعديل العميل رقم 3).
+  Timer? _closingTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _scheduleClosing();
+  }
+
+  @override
+  void didUpdateWidget(_DetailContent old) {
+    super.didUpdateWidget(old);
+    // السيرفر مدّد المزاد → وقت إقفال جديد، نعيد ضبط المؤقّت.
+    if (old.detail.auction.endTime != widget.detail.auction.endTime) {
+      _scheduleClosing();
+    }
+  }
+
+  @override
+  void dispose() {
+    _closingTimer?.cancel();
+    super.dispose();
+  }
+
+  void _scheduleClosing() {
+    _closingTimer?.cancel();
+    final auction = widget.detail.auction;
+    final end = auction.endTime;
+    if (end == null || auction.isEndedNow) return;
+
+    // ثانية زيادة: نضمن إن السيرفر عدّى اللحظة قبل ما نسأله.
+    final left = end.difference(DateTime.now()) + const Duration(seconds: 1);
+    _closingTimer = Timer(left, () {
+      if (!mounted) return;
+      context.read<AuctionDetailCubit>().load(auction.id);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final detail = widget.detail;
     final auction = detail.auction;
     // الخطوة التالية المتاحة — من meta.viewer لو موجود، وإلا من أعلام الحساب.
     final cta = ctaFor(
       auction,
       detail.viewer,
-      isAuthenticated: isAuthenticated,
-      account: account,
+      isAuthenticated: widget.isAuthenticated,
+      account: widget.account,
     );
 
     return Column(
@@ -255,6 +306,7 @@ class _DetailInfo extends StatelessWidget {
 
         // أقسام التفاصيل — كل قسم بيخفي نفسه لو مفيش بيانات ليه،
         // فالمزادات البسيطة بتفضل صفحتها قصيرة.
+        AuctionSessionSection(auction: auction),
         AuctionPricingSection(auction: auction),
         AuctionAssetSection(auction: auction),
         AuctionSpecsSection(auction: auction),
@@ -264,6 +316,7 @@ class _DetailInfo extends StatelessWidget {
         AuctionLeaseSection(auction: auction),
         AuctionTermsSection(auction: auction),
         AuctionResultSection(auction: auction),
+        AuctionDocumentsSection(auction: auction),
         Gap(8.h),
       ],
     );
@@ -396,7 +449,7 @@ class _DetailActionBar extends StatelessWidget {
       Icons.app_registration,
       () => _register(context),
     ),
-    // وضع محدود: مش عارفين هل شارك أو اشترى الكراس — بنبدأ المسار
+    // وضع محدود: مش عارفين هل شارك أو اشترى دفتر الشروط — بنبدأ المسار
     // والسيرفر بيرفض بالرسالة المناسبة لو الخطوة اتعملت قبل كده.
     AuctionCta.participate => (
       t.ctaParticipate,

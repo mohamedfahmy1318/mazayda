@@ -58,6 +58,18 @@ extension NotificationKindStyle on NotificationKind {
       bg: AppColors.dangerBg,
       icon: Icons.gpp_bad_outlined,
     ),
+    // مزايدة جديدة مطابقة لاهتمامات المواطن (تعديلات 26 · 28) — شكل مميّز
+    // عن إشعار المزاد العادي عشان تبان وسط الصندوق.
+    NotificationKind.newAuction => (
+      fg: AppColors.primary,
+      bg: AppColors.infoBg,
+      icon: Icons.new_releases_outlined,
+    ),
+    NotificationKind.subscription => (
+      fg: AppColors.gold,
+      bg: AppColors.warningBg,
+      icon: Icons.workspace_premium_outlined,
+    ),
     NotificationKind.generic => (
       fg: AppColors.neutral,
       bg: AppColors.neutralBg,

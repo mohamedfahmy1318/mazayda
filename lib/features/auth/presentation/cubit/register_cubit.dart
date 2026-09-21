@@ -12,7 +12,7 @@ part 'register_cubit.freezed.dart';
 enum RegisterStatus { idle, submitting, success, failure }
 
 @freezed
-class RegisterState with _$RegisterState {
+abstract class RegisterState with _$RegisterState {
   const RegisterState._();
 
   const factory RegisterState({

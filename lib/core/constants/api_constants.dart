@@ -47,6 +47,12 @@ class ApiConstants {
   // الاسترجاع بالسؤال السري (خطوتان: كشف السؤال ثم التحقق من الإجابة)
   static const String recoverReveal = '$apiPrefix/auth/recover/reveal';
   static const String recoverVerify = '$apiPrefix/auth/recover/verify';
+  // استرجاع البريد الإلكتروني المفقود (تعديل العميل رقم 1) — مسار **غير
+  // مصادَق**: المواطن فقد بريده فمش قادر يسجّل دخول ولا يستقبل رمز.
+  // الرفع multipart (صورة سيلفي مع بطاقة الهوية)، والطلب بيراجَع يدويًا.
+  static const String emailRecovery = '$apiPrefix/auth/email-recovery';
+  static const String emailRecoveryStatus =
+      '$apiPrefix/auth/email-recovery/status';
 
   // ===== Auctions (تصفّح عام للقراءة فقط) =====
   static const String auctions = '$apiPrefix/auctions';
@@ -116,6 +122,17 @@ class ApiConstants {
   static const String readAll = '$apiPrefix/notifications/read-all';
   static String markNotificationRead(String id) =>
       '$apiPrefix/notifications/$id/read';
+
+  // ===== Premium subscription (تعديلات العميل 24 · 25 · 26) =====
+  // GET بيرجّع الاشتراك الحالي + الباقات في نداء واحد،
+  // POST بيبدأ الدفع (بيرجّع redirect_url + ref زي باقي المدفوعات)،
+  // DELETE بيوقف التجديد التلقائي من غير ما يلغي المدة المدفوعة.
+  static const String subscription = '$apiPrefix/subscription';
+
+  // ===== تفضيلات الإشعارات (تعديلات العميل 27 · 28 · 30) =====
+  // GET + PUT على نفس المسار: القنوات + أنواع المزايدات المفضّلة.
+  static const String notificationPreferences =
+      '$apiPrefix/preferences/notifications';
 
   // ===== Profile =====
   static const String profile = '$apiPrefix/profile'; // GET + PUT

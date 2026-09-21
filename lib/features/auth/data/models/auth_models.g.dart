@@ -6,22 +6,20 @@ part of 'auth_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthTokensModelImpl _$$AuthTokensModelImplFromJson(
-  Map<String, dynamic> json,
-) => _$AuthTokensModelImpl(
-  accessToken: json['access_token'] as String,
-  refreshToken: json['refresh_token'] as String,
-);
+_AuthTokensModel _$AuthTokensModelFromJson(Map<String, dynamic> json) =>
+    _AuthTokensModel(
+      accessToken: json['access_token'] as String,
+      refreshToken: json['refresh_token'] as String,
+    );
 
-Map<String, dynamic> _$$AuthTokensModelImplToJson(
-  _$AuthTokensModelImpl instance,
-) => <String, dynamic>{
-  'access_token': instance.accessToken,
-  'refresh_token': instance.refreshToken,
-};
+Map<String, dynamic> _$AuthTokensModelToJson(_AuthTokensModel instance) =>
+    <String, dynamic>{
+      'access_token': instance.accessToken,
+      'refresh_token': instance.refreshToken,
+    };
 
-_$AuthUserModelImpl _$$AuthUserModelImplFromJson(Map<String, dynamic> json) =>
-    _$AuthUserModelImpl(
+_AuthUserModel _$AuthUserModelFromJson(Map<String, dynamic> json) =>
+    _AuthUserModel(
       id: json['id'] as String,
       firstNameAr: json['first_name_ar'] as String?,
       lastNameAr: json['last_name_ar'] as String?,
@@ -30,7 +28,7 @@ _$AuthUserModelImpl _$$AuthUserModelImplFromJson(Map<String, dynamic> json) =>
       kycStatus: json['kyc_status'] as String? ?? 'PENDING',
     );
 
-Map<String, dynamic> _$$AuthUserModelImplToJson(_$AuthUserModelImpl instance) =>
+Map<String, dynamic> _$AuthUserModelToJson(_AuthUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'first_name_ar': instance.firstNameAr,

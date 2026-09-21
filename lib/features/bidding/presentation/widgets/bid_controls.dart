@@ -18,11 +18,24 @@ class BidControls extends StatefulWidget {
   final bool placingBid;
   final ValueChanged<int> onPlaceBid;
 
+  /// أقل مبلغ مقبول **محسوب في السيرفر** من نسبة القطاع (تعديلات 11 · 12).
+  /// `null` = الباك مابعتهوش، فبنرجع لقاعدة «أي زيادة فوق السعر الحالي».
+  final int? minBid;
+
+  /// نص الحد الأدنى بتنسيق السيرفر — بنفضّله على التنسيق المحلي لو موجود.
+  final String? minBidFormatted;
+
+  /// نسبة القطاع — بتدخل في رسالة الرفض عشان المواطن يفهم سبب المنع.
+  final double? minIncrementPercent;
+
   const BidControls({
     super.key,
     required this.currentPrice,
     required this.placingBid,
     required this.onPlaceBid,
+    this.minBid,
+    this.minBidFormatted,
+    this.minIncrementPercent,
   });
 
   @override
@@ -33,16 +46,50 @@ class _BidControlsState extends State<BidControls> {
   final _controller = TextEditingController();
   String? _error;
 
-  /// أقل مبلغ مقبول — أي زيادة فوق السعر الحالي.
+  /// أقل مبلغ مقبول.
   ///
-  /// الباك مابيرجّعش خطوة مزايدة، فالتحقق ده مبدئي بس: بيمنع الإرسال الغلط
-  /// الواضح، والقرار النهائي للسيرفر (بيرجّع 422 تحت `errors.amount`).
-  int get _minBid => widget.currentPrice + 1;
+  /// المصدر الأول هو `min_bid` من السيرفر — نسبة القطاع بتتحسب هناك
+  /// (تعديلات العميل 11 و12) فمابنكررش القاعدة هنا. لو الحقل ما جاش بنرجع
+  /// لأضعف قاعدة: أي زيادة فوق السعر الحالي.
+  ///
+  /// في الحالتين ده تحقّق **مبدئي** بيوفّر رحلة فاشلة للسيرفر؛ القرار
+  /// النهائي يفضل للباك (بيرجّع 422 تحت `errors.amount`).
+  int get _minBid {
+    final server = widget.minBid;
+    // حرس: حد أدنى أقل من السعر الحالي مالوش معنى — نتجاهله.
+    if (server != null && server > widget.currentPrice) return server;
+    return widget.currentPrice + 1;
+  }
+
+  /// نص الحد الأدنى — تنسيق السيرفر لو متاح، وإلا تنسيقنا المحلي.
+  String _minBidText(AppLocalizations t) {
+    final formatted = widget.minBidFormatted;
+    if (formatted != null && formatted.isNotEmpty && widget.minBid != null) {
+      return formatted;
+    }
+    return formatMoney(_minBid, t.currencyDzd);
+  }
+
+  /// رسالة رفض المبلغ — بتوضّح نسبة القطاع لو الباك بعتها، عشان المواطن
+  /// يعرف إن المنع قاعدة قطاع مش عطل (تعديل العميل رقم 12).
+  String _belowMinimumMessage(AppLocalizations t) {
+    final percent = widget.minIncrementPercent;
+    if (percent != null && percent > 0) {
+      return t.bidBelowSectorMinimum(
+        _minBidText(t),
+        formatPercent(percent),
+      );
+    }
+    return t.bidBelowMinimum;
+  }
 
   @override
   void didUpdateWidget(BidControls old) {
     super.didUpdateWidget(old);
-    if (old.currentPrice == widget.currentPrice) return;
+    if (old.currentPrice == widget.currentPrice &&
+        old.minBid == widget.minBid) {
+      return;
+    }
     // السعر اتحرّك (مزايدتك نجحت أو حد زايد فوقك) — بنمسح المبلغ المكتوب بس
     // لو بقى تحت الحد الأدنى. لو لسه صالح بنسيبه، عشان محدش يفقد اللي كتبه
     // بسبب مزايدة جت من حد تاني وهو بيكتب.
@@ -72,12 +119,21 @@ class _BidControlsState extends State<BidControls> {
     final t = AppLocalizations.of(context);
     final amount = int.tryParse(_digitsOnly(_controller.text)) ?? 0;
     if (amount < _minBid) {
-      setState(() => _error = t.bidBelowMinimum);
+      setState(() => _error = _belowMinimumMessage(t));
       return;
     }
     setState(() => _error = null);
     FocusScope.of(context).unfocus();
     widget.onPlaceBid(amount);
+  }
+
+  /// تلميح الحد الأدنى تحت الحقل — بيذكر القطاع لو الباك بعت نسبته.
+  String _minBidHint(AppLocalizations t) {
+    final percent = widget.minIncrementPercent;
+    if (percent != null && percent > 0) {
+      return t.minBidSectorHint(_minBidText(t), formatPercent(percent));
+    }
+    return t.minBidHint(_minBidText(t));
   }
 
   @override
@@ -111,7 +167,7 @@ class _BidControlsState extends State<BidControls> {
         ),
         SizedBox(height: 6.h),
         Text(
-          _error ?? t.minBidHint(formatMoney(_minBid, t.currencyDzd)),
+          _error ?? _minBidHint(t),
           style: TextStyle(
             fontSize: 10.sp,
             color: _error != null

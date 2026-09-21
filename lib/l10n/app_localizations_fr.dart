@@ -1163,4 +1163,329 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get biddingClosed => 'Les enchères sont closes';
+
+  @override
+  String get ackTitle => 'Inscription à l\'enchère';
+
+  @override
+  String get ackSubtitleHasBook =>
+      'Acceptez les conditions de participation pour lancer l\'inscription via la passerelle de paiement sécurisée';
+
+  @override
+  String get ackSubtitleNeedsBook =>
+      'L\'achat du cahier des charges est requis pour l\'inscription — deux paiements successifs s\'ouvriront : le cahier puis l\'inscription';
+
+  @override
+  String get ackDepositRow => 'Caution (remboursable)';
+
+  @override
+  String get ackBookRow => 'Cahier des charges (non remboursable)';
+
+  @override
+  String get ackAgree =>
+      'Je déclare avoir lu le cahier des charges et j\'accepte les conditions de participation';
+
+  @override
+  String get ackContinue => 'Continuer vers le paiement';
+
+  @override
+  String get ackGatewayNote =>
+      'La passerelle de paiement sécurisée (CIBWeb) va s\'ouvrir';
+
+  @override
+  String minBidSectorHint(String amount, String percent) {
+    return 'Enchère minimale $amount (taux du secteur $percent %)';
+  }
+
+  @override
+  String bidBelowSectorMinimum(String amount, String percent) {
+    return 'Impossible de proposer moins de $amount — le taux d\'augmentation fixé pour ce secteur est de $percent %';
+  }
+
+  @override
+  String get adSession => 'Séance d\'enchère';
+
+  @override
+  String get adSessionNumber => 'Numéro de séance';
+
+  @override
+  String sessionRound(int round) {
+    return 'Séance n° $round';
+  }
+
+  @override
+  String get adSessionCode => 'Référence';
+
+  @override
+  String get adRescheduleCount => 'Nombre de reports';
+
+  @override
+  String get adReduction => 'Réduction appliquée au prix de départ';
+
+  @override
+  String percentValue(String percent) {
+    return '$percent %';
+  }
+
+  @override
+  String get adOriginalOpeningPrice => 'Prix de départ initial';
+
+  @override
+  String get adSessionHistory => 'Historique des séances';
+
+  @override
+  String get adSector => 'Secteur';
+
+  @override
+  String get adSectorIncrement => 'Taux d\'augmentation minimal du secteur';
+
+  @override
+  String get adMinBid => 'Enchère minimale acceptée';
+
+  @override
+  String get auctionFeatured => 'En vedette';
+
+  @override
+  String sessionRescheduledBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count fois',
+      one: 'une fois',
+    );
+    return 'Cette enchère a été reportée $_temp0 — le prix de départ affiché tient compte de la réduction';
+  }
+
+  @override
+  String get lostEmailLink => 'E-mail perdu ?';
+
+  @override
+  String get lostEmailTitle => 'Récupération de l\'e-mail';
+
+  @override
+  String get lostEmailHint =>
+      'Si vous n\'avez plus accès à votre e-mail, saisissez vos informations et joignez un selfie tenant votre carte d\'identité. Le service compétent examinera la demande et validera la nouvelle adresse.';
+
+  @override
+  String get lostEmailNewEmail => 'Nouvelle adresse e-mail';
+
+  @override
+  String get lostEmailSelfie => 'Selfie avec la carte d\'identité';
+
+  @override
+  String get lostEmailSelfieHint =>
+      'Tenez la carte d\'identité près de votre visage ; l\'image et les données doivent être lisibles';
+
+  @override
+  String get lostEmailRetake => 'Reprendre la photo';
+
+  @override
+  String get lostEmailSubmit => 'Envoyer la demande';
+
+  @override
+  String get lostEmailSubmittedTitle => 'Demande envoyée';
+
+  @override
+  String get lostEmailSubmittedBody =>
+      'Votre demande est en cours d\'examen par le service compétent. Vous pourrez vous connecter avec la nouvelle adresse dès son approbation.';
+
+  @override
+  String get lostEmailApprovedBody =>
+      'Votre nouvelle adresse a été approuvée. Vous pouvez maintenant vous connecter.';
+
+  @override
+  String get lostEmailRejectedBody =>
+      'La demande a été rejetée. Consultez le motif ci-dessous et renvoyez-la après correction.';
+
+  @override
+  String get lostEmailRejectionReason => 'Motif du rejet';
+
+  @override
+  String get lostEmailRefreshStatus => 'Actualiser le statut';
+
+  @override
+  String get lostEmailResubmit => 'Modifier et renvoyer';
+
+  @override
+  String get lostEmailRequestRef => 'N° de demande';
+
+  @override
+  String get lostEmailSubmittedAt => 'Date de dépôt';
+
+  @override
+  String get lostEmailSelfieRequired =>
+      'Le selfie avec la carte d\'identité est obligatoire';
+
+  @override
+  String lostEmailImageTooLarge(int max) {
+    return 'L\'image dépasse $max Ko — reprenez une photo plus légère';
+  }
+
+  @override
+  String get docTypeParticipationReceipt => 'Reçu de participation';
+
+  @override
+  String get docTypeAuctionResult => 'Reçu du résultat de l\'enchère';
+
+  @override
+  String get adDocuments => 'Documents de l\'enchère';
+
+  @override
+  String get adDownloadParticipationReceipt =>
+      'Télécharger le reçu de participation';
+
+  @override
+  String get adDownloadResult => 'Télécharger le reçu du résultat';
+
+  @override
+  String get adDownloadConditionBook => 'Télécharger le cahier des charges';
+
+  @override
+  String get adReceiptHint =>
+      'Vous pouvez imprimer ou enregistrer le reçu après le téléchargement';
+
+  @override
+  String get premiumTitle => 'Abonnement Premium';
+
+  @override
+  String get premiumTagline =>
+      'Soyez informé des nouvelles enchères avant les autres';
+
+  @override
+  String get premiumActive => 'Votre abonnement est actif';
+
+  @override
+  String get premiumInactive => 'Aucun abonnement actif';
+
+  @override
+  String get premiumPlanLabel => 'Formule';
+
+  @override
+  String get premiumStatus => 'Statut';
+
+  @override
+  String get premiumStartedAt => 'Date de début';
+
+  @override
+  String get premiumExpiresAt => 'Date d\'expiration';
+
+  @override
+  String get premiumAutoRenew => 'Renouvellement automatique';
+
+  @override
+  String get premiumAutoRenewOn => 'Activé';
+
+  @override
+  String get premiumAutoRenewOff => 'Désactivé';
+
+  @override
+  String get premiumStopAutoRenew => 'Désactiver le renouvellement';
+
+  @override
+  String get premiumStopAutoRenewConfirm =>
+      'Votre abonnement restera actif jusqu\'à sa date d\'expiration et ne sera pas renouvelé. Continuer ?';
+
+  @override
+  String premiumDaysRemaining(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours restants',
+      one: '1 jour restant',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get premiumExpiringSoon =>
+      'Votre abonnement expire bientôt — renouvelez-le pour ne rien manquer';
+
+  @override
+  String get premiumChoosePlan => 'Choisissez votre formule';
+
+  @override
+  String get premiumSubscribe => 'S\'abonner';
+
+  @override
+  String get premiumRenew => 'Renouveler';
+
+  @override
+  String get premiumRecommended => 'Meilleur rapport';
+
+  @override
+  String get premiumPeriodMonthly => 'par mois';
+
+  @override
+  String get premiumPeriodYearly => 'par an';
+
+  @override
+  String get premiumNoPlans => 'Aucune formule disponible pour le moment';
+
+  @override
+  String get premiumPaymentDone => 'Votre abonnement est activé';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get prefsTitle => 'Préférences de notification';
+
+  @override
+  String get prefsChannelsTitle => 'Canaux de réception';
+
+  @override
+  String get prefsChannelPush => 'Notifications de l\'application';
+
+  @override
+  String get prefsChannelPushHint =>
+      'Reçues sur votre téléphone dès l\'événement';
+
+  @override
+  String get prefsChannelEmail => 'E-mail';
+
+  @override
+  String get prefsChannelEmailHint =>
+      'Un récapitulatif des nouvelles enchères correspondant à vos intérêts';
+
+  @override
+  String get prefsChannelEmailPremiumOnly => 'Réservé aux membres Premium';
+
+  @override
+  String get prefsChannelSms => 'SMS';
+
+  @override
+  String get prefsNewAuctionAlerts => 'Alertes nouvelles enchères';
+
+  @override
+  String get prefsNewAuctionAlertsHint =>
+      'Nous vous prévenons dès qu\'une enchère de vos catégories est publiée';
+
+  @override
+  String get prefsCategoriesTitle => 'Catégories qui vous intéressent';
+
+  @override
+  String get prefsCategoriesHint =>
+      'Choisissez une ou plusieurs catégories. Sans sélection, vous recevrez toutes les catégories.';
+
+  @override
+  String get prefsCategoriesAll => 'Toutes les catégories';
+
+  @override
+  String get prefsNoCategories => 'Aucune catégorie disponible';
+
+  @override
+  String get prefsSave => 'Enregistrer les préférences';
+
+  @override
+  String get prefsSaved => 'Vos préférences ont été enregistrées';
+
+  @override
+  String get prefsDiscardChanges =>
+      'Vous avez des modifications non enregistrées. Quitter sans enregistrer ?';
+
+  @override
+  String get prefsLeave => 'Quitter';
+
+  @override
+  String get prefsGoPremium => 'Passer à Premium';
 }

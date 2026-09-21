@@ -8,7 +8,7 @@ import '../../domain/usecases/notifications_usecases.dart';
 part 'notifications_cubit.freezed.dart';
 
 @freezed
-class NotificationsState with _$NotificationsState {
+abstract class NotificationsState with _$NotificationsState {
   const factory NotificationsState({
     @Default(true) bool loading,
     @Default(<AppNotification>[]) List<AppNotification> items,

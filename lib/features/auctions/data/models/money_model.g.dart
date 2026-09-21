@@ -6,13 +6,12 @@ part of 'money_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MoneyModelImpl _$$MoneyModelImplFromJson(Map<String, dynamic> json) =>
-    _$MoneyModelImpl(
-      amount: (json['amount'] as num?)?.toInt() ?? 0,
-      formatted: json['formatted'] as String? ?? '',
-    );
+_MoneyModel _$MoneyModelFromJson(Map<String, dynamic> json) => _MoneyModel(
+  amount: (json['amount'] as num?)?.toInt() ?? 0,
+  formatted: json['formatted'] as String? ?? '',
+);
 
-Map<String, dynamic> _$$MoneyModelImplToJson(_$MoneyModelImpl instance) =>
+Map<String, dynamic> _$MoneyModelToJson(_MoneyModel instance) =>
     <String, dynamic>{
       'amount': instance.amount,
       'formatted': instance.formatted,

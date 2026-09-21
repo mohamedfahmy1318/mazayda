@@ -4,6 +4,7 @@ import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/app_notification.dart';
+import '../../domain/entities/notification_preferences.dart';
 import '../../domain/repositories/notifications_repository.dart';
 import '../datasources/notifications_remote_data_source.dart';
 
@@ -29,6 +30,29 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
     return _guard(() async {
       await remote.markAsRead(id);
       return unit;
+    });
+  }
+
+  @override
+  Future<Either<Failure, NotificationPreferences>> getPreferences() {
+    return _guard(() async => (await remote.getPreferences()).toEntity());
+  }
+
+  @override
+  Future<Either<Failure, NotificationPreferences>> updatePreferences(
+    NotificationPreferences preferences,
+  ) {
+    return _guard(() async {
+      final model = await remote.updatePreferences({
+        'channels': {
+          'push': preferences.channels.push,
+          'email': preferences.channels.email,
+          'sms': preferences.channels.sms,
+        },
+        'auction_categories': preferences.categoryIds,
+        'new_auction_alerts': preferences.newAuctionAlerts,
+      });
+      return model.toEntity();
     });
   }
 

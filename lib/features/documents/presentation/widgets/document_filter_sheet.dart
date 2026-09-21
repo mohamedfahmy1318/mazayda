@@ -18,6 +18,8 @@ String documentTypeLabel(DocumentType type, AppLocalizations t) =>
       DocumentType.award => t.docTypeAward,
       DocumentType.paymentReceipt => t.docTypeReceipt,
       DocumentType.deliveryReport => t.docTypeDelivery,
+      DocumentType.participationReceipt => t.docTypeParticipationReceipt,
+      DocumentType.auctionResult => t.docTypeAuctionResult,
       _ => '—',
     };
 

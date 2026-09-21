@@ -18,7 +18,7 @@ class GetLatestBids implements UseCase<List<BidEntry>, GetBidsParams> {
 }
 
 @freezed
-class GetBidsParams with _$GetBidsParams {
+abstract class GetBidsParams with _$GetBidsParams {
   const factory GetBidsParams({
     required String auctionId,
     @Default(10) int limit,
@@ -44,7 +44,7 @@ class PlaceBid implements UseCase<Unit, PlaceBidParams> {
 }
 
 @freezed
-class PlaceBidParams with _$PlaceBidParams {
+abstract class PlaceBidParams with _$PlaceBidParams {
   const factory PlaceBidParams({
     required String auctionId,
     required int amount,

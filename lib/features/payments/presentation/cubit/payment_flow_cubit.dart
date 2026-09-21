@@ -47,7 +47,7 @@ enum PaymentRedirect { kyc, commercialRegister }
 /// أسباب التوقّف اللي بيولّدها العميل نفسه (مش السيرفر).
 /// بنمرّرها كرمز مش كنص عشان الطبقة دي ما تعرفش لغة العرض.
 enum PaymentFlowIssue {
-  /// انتهى الاستطلاع من غير تأكيد شراء الكراسة.
+  /// انتهى الاستطلاع من غير تأكيد شراء دفتر الشروط.
   bookNotConfirmed,
 
   /// انتهى الاستطلاع من غير تأكيد الدفع.
@@ -69,7 +69,7 @@ enum _StepOutcome {
   /// السيرفر رفض لأن الخطوة **متعمّلة بالفعل** — نكمّل للي بعدها.
   alreadyDone,
 
-  /// السيرفر قال إن الكراسة لازم تتشترى الأول (`must_purchase_book`) —
+  /// السيرفر قال إن دفتر الشروط لازم يتشترى الأول (`must_purchase_book`) —
   /// نرجع خطوة لورا بدل ما نوقف المستخدم على رسالة.
   needsBookFirst,
 
@@ -94,12 +94,12 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
   String _auctionId = '';
   _FlowStep _step = _FlowStep.register;
 
-  /// رجعنا لخطوة الكراسة مرة واحدة بعد `must_purchase_book` — حرس ضد
+  /// رجعنا لخطوة دفتر الشروط مرة واحدة بعد `must_purchase_book` — حرس ضد
   /// تنطيط لا نهائي بين الخطوتين لو الباك فضل يرفض الاتنين.
   bool _bookStepRetried = false;
 
   /// flow التسجيل في مزاد (قد يمرّ ببوابتين متتاليتين):
-  /// - [hasBookAccess] == false: بوابة شراء كراس الشروط أولًا، وبعد تأكيد دفعها
+  /// - [hasBookAccess] == false: بوابة شراء دفتر الشروط أولًا، وبعد تأكيد دفعها
   ///   ننتقل تلقائيًا لبوابة التسجيل.
   /// - [hasBookAccess] == true: بوابة التسجيل مباشرة.
   Future<void> startRegistration(String auctionId, bool hasBookAccess) async {
@@ -110,13 +110,13 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
       final outcome = await _openBookGateway();
       // البوابة اتفتحت → الـ WebView هو اللي هيكمّل، أو فشل حقيقي → وقفنا.
       if (outcome != _StepOutcome.alreadyDone) return;
-      // الكراسة متملوكة بالفعل → نعدّي للتسجيل من غير ما نوقف المستخدم.
+      // دفتر الشروط متملوك بالفعل → نعدّي للتسجيل من غير ما نوقف المستخدم.
     }
 
     await _openRegistrationGateway();
   }
 
-  /// يفتح بوابة شراء الكراسة.
+  /// يفتح بوابة شراء دفتر الشروط.
   Future<_StepOutcome> _openBookGateway() async {
     _step = _FlowStep.buyBook;
     return _openGatewayFor(_buyBook(_auctionId));
@@ -133,8 +133,8 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
         // مسجّل بالفعل — مفيش دفع اتعمل، فما نقولش «تم الدفع».
         emit(const PaymentFlowState.alreadySettled());
       case _StepOutcome.needsBookFirst:
-        // `must_purchase_book`: التطبيق كان فاهم إن الكراسة متحقّقة (مثلًا
-        // `has_book_access` قديم في الكاش) — نرجع لخطوة الكراسة مرة واحدة.
+        // `must_purchase_book`: التطبيق كان فاهم إن دفتر الشروط متحقّق (مثلًا
+        // `has_book_access` قديم في الكاش) — نرجع لخطوة دفتر الشروط مرة واحدة.
         if (_bookStepRetried) {
           emit(
             const PaymentFlowState.issue(PaymentFlowIssue.bookNotConfirmed),
@@ -217,7 +217,7 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
       return;
     }
 
-    // اتأكّد شراء الكراس — ننتقل تلقائيًا لبوابة التسجيل.
+    // اتأكّد شراء دفتر الشروط — ننتقل تلقائيًا لبوابة التسجيل.
     if (_step == _FlowStep.buyBook) {
       emit(const PaymentFlowState.preparing());
       await _openRegistrationGateway();

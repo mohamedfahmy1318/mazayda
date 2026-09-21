@@ -9,7 +9,7 @@ import '../../domain/usecases/submit_appeal.dart';
 part 'appeals_cubit.freezed.dart';
 
 @freezed
-class AppealsState with _$AppealsState {
+abstract class AppealsState with _$AppealsState {
   const factory AppealsState({
     @Default(true) bool loading,
     @Default(<Appeal>[]) List<Appeal> items,

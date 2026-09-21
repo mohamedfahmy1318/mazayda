@@ -12,7 +12,7 @@ part 'login_cubit.freezed.dart';
 enum LoginStatus { idle, submitting, success, needsVerification, failure }
 
 @freezed
-class LoginState with _$LoginState {
+abstract class LoginState with _$LoginState {
   const LoginState._();
 
   const factory LoginState({

@@ -20,7 +20,7 @@ abstract class DocumentsRepository {
   ///
   /// الـ endpoint محمي بـ Sanctum فمينفعش نفتحه في المتصفح مباشرة.
   /// بياخد `id` و`title` (مش كيان كامل) عشان يشتغل كمان مع مراجع الوثائق
-  /// المضمّنة في المزاد — كراس الشروط ووثيقة الترسية.
+  /// المضمّنة في المزاد — دفتر الشروط ووثيقة الترسية.
   Future<Either<Failure, String>> downloadDocument({
     required String id,
     required String title,

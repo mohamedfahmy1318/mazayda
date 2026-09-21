@@ -515,7 +515,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get paymentBookNotConfirmed =>
-      'لم يصلنا تأكيد شراء كراسة الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.';
+      'لم يصلنا تأكيد شراء دفتر الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.';
 
   @override
   String get securePayment => 'الدفع الآمن';
@@ -622,7 +622,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'هذا المزاد يتطلب سجلاً تجاريًا ساريًا قبل أي دفع. أضِفه من المنصّة ثم عُد للتطبيق.';
 
   @override
-  String get ctaBuyBook => 'شراء كراس الشروط';
+  String get ctaBuyBook => 'شراء دفتر الشروط';
 
   @override
   String get ctaFinalPayment => 'إتمام الدفع النهائي';
@@ -831,7 +831,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adPricing => 'الأسعار والرسوم';
 
   @override
-  String get adBookPrice => 'كراسة شروط';
+  String get adBookPrice => 'دفتر شروط';
 
   @override
   String get adAssetInfo => 'بيانات الأصل';
@@ -958,7 +958,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get docsTotal => 'الإجمالي';
 
   @override
-  String get docsBooks => 'كراسات';
+  String get docsBooks => 'دفاتر';
 
   @override
   String get docsAwards => 'ترسيات';
@@ -991,7 +991,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get docsClearFilters => 'مسح الكل';
 
   @override
-  String get docTypeConditionBook => 'كراسة الشروط';
+  String get docTypeConditionBook => 'دفتر الشروط';
 
   @override
   String get docTypeAward => 'وثيقة الترسية';
@@ -1149,4 +1149,324 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get biddingClosed => 'أُغلق باب المزايدة';
+
+  @override
+  String get ackTitle => 'التسجيل في المزاد';
+
+  @override
+  String get ackSubtitleHasBook =>
+      'أقرّ بشروط المشاركة لبدء التسجيل عبر بوابة الدفع الآمنة';
+
+  @override
+  String get ackSubtitleNeedsBook =>
+      'شراء دفتر الشروط شرط للتسجيل — ستُفتح بوابتا دفع متتاليتان: الدفتر ثم التسجيل';
+
+  @override
+  String get ackDepositRow => 'الكفالة (قابلة للاسترداد)';
+
+  @override
+  String get ackBookRow => 'دفتر الشروط (غير مسترد)';
+
+  @override
+  String get ackAgree => 'أقرّ بأنني قرأت دفتر الشروط وأوافق على شروط المشاركة';
+
+  @override
+  String get ackContinue => 'المتابعة للدفع';
+
+  @override
+  String get ackGatewayNote => 'سيتم فتح بوابة الدفع الآمنة (CIBWeb)';
+
+  @override
+  String minBidSectorHint(String amount, String percent) {
+    return 'الحد الأدنى للمزايدة $amount (نسبة القطاع $percent٪)';
+  }
+
+  @override
+  String bidBelowSectorMinimum(String amount, String percent) {
+    return 'لا يمكن تقديم عرض أقل من $amount — نسبة الزيادة المحددة لهذا القطاع $percent٪';
+  }
+
+  @override
+  String get adSession => 'جلسة المزايدة';
+
+  @override
+  String get adSessionNumber => 'رقم الجلسة';
+
+  @override
+  String sessionRound(int round) {
+    return 'الجلسة رقم $round';
+  }
+
+  @override
+  String get adSessionCode => 'المرجع';
+
+  @override
+  String get adRescheduleCount => 'مرات إعادة الجدولة';
+
+  @override
+  String get adReduction => 'الخفض المطبّق على السعر الافتتاحي';
+
+  @override
+  String percentValue(String percent) {
+    return '$percent٪';
+  }
+
+  @override
+  String get adOriginalOpeningPrice => 'السعر الافتتاحي الأصلي';
+
+  @override
+  String get adSessionHistory => 'سجل الجلسات السابقة';
+
+  @override
+  String get adSector => 'القطاع';
+
+  @override
+  String get adSectorIncrement => 'أقل نسبة زيادة للقطاع';
+
+  @override
+  String get adMinBid => 'أقل مزايدة مقبولة';
+
+  @override
+  String get auctionFeatured => 'مميّزة';
+
+  @override
+  String sessionRescheduledBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مرات',
+      two: 'مرتين',
+      one: 'مرة واحدة',
+    );
+    return 'أُعيدت جدولة هذه المزايدة $_temp0 — السعر الافتتاحي الحالي بعد الخفض';
+  }
+
+  @override
+  String get lostEmailLink => 'فقدت بريدك الإلكتروني؟';
+
+  @override
+  String get lostEmailTitle => 'استرجاع البريد الإلكتروني';
+
+  @override
+  String get lostEmailHint =>
+      'إن فقدت الوصول إلى بريدك الإلكتروني، أدخل بياناتك وأرفق صورة سيلفي وأنت تحمل بطاقة الهوية. تراجع الجهة المختصة الطلب وتعتمد البريد الجديد.';
+
+  @override
+  String get lostEmailNewEmail => 'البريد الإلكتروني الجديد';
+
+  @override
+  String get lostEmailSelfie => 'صورة سيلفي مع بطاقة الهوية';
+
+  @override
+  String get lostEmailSelfieHint =>
+      'أمسك بطاقة الهوية بجوار وجهك، واحرص على وضوح الصورة والبيانات';
+
+  @override
+  String get lostEmailRetake => 'إعادة التقاط الصورة';
+
+  @override
+  String get lostEmailSubmit => 'إرسال الطلب للمراجعة';
+
+  @override
+  String get lostEmailSubmittedTitle => 'تم إرسال طلبك';
+
+  @override
+  String get lostEmailSubmittedBody =>
+      'طلبك قيد المراجعة لدى الجهة المختصة. ستتمكن من تسجيل الدخول بالبريد الجديد فور اعتماده.';
+
+  @override
+  String get lostEmailApprovedBody =>
+      'تم اعتماد بريدك الجديد. يمكنك الآن تسجيل الدخول به.';
+
+  @override
+  String get lostEmailRejectedBody =>
+      'تم رفض الطلب. راجع السبب أدناه وأعد الإرسال بعد تصحيح البيانات.';
+
+  @override
+  String get lostEmailRejectionReason => 'سبب الرفض';
+
+  @override
+  String get lostEmailRefreshStatus => 'تحديث الحالة';
+
+  @override
+  String get lostEmailResubmit => 'تعديل الطلب وإعادة الإرسال';
+
+  @override
+  String get lostEmailRequestRef => 'رقم الطلب';
+
+  @override
+  String get lostEmailSubmittedAt => 'تاريخ التقديم';
+
+  @override
+  String get lostEmailSelfieRequired => 'صورة السيلفي مع بطاقة الهوية مطلوبة';
+
+  @override
+  String lostEmailImageTooLarge(int max) {
+    return 'حجم الصورة يتجاوز $max كيلوبايت — التقط صورة أصغر';
+  }
+
+  @override
+  String get docTypeParticipationReceipt => 'وصل المشاركة';
+
+  @override
+  String get docTypeAuctionResult => 'وصل نتيجة المزايدة';
+
+  @override
+  String get adDocuments => 'وثائق المزايدة';
+
+  @override
+  String get adDownloadParticipationReceipt => 'تحميل وصل المشاركة';
+
+  @override
+  String get adDownloadResult => 'تحميل وصل النتيجة';
+
+  @override
+  String get adDownloadConditionBook => 'تحميل دفتر الشروط';
+
+  @override
+  String get adReceiptHint => 'يمكنك طباعة الوصل أو حفظه بعد التحميل';
+
+  @override
+  String get premiumTitle => 'العضوية المميّزة';
+
+  @override
+  String get premiumTagline => 'اعرف بالمزايدات الجديدة قبل غيرك';
+
+  @override
+  String get premiumActive => 'اشتراكك فعّال';
+
+  @override
+  String get premiumInactive => 'لا يوجد اشتراك فعّال';
+
+  @override
+  String get premiumPlanLabel => 'الباقة';
+
+  @override
+  String get premiumStatus => 'الحالة';
+
+  @override
+  String get premiumStartedAt => 'تاريخ البداية';
+
+  @override
+  String get premiumExpiresAt => 'تاريخ الانتهاء';
+
+  @override
+  String get premiumAutoRenew => 'التجديد التلقائي';
+
+  @override
+  String get premiumAutoRenewOn => 'مفعّل';
+
+  @override
+  String get premiumAutoRenewOff => 'متوقف';
+
+  @override
+  String get premiumStopAutoRenew => 'إيقاف التجديد التلقائي';
+
+  @override
+  String get premiumStopAutoRenewConfirm =>
+      'سيستمر اشتراكك حتى تاريخ الانتهاء، ولن يُجدَّد بعدها تلقائيًا. هل تريد المتابعة؟';
+
+  @override
+  String premiumDaysRemaining(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days أيام متبقية',
+      two: 'يومان متبقيان',
+      one: 'يوم واحد متبقٍ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get premiumExpiringSoon =>
+      'اشتراكك على وشك الانتهاء — جدّده حتى لا تفوتك التنبيهات';
+
+  @override
+  String get premiumChoosePlan => 'اختر باقتك';
+
+  @override
+  String get premiumSubscribe => 'اشترك الآن';
+
+  @override
+  String get premiumRenew => 'تجديد الاشتراك';
+
+  @override
+  String get premiumRecommended => 'الأفضل قيمة';
+
+  @override
+  String get premiumPeriodMonthly => 'شهريًا';
+
+  @override
+  String get premiumPeriodYearly => 'سنويًا';
+
+  @override
+  String get premiumNoPlans => 'لا توجد باقات متاحة حاليًا';
+
+  @override
+  String get premiumPaymentDone => 'تم تفعيل اشتراكك';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get prefsTitle => 'تفضيلات الإشعارات';
+
+  @override
+  String get prefsChannelsTitle => 'طرق الاستقبال';
+
+  @override
+  String get prefsChannelPush => 'إشعارات التطبيق';
+
+  @override
+  String get prefsChannelPushHint => 'تصلك على هاتفك فور حدوث الأمر';
+
+  @override
+  String get prefsChannelEmail => 'البريد الإلكتروني';
+
+  @override
+  String get prefsChannelEmailHint =>
+      'ملخّص بالمزايدات الجديدة المطابقة لاهتماماتك';
+
+  @override
+  String get prefsChannelEmailPremiumOnly => 'متاح لأصحاب العضوية المميّزة';
+
+  @override
+  String get prefsChannelSms => 'رسائل SMS';
+
+  @override
+  String get prefsNewAuctionAlerts => 'تنبيهات المزايدات الجديدة';
+
+  @override
+  String get prefsNewAuctionAlertsHint =>
+      'نُعلمك فور إضافة مزايدة من الأنواع التي تهتم بها';
+
+  @override
+  String get prefsCategoriesTitle => 'أنواع المزايدات التي تهمّك';
+
+  @override
+  String get prefsCategoriesHint =>
+      'اختر نوعًا أو أكثر. بدون اختيار ستصلك تنبيهات كل الأنواع.';
+
+  @override
+  String get prefsCategoriesAll => 'كل الأنواع';
+
+  @override
+  String get prefsNoCategories => 'لا توجد أنواع متاحة حاليًا';
+
+  @override
+  String get prefsSave => 'حفظ التفضيلات';
+
+  @override
+  String get prefsSaved => 'تم حفظ تفضيلاتك';
+
+  @override
+  String get prefsDiscardChanges =>
+      'لديك تعديلات غير محفوظة. هل تريد الخروج دون حفظ؟';
+
+  @override
+  String get prefsLeave => 'خروج';
+
+  @override
+  String get prefsGoPremium => 'الاشتراك في العضوية المميّزة';
 }

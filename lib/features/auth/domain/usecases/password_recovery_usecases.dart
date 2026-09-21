@@ -65,7 +65,7 @@ class RecoverBySecret implements UseCase<Unit, RecoverBySecretParams> {
 
 /// تعريف الحساب — مشترك بين خطوتي البداية في المسارين.
 @freezed
-class IdentifyAccountParams with _$IdentifyAccountParams {
+abstract class IdentifyAccountParams with _$IdentifyAccountParams {
   const factory IdentifyAccountParams({
     required String nin,
     required String email,
@@ -73,7 +73,7 @@ class IdentifyAccountParams with _$IdentifyAccountParams {
 }
 
 @freezed
-class VerifyPasswordResetParams with _$VerifyPasswordResetParams {
+abstract class VerifyPasswordResetParams with _$VerifyPasswordResetParams {
   const factory VerifyPasswordResetParams({
     required String nin,
     required String email,
@@ -84,7 +84,7 @@ class VerifyPasswordResetParams with _$VerifyPasswordResetParams {
 }
 
 @freezed
-class RecoverBySecretParams with _$RecoverBySecretParams {
+abstract class RecoverBySecretParams with _$RecoverBySecretParams {
   const factory RecoverBySecretParams({
     required String nin,
     required String email,

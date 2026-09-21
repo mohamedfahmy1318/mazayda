@@ -11,6 +11,13 @@ enum DocumentType {
   paymentReceipt,
   deliveryReport,
   auctionReport,
+
+  /// وصل المشاركة — بيتولّد بعد شراء دفتر الشروط (تعديلات العميل 21 · 22).
+  participationReceipt,
+
+  /// وصل نتيجة المزايدة — بيتاح بعد الإقفال (تعديل العميل رقم 23).
+  auctionResult,
+
   unknown,
 }
 
@@ -21,6 +28,8 @@ extension DocumentTypeX on DocumentType {
     'PAYMENT_RECEIPT' => DocumentType.paymentReceipt,
     'DELIVERY_REPORT' => DocumentType.deliveryReport,
     'AUCTION_REPORT' => DocumentType.auctionReport,
+    'PARTICIPATION_RECEIPT' => DocumentType.participationReceipt,
+    'AUCTION_RESULT' => DocumentType.auctionResult,
     _ => DocumentType.unknown,
   };
 
@@ -30,6 +39,8 @@ extension DocumentTypeX on DocumentType {
     DocumentType.paymentReceipt => 'PAYMENT_RECEIPT',
     DocumentType.deliveryReport => 'DELIVERY_REPORT',
     DocumentType.auctionReport => 'AUCTION_REPORT',
+    DocumentType.participationReceipt => 'PARTICIPATION_RECEIPT',
+    DocumentType.auctionResult => 'AUCTION_RESULT',
     DocumentType.unknown => null,
   };
 
@@ -39,6 +50,8 @@ extension DocumentTypeX on DocumentType {
     DocumentType.award,
     DocumentType.paymentReceipt,
     DocumentType.deliveryReport,
+    DocumentType.participationReceipt,
+    DocumentType.auctionResult,
   ];
 }
 

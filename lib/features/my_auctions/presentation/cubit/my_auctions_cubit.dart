@@ -8,7 +8,7 @@ import '../../domain/usecases/get_my_auctions.dart';
 part 'my_auctions_cubit.freezed.dart';
 
 @freezed
-class MyAuctionsState with _$MyAuctionsState {
+abstract class MyAuctionsState with _$MyAuctionsState {
   const factory MyAuctionsState({
     // `all` هو الافتراضي: التبويبات مناظير مش تقسيم حصري، و`active` لوحده
     // بيطلع فاضي لمستخدم كل مشاركاته مقفولة — أول انطباع غلط.

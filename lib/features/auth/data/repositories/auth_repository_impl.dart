@@ -5,7 +5,9 @@ import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/token_storage.dart';
 import '../../../../core/notifications/device_registrar.dart';
+import '../../../../core/session/account_cache.dart';
 import '../../domain/entities/auth_entities.dart';
+import '../../domain/entities/email_recovery.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
 
@@ -14,8 +16,14 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remote;
   final TokenStorage tokenStorage;
   final DeviceRegistrar deviceRegistrar;
+  final AccountCache accountCache;
 
-  AuthRepositoryImpl(this.remote, this.tokenStorage, this.deviceRegistrar);
+  AuthRepositoryImpl(
+    this.remote,
+    this.tokenStorage,
+    this.deviceRegistrar,
+    this.accountCache,
+  );
 
   @override
   Future<Either<Failure, RegisterResult>> register({
@@ -121,12 +129,45 @@ class AuthRepositoryImpl implements AuthRepository {
         // حتى لو فشل النداء، نمسح محليًا
       }
       await tokenStorage.clear();
+      await accountCache.clear();
       return unit;
     });
   }
 
   @override
   Future<bool> hasSession() => tokenStorage.hasTokens;
+
+  // ===== استرجاع البريد الإلكتروني المفقود (تعديل العميل رقم 1) =====
+
+  @override
+  Future<Either<Failure, EmailRecoveryRequest>> submitEmailRecovery({
+    required String nin,
+    required String birthDate,
+    required String phone,
+    required String newEmail,
+    required String selfiePath,
+  }) {
+    return _guard(() async {
+      final model = await remote.submitEmailRecovery(
+        nin: nin,
+        birthDate: birthDate,
+        phone: phone,
+        newEmail: newEmail,
+        selfiePath: selfiePath,
+      );
+      return model.toEntity();
+    });
+  }
+
+  @override
+  Future<Either<Failure, EmailRecoveryRequest?>> getEmailRecoveryStatus({
+    required String nin,
+  }) {
+    return _guard(() async {
+      final model = await remote.getEmailRecoveryStatus(nin: nin);
+      return model?.toEntity();
+    });
+  }
 
   // ===== استرجاع الحساب =====
 
@@ -159,6 +200,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
       // السيرفر عمل revokeAll — أي توكن مخزّن بقى ميت، فنمسحه.
       await tokenStorage.clear();
+      await accountCache.clear();
       return unit;
     });
   }

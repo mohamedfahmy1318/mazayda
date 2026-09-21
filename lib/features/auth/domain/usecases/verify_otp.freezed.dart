@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'verify_otp.dart';
@@ -9,188 +9,277 @@ part of 'verify_otp.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$VerifyOtpParams {
-  String get userId => throw _privateConstructorUsedError;
-  String get otp => throw _privateConstructorUsedError;
-  String get deviceName => throw _privateConstructorUsedError;
 
-  /// Create a copy of VerifyOtpParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $VerifyOtpParamsCopyWith<VerifyOtpParams> get copyWith =>
-      throw _privateConstructorUsedError;
+ String get userId; String get otp; String get deviceName;
+/// Create a copy of VerifyOtpParams
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VerifyOtpParamsCopyWith<VerifyOtpParams> get copyWith => _$VerifyOtpParamsCopyWithImpl<VerifyOtpParams>(this as VerifyOtpParams, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as VerifyOtpParams;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyOtpParams&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.otp, _this.otp) || other.otp == _this.otp)&&(identical(other.deviceName, _this.deviceName) || other.deviceName == _this.deviceName));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as VerifyOtpParams;
+  return Object.hash(runtimeType,_this.userId,_this.otp,_this.deviceName);
+}
+
+@override
+String toString() {
+  final _this = this as VerifyOtpParams;
+  return 'VerifyOtpParams(userId: ${_this.userId}, otp: ${_this.otp}, deviceName: ${_this.deviceName})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $VerifyOtpParamsCopyWith<$Res> {
-  factory $VerifyOtpParamsCopyWith(
-    VerifyOtpParams value,
-    $Res Function(VerifyOtpParams) then,
-  ) = _$VerifyOtpParamsCopyWithImpl<$Res, VerifyOtpParams>;
-  @useResult
-  $Res call({String userId, String otp, String deviceName});
-}
+abstract mixin class $VerifyOtpParamsCopyWith<$Res>  {
+  factory $VerifyOtpParamsCopyWith(VerifyOtpParams value, $Res Function(VerifyOtpParams) _then) = _$VerifyOtpParamsCopyWithImpl;
+@useResult
+$Res call({
+ String userId, String otp, String deviceName
+});
 
+
+
+
+}
 /// @nodoc
-class _$VerifyOtpParamsCopyWithImpl<$Res, $Val extends VerifyOtpParams>
+class _$VerifyOtpParamsCopyWithImpl<$Res>
     implements $VerifyOtpParamsCopyWith<$Res> {
-  _$VerifyOtpParamsCopyWithImpl(this._value, this._then);
+  _$VerifyOtpParamsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final VerifyOtpParams _self;
+  final $Res Function(VerifyOtpParams) _then;
 
-  /// Create a copy of VerifyOtpParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-    Object? otp = null,
-    Object? deviceName = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            userId: null == userId
-                ? _value.userId
-                : userId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            otp: null == otp
-                ? _value.otp
-                : otp // ignore: cast_nullable_to_non_nullable
-                      as String,
-            deviceName: null == deviceName
-                ? _value.deviceName
-                : deviceName // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of VerifyOtpParams
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,Object? otp = null,Object? deviceName = null,}) {
+  return _then(VerifyOtpParams(
+userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,otp: null == otp ? _self.otp : otp // ignore: cast_nullable_to_non_nullable
+as String,deviceName: null == deviceName ? _self.deviceName : deviceName // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [VerifyOtpParams].
+extension VerifyOtpParamsPatterns on VerifyOtpParams {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VerifyOtpParams value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _VerifyOtpParams() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VerifyOtpParams value)  $default,){
+final _that = this;
+switch (_that) {
+case _VerifyOtpParams():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VerifyOtpParams value)?  $default,){
+final _that = this;
+switch (_that) {
+case _VerifyOtpParams() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String userId,  String otp,  String deviceName)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _VerifyOtpParams() when $default != null:
+return $default(_that.userId,_that.otp,_that.deviceName);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String userId,  String otp,  String deviceName)  $default,) {final _that = this;
+switch (_that) {
+case _VerifyOtpParams():
+return $default(_that.userId,_that.otp,_that.deviceName);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String userId,  String otp,  String deviceName)?  $default,) {final _that = this;
+switch (_that) {
+case _VerifyOtpParams() when $default != null:
+return $default(_that.userId,_that.otp,_that.deviceName);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$VerifyOtpParamsImplCopyWith<$Res>
-    implements $VerifyOtpParamsCopyWith<$Res> {
-  factory _$$VerifyOtpParamsImplCopyWith(
-    _$VerifyOtpParamsImpl value,
-    $Res Function(_$VerifyOtpParamsImpl) then,
-  ) = __$$VerifyOtpParamsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String userId, String otp, String deviceName});
+
+
+class _VerifyOtpParams implements VerifyOtpParams {
+  const _VerifyOtpParams({required this.userId, required this.otp, required this.deviceName});
+  
+
+@override final  String userId;
+@override final  String otp;
+@override final  String deviceName;
+
+/// Create a copy of VerifyOtpParams
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VerifyOtpParamsCopyWith<_VerifyOtpParams> get copyWith => __$VerifyOtpParamsCopyWithImpl<_VerifyOtpParams>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyOtpParams&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.otp, otp) || other.otp == otp)&&(identical(other.deviceName, deviceName) || other.deviceName == deviceName));
 }
 
-/// @nodoc
-class __$$VerifyOtpParamsImplCopyWithImpl<$Res>
-    extends _$VerifyOtpParamsCopyWithImpl<$Res, _$VerifyOtpParamsImpl>
-    implements _$$VerifyOtpParamsImplCopyWith<$Res> {
-  __$$VerifyOtpParamsImplCopyWithImpl(
-    _$VerifyOtpParamsImpl _value,
-    $Res Function(_$VerifyOtpParamsImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of VerifyOtpParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = null,
-    Object? otp = null,
-    Object? deviceName = null,
-  }) {
-    return _then(
-      _$VerifyOtpParamsImpl(
-        userId: null == userId
-            ? _value.userId
-            : userId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        otp: null == otp
-            ? _value.otp
-            : otp // ignore: cast_nullable_to_non_nullable
-                  as String,
-        deviceName: null == deviceName
-            ? _value.deviceName
-            : deviceName // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
+@override
+int get hashCode {
+    return Object.hash(runtimeType,userId,otp,deviceName);
 }
 
-/// @nodoc
-
-class _$VerifyOtpParamsImpl implements _VerifyOtpParams {
-  const _$VerifyOtpParamsImpl({
-    required this.userId,
-    required this.otp,
-    required this.deviceName,
-  });
-
-  @override
-  final String userId;
-  @override
-  final String otp;
-  @override
-  final String deviceName;
-
-  @override
-  String toString() {
+@override
+String toString() {
     return 'VerifyOtpParams(userId: $userId, otp: $otp, deviceName: $deviceName)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VerifyOtpParamsImpl &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.otp, otp) || other.otp == otp) &&
-            (identical(other.deviceName, deviceName) ||
-                other.deviceName == deviceName));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, userId, otp, deviceName);
-
-  /// Create a copy of VerifyOtpParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$VerifyOtpParamsImplCopyWith<_$VerifyOtpParamsImpl> get copyWith =>
-      __$$VerifyOtpParamsImplCopyWithImpl<_$VerifyOtpParamsImpl>(
-        this,
-        _$identity,
-      );
 }
 
-abstract class _VerifyOtpParams implements VerifyOtpParams {
-  const factory _VerifyOtpParams({
-    required final String userId,
-    required final String otp,
-    required final String deviceName,
-  }) = _$VerifyOtpParamsImpl;
 
-  @override
-  String get userId;
-  @override
-  String get otp;
-  @override
-  String get deviceName;
-
-  /// Create a copy of VerifyOtpParams
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VerifyOtpParamsImplCopyWith<_$VerifyOtpParamsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$VerifyOtpParamsCopyWith<$Res> implements $VerifyOtpParamsCopyWith<$Res> {
+  factory _$VerifyOtpParamsCopyWith(_VerifyOtpParams value, $Res Function(_VerifyOtpParams) _then) = __$VerifyOtpParamsCopyWithImpl;
+@override @useResult
+$Res call({
+ String userId, String otp, String deviceName
+});
+
+
+
+
+}
+/// @nodoc
+class __$VerifyOtpParamsCopyWithImpl<$Res>
+    implements _$VerifyOtpParamsCopyWith<$Res> {
+  __$VerifyOtpParamsCopyWithImpl(this._self, this._then);
+
+  final _VerifyOtpParams _self;
+  final $Res Function(_VerifyOtpParams) _then;
+
+/// Create a copy of VerifyOtpParams
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,Object? otp = null,Object? deviceName = null,}) {
+  return _then(_VerifyOtpParams(
+userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,otp: null == otp ? _self.otp : otp // ignore: cast_nullable_to_non_nullable
+as String,deviceName: null == deviceName ? _self.deviceName : deviceName // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

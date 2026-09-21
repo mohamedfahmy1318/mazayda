@@ -15,7 +15,7 @@ abstract class QaRepository {
 }
 
 @freezed
-class AskQuestionParams with _$AskQuestionParams {
+abstract class AskQuestionParams with _$AskQuestionParams {
   const factory AskQuestionParams({
     required String auctionId,
     required String question,

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/entities/auction.dart';
+import '../../domain/entities/auction_session.dart';
 import 'money_model.dart';
 
 part 'auction_model.freezed.dart';
@@ -14,7 +15,7 @@ double? _toDouble(dynamic v) {
 
 /// مرجع مسمّى (الفئة id رقم، الجهة id نص UUID — لذلك نخزّن id كنص).
 @freezed
-class NamedRefModel with _$NamedRefModel {
+abstract class NamedRefModel with _$NamedRefModel {
   const NamedRefModel._();
 
   const factory NamedRefModel({dynamic id, String? name}) = _NamedRefModel;
@@ -27,7 +28,7 @@ class NamedRefModel with _$NamedRefModel {
 
 /// مواصفة أصل — الباك بيرجّع العنوان/النص باللغة الحالية + النسخ اللغوية.
 @freezed
-class AuctionSpecModel with _$AuctionSpecModel {
+abstract class AuctionSpecModel with _$AuctionSpecModel {
   const AuctionSpecModel._();
 
   const factory AuctionSpecModel({String? title, String? body}) =
@@ -42,7 +43,7 @@ class AuctionSpecModel with _$AuctionSpecModel {
 
 /// `inspection` — بيرجع دايمًا (مش whenLoaded) بس القيم جوّاه ممكن تكون null.
 @freezed
-class InspectionModel with _$InspectionModel {
+abstract class InspectionModel with _$InspectionModel {
   const InspectionModel._();
 
   const factory InspectionModel({
@@ -65,7 +66,7 @@ class InspectionModel with _$InspectionModel {
 
 /// `appeal_window` — نافذة الطعن بعد الإغلاق.
 @freezed
-class AppealWindowModel with _$AppealWindowModel {
+abstract class AppealWindowModel with _$AppealWindowModel {
   const AppealWindowModel._();
 
   const factory AppealWindowModel({
@@ -86,7 +87,7 @@ class AppealWindowModel with _$AppealWindowModel {
 
 /// `lease` — المفتاح **بيختفي تمامًا** من الـ JSON لو المزاد مش LEASE.
 @freezed
-class LeaseModel with _$LeaseModel {
+abstract class LeaseModel with _$LeaseModel {
   const LeaseModel._();
 
   const factory LeaseModel({
@@ -101,10 +102,98 @@ class LeaseModel with _$LeaseModel {
       LeaseTerms(durationYears: durationYears, renewals: renewals);
 }
 
+/// صف واحد في سجل الجلسات — `session.history[]` و`session` نفسها.
+@freezed
+abstract class AuctionSessionModel with _$AuctionSessionModel {
+  const AuctionSessionModel._();
+
+  const factory AuctionSessionModel({
+    @Default(1) int round,
+    String? code,
+    @JsonKey(name: 'start_time') String? startTime,
+    @JsonKey(name: 'end_time') String? endTime,
+    @JsonKey(name: 'opening_price') MoneyModel? openingPrice,
+    @JsonKey(name: 'reduction_percent') dynamic reductionPercent,
+    String? status,
+    @JsonKey(name: 'result_label') String? resultLabel,
+  }) = _AuctionSessionModel;
+
+  factory AuctionSessionModel.fromJson(Map<String, dynamic> json) =>
+      _$AuctionSessionModelFromJson(json);
+
+  AuctionSession toEntity() => AuctionSession(
+    round: round,
+    code: code,
+    startTime: DateTime.tryParse(startTime ?? ''),
+    endTime: DateTime.tryParse(endTime ?? ''),
+    openingPrice: openingPrice?.toEntity(),
+    reductionPercent: _toDouble(reductionPercent),
+    status: status,
+    resultLabel: resultLabel,
+  );
+}
+
+/// `session` — ترقيم الجلسة الحالية + سجل الإعادات (تعديلات 5 · 7 · 8 · 10).
+/// المفتاح كله بيغيب لو الباك لسه مانزّلش الميزة، فكل حاجة اختيارية.
+@freezed
+abstract class AuctionSessionInfoModel with _$AuctionSessionInfoModel {
+  const AuctionSessionInfoModel._();
+
+  const factory AuctionSessionInfoModel({
+    @Default(1) int round,
+    String? code,
+    @JsonKey(name: 'start_time') String? startTime,
+    @JsonKey(name: 'end_time') String? endTime,
+    @JsonKey(name: 'opening_price') MoneyModel? openingPrice,
+    @JsonKey(name: 'reduction_percent') dynamic reductionPercent,
+    @JsonKey(name: 'reschedule_count') @Default(0) int rescheduleCount,
+    @JsonKey(name: 'original_opening_price') MoneyModel? originalOpeningPrice,
+    @Default(<AuctionSessionModel>[]) List<AuctionSessionModel> history,
+  }) = _AuctionSessionInfoModel;
+
+  factory AuctionSessionInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$AuctionSessionInfoModelFromJson(json);
+
+  AuctionSessionInfo toEntity() => AuctionSessionInfo(
+    current: AuctionSession(
+      round: round,
+      code: code,
+      startTime: DateTime.tryParse(startTime ?? ''),
+      endTime: DateTime.tryParse(endTime ?? ''),
+      openingPrice: openingPrice?.toEntity(),
+      reductionPercent: _toDouble(reductionPercent),
+    ),
+    rescheduleCount: rescheduleCount,
+    originalOpeningPrice: originalOpeningPrice?.toEntity(),
+    history: history.map((h) => h.toEntity()).toList(),
+  );
+}
+
+/// `sector` — القطاع ونسبته (تعديلات 11 · 12).
+@freezed
+abstract class AuctionSectorModel with _$AuctionSectorModel {
+  const AuctionSectorModel._();
+
+  const factory AuctionSectorModel({
+    dynamic id,
+    String? name,
+    @JsonKey(name: 'min_increment_percent') dynamic minIncrementPercent,
+  }) = _AuctionSectorModel;
+
+  factory AuctionSectorModel.fromJson(Map<String, dynamic> json) =>
+      _$AuctionSectorModelFromJson(json);
+
+  AuctionSector toEntity() => AuctionSector(
+    id: id?.toString() ?? '',
+    name: name ?? '',
+    minIncrementPercent: _toDouble(minIncrementPercent),
+  );
+}
+
 /// موديل تفاصيل المزاد — يطابق `AuctionResource`.
 /// للقوائم استخدم `AuctionListModel` (شكل مختلف وأصغر).
 @freezed
-class AuctionModel with _$AuctionModel {
+abstract class AuctionModel with _$AuctionModel {
   const AuctionModel._();
 
   const factory AuctionModel({
@@ -158,6 +247,15 @@ class AuctionModel with _$AuctionModel {
     bool requiresNewspaperAnnouncement,
     @JsonKey(name: 'condition_book') ConditionBookModel? conditionBook,
     @JsonKey(name: 'award_document') ConditionBookModel? awardDocument,
+    // وصولات المشاركة والنتيجة (تعديلات 21 · 22 · 23) — نفس شكل مرجع
+    // الوثيقة، وبيغيبوا لحد ما يستحقوا.
+    @JsonKey(name: 'participation_receipt')
+    ConditionBookModel? participationReceipt,
+    @JsonKey(name: 'result_document') ConditionBookModel? resultDocument,
+    AuctionSessionInfoModel? session,
+    AuctionSectorModel? sector,
+    @JsonKey(name: 'min_bid') MoneyModel? minBid,
+    @JsonKey(name: 'publication_priority') String? publicationPriority,
   }) = _AuctionModel;
 
   factory AuctionModel.fromJson(Map<String, dynamic> json) =>
@@ -212,12 +310,18 @@ class AuctionModel with _$AuctionModel {
     requiresNewspaperAnnouncement: requiresNewspaperAnnouncement,
     conditionBook: conditionBook?.toEntity(),
     awardDocument: awardDocument?.toEntity(),
+    participationReceipt: participationReceipt?.toEntity(),
+    resultDocument: resultDocument?.toEntity(),
     conditionBookDownloadUrl: conditionBook?.downloadUrl,
+    session: session?.toEntity(),
+    sector: sector?.toEntity(),
+    minBid: minBid?.toEntity(),
+    publicationPriority: PublicationPriorityX.fromApi(publicationPriority),
   );
 }
 
 @freezed
-class WilayaRefModel with _$WilayaRefModel {
+abstract class WilayaRefModel with _$WilayaRefModel {
   const factory WilayaRefModel({dynamic id, String? code, String? name}) =
       _WilayaRefModel;
 
@@ -228,7 +332,7 @@ class WilayaRefModel with _$WilayaRefModel {
 /// مرجع وثيقة — نفس الشكل لـ `condition_book` و`award_document`.
 /// TODO(B2): استبدله بـ DocumentModel الكامل (10 مفاتيح) لما فيتشر الوثائق يتبني.
 @freezed
-class ConditionBookModel with _$ConditionBookModel {
+abstract class ConditionBookModel with _$ConditionBookModel {
   const ConditionBookModel._();
 
   const factory ConditionBookModel({

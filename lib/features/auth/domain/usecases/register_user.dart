@@ -30,7 +30,7 @@ class RegisterUser implements UseCase<RegisterResult, RegisterParams> {
 }
 
 @freezed
-class RegisterParams with _$RegisterParams {
+abstract class RegisterParams with _$RegisterParams {
   const factory RegisterParams({
     required String nin,
     required String firstNameAr,

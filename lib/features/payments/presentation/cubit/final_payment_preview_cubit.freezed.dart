@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'final_payment_preview_cubit.dart';
@@ -9,195 +9,277 @@ part of 'final_payment_preview_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$FinalPaymentPreviewState {
-  bool get loading => throw _privateConstructorUsedError;
-  FinalPaymentPreview? get preview => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
 
-  /// Create a copy of FinalPaymentPreviewState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FinalPaymentPreviewStateCopyWith<FinalPaymentPreviewState> get copyWith =>
-      throw _privateConstructorUsedError;
+ bool get loading; FinalPaymentPreview? get preview; String? get error;
+/// Create a copy of FinalPaymentPreviewState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FinalPaymentPreviewStateCopyWith<FinalPaymentPreviewState> get copyWith => _$FinalPaymentPreviewStateCopyWithImpl<FinalPaymentPreviewState>(this as FinalPaymentPreviewState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as FinalPaymentPreviewState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinalPaymentPreviewState&&(identical(other.loading, _this.loading) || other.loading == _this.loading)&&(identical(other.preview, _this.preview) || other.preview == _this.preview)&&(identical(other.error, _this.error) || other.error == _this.error));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as FinalPaymentPreviewState;
+  return Object.hash(runtimeType,_this.loading,_this.preview,_this.error);
+}
+
+@override
+String toString() {
+  final _this = this as FinalPaymentPreviewState;
+  return 'FinalPaymentPreviewState(loading: ${_this.loading}, preview: ${_this.preview}, error: ${_this.error})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $FinalPaymentPreviewStateCopyWith<$Res> {
-  factory $FinalPaymentPreviewStateCopyWith(
-    FinalPaymentPreviewState value,
-    $Res Function(FinalPaymentPreviewState) then,
-  ) = _$FinalPaymentPreviewStateCopyWithImpl<$Res, FinalPaymentPreviewState>;
-  @useResult
-  $Res call({bool loading, FinalPaymentPreview? preview, String? error});
-}
+abstract mixin class $FinalPaymentPreviewStateCopyWith<$Res>  {
+  factory $FinalPaymentPreviewStateCopyWith(FinalPaymentPreviewState value, $Res Function(FinalPaymentPreviewState) _then) = _$FinalPaymentPreviewStateCopyWithImpl;
+@useResult
+$Res call({
+ bool loading, FinalPaymentPreview? preview, String? error
+});
 
+
+
+
+}
 /// @nodoc
-class _$FinalPaymentPreviewStateCopyWithImpl<
-  $Res,
-  $Val extends FinalPaymentPreviewState
->
+class _$FinalPaymentPreviewStateCopyWithImpl<$Res>
     implements $FinalPaymentPreviewStateCopyWith<$Res> {
-  _$FinalPaymentPreviewStateCopyWithImpl(this._value, this._then);
+  _$FinalPaymentPreviewStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final FinalPaymentPreviewState _self;
+  final $Res Function(FinalPaymentPreviewState) _then;
 
-  /// Create a copy of FinalPaymentPreviewState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? loading = null,
-    Object? preview = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            loading: null == loading
-                ? _value.loading
-                : loading // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            preview: freezed == preview
-                ? _value.preview
-                : preview // ignore: cast_nullable_to_non_nullable
-                      as FinalPaymentPreview?,
-            error: freezed == error
-                ? _value.error
-                : error // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of FinalPaymentPreviewState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? loading = null,Object? preview = freezed,Object? error = freezed,}) {
+  return _then(FinalPaymentPreviewState(
+loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
+as bool,preview: freezed == preview ? _self.preview : preview // ignore: cast_nullable_to_non_nullable
+as FinalPaymentPreview?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [FinalPaymentPreviewState].
+extension FinalPaymentPreviewStatePatterns on FinalPaymentPreviewState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FinalPaymentPreviewState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FinalPaymentPreviewState value)  $default,){
+final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FinalPaymentPreviewState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool loading,  FinalPaymentPreview? preview,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState() when $default != null:
+return $default(_that.loading,_that.preview,_that.error);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool loading,  FinalPaymentPreview? preview,  String? error)  $default,) {final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState():
+return $default(_that.loading,_that.preview,_that.error);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool loading,  FinalPaymentPreview? preview,  String? error)?  $default,) {final _that = this;
+switch (_that) {
+case _FinalPaymentPreviewState() when $default != null:
+return $default(_that.loading,_that.preview,_that.error);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$FinalPaymentPreviewStateImplCopyWith<$Res>
-    implements $FinalPaymentPreviewStateCopyWith<$Res> {
-  factory _$$FinalPaymentPreviewStateImplCopyWith(
-    _$FinalPaymentPreviewStateImpl value,
-    $Res Function(_$FinalPaymentPreviewStateImpl) then,
-  ) = __$$FinalPaymentPreviewStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool loading, FinalPaymentPreview? preview, String? error});
+
+
+class _FinalPaymentPreviewState implements FinalPaymentPreviewState {
+  const _FinalPaymentPreviewState({this.loading = true, this.preview, this.error});
+  
+
+@override@JsonKey() final  bool loading;
+@override final  FinalPaymentPreview? preview;
+@override final  String? error;
+
+/// Create a copy of FinalPaymentPreviewState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FinalPaymentPreviewStateCopyWith<_FinalPaymentPreviewState> get copyWith => __$FinalPaymentPreviewStateCopyWithImpl<_FinalPaymentPreviewState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinalPaymentPreviewState&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.error, error) || other.error == error));
 }
 
-/// @nodoc
-class __$$FinalPaymentPreviewStateImplCopyWithImpl<$Res>
-    extends
-        _$FinalPaymentPreviewStateCopyWithImpl<
-          $Res,
-          _$FinalPaymentPreviewStateImpl
-        >
-    implements _$$FinalPaymentPreviewStateImplCopyWith<$Res> {
-  __$$FinalPaymentPreviewStateImplCopyWithImpl(
-    _$FinalPaymentPreviewStateImpl _value,
-    $Res Function(_$FinalPaymentPreviewStateImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of FinalPaymentPreviewState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? loading = null,
-    Object? preview = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(
-      _$FinalPaymentPreviewStateImpl(
-        loading: null == loading
-            ? _value.loading
-            : loading // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        preview: freezed == preview
-            ? _value.preview
-            : preview // ignore: cast_nullable_to_non_nullable
-                  as FinalPaymentPreview?,
-        error: freezed == error
-            ? _value.error
-            : error // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
+@override
+int get hashCode {
+    return Object.hash(runtimeType,loading,preview,error);
 }
 
-/// @nodoc
-
-class _$FinalPaymentPreviewStateImpl implements _FinalPaymentPreviewState {
-  const _$FinalPaymentPreviewStateImpl({
-    this.loading = true,
-    this.preview,
-    this.error,
-  });
-
-  @override
-  @JsonKey()
-  final bool loading;
-  @override
-  final FinalPaymentPreview? preview;
-  @override
-  final String? error;
-
-  @override
-  String toString() {
+@override
+String toString() {
     return 'FinalPaymentPreviewState(loading: $loading, preview: $preview, error: $error)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FinalPaymentPreviewStateImpl &&
-            (identical(other.loading, loading) || other.loading == loading) &&
-            (identical(other.preview, preview) || other.preview == preview) &&
-            (identical(other.error, error) || other.error == error));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, loading, preview, error);
-
-  /// Create a copy of FinalPaymentPreviewState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FinalPaymentPreviewStateImplCopyWith<_$FinalPaymentPreviewStateImpl>
-  get copyWith =>
-      __$$FinalPaymentPreviewStateImplCopyWithImpl<
-        _$FinalPaymentPreviewStateImpl
-      >(this, _$identity);
 }
 
-abstract class _FinalPaymentPreviewState implements FinalPaymentPreviewState {
-  const factory _FinalPaymentPreviewState({
-    final bool loading,
-    final FinalPaymentPreview? preview,
-    final String? error,
-  }) = _$FinalPaymentPreviewStateImpl;
 
-  @override
-  bool get loading;
-  @override
-  FinalPaymentPreview? get preview;
-  @override
-  String? get error;
-
-  /// Create a copy of FinalPaymentPreviewState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FinalPaymentPreviewStateImplCopyWith<_$FinalPaymentPreviewStateImpl>
-  get copyWith => throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$FinalPaymentPreviewStateCopyWith<$Res> implements $FinalPaymentPreviewStateCopyWith<$Res> {
+  factory _$FinalPaymentPreviewStateCopyWith(_FinalPaymentPreviewState value, $Res Function(_FinalPaymentPreviewState) _then) = __$FinalPaymentPreviewStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool loading, FinalPaymentPreview? preview, String? error
+});
+
+
+
+
+}
+/// @nodoc
+class __$FinalPaymentPreviewStateCopyWithImpl<$Res>
+    implements _$FinalPaymentPreviewStateCopyWith<$Res> {
+  __$FinalPaymentPreviewStateCopyWithImpl(this._self, this._then);
+
+  final _FinalPaymentPreviewState _self;
+  final $Res Function(_FinalPaymentPreviewState) _then;
+
+/// Create a copy of FinalPaymentPreviewState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? loading = null,Object? preview = freezed,Object? error = freezed,}) {
+  return _then(_FinalPaymentPreviewState(
+loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
+as bool,preview: freezed == preview ? _self.preview : preview // ignore: cast_nullable_to_non_nullable
+as FinalPaymentPreview?,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

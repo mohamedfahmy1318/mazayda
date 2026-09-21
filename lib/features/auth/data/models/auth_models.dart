@@ -6,7 +6,7 @@ part 'auth_models.g.dart';
 
 /// توكنات — تطابق {access_token, refresh_token}.
 @freezed
-class AuthTokensModel with _$AuthTokensModel {
+abstract class AuthTokensModel with _$AuthTokensModel {
   const AuthTokensModel._();
 
   const factory AuthTokensModel({
@@ -23,7 +23,7 @@ class AuthTokensModel with _$AuthTokensModel {
 
 /// مستخدم — يطابق ردّ /auth/me.
 @freezed
-class AuthUserModel with _$AuthUserModel {
+abstract class AuthUserModel with _$AuthUserModel {
   const AuthUserModel._();
 
   const factory AuthUserModel({
@@ -51,7 +51,7 @@ class AuthUserModel with _$AuthUserModel {
 /// نتيجة الـ login — إما توكنات أو إشارة إن البريد محتاج تأكيد.
 /// الـ datasource بيبنيه من الردّ الخام؛ مفيش parsing في الـ repository.
 @freezed
-class LoginResultModel with _$LoginResultModel {
+abstract class LoginResultModel with _$LoginResultModel {
   const LoginResultModel._();
 
   const factory LoginResultModel({

@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'commercial_register_model.dart';
@@ -9,656 +9,607 @@ part of 'commercial_register_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-CrDocumentsModel _$CrDocumentsModelFromJson(Map<String, dynamic> json) {
-  return _CrDocumentsModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CrDocumentsModel {
-  bool get register => throw _privateConstructorUsedError;
-  @JsonKey(name: 'tax-card')
-  bool get taxCard => throw _privateConstructorUsedError;
+
+ bool get register;@JsonKey(name: 'tax-card') bool get taxCard;
+/// Create a copy of CrDocumentsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CrDocumentsModelCopyWith<CrDocumentsModel> get copyWith => _$CrDocumentsModelCopyWithImpl<CrDocumentsModel>(this as CrDocumentsModel, _$identity);
 
   /// Serializes this CrDocumentsModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of CrDocumentsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CrDocumentsModelCopyWith<CrDocumentsModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CrDocumentsModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrDocumentsModel&&(identical(other.register, _this.register) || other.register == _this.register)&&(identical(other.taxCard, _this.taxCard) || other.taxCard == _this.taxCard));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CrDocumentsModel;
+  return Object.hash(runtimeType,_this.register,_this.taxCard);
+}
+
+@override
+String toString() {
+  final _this = this as CrDocumentsModel;
+  return 'CrDocumentsModel(register: ${_this.register}, taxCard: ${_this.taxCard})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CrDocumentsModelCopyWith<$Res> {
-  factory $CrDocumentsModelCopyWith(
-    CrDocumentsModel value,
-    $Res Function(CrDocumentsModel) then,
-  ) = _$CrDocumentsModelCopyWithImpl<$Res, CrDocumentsModel>;
-  @useResult
-  $Res call({bool register, @JsonKey(name: 'tax-card') bool taxCard});
-}
+abstract mixin class $CrDocumentsModelCopyWith<$Res>  {
+  factory $CrDocumentsModelCopyWith(CrDocumentsModel value, $Res Function(CrDocumentsModel) _then) = _$CrDocumentsModelCopyWithImpl;
+@useResult
+$Res call({
+ bool register,@JsonKey(name: 'tax-card') bool taxCard
+});
 
+
+
+
+}
 /// @nodoc
-class _$CrDocumentsModelCopyWithImpl<$Res, $Val extends CrDocumentsModel>
+class _$CrDocumentsModelCopyWithImpl<$Res>
     implements $CrDocumentsModelCopyWith<$Res> {
-  _$CrDocumentsModelCopyWithImpl(this._value, this._then);
+  _$CrDocumentsModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CrDocumentsModel _self;
+  final $Res Function(CrDocumentsModel) _then;
 
-  /// Create a copy of CrDocumentsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? register = null, Object? taxCard = null}) {
-    return _then(
-      _value.copyWith(
-            register: null == register
-                ? _value.register
-                : register // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            taxCard: null == taxCard
-                ? _value.taxCard
-                : taxCard // ignore: cast_nullable_to_non_nullable
-                      as bool,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of CrDocumentsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? register = null,Object? taxCard = null,}) {
+  return _then(CrDocumentsModel(
+register: null == register ? _self.register : register // ignore: cast_nullable_to_non_nullable
+as bool,taxCard: null == taxCard ? _self.taxCard : taxCard // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$CrDocumentsModelImplCopyWith<$Res>
-    implements $CrDocumentsModelCopyWith<$Res> {
-  factory _$$CrDocumentsModelImplCopyWith(
-    _$CrDocumentsModelImpl value,
-    $Res Function(_$CrDocumentsModelImpl) then,
-  ) = __$$CrDocumentsModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({bool register, @JsonKey(name: 'tax-card') bool taxCard});
 }
 
-/// @nodoc
-class __$$CrDocumentsModelImplCopyWithImpl<$Res>
-    extends _$CrDocumentsModelCopyWithImpl<$Res, _$CrDocumentsModelImpl>
-    implements _$$CrDocumentsModelImplCopyWith<$Res> {
-  __$$CrDocumentsModelImplCopyWithImpl(
-    _$CrDocumentsModelImpl _value,
-    $Res Function(_$CrDocumentsModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of CrDocumentsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? register = null, Object? taxCard = null}) {
-    return _then(
-      _$CrDocumentsModelImpl(
-        register: null == register
-            ? _value.register
-            : register // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        taxCard: null == taxCard
-            ? _value.taxCard
-            : taxCard // ignore: cast_nullable_to_non_nullable
-                  as bool,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [CrDocumentsModel].
+extension CrDocumentsModelPatterns on CrDocumentsModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CrDocumentsModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CrDocumentsModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CrDocumentsModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _CrDocumentsModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CrDocumentsModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CrDocumentsModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool register, @JsonKey(name: 'tax-card')  bool taxCard)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CrDocumentsModel() when $default != null:
+return $default(_that.register,_that.taxCard);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool register, @JsonKey(name: 'tax-card')  bool taxCard)  $default,) {final _that = this;
+switch (_that) {
+case _CrDocumentsModel():
+return $default(_that.register,_that.taxCard);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool register, @JsonKey(name: 'tax-card')  bool taxCard)?  $default,) {final _that = this;
+switch (_that) {
+case _CrDocumentsModel() when $default != null:
+return $default(_that.register,_that.taxCard);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CrDocumentsModelImpl implements _CrDocumentsModel {
-  const _$CrDocumentsModelImpl({
-    this.register = false,
-    @JsonKey(name: 'tax-card') this.taxCard = false,
-  });
 
-  factory _$CrDocumentsModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CrDocumentsModelImplFromJson(json);
+class _CrDocumentsModel implements CrDocumentsModel {
+  const _CrDocumentsModel({this.register = false, @JsonKey(name: 'tax-card') this.taxCard = false});
+  factory _CrDocumentsModel.fromJson(Map<String, dynamic> json) => _$CrDocumentsModelFromJson(json);
 
-  @override
-  @JsonKey()
-  final bool register;
-  @override
-  @JsonKey(name: 'tax-card')
-  final bool taxCard;
+@override@JsonKey() final  bool register;
+@override@JsonKey(name: 'tax-card') final  bool taxCard;
 
-  @override
-  String toString() {
+/// Create a copy of CrDocumentsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CrDocumentsModelCopyWith<_CrDocumentsModel> get copyWith => __$CrDocumentsModelCopyWithImpl<_CrDocumentsModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CrDocumentsModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrDocumentsModel&&(identical(other.register, register) || other.register == register)&&(identical(other.taxCard, taxCard) || other.taxCard == taxCard));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,register,taxCard);
+}
+
+@override
+String toString() {
     return 'CrDocumentsModel(register: $register, taxCard: $taxCard)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CrDocumentsModelImpl &&
-            (identical(other.register, register) ||
-                other.register == register) &&
-            (identical(other.taxCard, taxCard) || other.taxCard == taxCard));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, register, taxCard);
-
-  /// Create a copy of CrDocumentsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CrDocumentsModelImplCopyWith<_$CrDocumentsModelImpl> get copyWith =>
-      __$$CrDocumentsModelImplCopyWithImpl<_$CrDocumentsModelImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CrDocumentsModelImplToJson(this);
-  }
 }
 
-abstract class _CrDocumentsModel implements CrDocumentsModel {
-  const factory _CrDocumentsModel({
-    final bool register,
-    @JsonKey(name: 'tax-card') final bool taxCard,
-  }) = _$CrDocumentsModelImpl;
 
-  factory _CrDocumentsModel.fromJson(Map<String, dynamic> json) =
-      _$CrDocumentsModelImpl.fromJson;
-
-  @override
-  bool get register;
-  @override
-  @JsonKey(name: 'tax-card')
-  bool get taxCard;
-
-  /// Create a copy of CrDocumentsModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CrDocumentsModelImplCopyWith<_$CrDocumentsModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
-CommercialRegisterModel _$CommercialRegisterModelFromJson(
-  Map<String, dynamic> json,
-) {
-  return _CommercialRegisterModel.fromJson(json);
+/// @nodoc
+abstract mixin class _$CrDocumentsModelCopyWith<$Res> implements $CrDocumentsModelCopyWith<$Res> {
+  factory _$CrDocumentsModelCopyWith(_CrDocumentsModel value, $Res Function(_CrDocumentsModel) _then) = __$CrDocumentsModelCopyWithImpl;
+@override @useResult
+$Res call({
+ bool register,@JsonKey(name: 'tax-card') bool taxCard
+});
+
+
+
+
 }
+/// @nodoc
+class __$CrDocumentsModelCopyWithImpl<$Res>
+    implements _$CrDocumentsModelCopyWith<$Res> {
+  __$CrDocumentsModelCopyWithImpl(this._self, this._then);
+
+  final _CrDocumentsModel _self;
+  final $Res Function(_CrDocumentsModel) _then;
+
+/// Create a copy of CrDocumentsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? register = null,Object? taxCard = null,}) {
+  return _then(_CrDocumentsModel(
+register: null == register ? _self.register : register // ignore: cast_nullable_to_non_nullable
+as bool,taxCard: null == taxCard ? _self.taxCard : taxCard // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$CommercialRegisterModel {
-  String? get status => throw _privateConstructorUsedError;
-  @JsonKey(name: 'company_name')
-  String? get companyName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'register_number')
-  String? get registerNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'tax_number')
-  String? get taxNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'activity_type')
-  String? get activityType => throw _privateConstructorUsedError;
-  @JsonKey(name: 'start_date')
-  String? get startDate => throw _privateConstructorUsedError;
-  @JsonKey(name: 'rejection_reason')
-  String? get rejectionReason => throw _privateConstructorUsedError;
-  @JsonKey(name: 'submitted_at')
-  String? get submittedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'reviewed_at')
-  String? get reviewedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'can_submit')
-  bool get canSubmit => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_valid')
-  bool get isValid => throw _privateConstructorUsedError;
-  CrDocumentsModel? get documents => throw _privateConstructorUsedError;
+
+ String? get status;@JsonKey(name: 'company_name') String? get companyName;@JsonKey(name: 'register_number') String? get registerNumber;@JsonKey(name: 'tax_number') String? get taxNumber;@JsonKey(name: 'activity_type') String? get activityType;@JsonKey(name: 'start_date') String? get startDate;@JsonKey(name: 'rejection_reason') String? get rejectionReason;@JsonKey(name: 'submitted_at') String? get submittedAt;@JsonKey(name: 'reviewed_at') String? get reviewedAt;@JsonKey(name: 'can_submit') bool get canSubmit;@JsonKey(name: 'is_valid') bool get isValid; CrDocumentsModel? get documents;
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CommercialRegisterModelCopyWith<CommercialRegisterModel> get copyWith => _$CommercialRegisterModelCopyWithImpl<CommercialRegisterModel>(this as CommercialRegisterModel, _$identity);
 
   /// Serializes this CommercialRegisterModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CommercialRegisterModelCopyWith<CommercialRegisterModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CommercialRegisterModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CommercialRegisterModel&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.companyName, _this.companyName) || other.companyName == _this.companyName)&&(identical(other.registerNumber, _this.registerNumber) || other.registerNumber == _this.registerNumber)&&(identical(other.taxNumber, _this.taxNumber) || other.taxNumber == _this.taxNumber)&&(identical(other.activityType, _this.activityType) || other.activityType == _this.activityType)&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.rejectionReason, _this.rejectionReason) || other.rejectionReason == _this.rejectionReason)&&(identical(other.submittedAt, _this.submittedAt) || other.submittedAt == _this.submittedAt)&&(identical(other.reviewedAt, _this.reviewedAt) || other.reviewedAt == _this.reviewedAt)&&(identical(other.canSubmit, _this.canSubmit) || other.canSubmit == _this.canSubmit)&&(identical(other.isValid, _this.isValid) || other.isValid == _this.isValid)&&(identical(other.documents, _this.documents) || other.documents == _this.documents));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CommercialRegisterModel;
+  return Object.hash(runtimeType,_this.status,_this.companyName,_this.registerNumber,_this.taxNumber,_this.activityType,_this.startDate,_this.rejectionReason,_this.submittedAt,_this.reviewedAt,_this.canSubmit,_this.isValid,_this.documents);
+}
+
+@override
+String toString() {
+  final _this = this as CommercialRegisterModel;
+  return 'CommercialRegisterModel(status: ${_this.status}, companyName: ${_this.companyName}, registerNumber: ${_this.registerNumber}, taxNumber: ${_this.taxNumber}, activityType: ${_this.activityType}, startDate: ${_this.startDate}, rejectionReason: ${_this.rejectionReason}, submittedAt: ${_this.submittedAt}, reviewedAt: ${_this.reviewedAt}, canSubmit: ${_this.canSubmit}, isValid: ${_this.isValid}, documents: ${_this.documents})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CommercialRegisterModelCopyWith<$Res> {
-  factory $CommercialRegisterModelCopyWith(
-    CommercialRegisterModel value,
-    $Res Function(CommercialRegisterModel) then,
-  ) = _$CommercialRegisterModelCopyWithImpl<$Res, CommercialRegisterModel>;
-  @useResult
-  $Res call({
-    String? status,
-    @JsonKey(name: 'company_name') String? companyName,
-    @JsonKey(name: 'register_number') String? registerNumber,
-    @JsonKey(name: 'tax_number') String? taxNumber,
-    @JsonKey(name: 'activity_type') String? activityType,
-    @JsonKey(name: 'start_date') String? startDate,
-    @JsonKey(name: 'rejection_reason') String? rejectionReason,
-    @JsonKey(name: 'submitted_at') String? submittedAt,
-    @JsonKey(name: 'reviewed_at') String? reviewedAt,
-    @JsonKey(name: 'can_submit') bool canSubmit,
-    @JsonKey(name: 'is_valid') bool isValid,
-    CrDocumentsModel? documents,
-  });
+abstract mixin class $CommercialRegisterModelCopyWith<$Res>  {
+  factory $CommercialRegisterModelCopyWith(CommercialRegisterModel value, $Res Function(CommercialRegisterModel) _then) = _$CommercialRegisterModelCopyWithImpl;
+@useResult
+$Res call({
+ String? status,@JsonKey(name: 'company_name') String? companyName,@JsonKey(name: 'register_number') String? registerNumber,@JsonKey(name: 'tax_number') String? taxNumber,@JsonKey(name: 'activity_type') String? activityType,@JsonKey(name: 'start_date') String? startDate,@JsonKey(name: 'rejection_reason') String? rejectionReason,@JsonKey(name: 'submitted_at') String? submittedAt,@JsonKey(name: 'reviewed_at') String? reviewedAt,@JsonKey(name: 'can_submit') bool canSubmit,@JsonKey(name: 'is_valid') bool isValid, CrDocumentsModel? documents
+});
 
-  $CrDocumentsModelCopyWith<$Res>? get documents;
+
+$CrDocumentsModelCopyWith<$Res>? get documents;
+
 }
-
 /// @nodoc
-class _$CommercialRegisterModelCopyWithImpl<
-  $Res,
-  $Val extends CommercialRegisterModel
->
+class _$CommercialRegisterModelCopyWithImpl<$Res>
     implements $CommercialRegisterModelCopyWith<$Res> {
-  _$CommercialRegisterModelCopyWithImpl(this._value, this._then);
+  _$CommercialRegisterModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CommercialRegisterModel _self;
+  final $Res Function(CommercialRegisterModel) _then;
 
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? companyName = freezed,
-    Object? registerNumber = freezed,
-    Object? taxNumber = freezed,
-    Object? activityType = freezed,
-    Object? startDate = freezed,
-    Object? rejectionReason = freezed,
-    Object? submittedAt = freezed,
-    Object? reviewedAt = freezed,
-    Object? canSubmit = null,
-    Object? isValid = null,
-    Object? documents = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            status: freezed == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            companyName: freezed == companyName
-                ? _value.companyName
-                : companyName // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            registerNumber: freezed == registerNumber
-                ? _value.registerNumber
-                : registerNumber // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            taxNumber: freezed == taxNumber
-                ? _value.taxNumber
-                : taxNumber // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            activityType: freezed == activityType
-                ? _value.activityType
-                : activityType // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            startDate: freezed == startDate
-                ? _value.startDate
-                : startDate // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            rejectionReason: freezed == rejectionReason
-                ? _value.rejectionReason
-                : rejectionReason // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            submittedAt: freezed == submittedAt
-                ? _value.submittedAt
-                : submittedAt // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            reviewedAt: freezed == reviewedAt
-                ? _value.reviewedAt
-                : reviewedAt // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            canSubmit: null == canSubmit
-                ? _value.canSubmit
-                : canSubmit // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            isValid: null == isValid
-                ? _value.isValid
-                : isValid // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            documents: freezed == documents
-                ? _value.documents
-                : documents // ignore: cast_nullable_to_non_nullable
-                      as CrDocumentsModel?,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CrDocumentsModelCopyWith<$Res>? get documents {
-    if (_value.documents == null) {
-      return null;
-    }
-
-    return $CrDocumentsModelCopyWith<$Res>(_value.documents!, (value) {
-      return _then(_value.copyWith(documents: value) as $Val);
-    });
-  }
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? companyName = freezed,Object? registerNumber = freezed,Object? taxNumber = freezed,Object? activityType = freezed,Object? startDate = freezed,Object? rejectionReason = freezed,Object? submittedAt = freezed,Object? reviewedAt = freezed,Object? canSubmit = null,Object? isValid = null,Object? documents = freezed,}) {
+  return _then(CommercialRegisterModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,companyName: freezed == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
+as String?,registerNumber: freezed == registerNumber ? _self.registerNumber : registerNumber // ignore: cast_nullable_to_non_nullable
+as String?,taxNumber: freezed == taxNumber ? _self.taxNumber : taxNumber // ignore: cast_nullable_to_non_nullable
+as String?,activityType: freezed == activityType ? _self.activityType : activityType // ignore: cast_nullable_to_non_nullable
+as String?,startDate: freezed == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
+as String?,rejectionReason: freezed == rejectionReason ? _self.rejectionReason : rejectionReason // ignore: cast_nullable_to_non_nullable
+as String?,submittedAt: freezed == submittedAt ? _self.submittedAt : submittedAt // ignore: cast_nullable_to_non_nullable
+as String?,reviewedAt: freezed == reviewedAt ? _self.reviewedAt : reviewedAt // ignore: cast_nullable_to_non_nullable
+as String?,canSubmit: null == canSubmit ? _self.canSubmit : canSubmit // ignore: cast_nullable_to_non_nullable
+as bool,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,documents: freezed == documents ? _self.documents : documents // ignore: cast_nullable_to_non_nullable
+as CrDocumentsModel?,
+  ));
 }
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CrDocumentsModelCopyWith<$Res>? get documents {
+    if (_self.documents == null) {
+    return null;
+  }
 
-/// @nodoc
-abstract class _$$CommercialRegisterModelImplCopyWith<$Res>
-    implements $CommercialRegisterModelCopyWith<$Res> {
-  factory _$$CommercialRegisterModelImplCopyWith(
-    _$CommercialRegisterModelImpl value,
-    $Res Function(_$CommercialRegisterModelImpl) then,
-  ) = __$$CommercialRegisterModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String? status,
-    @JsonKey(name: 'company_name') String? companyName,
-    @JsonKey(name: 'register_number') String? registerNumber,
-    @JsonKey(name: 'tax_number') String? taxNumber,
-    @JsonKey(name: 'activity_type') String? activityType,
-    @JsonKey(name: 'start_date') String? startDate,
-    @JsonKey(name: 'rejection_reason') String? rejectionReason,
-    @JsonKey(name: 'submitted_at') String? submittedAt,
-    @JsonKey(name: 'reviewed_at') String? reviewedAt,
-    @JsonKey(name: 'can_submit') bool canSubmit,
-    @JsonKey(name: 'is_valid') bool isValid,
-    CrDocumentsModel? documents,
+  return $CrDocumentsModelCopyWith<$Res>(_self.documents!, (value) {
+    return _then(_self.copyWith(documents: value));
   });
-
-  @override
-  $CrDocumentsModelCopyWith<$Res>? get documents;
+}
 }
 
-/// @nodoc
-class __$$CommercialRegisterModelImplCopyWithImpl<$Res>
-    extends
-        _$CommercialRegisterModelCopyWithImpl<
-          $Res,
-          _$CommercialRegisterModelImpl
-        >
-    implements _$$CommercialRegisterModelImplCopyWith<$Res> {
-  __$$CommercialRegisterModelImplCopyWithImpl(
-    _$CommercialRegisterModelImpl _value,
-    $Res Function(_$CommercialRegisterModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? companyName = freezed,
-    Object? registerNumber = freezed,
-    Object? taxNumber = freezed,
-    Object? activityType = freezed,
-    Object? startDate = freezed,
-    Object? rejectionReason = freezed,
-    Object? submittedAt = freezed,
-    Object? reviewedAt = freezed,
-    Object? canSubmit = null,
-    Object? isValid = null,
-    Object? documents = freezed,
-  }) {
-    return _then(
-      _$CommercialRegisterModelImpl(
-        status: freezed == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        companyName: freezed == companyName
-            ? _value.companyName
-            : companyName // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        registerNumber: freezed == registerNumber
-            ? _value.registerNumber
-            : registerNumber // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        taxNumber: freezed == taxNumber
-            ? _value.taxNumber
-            : taxNumber // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        activityType: freezed == activityType
-            ? _value.activityType
-            : activityType // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        startDate: freezed == startDate
-            ? _value.startDate
-            : startDate // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        rejectionReason: freezed == rejectionReason
-            ? _value.rejectionReason
-            : rejectionReason // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        submittedAt: freezed == submittedAt
-            ? _value.submittedAt
-            : submittedAt // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        reviewedAt: freezed == reviewedAt
-            ? _value.reviewedAt
-            : reviewedAt // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        canSubmit: null == canSubmit
-            ? _value.canSubmit
-            : canSubmit // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        isValid: null == isValid
-            ? _value.isValid
-            : isValid // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        documents: freezed == documents
-            ? _value.documents
-            : documents // ignore: cast_nullable_to_non_nullable
-                  as CrDocumentsModel?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [CommercialRegisterModel].
+extension CommercialRegisterModelPatterns on CommercialRegisterModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CommercialRegisterModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CommercialRegisterModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CommercialRegisterModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _CommercialRegisterModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CommercialRegisterModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CommercialRegisterModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? status, @JsonKey(name: 'company_name')  String? companyName, @JsonKey(name: 'register_number')  String? registerNumber, @JsonKey(name: 'tax_number')  String? taxNumber, @JsonKey(name: 'activity_type')  String? activityType, @JsonKey(name: 'start_date')  String? startDate, @JsonKey(name: 'rejection_reason')  String? rejectionReason, @JsonKey(name: 'submitted_at')  String? submittedAt, @JsonKey(name: 'reviewed_at')  String? reviewedAt, @JsonKey(name: 'can_submit')  bool canSubmit, @JsonKey(name: 'is_valid')  bool isValid,  CrDocumentsModel? documents)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CommercialRegisterModel() when $default != null:
+return $default(_that.status,_that.companyName,_that.registerNumber,_that.taxNumber,_that.activityType,_that.startDate,_that.rejectionReason,_that.submittedAt,_that.reviewedAt,_that.canSubmit,_that.isValid,_that.documents);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? status, @JsonKey(name: 'company_name')  String? companyName, @JsonKey(name: 'register_number')  String? registerNumber, @JsonKey(name: 'tax_number')  String? taxNumber, @JsonKey(name: 'activity_type')  String? activityType, @JsonKey(name: 'start_date')  String? startDate, @JsonKey(name: 'rejection_reason')  String? rejectionReason, @JsonKey(name: 'submitted_at')  String? submittedAt, @JsonKey(name: 'reviewed_at')  String? reviewedAt, @JsonKey(name: 'can_submit')  bool canSubmit, @JsonKey(name: 'is_valid')  bool isValid,  CrDocumentsModel? documents)  $default,) {final _that = this;
+switch (_that) {
+case _CommercialRegisterModel():
+return $default(_that.status,_that.companyName,_that.registerNumber,_that.taxNumber,_that.activityType,_that.startDate,_that.rejectionReason,_that.submittedAt,_that.reviewedAt,_that.canSubmit,_that.isValid,_that.documents);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? status, @JsonKey(name: 'company_name')  String? companyName, @JsonKey(name: 'register_number')  String? registerNumber, @JsonKey(name: 'tax_number')  String? taxNumber, @JsonKey(name: 'activity_type')  String? activityType, @JsonKey(name: 'start_date')  String? startDate, @JsonKey(name: 'rejection_reason')  String? rejectionReason, @JsonKey(name: 'submitted_at')  String? submittedAt, @JsonKey(name: 'reviewed_at')  String? reviewedAt, @JsonKey(name: 'can_submit')  bool canSubmit, @JsonKey(name: 'is_valid')  bool isValid,  CrDocumentsModel? documents)?  $default,) {final _that = this;
+switch (_that) {
+case _CommercialRegisterModel() when $default != null:
+return $default(_that.status,_that.companyName,_that.registerNumber,_that.taxNumber,_that.activityType,_that.startDate,_that.rejectionReason,_that.submittedAt,_that.reviewedAt,_that.canSubmit,_that.isValid,_that.documents);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CommercialRegisterModelImpl extends _CommercialRegisterModel {
-  const _$CommercialRegisterModelImpl({
-    this.status,
-    @JsonKey(name: 'company_name') this.companyName,
-    @JsonKey(name: 'register_number') this.registerNumber,
-    @JsonKey(name: 'tax_number') this.taxNumber,
-    @JsonKey(name: 'activity_type') this.activityType,
-    @JsonKey(name: 'start_date') this.startDate,
-    @JsonKey(name: 'rejection_reason') this.rejectionReason,
-    @JsonKey(name: 'submitted_at') this.submittedAt,
-    @JsonKey(name: 'reviewed_at') this.reviewedAt,
-    @JsonKey(name: 'can_submit') this.canSubmit = true,
-    @JsonKey(name: 'is_valid') this.isValid = false,
-    this.documents,
-  }) : super._();
 
-  factory _$CommercialRegisterModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CommercialRegisterModelImplFromJson(json);
+class _CommercialRegisterModel extends CommercialRegisterModel {
+  const _CommercialRegisterModel({this.status, @JsonKey(name: 'company_name') this.companyName, @JsonKey(name: 'register_number') this.registerNumber, @JsonKey(name: 'tax_number') this.taxNumber, @JsonKey(name: 'activity_type') this.activityType, @JsonKey(name: 'start_date') this.startDate, @JsonKey(name: 'rejection_reason') this.rejectionReason, @JsonKey(name: 'submitted_at') this.submittedAt, @JsonKey(name: 'reviewed_at') this.reviewedAt, @JsonKey(name: 'can_submit') this.canSubmit = true, @JsonKey(name: 'is_valid') this.isValid = false, this.documents}): super._();
+  factory _CommercialRegisterModel.fromJson(Map<String, dynamic> json) => _$CommercialRegisterModelFromJson(json);
 
-  @override
-  final String? status;
-  @override
-  @JsonKey(name: 'company_name')
-  final String? companyName;
-  @override
-  @JsonKey(name: 'register_number')
-  final String? registerNumber;
-  @override
-  @JsonKey(name: 'tax_number')
-  final String? taxNumber;
-  @override
-  @JsonKey(name: 'activity_type')
-  final String? activityType;
-  @override
-  @JsonKey(name: 'start_date')
-  final String? startDate;
-  @override
-  @JsonKey(name: 'rejection_reason')
-  final String? rejectionReason;
-  @override
-  @JsonKey(name: 'submitted_at')
-  final String? submittedAt;
-  @override
-  @JsonKey(name: 'reviewed_at')
-  final String? reviewedAt;
-  @override
-  @JsonKey(name: 'can_submit')
-  final bool canSubmit;
-  @override
-  @JsonKey(name: 'is_valid')
-  final bool isValid;
-  @override
-  final CrDocumentsModel? documents;
+@override final  String? status;
+@override@JsonKey(name: 'company_name') final  String? companyName;
+@override@JsonKey(name: 'register_number') final  String? registerNumber;
+@override@JsonKey(name: 'tax_number') final  String? taxNumber;
+@override@JsonKey(name: 'activity_type') final  String? activityType;
+@override@JsonKey(name: 'start_date') final  String? startDate;
+@override@JsonKey(name: 'rejection_reason') final  String? rejectionReason;
+@override@JsonKey(name: 'submitted_at') final  String? submittedAt;
+@override@JsonKey(name: 'reviewed_at') final  String? reviewedAt;
+@override@JsonKey(name: 'can_submit') final  bool canSubmit;
+@override@JsonKey(name: 'is_valid') final  bool isValid;
+@override final  CrDocumentsModel? documents;
 
-  @override
-  String toString() {
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CommercialRegisterModelCopyWith<_CommercialRegisterModel> get copyWith => __$CommercialRegisterModelCopyWithImpl<_CommercialRegisterModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CommercialRegisterModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CommercialRegisterModel&&(identical(other.status, status) || other.status == status)&&(identical(other.companyName, companyName) || other.companyName == companyName)&&(identical(other.registerNumber, registerNumber) || other.registerNumber == registerNumber)&&(identical(other.taxNumber, taxNumber) || other.taxNumber == taxNumber)&&(identical(other.activityType, activityType) || other.activityType == activityType)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.rejectionReason, rejectionReason) || other.rejectionReason == rejectionReason)&&(identical(other.submittedAt, submittedAt) || other.submittedAt == submittedAt)&&(identical(other.reviewedAt, reviewedAt) || other.reviewedAt == reviewedAt)&&(identical(other.canSubmit, canSubmit) || other.canSubmit == canSubmit)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.documents, documents) || other.documents == documents));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,status,companyName,registerNumber,taxNumber,activityType,startDate,rejectionReason,submittedAt,reviewedAt,canSubmit,isValid,documents);
+}
+
+@override
+String toString() {
     return 'CommercialRegisterModel(status: $status, companyName: $companyName, registerNumber: $registerNumber, taxNumber: $taxNumber, activityType: $activityType, startDate: $startDate, rejectionReason: $rejectionReason, submittedAt: $submittedAt, reviewedAt: $reviewedAt, canSubmit: $canSubmit, isValid: $isValid, documents: $documents)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CommercialRegisterModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.companyName, companyName) ||
-                other.companyName == companyName) &&
-            (identical(other.registerNumber, registerNumber) ||
-                other.registerNumber == registerNumber) &&
-            (identical(other.taxNumber, taxNumber) ||
-                other.taxNumber == taxNumber) &&
-            (identical(other.activityType, activityType) ||
-                other.activityType == activityType) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.rejectionReason, rejectionReason) ||
-                other.rejectionReason == rejectionReason) &&
-            (identical(other.submittedAt, submittedAt) ||
-                other.submittedAt == submittedAt) &&
-            (identical(other.reviewedAt, reviewedAt) ||
-                other.reviewedAt == reviewedAt) &&
-            (identical(other.canSubmit, canSubmit) ||
-                other.canSubmit == canSubmit) &&
-            (identical(other.isValid, isValid) || other.isValid == isValid) &&
-            (identical(other.documents, documents) ||
-                other.documents == documents));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    status,
-    companyName,
-    registerNumber,
-    taxNumber,
-    activityType,
-    startDate,
-    rejectionReason,
-    submittedAt,
-    reviewedAt,
-    canSubmit,
-    isValid,
-    documents,
-  );
-
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CommercialRegisterModelImplCopyWith<_$CommercialRegisterModelImpl>
-  get copyWith =>
-      __$$CommercialRegisterModelImplCopyWithImpl<
-        _$CommercialRegisterModelImpl
-      >(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CommercialRegisterModelImplToJson(this);
-  }
 }
 
-abstract class _CommercialRegisterModel extends CommercialRegisterModel {
-  const factory _CommercialRegisterModel({
-    final String? status,
-    @JsonKey(name: 'company_name') final String? companyName,
-    @JsonKey(name: 'register_number') final String? registerNumber,
-    @JsonKey(name: 'tax_number') final String? taxNumber,
-    @JsonKey(name: 'activity_type') final String? activityType,
-    @JsonKey(name: 'start_date') final String? startDate,
-    @JsonKey(name: 'rejection_reason') final String? rejectionReason,
-    @JsonKey(name: 'submitted_at') final String? submittedAt,
-    @JsonKey(name: 'reviewed_at') final String? reviewedAt,
-    @JsonKey(name: 'can_submit') final bool canSubmit,
-    @JsonKey(name: 'is_valid') final bool isValid,
-    final CrDocumentsModel? documents,
-  }) = _$CommercialRegisterModelImpl;
-  const _CommercialRegisterModel._() : super._();
 
-  factory _CommercialRegisterModel.fromJson(Map<String, dynamic> json) =
-      _$CommercialRegisterModelImpl.fromJson;
-
-  @override
-  String? get status;
-  @override
-  @JsonKey(name: 'company_name')
-  String? get companyName;
-  @override
-  @JsonKey(name: 'register_number')
-  String? get registerNumber;
-  @override
-  @JsonKey(name: 'tax_number')
-  String? get taxNumber;
-  @override
-  @JsonKey(name: 'activity_type')
-  String? get activityType;
-  @override
-  @JsonKey(name: 'start_date')
-  String? get startDate;
-  @override
-  @JsonKey(name: 'rejection_reason')
-  String? get rejectionReason;
-  @override
-  @JsonKey(name: 'submitted_at')
-  String? get submittedAt;
-  @override
-  @JsonKey(name: 'reviewed_at')
-  String? get reviewedAt;
-  @override
-  @JsonKey(name: 'can_submit')
-  bool get canSubmit;
-  @override
-  @JsonKey(name: 'is_valid')
-  bool get isValid;
-  @override
-  CrDocumentsModel? get documents;
-
-  /// Create a copy of CommercialRegisterModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CommercialRegisterModelImplCopyWith<_$CommercialRegisterModelImpl>
-  get copyWith => throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$CommercialRegisterModelCopyWith<$Res> implements $CommercialRegisterModelCopyWith<$Res> {
+  factory _$CommercialRegisterModelCopyWith(_CommercialRegisterModel value, $Res Function(_CommercialRegisterModel) _then) = __$CommercialRegisterModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String? status,@JsonKey(name: 'company_name') String? companyName,@JsonKey(name: 'register_number') String? registerNumber,@JsonKey(name: 'tax_number') String? taxNumber,@JsonKey(name: 'activity_type') String? activityType,@JsonKey(name: 'start_date') String? startDate,@JsonKey(name: 'rejection_reason') String? rejectionReason,@JsonKey(name: 'submitted_at') String? submittedAt,@JsonKey(name: 'reviewed_at') String? reviewedAt,@JsonKey(name: 'can_submit') bool canSubmit,@JsonKey(name: 'is_valid') bool isValid, CrDocumentsModel? documents
+});
+
+
+@override $CrDocumentsModelCopyWith<$Res>? get documents;
+
+}
+/// @nodoc
+class __$CommercialRegisterModelCopyWithImpl<$Res>
+    implements _$CommercialRegisterModelCopyWith<$Res> {
+  __$CommercialRegisterModelCopyWithImpl(this._self, this._then);
+
+  final _CommercialRegisterModel _self;
+  final $Res Function(_CommercialRegisterModel) _then;
+
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? companyName = freezed,Object? registerNumber = freezed,Object? taxNumber = freezed,Object? activityType = freezed,Object? startDate = freezed,Object? rejectionReason = freezed,Object? submittedAt = freezed,Object? reviewedAt = freezed,Object? canSubmit = null,Object? isValid = null,Object? documents = freezed,}) {
+  return _then(_CommercialRegisterModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,companyName: freezed == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
+as String?,registerNumber: freezed == registerNumber ? _self.registerNumber : registerNumber // ignore: cast_nullable_to_non_nullable
+as String?,taxNumber: freezed == taxNumber ? _self.taxNumber : taxNumber // ignore: cast_nullable_to_non_nullable
+as String?,activityType: freezed == activityType ? _self.activityType : activityType // ignore: cast_nullable_to_non_nullable
+as String?,startDate: freezed == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
+as String?,rejectionReason: freezed == rejectionReason ? _self.rejectionReason : rejectionReason // ignore: cast_nullable_to_non_nullable
+as String?,submittedAt: freezed == submittedAt ? _self.submittedAt : submittedAt // ignore: cast_nullable_to_non_nullable
+as String?,reviewedAt: freezed == reviewedAt ? _self.reviewedAt : reviewedAt // ignore: cast_nullable_to_non_nullable
+as String?,canSubmit: null == canSubmit ? _self.canSubmit : canSubmit // ignore: cast_nullable_to_non_nullable
+as bool,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,documents: freezed == documents ? _self.documents : documents // ignore: cast_nullable_to_non_nullable
+as CrDocumentsModel?,
+  ));
+}
+
+/// Create a copy of CommercialRegisterModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CrDocumentsModelCopyWith<$Res>? get documents {
+    if (_self.documents == null) {
+    return null;
+  }
+
+  return $CrDocumentsModelCopyWith<$Res>(_self.documents!, (value) {
+    return _then(_self.copyWith(documents: value));
+  });
+}
+}
+
+// dart format on

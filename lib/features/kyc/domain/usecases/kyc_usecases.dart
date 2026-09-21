@@ -27,7 +27,7 @@ class UploadKycDocument implements UseCase<Unit, UploadDocParams> {
 }
 
 @freezed
-class UploadDocParams with _$UploadDocParams {
+abstract class UploadDocParams with _$UploadDocParams {
   const factory UploadDocParams({
     required KycDocType type,
     required String filePath,

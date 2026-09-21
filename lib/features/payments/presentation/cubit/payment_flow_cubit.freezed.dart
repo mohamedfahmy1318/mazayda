@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'payment_flow_cubit.dart';
@@ -9,1626 +9,645 @@ part of 'payment_flow_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$PaymentFlowState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentFlowState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+    return 'PaymentFlowState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PaymentFlowStateCopyWith<$Res> {
-  factory $PaymentFlowStateCopyWith(
-    PaymentFlowState value,
-    $Res Function(PaymentFlowState) then,
-  ) = _$PaymentFlowStateCopyWithImpl<$Res, PaymentFlowState>;
+class $PaymentFlowStateCopyWith<$Res>  {
+$PaymentFlowStateCopyWith(PaymentFlowState _, $Res Function(PaymentFlowState) __);
+}
+
+
+/// Adds pattern-matching-related methods to [PaymentFlowState].
+extension PaymentFlowStatePatterns on PaymentFlowState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( PaymentIdle value)?  idle,TResult Function( PaymentPreparing value)?  preparing,TResult Function( PaymentOpenGateway value)?  openGateway,TResult Function( PaymentPolling value)?  polling,TResult Function( PaymentConfirmed value)?  confirmed,TResult Function( PaymentAlreadySettled value)?  alreadySettled,TResult Function( PaymentFailed value)?  failed,TResult Function( PaymentNeedsAction value)?  needsAction,TResult Function( PaymentIssue value)?  issue,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case PaymentIdle() when idle != null:
+return idle(_that);case PaymentPreparing() when preparing != null:
+return preparing(_that);case PaymentOpenGateway() when openGateway != null:
+return openGateway(_that);case PaymentPolling() when polling != null:
+return polling(_that);case PaymentConfirmed() when confirmed != null:
+return confirmed(_that);case PaymentAlreadySettled() when alreadySettled != null:
+return alreadySettled(_that);case PaymentFailed() when failed != null:
+return failed(_that);case PaymentNeedsAction() when needsAction != null:
+return needsAction(_that);case PaymentIssue() when issue != null:
+return issue(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( PaymentIdle value)  idle,required TResult Function( PaymentPreparing value)  preparing,required TResult Function( PaymentOpenGateway value)  openGateway,required TResult Function( PaymentPolling value)  polling,required TResult Function( PaymentConfirmed value)  confirmed,required TResult Function( PaymentAlreadySettled value)  alreadySettled,required TResult Function( PaymentFailed value)  failed,required TResult Function( PaymentNeedsAction value)  needsAction,required TResult Function( PaymentIssue value)  issue,}){
+final _that = this;
+switch (_that) {
+case PaymentIdle():
+return idle(_that);case PaymentPreparing():
+return preparing(_that);case PaymentOpenGateway():
+return openGateway(_that);case PaymentPolling():
+return polling(_that);case PaymentConfirmed():
+return confirmed(_that);case PaymentAlreadySettled():
+return alreadySettled(_that);case PaymentFailed():
+return failed(_that);case PaymentNeedsAction():
+return needsAction(_that);case PaymentIssue():
+return issue(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( PaymentIdle value)?  idle,TResult? Function( PaymentPreparing value)?  preparing,TResult? Function( PaymentOpenGateway value)?  openGateway,TResult? Function( PaymentPolling value)?  polling,TResult? Function( PaymentConfirmed value)?  confirmed,TResult? Function( PaymentAlreadySettled value)?  alreadySettled,TResult? Function( PaymentFailed value)?  failed,TResult? Function( PaymentNeedsAction value)?  needsAction,TResult? Function( PaymentIssue value)?  issue,}){
+final _that = this;
+switch (_that) {
+case PaymentIdle() when idle != null:
+return idle(_that);case PaymentPreparing() when preparing != null:
+return preparing(_that);case PaymentOpenGateway() when openGateway != null:
+return openGateway(_that);case PaymentPolling() when polling != null:
+return polling(_that);case PaymentConfirmed() when confirmed != null:
+return confirmed(_that);case PaymentAlreadySettled() when alreadySettled != null:
+return alreadySettled(_that);case PaymentFailed() when failed != null:
+return failed(_that);case PaymentNeedsAction() when needsAction != null:
+return needsAction(_that);case PaymentIssue() when issue != null:
+return issue(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  preparing,TResult Function( String url,  String ref)?  openGateway,TResult Function()?  polling,TResult Function()?  confirmed,TResult Function()?  alreadySettled,TResult Function( String message)?  failed,TResult Function( PaymentRedirect target,  String message)?  needsAction,TResult Function( PaymentFlowIssue issue)?  issue,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case PaymentIdle() when idle != null:
+return idle();case PaymentPreparing() when preparing != null:
+return preparing();case PaymentOpenGateway() when openGateway != null:
+return openGateway(_that.url,_that.ref);case PaymentPolling() when polling != null:
+return polling();case PaymentConfirmed() when confirmed != null:
+return confirmed();case PaymentAlreadySettled() when alreadySettled != null:
+return alreadySettled();case PaymentFailed() when failed != null:
+return failed(_that.message);case PaymentNeedsAction() when needsAction != null:
+return needsAction(_that.target,_that.message);case PaymentIssue() when issue != null:
+return issue(_that.issue);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  preparing,required TResult Function( String url,  String ref)  openGateway,required TResult Function()  polling,required TResult Function()  confirmed,required TResult Function()  alreadySettled,required TResult Function( String message)  failed,required TResult Function( PaymentRedirect target,  String message)  needsAction,required TResult Function( PaymentFlowIssue issue)  issue,}) {final _that = this;
+switch (_that) {
+case PaymentIdle():
+return idle();case PaymentPreparing():
+return preparing();case PaymentOpenGateway():
+return openGateway(_that.url,_that.ref);case PaymentPolling():
+return polling();case PaymentConfirmed():
+return confirmed();case PaymentAlreadySettled():
+return alreadySettled();case PaymentFailed():
+return failed(_that.message);case PaymentNeedsAction():
+return needsAction(_that.target,_that.message);case PaymentIssue():
+return issue(_that.issue);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  preparing,TResult? Function( String url,  String ref)?  openGateway,TResult? Function()?  polling,TResult? Function()?  confirmed,TResult? Function()?  alreadySettled,TResult? Function( String message)?  failed,TResult? Function( PaymentRedirect target,  String message)?  needsAction,TResult? Function( PaymentFlowIssue issue)?  issue,}) {final _that = this;
+switch (_that) {
+case PaymentIdle() when idle != null:
+return idle();case PaymentPreparing() when preparing != null:
+return preparing();case PaymentOpenGateway() when openGateway != null:
+return openGateway(_that.url,_that.ref);case PaymentPolling() when polling != null:
+return polling();case PaymentConfirmed() when confirmed != null:
+return confirmed();case PaymentAlreadySettled() when alreadySettled != null:
+return alreadySettled();case PaymentFailed() when failed != null:
+return failed(_that.message);case PaymentNeedsAction() when needsAction != null:
+return needsAction(_that.target,_that.message);case PaymentIssue() when issue != null:
+return issue(_that.issue);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-class _$PaymentFlowStateCopyWithImpl<$Res, $Val extends PaymentFlowState>
-    implements $PaymentFlowStateCopyWith<$Res> {
-  _$PaymentFlowStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
+class PaymentIdle implements PaymentFlowState {
+  const PaymentIdle();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentIdle);
 }
 
-/// @nodoc
-abstract class _$$PaymentIdleImplCopyWith<$Res> {
-  factory _$$PaymentIdleImplCopyWith(
-    _$PaymentIdleImpl value,
-    $Res Function(_$PaymentIdleImpl) then,
-  ) = __$$PaymentIdleImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$PaymentIdleImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentIdleImpl>
-    implements _$$PaymentIdleImplCopyWith<$Res> {
-  __$$PaymentIdleImplCopyWithImpl(
-    _$PaymentIdleImpl _value,
-    $Res Function(_$PaymentIdleImpl) _then,
-  ) : super(_value, _then);
+@override
+int get hashCode => runtimeType.hashCode;
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$PaymentIdleImpl implements PaymentIdle {
-  const _$PaymentIdleImpl();
-
-  @override
-  String toString() {
+@override
+String toString() {
     return 'PaymentFlowState.idle()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PaymentIdleImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return idle();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return idle?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (idle != null) {
-      return idle();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return idle(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return idle?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (idle != null) {
-      return idle(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentIdle implements PaymentFlowState {
-  const factory PaymentIdle() = _$PaymentIdleImpl;
+
 }
 
-/// @nodoc
-abstract class _$$PaymentPreparingImplCopyWith<$Res> {
-  factory _$$PaymentPreparingImplCopyWith(
-    _$PaymentPreparingImpl value,
-    $Res Function(_$PaymentPreparingImpl) then,
-  ) = __$$PaymentPreparingImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$PaymentPreparingImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentPreparingImpl>
-    implements _$$PaymentPreparingImplCopyWith<$Res> {
-  __$$PaymentPreparingImplCopyWithImpl(
-    _$PaymentPreparingImpl _value,
-    $Res Function(_$PaymentPreparingImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-}
 
 /// @nodoc
 
-class _$PaymentPreparingImpl implements PaymentPreparing {
-  const _$PaymentPreparingImpl();
 
-  @override
-  String toString() {
+class PaymentPreparing implements PaymentFlowState {
+  const PaymentPreparing();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentPreparing);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
     return 'PaymentFlowState.preparing()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PaymentPreparingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return preparing();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return preparing?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (preparing != null) {
-      return preparing();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return preparing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return preparing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (preparing != null) {
-      return preparing(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentPreparing implements PaymentFlowState {
-  const factory PaymentPreparing() = _$PaymentPreparingImpl;
+
 }
 
-/// @nodoc
-abstract class _$$PaymentOpenGatewayImplCopyWith<$Res> {
-  factory _$$PaymentOpenGatewayImplCopyWith(
-    _$PaymentOpenGatewayImpl value,
-    $Res Function(_$PaymentOpenGatewayImpl) then,
-  ) = __$$PaymentOpenGatewayImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String url, String ref});
-}
 
-/// @nodoc
-class __$$PaymentOpenGatewayImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentOpenGatewayImpl>
-    implements _$$PaymentOpenGatewayImplCopyWith<$Res> {
-  __$$PaymentOpenGatewayImplCopyWithImpl(
-    _$PaymentOpenGatewayImpl _value,
-    $Res Function(_$PaymentOpenGatewayImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? url = null, Object? ref = null}) {
-    return _then(
-      _$PaymentOpenGatewayImpl(
-        null == url
-            ? _value.url
-            : url // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == ref
-            ? _value.ref
-            : ref // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
-}
 
 /// @nodoc
 
-class _$PaymentOpenGatewayImpl implements PaymentOpenGateway {
-  const _$PaymentOpenGatewayImpl(this.url, this.ref);
 
-  @override
-  final String url;
-  @override
-  final String ref;
+class PaymentOpenGateway implements PaymentFlowState {
+  const PaymentOpenGateway(this.url, this.ref);
+  
 
-  @override
-  String toString() {
+ final  String url;
+ final  String ref;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentOpenGatewayCopyWith<PaymentOpenGateway> get copyWith => _$PaymentOpenGatewayCopyWithImpl<PaymentOpenGateway>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentOpenGateway&&(identical(other.url, url) || other.url == url)&&(identical(other.ref, ref) || other.ref == ref));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,url,ref);
+}
+
+@override
+String toString() {
     return 'PaymentFlowState.openGateway(url: $url, ref: $ref)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentOpenGatewayImpl &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.ref, ref) || other.ref == ref));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, url, ref);
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentOpenGatewayImplCopyWith<_$PaymentOpenGatewayImpl> get copyWith =>
-      __$$PaymentOpenGatewayImplCopyWithImpl<_$PaymentOpenGatewayImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return openGateway(url, ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return openGateway?.call(url, ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (openGateway != null) {
-      return openGateway(url, ref);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return openGateway(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return openGateway?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (openGateway != null) {
-      return openGateway(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentOpenGateway implements PaymentFlowState {
-  const factory PaymentOpenGateway(final String url, final String ref) =
-      _$PaymentOpenGatewayImpl;
 
-  String get url;
-  String get ref;
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentOpenGatewayImplCopyWith<_$PaymentOpenGatewayImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PaymentPollingImplCopyWith<$Res> {
-  factory _$$PaymentPollingImplCopyWith(
-    _$PaymentPollingImpl value,
-    $Res Function(_$PaymentPollingImpl) then,
-  ) = __$$PaymentPollingImplCopyWithImpl<$Res>;
+abstract mixin class $PaymentOpenGatewayCopyWith<$Res> implements $PaymentFlowStateCopyWith<$Res> {
+  factory $PaymentOpenGatewayCopyWith(PaymentOpenGateway value, $Res Function(PaymentOpenGateway) _then) = _$PaymentOpenGatewayCopyWithImpl;
+@useResult
+$Res call({
+ String url, String ref
+});
+
+
+
+
+}
+/// @nodoc
+class _$PaymentOpenGatewayCopyWithImpl<$Res>
+    implements $PaymentOpenGatewayCopyWith<$Res> {
+  _$PaymentOpenGatewayCopyWithImpl(this._self, this._then);
+
+  final PaymentOpenGateway _self;
+  final $Res Function(PaymentOpenGateway) _then;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? url = null,Object? ref = null,}) {
+  return _then(PaymentOpenGateway(
+null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,null == ref ? _self.ref : ref // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$PaymentPollingImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentPollingImpl>
-    implements _$$PaymentPollingImplCopyWith<$Res> {
-  __$$PaymentPollingImplCopyWithImpl(
-    _$PaymentPollingImpl _value,
-    $Res Function(_$PaymentPollingImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$PaymentPollingImpl implements PaymentPolling {
-  const _$PaymentPollingImpl();
 
-  @override
-  String toString() {
+class PaymentPolling implements PaymentFlowState {
+  const PaymentPolling();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentPolling);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
     return 'PaymentFlowState.polling()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PaymentPollingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return polling();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return polling?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (polling != null) {
-      return polling();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return polling(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return polling?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (polling != null) {
-      return polling(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentPolling implements PaymentFlowState {
-  const factory PaymentPolling() = _$PaymentPollingImpl;
+
 }
 
-/// @nodoc
-abstract class _$$PaymentConfirmedImplCopyWith<$Res> {
-  factory _$$PaymentConfirmedImplCopyWith(
-    _$PaymentConfirmedImpl value,
-    $Res Function(_$PaymentConfirmedImpl) then,
-  ) = __$$PaymentConfirmedImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$PaymentConfirmedImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentConfirmedImpl>
-    implements _$$PaymentConfirmedImplCopyWith<$Res> {
-  __$$PaymentConfirmedImplCopyWithImpl(
-    _$PaymentConfirmedImpl _value,
-    $Res Function(_$PaymentConfirmedImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-}
 
 /// @nodoc
 
-class _$PaymentConfirmedImpl implements PaymentConfirmed {
-  const _$PaymentConfirmedImpl();
 
-  @override
-  String toString() {
+class PaymentConfirmed implements PaymentFlowState {
+  const PaymentConfirmed();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentConfirmed);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
     return 'PaymentFlowState.confirmed()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PaymentConfirmedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return confirmed();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return confirmed?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (confirmed != null) {
-      return confirmed();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return confirmed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return confirmed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (confirmed != null) {
-      return confirmed(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentConfirmed implements PaymentFlowState {
-  const factory PaymentConfirmed() = _$PaymentConfirmedImpl;
+
 }
 
-/// @nodoc
-abstract class _$$PaymentAlreadySettledImplCopyWith<$Res> {
-  factory _$$PaymentAlreadySettledImplCopyWith(
-    _$PaymentAlreadySettledImpl value,
-    $Res Function(_$PaymentAlreadySettledImpl) then,
-  ) = __$$PaymentAlreadySettledImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$PaymentAlreadySettledImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentAlreadySettledImpl>
-    implements _$$PaymentAlreadySettledImplCopyWith<$Res> {
-  __$$PaymentAlreadySettledImplCopyWithImpl(
-    _$PaymentAlreadySettledImpl _value,
-    $Res Function(_$PaymentAlreadySettledImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-}
 
 /// @nodoc
 
-class _$PaymentAlreadySettledImpl implements PaymentAlreadySettled {
-  const _$PaymentAlreadySettledImpl();
 
-  @override
-  String toString() {
+class PaymentAlreadySettled implements PaymentFlowState {
+  const PaymentAlreadySettled();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentAlreadySettled);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
     return 'PaymentFlowState.alreadySettled()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentAlreadySettledImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return alreadySettled();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return alreadySettled?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (alreadySettled != null) {
-      return alreadySettled();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return alreadySettled(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return alreadySettled?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (alreadySettled != null) {
-      return alreadySettled(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentAlreadySettled implements PaymentFlowState {
-  const factory PaymentAlreadySettled() = _$PaymentAlreadySettledImpl;
+
 }
 
-/// @nodoc
-abstract class _$$PaymentFailedImplCopyWith<$Res> {
-  factory _$$PaymentFailedImplCopyWith(
-    _$PaymentFailedImpl value,
-    $Res Function(_$PaymentFailedImpl) then,
-  ) = __$$PaymentFailedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
 
-/// @nodoc
-class __$$PaymentFailedImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentFailedImpl>
-    implements _$$PaymentFailedImplCopyWith<$Res> {
-  __$$PaymentFailedImplCopyWithImpl(
-    _$PaymentFailedImpl _value,
-    $Res Function(_$PaymentFailedImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$PaymentFailedImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
-}
 
 /// @nodoc
 
-class _$PaymentFailedImpl implements PaymentFailed {
-  const _$PaymentFailedImpl(this.message);
 
-  @override
-  final String message;
+class PaymentFailed implements PaymentFlowState {
+  const PaymentFailed(this.message);
+  
 
-  @override
-  String toString() {
+ final  String message;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentFailedCopyWith<PaymentFailed> get copyWith => _$PaymentFailedCopyWithImpl<PaymentFailed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentFailed&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,message);
+}
+
+@override
+String toString() {
     return 'PaymentFlowState.failed(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentFailedImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentFailedImplCopyWith<_$PaymentFailedImpl> get copyWith =>
-      __$$PaymentFailedImplCopyWithImpl<_$PaymentFailedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return failed(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return failed?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return failed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return failed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (failed != null) {
-      return failed(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentFailed implements PaymentFlowState {
-  const factory PaymentFailed(final String message) = _$PaymentFailedImpl;
 
-  String get message;
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentFailedImplCopyWith<_$PaymentFailedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PaymentNeedsActionImplCopyWith<$Res> {
-  factory _$$PaymentNeedsActionImplCopyWith(
-    _$PaymentNeedsActionImpl value,
-    $Res Function(_$PaymentNeedsActionImpl) then,
-  ) = __$$PaymentNeedsActionImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({PaymentRedirect target, String message});
+abstract mixin class $PaymentFailedCopyWith<$Res> implements $PaymentFlowStateCopyWith<$Res> {
+  factory $PaymentFailedCopyWith(PaymentFailed value, $Res Function(PaymentFailed) _then) = _$PaymentFailedCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$PaymentFailedCopyWithImpl<$Res>
+    implements $PaymentFailedCopyWith<$Res> {
+  _$PaymentFailedCopyWithImpl(this._self, this._then);
+
+  final PaymentFailed _self;
+  final $Res Function(PaymentFailed) _then;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(PaymentFailed(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$PaymentNeedsActionImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentNeedsActionImpl>
-    implements _$$PaymentNeedsActionImplCopyWith<$Res> {
-  __$$PaymentNeedsActionImplCopyWithImpl(
-    _$PaymentNeedsActionImpl _value,
-    $Res Function(_$PaymentNeedsActionImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? target = null, Object? message = null}) {
-    return _then(
-      _$PaymentNeedsActionImpl(
-        null == target
-            ? _value.target
-            : target // ignore: cast_nullable_to_non_nullable
-                  as PaymentRedirect,
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$PaymentNeedsActionImpl implements PaymentNeedsAction {
-  const _$PaymentNeedsActionImpl(this.target, this.message);
 
-  @override
-  final PaymentRedirect target;
-  @override
-  final String message;
+class PaymentNeedsAction implements PaymentFlowState {
+  const PaymentNeedsAction(this.target, this.message);
+  
 
-  @override
-  String toString() {
+ final  PaymentRedirect target;
+ final  String message;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentNeedsActionCopyWith<PaymentNeedsAction> get copyWith => _$PaymentNeedsActionCopyWithImpl<PaymentNeedsAction>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentNeedsAction&&(identical(other.target, target) || other.target == target)&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,target,message);
+}
+
+@override
+String toString() {
     return 'PaymentFlowState.needsAction(target: $target, message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentNeedsActionImpl &&
-            (identical(other.target, target) || other.target == target) &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, target, message);
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentNeedsActionImplCopyWith<_$PaymentNeedsActionImpl> get copyWith =>
-      __$$PaymentNeedsActionImplCopyWithImpl<_$PaymentNeedsActionImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return needsAction(target, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return needsAction?.call(target, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (needsAction != null) {
-      return needsAction(target, message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return needsAction(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return needsAction?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (needsAction != null) {
-      return needsAction(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentNeedsAction implements PaymentFlowState {
-  const factory PaymentNeedsAction(
-    final PaymentRedirect target,
-    final String message,
-  ) = _$PaymentNeedsActionImpl;
 
-  PaymentRedirect get target;
-  String get message;
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentNeedsActionImplCopyWith<_$PaymentNeedsActionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PaymentIssueImplCopyWith<$Res> {
-  factory _$$PaymentIssueImplCopyWith(
-    _$PaymentIssueImpl value,
-    $Res Function(_$PaymentIssueImpl) then,
-  ) = __$$PaymentIssueImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({PaymentFlowIssue issue});
+abstract mixin class $PaymentNeedsActionCopyWith<$Res> implements $PaymentFlowStateCopyWith<$Res> {
+  factory $PaymentNeedsActionCopyWith(PaymentNeedsAction value, $Res Function(PaymentNeedsAction) _then) = _$PaymentNeedsActionCopyWithImpl;
+@useResult
+$Res call({
+ PaymentRedirect target, String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$PaymentNeedsActionCopyWithImpl<$Res>
+    implements $PaymentNeedsActionCopyWith<$Res> {
+  _$PaymentNeedsActionCopyWithImpl(this._self, this._then);
+
+  final PaymentNeedsAction _self;
+  final $Res Function(PaymentNeedsAction) _then;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? target = null,Object? message = null,}) {
+  return _then(PaymentNeedsAction(
+null == target ? _self.target : target // ignore: cast_nullable_to_non_nullable
+as PaymentRedirect,null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$PaymentIssueImplCopyWithImpl<$Res>
-    extends _$PaymentFlowStateCopyWithImpl<$Res, _$PaymentIssueImpl>
-    implements _$$PaymentIssueImplCopyWith<$Res> {
-  __$$PaymentIssueImplCopyWithImpl(
-    _$PaymentIssueImpl _value,
-    $Res Function(_$PaymentIssueImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? issue = null}) {
-    return _then(
-      _$PaymentIssueImpl(
-        null == issue
-            ? _value.issue
-            : issue // ignore: cast_nullable_to_non_nullable
-                  as PaymentFlowIssue,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$PaymentIssueImpl implements PaymentIssue {
-  const _$PaymentIssueImpl(this.issue);
 
-  @override
-  final PaymentFlowIssue issue;
+class PaymentIssue implements PaymentFlowState {
+  const PaymentIssue(this.issue);
+  
 
-  @override
-  String toString() {
+ final  PaymentFlowIssue issue;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaymentIssueCopyWith<PaymentIssue> get copyWith => _$PaymentIssueCopyWithImpl<PaymentIssue>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentIssue&&(identical(other.issue, issue) || other.issue == issue));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,issue);
+}
+
+@override
+String toString() {
     return 'PaymentFlowState.issue(issue: $issue)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaymentIssueImpl &&
-            (identical(other.issue, issue) || other.issue == issue));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, issue);
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaymentIssueImplCopyWith<_$PaymentIssueImpl> get copyWith =>
-      __$$PaymentIssueImplCopyWithImpl<_$PaymentIssueImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() idle,
-    required TResult Function() preparing,
-    required TResult Function(String url, String ref) openGateway,
-    required TResult Function() polling,
-    required TResult Function() confirmed,
-    required TResult Function() alreadySettled,
-    required TResult Function(String message) failed,
-    required TResult Function(PaymentRedirect target, String message)
-    needsAction,
-    required TResult Function(PaymentFlowIssue issue) issue,
-  }) {
-    return issue(this.issue);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
-    TResult? Function()? preparing,
-    TResult? Function(String url, String ref)? openGateway,
-    TResult? Function()? polling,
-    TResult? Function()? confirmed,
-    TResult? Function()? alreadySettled,
-    TResult? Function(String message)? failed,
-    TResult? Function(PaymentRedirect target, String message)? needsAction,
-    TResult? Function(PaymentFlowIssue issue)? issue,
-  }) {
-    return issue?.call(this.issue);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? preparing,
-    TResult Function(String url, String ref)? openGateway,
-    TResult Function()? polling,
-    TResult Function()? confirmed,
-    TResult Function()? alreadySettled,
-    TResult Function(String message)? failed,
-    TResult Function(PaymentRedirect target, String message)? needsAction,
-    TResult Function(PaymentFlowIssue issue)? issue,
-    required TResult orElse(),
-  }) {
-    if (issue != null) {
-      return issue(this.issue);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PaymentIdle value) idle,
-    required TResult Function(PaymentPreparing value) preparing,
-    required TResult Function(PaymentOpenGateway value) openGateway,
-    required TResult Function(PaymentPolling value) polling,
-    required TResult Function(PaymentConfirmed value) confirmed,
-    required TResult Function(PaymentAlreadySettled value) alreadySettled,
-    required TResult Function(PaymentFailed value) failed,
-    required TResult Function(PaymentNeedsAction value) needsAction,
-    required TResult Function(PaymentIssue value) issue,
-  }) {
-    return issue(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PaymentIdle value)? idle,
-    TResult? Function(PaymentPreparing value)? preparing,
-    TResult? Function(PaymentOpenGateway value)? openGateway,
-    TResult? Function(PaymentPolling value)? polling,
-    TResult? Function(PaymentConfirmed value)? confirmed,
-    TResult? Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult? Function(PaymentFailed value)? failed,
-    TResult? Function(PaymentNeedsAction value)? needsAction,
-    TResult? Function(PaymentIssue value)? issue,
-  }) {
-    return issue?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PaymentIdle value)? idle,
-    TResult Function(PaymentPreparing value)? preparing,
-    TResult Function(PaymentOpenGateway value)? openGateway,
-    TResult Function(PaymentPolling value)? polling,
-    TResult Function(PaymentConfirmed value)? confirmed,
-    TResult Function(PaymentAlreadySettled value)? alreadySettled,
-    TResult Function(PaymentFailed value)? failed,
-    TResult Function(PaymentNeedsAction value)? needsAction,
-    TResult Function(PaymentIssue value)? issue,
-    required TResult orElse(),
-  }) {
-    if (issue != null) {
-      return issue(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class PaymentIssue implements PaymentFlowState {
-  const factory PaymentIssue(final PaymentFlowIssue issue) = _$PaymentIssueImpl;
 
-  PaymentFlowIssue get issue;
-
-  /// Create a copy of PaymentFlowState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaymentIssueImplCopyWith<_$PaymentIssueImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class $PaymentIssueCopyWith<$Res> implements $PaymentFlowStateCopyWith<$Res> {
+  factory $PaymentIssueCopyWith(PaymentIssue value, $Res Function(PaymentIssue) _then) = _$PaymentIssueCopyWithImpl;
+@useResult
+$Res call({
+ PaymentFlowIssue issue
+});
+
+
+
+
+}
+/// @nodoc
+class _$PaymentIssueCopyWithImpl<$Res>
+    implements $PaymentIssueCopyWith<$Res> {
+  _$PaymentIssueCopyWithImpl(this._self, this._then);
+
+  final PaymentIssue _self;
+  final $Res Function(PaymentIssue) _then;
+
+/// Create a copy of PaymentFlowState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? issue = null,}) {
+  return _then(PaymentIssue(
+null == issue ? _self.issue : issue // ignore: cast_nullable_to_non_nullable
+as PaymentFlowIssue,
+  ));
+}
+
+
+}
+
+// dart format on

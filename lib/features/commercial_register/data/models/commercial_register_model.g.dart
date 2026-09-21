@@ -6,23 +6,21 @@ part of 'commercial_register_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CrDocumentsModelImpl _$$CrDocumentsModelImplFromJson(
-  Map<String, dynamic> json,
-) => _$CrDocumentsModelImpl(
-  register: json['register'] as bool? ?? false,
-  taxCard: json['tax-card'] as bool? ?? false,
-);
+_CrDocumentsModel _$CrDocumentsModelFromJson(Map<String, dynamic> json) =>
+    _CrDocumentsModel(
+      register: json['register'] as bool? ?? false,
+      taxCard: json['tax-card'] as bool? ?? false,
+    );
 
-Map<String, dynamic> _$$CrDocumentsModelImplToJson(
-  _$CrDocumentsModelImpl instance,
-) => <String, dynamic>{
-  'register': instance.register,
-  'tax-card': instance.taxCard,
-};
+Map<String, dynamic> _$CrDocumentsModelToJson(_CrDocumentsModel instance) =>
+    <String, dynamic>{
+      'register': instance.register,
+      'tax-card': instance.taxCard,
+    };
 
-_$CommercialRegisterModelImpl _$$CommercialRegisterModelImplFromJson(
+_CommercialRegisterModel _$CommercialRegisterModelFromJson(
   Map<String, dynamic> json,
-) => _$CommercialRegisterModelImpl(
+) => _CommercialRegisterModel(
   status: json['status'] as String?,
   companyName: json['company_name'] as String?,
   registerNumber: json['register_number'] as String?,
@@ -39,8 +37,8 @@ _$CommercialRegisterModelImpl _$$CommercialRegisterModelImplFromJson(
       : CrDocumentsModel.fromJson(json['documents'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$$CommercialRegisterModelImplToJson(
-  _$CommercialRegisterModelImpl instance,
+Map<String, dynamic> _$CommercialRegisterModelToJson(
+  _CommercialRegisterModel instance,
 ) => <String, dynamic>{
   'status': instance.status,
   'company_name': instance.companyName,

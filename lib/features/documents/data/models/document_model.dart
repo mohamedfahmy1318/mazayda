@@ -6,7 +6,7 @@ part 'document_model.g.dart';
 
 /// سياق المزاد المرفق — `whenLoaded('auction')`، فالمفتاح ممكن يغيب تمامًا.
 @freezed
-class DocumentAuctionRefModel with _$DocumentAuctionRefModel {
+abstract class DocumentAuctionRefModel with _$DocumentAuctionRefModel {
   const DocumentAuctionRefModel._();
 
   const factory DocumentAuctionRefModel({
@@ -31,7 +31,7 @@ class DocumentAuctionRefModel with _$DocumentAuctionRefModel {
 
 /// يطابق `DocumentResource` (10 مفاتيح).
 @freezed
-class DocumentModel with _$DocumentModel {
+abstract class DocumentModel with _$DocumentModel {
   const DocumentModel._();
 
   const factory DocumentModel({
@@ -68,7 +68,7 @@ class DocumentModel with _$DocumentModel {
 
 /// يطابق `GET /documents/summary` — DocumentLibraryService::stats.
 @freezed
-class DocumentsSummaryModel with _$DocumentsSummaryModel {
+abstract class DocumentsSummaryModel with _$DocumentsSummaryModel {
   const DocumentsSummaryModel._();
 
   const factory DocumentsSummaryModel({

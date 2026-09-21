@@ -6,15 +6,15 @@ part of 'final_payment_preview_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FeeLineModelImpl _$$FeeLineModelImplFromJson(Map<String, dynamic> json) =>
-    _$FeeLineModelImpl(
+_FeeLineModel _$FeeLineModelFromJson(Map<String, dynamic> json) =>
+    _FeeLineModel(
       key: json['key'] as String?,
       label: json['label'] as String?,
       amount: (json['amount'] as num?)?.toInt() ?? 0,
       formatted: json['formatted'] as String?,
     );
 
-Map<String, dynamic> _$$FeeLineModelImplToJson(_$FeeLineModelImpl instance) =>
+Map<String, dynamic> _$FeeLineModelToJson(_FeeLineModel instance) =>
     <String, dynamic>{
       'key': instance.key,
       'label': instance.label,
@@ -22,9 +22,9 @@ Map<String, dynamic> _$$FeeLineModelImplToJson(_$FeeLineModelImpl instance) =>
       'formatted': instance.formatted,
     };
 
-_$FinalPaymentPreviewModelImpl _$$FinalPaymentPreviewModelImplFromJson(
+_FinalPaymentPreviewModel _$FinalPaymentPreviewModelFromJson(
   Map<String, dynamic> json,
-) => _$FinalPaymentPreviewModelImpl(
+) => _FinalPaymentPreviewModel(
   alreadyPaid: json['already_paid'] as bool? ?? false,
   lines:
       (json['lines'] as List<dynamic>?)
@@ -39,8 +39,8 @@ _$FinalPaymentPreviewModelImpl _$$FinalPaymentPreviewModelImplFromJson(
   deadlineDays: (json['deadline_days'] as num?)?.toInt() ?? 0,
 );
 
-Map<String, dynamic> _$$FinalPaymentPreviewModelImplToJson(
-  _$FinalPaymentPreviewModelImpl instance,
+Map<String, dynamic> _$FinalPaymentPreviewModelToJson(
+  _FinalPaymentPreviewModel instance,
 ) => <String, dynamic>{
   'already_paid': instance.alreadyPaid,
   'lines': instance.lines,

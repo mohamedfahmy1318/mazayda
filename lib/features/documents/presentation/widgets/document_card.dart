@@ -29,6 +29,16 @@ import '../../domain/entities/document.dart';
         bg: AppColors.successBg,
         icon: Icons.local_shipping_outlined,
       ),
+      DocumentType.participationReceipt => (
+        fg: AppColors.primary,
+        bg: AppColors.infoBg,
+        icon: Icons.confirmation_number_outlined,
+      ),
+      DocumentType.auctionResult => (
+        fg: AppColors.gold,
+        bg: AppColors.warningBg,
+        icon: Icons.fact_check_outlined,
+      ),
       _ => (
         fg: AppColors.neutral,
         bg: AppColors.neutralBg,

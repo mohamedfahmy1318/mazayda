@@ -75,6 +75,9 @@ class _LiveBiddingView extends StatelessWidget {
                           currentPrice: state.currentPrice,
                           placingBid: state.placingBid,
                           onPlaceBid: cubit.placeBid,
+                          minBid: state.minBid,
+                          minBidFormatted: state.minBidFormatted,
+                          minIncrementPercent: state.minIncrementPercent,
                         )
                       : null,
                 ),

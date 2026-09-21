@@ -6,7 +6,7 @@ part 'kyc_models.g.dart';
 
 /// حالة الـ KYC من GET /kyc.
 @freezed
-class KycStatusModel with _$KycStatusModel {
+abstract class KycStatusModel with _$KycStatusModel {
   const KycStatusModel._();
 
   const factory KycStatusModel({
@@ -40,7 +40,7 @@ class KycStatusModel with _$KycStatusModel {
 
 /// ولاية — GET /wilayas (بترجع name_ar / name_fr).
 @freezed
-class WilayaModel with _$WilayaModel {
+abstract class WilayaModel with _$WilayaModel {
   const WilayaModel._();
 
   const factory WilayaModel({
@@ -58,7 +58,7 @@ class WilayaModel with _$WilayaModel {
 
 /// بلدية — GET /wilayas/:id/communes.
 @freezed
-class CommuneModel with _$CommuneModel {
+abstract class CommuneModel with _$CommuneModel {
   const CommuneModel._();
 
   const factory CommuneModel({

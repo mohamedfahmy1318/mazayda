@@ -6,19 +6,19 @@ part of 'profile_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProfileEntityRefModelImpl _$$ProfileEntityRefModelImplFromJson(
+_ProfileEntityRefModel _$ProfileEntityRefModelFromJson(
   Map<String, dynamic> json,
-) => _$ProfileEntityRefModelImpl(
+) => _ProfileEntityRefModel(
   id: json['id'] as String?,
   name: json['name'] as String?,
 );
 
-Map<String, dynamic> _$$ProfileEntityRefModelImplToJson(
-  _$ProfileEntityRefModelImpl instance,
+Map<String, dynamic> _$ProfileEntityRefModelToJson(
+  _ProfileEntityRefModel instance,
 ) => <String, dynamic>{'id': instance.id, 'name': instance.name};
 
-_$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProfileModelImpl(
+_ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) =>
+    _ProfileModel(
       id: json['id'] as String,
       ninMasked: json['nin_masked'] as String?,
       name: json['name'] as String?,
@@ -68,7 +68,7 @@ _$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
       isBlacklisted: json['is_blacklisted'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
+Map<String, dynamic> _$ProfileModelToJson(_ProfileModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nin_masked': instance.ninMasked,

@@ -131,6 +131,20 @@ class _LoginView extends StatelessWidget {
                     ),
                   ),
                 ),
+                // فقد البريد نفسه — مسار مختلف عن نسيان كلمة السر: مافيش
+                // رمز يتبعت لأن البريد نفسه ضايع (تعديل العميل رقم 1).
+                Center(
+                  child: TextButton.icon(
+                    onPressed: submitting
+                        ? null
+                        : () => context.push(Routes.recoverEmail),
+                    icon: Icon(Icons.mark_email_unread_outlined, size: 16.sp),
+                    label: Text(
+                      t.lostEmailLink,
+                      style: TextStyle(fontSize: 11.sp),
+                    ),
+                  ),
+                ),
                 Gap(8.h),
                 Container(
                   padding: EdgeInsets.symmetric(

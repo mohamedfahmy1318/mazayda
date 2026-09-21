@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../entities/auth_entities.dart';
+import '../entities/email_recovery.dart';
 
 /// عقد الـ auth repository.
 abstract class AuthRepository {
@@ -71,6 +72,22 @@ abstract class AuthRepository {
     required String secretAnswer,
     required String password,
     required String passwordConfirmation,
+  });
+
+  // ===== استرجاع البريد الإلكتروني المفقود (تعديل العميل رقم 1) =====
+
+  /// تقديم طلب تغيير البريد للمراجعة.
+  Future<Either<Failure, EmailRecoveryRequest>> submitEmailRecovery({
+    required String nin,
+    required String birthDate,
+    required String phone,
+    required String newEmail,
+    required String selfiePath,
+  });
+
+  /// متابعة حالة آخر طلب — `null` معناها مفيش طلب سابق (مش خطأ).
+  Future<Either<Failure, EmailRecoveryRequest?>> getEmailRecoveryStatus({
+    required String nin,
   });
 
   /// هل فيه جلسة محفوظة محليًا؟ (للـ splash).

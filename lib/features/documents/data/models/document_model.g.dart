@@ -6,9 +6,9 @@ part of 'document_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DocumentAuctionRefModelImpl _$$DocumentAuctionRefModelImplFromJson(
+_DocumentAuctionRefModel _$DocumentAuctionRefModelFromJson(
   Map<String, dynamic> json,
-) => _$DocumentAuctionRefModelImpl(
+) => _DocumentAuctionRefModel(
   id: json['id'] as String?,
   title: json['title'] as String?,
   entityName: json['entity_name'] as String?,
@@ -16,8 +16,8 @@ _$DocumentAuctionRefModelImpl _$$DocumentAuctionRefModelImplFromJson(
   categoryName: json['category_name'] as String?,
 );
 
-Map<String, dynamic> _$$DocumentAuctionRefModelImplToJson(
-  _$DocumentAuctionRefModelImpl instance,
+Map<String, dynamic> _$DocumentAuctionRefModelToJson(
+  _DocumentAuctionRefModel instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
@@ -26,8 +26,8 @@ Map<String, dynamic> _$$DocumentAuctionRefModelImplToJson(
   'category_name': instance.categoryName,
 };
 
-_$DocumentModelImpl _$$DocumentModelImplFromJson(Map<String, dynamic> json) =>
-    _$DocumentModelImpl(
+_DocumentModel _$DocumentModelFromJson(Map<String, dynamic> json) =>
+    _DocumentModel(
       id: json['id'] as String,
       type: json['type'] as String?,
       typeLabel: json['type_label'] as String?,
@@ -45,7 +45,7 @@ _$DocumentModelImpl _$$DocumentModelImplFromJson(Map<String, dynamic> json) =>
             ),
     );
 
-Map<String, dynamic> _$$DocumentModelImplToJson(_$DocumentModelImpl instance) =>
+Map<String, dynamic> _$DocumentModelToJson(_DocumentModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
@@ -60,9 +60,9 @@ Map<String, dynamic> _$$DocumentModelImplToJson(_$DocumentModelImpl instance) =>
       'auction': instance.auction,
     };
 
-_$DocumentsSummaryModelImpl _$$DocumentsSummaryModelImplFromJson(
+_DocumentsSummaryModel _$DocumentsSummaryModelFromJson(
   Map<String, dynamic> json,
-) => _$DocumentsSummaryModelImpl(
+) => _DocumentsSummaryModel(
   total: (json['total'] as num?)?.toInt() ?? 0,
   books: (json['books'] as num?)?.toInt() ?? 0,
   awards: (json['awards'] as num?)?.toInt() ?? 0,
@@ -70,8 +70,8 @@ _$DocumentsSummaryModelImpl _$$DocumentsSummaryModelImplFromJson(
   totalBytes: (json['total_bytes'] as num?)?.toInt() ?? 0,
 );
 
-Map<String, dynamic> _$$DocumentsSummaryModelImplToJson(
-  _$DocumentsSummaryModelImpl instance,
+Map<String, dynamic> _$DocumentsSummaryModelToJson(
+  _DocumentsSummaryModel instance,
 ) => <String, dynamic>{
   'total': instance.total,
   'books': instance.books,

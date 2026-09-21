@@ -7,7 +7,7 @@ part 'money_model.g.dart';
 
 /// موديل القيمة المالية — يطابق {amount, formatted} من الـ API.
 @freezed
-class MoneyModel with _$MoneyModel {
+abstract class MoneyModel with _$MoneyModel {
   const MoneyModel._();
 
   const factory MoneyModel({

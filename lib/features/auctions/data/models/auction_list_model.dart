@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../domain/entities/auction.dart';
 import '../../domain/entities/auction_list_item.dart';
+import '../../domain/entities/auction_session.dart';
 import 'auction_model.dart';
 import 'money_model.dart';
 
@@ -13,7 +14,7 @@ part 'auction_list_model.g.dart';
 /// **بيختفي تمامًا** من الـ JSON لو العلاقة مش محمّلة (مش بيرجع null).
 /// عشان كده الاتنين nullable ومن غير `required`.
 @freezed
-class AuctionListModel with _$AuctionListModel {
+abstract class AuctionListModel with _$AuctionListModel {
   const AuctionListModel._();
 
   const factory AuctionListModel({
@@ -48,6 +49,9 @@ class AuctionListModel with _$AuctionListModel {
     @JsonKey(name: 'book_purchased') bool? bookPurchased,
     @JsonKey(name: 'registered_at') String? registeredAt,
     @JsonKey(name: 'final_payment_status') String? finalPaymentStatus,
+    // ===== الجلسة وأولوية النشر (تعديلات 7 · 15) — اختيارية =====
+    @JsonKey(name: 'session_round') int? sessionRound,
+    @JsonKey(name: 'publication_priority') String? publicationPriority,
   }) = _AuctionListModel;
 
   factory AuctionListModel.fromJson(Map<String, dynamic> json) =>
@@ -88,5 +92,7 @@ class AuctionListModel with _$AuctionListModel {
     bookPurchased: bookPurchased,
     registeredAt: DateTime.tryParse(registeredAt ?? ''),
     finalPaymentStatus: finalPaymentStatus,
+    sessionRound: sessionRound,
+    publicationPriority: PublicationPriorityX.fromApi(publicationPriority),
   );
 }

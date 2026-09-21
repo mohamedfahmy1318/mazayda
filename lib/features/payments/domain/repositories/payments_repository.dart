@@ -5,7 +5,7 @@ import '../entities/payment_entities.dart';
 
 /// عقد الـ payments repository — يغطّي flow التسجيل والدفع النهائي.
 abstract class PaymentsRepository {
-  /// الخطوة 1: شراء كراس الشروط (buy-book) — يرجّع redirect_url + ref مثل التسجيل.
+  /// الخطوة 1: شراء دفتر الشروط (buy-book) — يرجّع redirect_url + ref مثل التسجيل.
   Future<Either<Failure, PaymentInit>> buyBook(String auctionId);
 
   /// الخطوة 2: بدء التسجيل المدفوع — يرجّع redirect_url + ref.

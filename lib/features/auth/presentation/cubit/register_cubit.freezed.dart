@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'register_cubit.dart';
@@ -9,442 +9,315 @@ part of 'register_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$RegisterState {
-  NinInput get nin => throw _privateConstructorUsedError;
-  NameInput get firstName => throw _privateConstructorUsedError;
-  NameInput get lastName => throw _privateConstructorUsedError;
-  PhoneInput get phone => throw _privateConstructorUsedError;
-  EmailInput get email => throw _privateConstructorUsedError;
-  BirthDateInput get birthDate => throw _privateConstructorUsedError;
-  NewPasswordInput get password => throw _privateConstructorUsedError;
-  ConfirmPasswordInput get confirmPassword =>
-      throw _privateConstructorUsedError;
-  RegisterStatus get status => throw _privateConstructorUsedError;
-  bool get isValid => throw _privateConstructorUsedError;
-  String? get userId =>
-      throw _privateConstructorUsedError; // عند النجاح → للـ OTP
-  String? get errorMessage =>
-      throw _privateConstructorUsedError; // أخطاء التحقق من السيرفر (مثلاً: البريد مستخدم بالفعل)
-  Map<String, List<String>>? get serverErrors =>
-      throw _privateConstructorUsedError;
 
-  /// Create a copy of RegisterState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RegisterStateCopyWith<RegisterState> get copyWith =>
-      throw _privateConstructorUsedError;
+ NinInput get nin; NameInput get firstName; NameInput get lastName; PhoneInput get phone; EmailInput get email; BirthDateInput get birthDate; NewPasswordInput get password; ConfirmPasswordInput get confirmPassword; RegisterStatus get status; bool get isValid; String? get userId; String? get errorMessage; Map<String, List<String>>? get serverErrors;
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RegisterStateCopyWith<RegisterState> get copyWith => _$RegisterStateCopyWithImpl<RegisterState>(this as RegisterState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as RegisterState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterState&&(identical(other.nin, _this.nin) || other.nin == _this.nin)&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.birthDate, _this.birthDate) || other.birthDate == _this.birthDate)&&(identical(other.password, _this.password) || other.password == _this.password)&&(identical(other.confirmPassword, _this.confirmPassword) || other.confirmPassword == _this.confirmPassword)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.isValid, _this.isValid) || other.isValid == _this.isValid)&&(identical(other.userId, _this.userId) || other.userId == _this.userId)&&(identical(other.errorMessage, _this.errorMessage) || other.errorMessage == _this.errorMessage)&&const DeepCollectionEquality().equals(other.serverErrors, _this.serverErrors));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as RegisterState;
+  return Object.hash(runtimeType,_this.nin,_this.firstName,_this.lastName,_this.phone,_this.email,_this.birthDate,_this.password,_this.confirmPassword,_this.status,_this.isValid,_this.userId,_this.errorMessage,const DeepCollectionEquality().hash(_this.serverErrors));
+}
+
+@override
+String toString() {
+  final _this = this as RegisterState;
+  return 'RegisterState(nin: ${_this.nin}, firstName: ${_this.firstName}, lastName: ${_this.lastName}, phone: ${_this.phone}, email: ${_this.email}, birthDate: ${_this.birthDate}, password: ${_this.password}, confirmPassword: ${_this.confirmPassword}, status: ${_this.status}, isValid: ${_this.isValid}, userId: ${_this.userId}, errorMessage: ${_this.errorMessage}, serverErrors: ${_this.serverErrors})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RegisterStateCopyWith<$Res> {
-  factory $RegisterStateCopyWith(
-    RegisterState value,
-    $Res Function(RegisterState) then,
-  ) = _$RegisterStateCopyWithImpl<$Res, RegisterState>;
-  @useResult
-  $Res call({
-    NinInput nin,
-    NameInput firstName,
-    NameInput lastName,
-    PhoneInput phone,
-    EmailInput email,
-    BirthDateInput birthDate,
-    NewPasswordInput password,
-    ConfirmPasswordInput confirmPassword,
-    RegisterStatus status,
-    bool isValid,
-    String? userId,
-    String? errorMessage,
-    Map<String, List<String>>? serverErrors,
-  });
-}
+abstract mixin class $RegisterStateCopyWith<$Res>  {
+  factory $RegisterStateCopyWith(RegisterState value, $Res Function(RegisterState) _then) = _$RegisterStateCopyWithImpl;
+@useResult
+$Res call({
+ NinInput nin, NameInput firstName, NameInput lastName, PhoneInput phone, EmailInput email, BirthDateInput birthDate, NewPasswordInput password, ConfirmPasswordInput confirmPassword, RegisterStatus status, bool isValid, String? userId, String? errorMessage, Map<String, List<String>>? serverErrors
+});
 
+
+
+
+}
 /// @nodoc
-class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
+class _$RegisterStateCopyWithImpl<$Res>
     implements $RegisterStateCopyWith<$Res> {
-  _$RegisterStateCopyWithImpl(this._value, this._then);
+  _$RegisterStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final RegisterState _self;
+  final $Res Function(RegisterState) _then;
 
-  /// Create a copy of RegisterState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? nin = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? phone = null,
-    Object? email = null,
-    Object? birthDate = null,
-    Object? password = null,
-    Object? confirmPassword = null,
-    Object? status = null,
-    Object? isValid = null,
-    Object? userId = freezed,
-    Object? errorMessage = freezed,
-    Object? serverErrors = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            nin: null == nin
-                ? _value.nin
-                : nin // ignore: cast_nullable_to_non_nullable
-                      as NinInput,
-            firstName: null == firstName
-                ? _value.firstName
-                : firstName // ignore: cast_nullable_to_non_nullable
-                      as NameInput,
-            lastName: null == lastName
-                ? _value.lastName
-                : lastName // ignore: cast_nullable_to_non_nullable
-                      as NameInput,
-            phone: null == phone
-                ? _value.phone
-                : phone // ignore: cast_nullable_to_non_nullable
-                      as PhoneInput,
-            email: null == email
-                ? _value.email
-                : email // ignore: cast_nullable_to_non_nullable
-                      as EmailInput,
-            birthDate: null == birthDate
-                ? _value.birthDate
-                : birthDate // ignore: cast_nullable_to_non_nullable
-                      as BirthDateInput,
-            password: null == password
-                ? _value.password
-                : password // ignore: cast_nullable_to_non_nullable
-                      as NewPasswordInput,
-            confirmPassword: null == confirmPassword
-                ? _value.confirmPassword
-                : confirmPassword // ignore: cast_nullable_to_non_nullable
-                      as ConfirmPasswordInput,
-            status: null == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as RegisterStatus,
-            isValid: null == isValid
-                ? _value.isValid
-                : isValid // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            userId: freezed == userId
-                ? _value.userId
-                : userId // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            errorMessage: freezed == errorMessage
-                ? _value.errorMessage
-                : errorMessage // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            serverErrors: freezed == serverErrors
-                ? _value.serverErrors
-                : serverErrors // ignore: cast_nullable_to_non_nullable
-                      as Map<String, List<String>>?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? nin = null,Object? firstName = null,Object? lastName = null,Object? phone = null,Object? email = null,Object? birthDate = null,Object? password = null,Object? confirmPassword = null,Object? status = null,Object? isValid = null,Object? userId = freezed,Object? errorMessage = freezed,Object? serverErrors = freezed,}) {
+  return _then(RegisterState(
+nin: null == nin ? _self.nin : nin // ignore: cast_nullable_to_non_nullable
+as NinInput,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as NameInput,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as NameInput,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as PhoneInput,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as EmailInput,birthDate: null == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
+as BirthDateInput,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as NewPasswordInput,confirmPassword: null == confirmPassword ? _self.confirmPassword : confirmPassword // ignore: cast_nullable_to_non_nullable
+as ConfirmPasswordInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as RegisterStatus,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,serverErrors: freezed == serverErrors ? _self.serverErrors : serverErrors // ignore: cast_nullable_to_non_nullable
+as Map<String, List<String>>?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$RegisterStateImplCopyWith<$Res>
-    implements $RegisterStateCopyWith<$Res> {
-  factory _$$RegisterStateImplCopyWith(
-    _$RegisterStateImpl value,
-    $Res Function(_$RegisterStateImpl) then,
-  ) = __$$RegisterStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    NinInput nin,
-    NameInput firstName,
-    NameInput lastName,
-    PhoneInput phone,
-    EmailInput email,
-    BirthDateInput birthDate,
-    NewPasswordInput password,
-    ConfirmPasswordInput confirmPassword,
-    RegisterStatus status,
-    bool isValid,
-    String? userId,
-    String? errorMessage,
-    Map<String, List<String>>? serverErrors,
-  });
 }
 
-/// @nodoc
-class __$$RegisterStateImplCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$RegisterStateImpl>
-    implements _$$RegisterStateImplCopyWith<$Res> {
-  __$$RegisterStateImplCopyWithImpl(
-    _$RegisterStateImpl _value,
-    $Res Function(_$RegisterStateImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of RegisterState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? nin = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? phone = null,
-    Object? email = null,
-    Object? birthDate = null,
-    Object? password = null,
-    Object? confirmPassword = null,
-    Object? status = null,
-    Object? isValid = null,
-    Object? userId = freezed,
-    Object? errorMessage = freezed,
-    Object? serverErrors = freezed,
-  }) {
-    return _then(
-      _$RegisterStateImpl(
-        nin: null == nin
-            ? _value.nin
-            : nin // ignore: cast_nullable_to_non_nullable
-                  as NinInput,
-        firstName: null == firstName
-            ? _value.firstName
-            : firstName // ignore: cast_nullable_to_non_nullable
-                  as NameInput,
-        lastName: null == lastName
-            ? _value.lastName
-            : lastName // ignore: cast_nullable_to_non_nullable
-                  as NameInput,
-        phone: null == phone
-            ? _value.phone
-            : phone // ignore: cast_nullable_to_non_nullable
-                  as PhoneInput,
-        email: null == email
-            ? _value.email
-            : email // ignore: cast_nullable_to_non_nullable
-                  as EmailInput,
-        birthDate: null == birthDate
-            ? _value.birthDate
-            : birthDate // ignore: cast_nullable_to_non_nullable
-                  as BirthDateInput,
-        password: null == password
-            ? _value.password
-            : password // ignore: cast_nullable_to_non_nullable
-                  as NewPasswordInput,
-        confirmPassword: null == confirmPassword
-            ? _value.confirmPassword
-            : confirmPassword // ignore: cast_nullable_to_non_nullable
-                  as ConfirmPasswordInput,
-        status: null == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as RegisterStatus,
-        isValid: null == isValid
-            ? _value.isValid
-            : isValid // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        userId: freezed == userId
-            ? _value.userId
-            : userId // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        errorMessage: freezed == errorMessage
-            ? _value.errorMessage
-            : errorMessage // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        serverErrors: freezed == serverErrors
-            ? _value._serverErrors
-            : serverErrors // ignore: cast_nullable_to_non_nullable
-                  as Map<String, List<String>>?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [RegisterState].
+extension RegisterStatePatterns on RegisterState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RegisterState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RegisterState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RegisterState value)  $default,){
+final _that = this;
+switch (_that) {
+case _RegisterState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RegisterState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RegisterState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( NinInput nin,  NameInput firstName,  NameInput lastName,  PhoneInput phone,  EmailInput email,  BirthDateInput birthDate,  NewPasswordInput password,  ConfirmPasswordInput confirmPassword,  RegisterStatus status,  bool isValid,  String? userId,  String? errorMessage,  Map<String, List<String>>? serverErrors)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RegisterState() when $default != null:
+return $default(_that.nin,_that.firstName,_that.lastName,_that.phone,_that.email,_that.birthDate,_that.password,_that.confirmPassword,_that.status,_that.isValid,_that.userId,_that.errorMessage,_that.serverErrors);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( NinInput nin,  NameInput firstName,  NameInput lastName,  PhoneInput phone,  EmailInput email,  BirthDateInput birthDate,  NewPasswordInput password,  ConfirmPasswordInput confirmPassword,  RegisterStatus status,  bool isValid,  String? userId,  String? errorMessage,  Map<String, List<String>>? serverErrors)  $default,) {final _that = this;
+switch (_that) {
+case _RegisterState():
+return $default(_that.nin,_that.firstName,_that.lastName,_that.phone,_that.email,_that.birthDate,_that.password,_that.confirmPassword,_that.status,_that.isValid,_that.userId,_that.errorMessage,_that.serverErrors);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( NinInput nin,  NameInput firstName,  NameInput lastName,  PhoneInput phone,  EmailInput email,  BirthDateInput birthDate,  NewPasswordInput password,  ConfirmPasswordInput confirmPassword,  RegisterStatus status,  bool isValid,  String? userId,  String? errorMessage,  Map<String, List<String>>? serverErrors)?  $default,) {final _that = this;
+switch (_that) {
+case _RegisterState() when $default != null:
+return $default(_that.nin,_that.firstName,_that.lastName,_that.phone,_that.email,_that.birthDate,_that.password,_that.confirmPassword,_that.status,_that.isValid,_that.userId,_that.errorMessage,_that.serverErrors);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
-class _$RegisterStateImpl extends _RegisterState {
-  const _$RegisterStateImpl({
-    this.nin = const NinInput.pure(),
-    this.firstName = const NameInput.pure(),
-    this.lastName = const NameInput.pure(),
-    this.phone = const PhoneInput.pure(),
-    this.email = const EmailInput.pure(),
-    this.birthDate = const BirthDateInput.pure(),
-    this.password = const NewPasswordInput.pure(),
-    this.confirmPassword = const ConfirmPasswordInput.pure(),
-    this.status = RegisterStatus.idle,
-    this.isValid = false,
-    this.userId,
-    this.errorMessage,
-    final Map<String, List<String>>? serverErrors,
-  }) : _serverErrors = serverErrors,
-       super._();
 
-  @override
-  @JsonKey()
-  final NinInput nin;
-  @override
-  @JsonKey()
-  final NameInput firstName;
-  @override
-  @JsonKey()
-  final NameInput lastName;
-  @override
-  @JsonKey()
-  final PhoneInput phone;
-  @override
-  @JsonKey()
-  final EmailInput email;
-  @override
-  @JsonKey()
-  final BirthDateInput birthDate;
-  @override
-  @JsonKey()
-  final NewPasswordInput password;
-  @override
-  @JsonKey()
-  final ConfirmPasswordInput confirmPassword;
-  @override
-  @JsonKey()
-  final RegisterStatus status;
-  @override
-  @JsonKey()
-  final bool isValid;
-  @override
-  final String? userId;
-  // عند النجاح → للـ OTP
-  @override
-  final String? errorMessage;
-  // أخطاء التحقق من السيرفر (مثلاً: البريد مستخدم بالفعل)
-  final Map<String, List<String>>? _serverErrors;
-  // أخطاء التحقق من السيرفر (مثلاً: البريد مستخدم بالفعل)
-  @override
-  Map<String, List<String>>? get serverErrors {
-    final value = _serverErrors;
-    if (value == null) return null;
-    if (_serverErrors is EqualUnmodifiableMapView) return _serverErrors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
+class _RegisterState extends RegisterState {
+  const _RegisterState({this.nin = const NinInput.pure(), this.firstName = const NameInput.pure(), this.lastName = const NameInput.pure(), this.phone = const PhoneInput.pure(), this.email = const EmailInput.pure(), this.birthDate = const BirthDateInput.pure(), this.password = const NewPasswordInput.pure(), this.confirmPassword = const ConfirmPasswordInput.pure(), this.status = RegisterStatus.idle, this.isValid = false, this.userId, this.errorMessage,  Map<String, List<String>>? serverErrors}): _serverErrors = serverErrors,super._();
+  
 
-  @override
-  String toString() {
+@override@JsonKey() final  NinInput nin;
+@override@JsonKey() final  NameInput firstName;
+@override@JsonKey() final  NameInput lastName;
+@override@JsonKey() final  PhoneInput phone;
+@override@JsonKey() final  EmailInput email;
+@override@JsonKey() final  BirthDateInput birthDate;
+@override@JsonKey() final  NewPasswordInput password;
+@override@JsonKey() final  ConfirmPasswordInput confirmPassword;
+@override@JsonKey() final  RegisterStatus status;
+@override@JsonKey() final  bool isValid;
+@override final  String? userId;
+@override final  String? errorMessage;
+ final  Map<String, List<String>>? _serverErrors;
+@override Map<String, List<String>>? get serverErrors {
+  final value = _serverErrors;
+  if (value == null) return null;
+  if (_serverErrors is EqualUnmodifiableMapView) return _serverErrors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RegisterStateCopyWith<_RegisterState> get copyWith => __$RegisterStateCopyWithImpl<_RegisterState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterState&&(identical(other.nin, nin) || other.nin == nin)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.password, password) || other.password == password)&&(identical(other.confirmPassword, confirmPassword) || other.confirmPassword == confirmPassword)&&(identical(other.status, status) || other.status == status)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&const DeepCollectionEquality().equals(other.serverErrors, _serverErrors));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,nin,firstName,lastName,phone,email,birthDate,password,confirmPassword,status,isValid,userId,errorMessage,const DeepCollectionEquality().hash(_serverErrors));
+}
+
+@override
+String toString() {
     return 'RegisterState(nin: $nin, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, birthDate: $birthDate, password: $password, confirmPassword: $confirmPassword, status: $status, isValid: $isValid, userId: $userId, errorMessage: $errorMessage, serverErrors: $serverErrors)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RegisterStateImpl &&
-            (identical(other.nin, nin) || other.nin == nin) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.confirmPassword, confirmPassword) ||
-                other.confirmPassword == confirmPassword) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.isValid, isValid) || other.isValid == isValid) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(
-              other._serverErrors,
-              _serverErrors,
-            ));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    nin,
-    firstName,
-    lastName,
-    phone,
-    email,
-    birthDate,
-    password,
-    confirmPassword,
-    status,
-    isValid,
-    userId,
-    errorMessage,
-    const DeepCollectionEquality().hash(_serverErrors),
-  );
-
-  /// Create a copy of RegisterState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RegisterStateImplCopyWith<_$RegisterStateImpl> get copyWith =>
-      __$$RegisterStateImplCopyWithImpl<_$RegisterStateImpl>(this, _$identity);
 }
 
-abstract class _RegisterState extends RegisterState {
-  const factory _RegisterState({
-    final NinInput nin,
-    final NameInput firstName,
-    final NameInput lastName,
-    final PhoneInput phone,
-    final EmailInput email,
-    final BirthDateInput birthDate,
-    final NewPasswordInput password,
-    final ConfirmPasswordInput confirmPassword,
-    final RegisterStatus status,
-    final bool isValid,
-    final String? userId,
-    final String? errorMessage,
-    final Map<String, List<String>>? serverErrors,
-  }) = _$RegisterStateImpl;
-  const _RegisterState._() : super._();
 
-  @override
-  NinInput get nin;
-  @override
-  NameInput get firstName;
-  @override
-  NameInput get lastName;
-  @override
-  PhoneInput get phone;
-  @override
-  EmailInput get email;
-  @override
-  BirthDateInput get birthDate;
-  @override
-  NewPasswordInput get password;
-  @override
-  ConfirmPasswordInput get confirmPassword;
-  @override
-  RegisterStatus get status;
-  @override
-  bool get isValid;
-  @override
-  String? get userId; // عند النجاح → للـ OTP
-  @override
-  String? get errorMessage; // أخطاء التحقق من السيرفر (مثلاً: البريد مستخدم بالفعل)
-  @override
-  Map<String, List<String>>? get serverErrors;
-
-  /// Create a copy of RegisterState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RegisterStateImplCopyWith<_$RegisterStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$RegisterStateCopyWith<$Res> implements $RegisterStateCopyWith<$Res> {
+  factory _$RegisterStateCopyWith(_RegisterState value, $Res Function(_RegisterState) _then) = __$RegisterStateCopyWithImpl;
+@override @useResult
+$Res call({
+ NinInput nin, NameInput firstName, NameInput lastName, PhoneInput phone, EmailInput email, BirthDateInput birthDate, NewPasswordInput password, ConfirmPasswordInput confirmPassword, RegisterStatus status, bool isValid, String? userId, String? errorMessage, Map<String, List<String>>? serverErrors
+});
+
+
+
+
+}
+/// @nodoc
+class __$RegisterStateCopyWithImpl<$Res>
+    implements _$RegisterStateCopyWith<$Res> {
+  __$RegisterStateCopyWithImpl(this._self, this._then);
+
+  final _RegisterState _self;
+  final $Res Function(_RegisterState) _then;
+
+/// Create a copy of RegisterState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? nin = null,Object? firstName = null,Object? lastName = null,Object? phone = null,Object? email = null,Object? birthDate = null,Object? password = null,Object? confirmPassword = null,Object? status = null,Object? isValid = null,Object? userId = freezed,Object? errorMessage = freezed,Object? serverErrors = freezed,}) {
+  return _then(_RegisterState(
+nin: null == nin ? _self.nin : nin // ignore: cast_nullable_to_non_nullable
+as NinInput,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as NameInput,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as NameInput,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as PhoneInput,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as EmailInput,birthDate: null == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
+as BirthDateInput,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as NewPasswordInput,confirmPassword: null == confirmPassword ? _self.confirmPassword : confirmPassword // ignore: cast_nullable_to_non_nullable
+as ConfirmPasswordInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as RegisterStatus,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,serverErrors: freezed == serverErrors ? _self._serverErrors : serverErrors // ignore: cast_nullable_to_non_nullable
+as Map<String, List<String>>?,
+  ));
+}
+
+
+}
+
+// dart format on

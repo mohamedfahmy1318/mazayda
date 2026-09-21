@@ -6,7 +6,7 @@ part 'notification_model.g.dart';
 
 /// موديل الإشعار — يطابق عنصر قائمة /notifications.
 @freezed
-class NotificationModel with _$NotificationModel {
+abstract class NotificationModel with _$NotificationModel {
   const NotificationModel._();
 
   const factory NotificationModel({

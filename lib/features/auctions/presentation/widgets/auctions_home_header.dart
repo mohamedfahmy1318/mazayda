@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/brand_mark.dart';
 import 'auction_search_field.dart';
 
 /// الهيدر البصري للصفحة الرئيسية: هوية المنصة + دعوة واضحة للاستكشاف + البحث.
@@ -95,23 +96,7 @@ class AuctionsHomeHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      width: 42.w,
-                      height: 42.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(14.r),
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.14),
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.gavel_rounded,
-                        color: AppColors.gold,
-                        size: 23.sp,
-                      ),
-                    ),
+                    const BrandMark(),
                     Gap(10.w),
                     Expanded(
                       child: Column(

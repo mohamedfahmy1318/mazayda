@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../auctions/domain/entities/auction.dart';
 
-/// bottom sheet لإقرار كراس الشروط قبل التسجيل.
+/// bottom sheet لإقرار دفتر الشروط قبل التسجيل.
 /// يرجّع true لو وافق وضغط المتابعة.
 class AcknowledgeSheet extends StatefulWidget {
   final Auction auction;
@@ -26,6 +27,7 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
   @override
   Widget build(BuildContext context) {
     final a = widget.auction;
+    final t = AppLocalizations.of(context);
     return Container(
       padding: EdgeInsets.fromLTRB(18.w, 12.h, 18.w, 18.h),
       decoration: BoxDecoration(
@@ -51,14 +53,12 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
                 size: 28.sp, color: AppColors.success),
           ),
           SizedBox(height: 10.h),
-          Text('التسجيل في المزاد',
+          Text(t.ackTitle,
               style: TextStyle(
                   fontSize: 16.sp, fontWeight: FontWeight.w500)),
           SizedBox(height: 4.h),
           Text(
-            a.hasBookAccess
-                ? 'أقرّ بشروط المشاركة لبدء التسجيل عبر بوابة الدفع الآمنة'
-                : 'شراء كراس الشروط شرط للتسجيل — ستُفتح بوابتا دفع متتاليتان: الكراس ثم التسجيل',
+            a.hasBookAccess ? t.ackSubtitleHasBook : t.ackSubtitleNeedsBook,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 12.sp, color: AppColors.textSecondary, height: 1.6),
@@ -75,10 +75,10 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
             child: Column(
               children: [
                 // «كفالة» هو المصطلح المستخدم في الباك (lang/ar/enums.php)،
-                // وهي المبلغ **القابل للاسترداد** — الكراس هو غير المسترد.
-                _row('الكفالة (قابلة للاسترداد)', a.depositAmount.formatted),
+                // وهي المبلغ **القابل للاسترداد** — دفتر الشروط هو غير المسترد.
+                _row(t.ackDepositRow, a.depositAmount.formatted),
                 if (a.bookPrice != null && !a.hasBookAccess)
-                  _row('كراس الشروط (غير مسترد)', a.bookPrice!.formatted),
+                  _row(t.ackBookRow, a.bookPrice!.formatted),
               ],
             ),
           ),
@@ -104,7 +104,7 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
                 SizedBox(width: 9.w),
                 Expanded(
                   child: Text(
-                    'أقرّ بأنني قرأت كراس الشروط وأوافق على شروط المشاركة',
+                    t.ackAgree,
                     style: TextStyle(
                         fontSize: 12.sp,
                         color: AppColors.textSecondary,
@@ -116,13 +116,13 @@ class _AcknowledgeSheetState extends State<AcknowledgeSheet> {
           ),
           SizedBox(height: 16.h),
           PrimaryButton(
-            label: 'المتابعة للدفع',
+            label: t.ackContinue,
             icon: Icons.open_in_new,
             onPressed: _agreed ? widget.onConfirm : null,
           ),
           SizedBox(height: 8.h),
           Text(
-            'سيتم فتح بوابة الدفع الآمنة (CIBWeb)',
+            t.ackGatewayNote,
             style: TextStyle(fontSize: 10.sp, color: AppColors.textHint),
           ),
         ],

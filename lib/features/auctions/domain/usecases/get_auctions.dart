@@ -33,7 +33,7 @@ class GetAuctions
 }
 
 @freezed
-class GetAuctionsParams with _$GetAuctionsParams {
+abstract class GetAuctionsParams with _$GetAuctionsParams {
   const factory GetAuctionsParams({
     String? query,
     String? category,

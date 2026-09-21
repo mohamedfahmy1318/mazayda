@@ -48,3 +48,14 @@ String bidiSafeNumber(String formatted) =>
 
 /// أي مسافة (عادية / غير قابلة للكسر / رفيعة) واقعة بين رقمين.
 final RegExp _gapBetweenDigits = RegExp('(?<=\\d)[\u0020\u00A0\u2009](?=\\d)');
+
+/// نسبة مئوية للعرض: `10.0` → `"10"`، و`7.5` → `"7.5"`.
+///
+/// الباك بيرجّع النِّسب كـ decimal، فالقيم الصحيحة بتوصل `10.0` — عرضها
+/// كده في جملة عربية بيبان زي خطأ. بنشيل الصفر العشري الزايد بس.
+String formatPercent(double percent) {
+  final rounded = double.parse(percent.toStringAsFixed(2));
+  return rounded == rounded.roundToDouble()
+      ? rounded.toInt().toString()
+      : rounded.toString();
+}

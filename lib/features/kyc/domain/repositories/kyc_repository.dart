@@ -26,7 +26,7 @@ abstract class KycRepository {
 
 /// مدخلات إرسال نموذج الـ KYC — تطابق body الـ API.
 @freezed
-class KycSubmitParams with _$KycSubmitParams {
+abstract class KycSubmitParams with _$KycSubmitParams {
   const factory KycSubmitParams({
     required String firstNameFr,
     required String lastNameFr,

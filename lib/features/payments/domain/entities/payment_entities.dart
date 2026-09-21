@@ -25,11 +25,13 @@ extension PaymentTypeX on PaymentType {
         _ => PaymentType.unknown,
       };
 
-  /// النصوص منقولة حرفيًا من lang/ar/enums.php في الباك.
+  /// النصوص منقولة حرفيًا من lang/ar/enums.php في الباك — ما عدا
+  /// `bookPurchase` اللي اتغيّر للمصطلح الجديد «دفتر شروط» (تعديل العميل
+  /// رقم 20). لازم الباك يغيّر `lang/*/enums.php` بنفس المصطلح.
   String get labelAr => switch (this) {
         PaymentType.deposit => 'كفالة',
         PaymentType.entryFee => 'رسوم دخول',
-        PaymentType.bookPurchase => 'كراسة شروط',
+        PaymentType.bookPurchase => 'دفتر شروط',
         PaymentType.finalPayment => 'دفع نهائي',
         PaymentType.unknown => 'دفعة',
       };

@@ -6,8 +6,8 @@ part of 'kyc_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$KycStatusModelImpl _$$KycStatusModelImplFromJson(Map<String, dynamic> json) =>
-    _$KycStatusModelImpl(
+_KycStatusModel _$KycStatusModelFromJson(Map<String, dynamic> json) =>
+    _KycStatusModel(
       status: json['status'] as String?,
       documentsOnFile:
           (json['documents_on_file'] as List<dynamic>?)
@@ -20,24 +20,22 @@ _$KycStatusModelImpl _$$KycStatusModelImplFromJson(Map<String, dynamic> json) =>
       canSubmit: json['can_submit'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$KycStatusModelImplToJson(
-  _$KycStatusModelImpl instance,
-) => <String, dynamic>{
-  'status': instance.status,
-  'documents_on_file': instance.documentsOnFile,
-  'documents': instance.documents,
-  'can_submit': instance.canSubmit,
-};
+Map<String, dynamic> _$KycStatusModelToJson(_KycStatusModel instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'documents_on_file': instance.documentsOnFile,
+      'documents': instance.documents,
+      'can_submit': instance.canSubmit,
+    };
 
-_$WilayaModelImpl _$$WilayaModelImplFromJson(Map<String, dynamic> json) =>
-    _$WilayaModelImpl(
-      id: (json['id'] as num).toInt(),
-      code: json['code'] as String? ?? '',
-      nameAr: json['name_ar'] as String?,
-      nameFr: json['name_fr'] as String?,
-    );
+_WilayaModel _$WilayaModelFromJson(Map<String, dynamic> json) => _WilayaModel(
+  id: (json['id'] as num).toInt(),
+  code: json['code'] as String? ?? '',
+  nameAr: json['name_ar'] as String?,
+  nameFr: json['name_fr'] as String?,
+);
 
-Map<String, dynamic> _$$WilayaModelImplToJson(_$WilayaModelImpl instance) =>
+Map<String, dynamic> _$WilayaModelToJson(_WilayaModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'code': instance.code,
@@ -45,15 +43,15 @@ Map<String, dynamic> _$$WilayaModelImplToJson(_$WilayaModelImpl instance) =>
       'name_fr': instance.nameFr,
     };
 
-_$CommuneModelImpl _$$CommuneModelImplFromJson(Map<String, dynamic> json) =>
-    _$CommuneModelImpl(
+_CommuneModel _$CommuneModelFromJson(Map<String, dynamic> json) =>
+    _CommuneModel(
       id: (json['id'] as num).toInt(),
       nameAr: json['name_ar'] as String?,
       nameFr: json['name_fr'] as String?,
       postalCode: json['postal_code'] as String?,
     );
 
-Map<String, dynamic> _$$CommuneModelImplToJson(_$CommuneModelImpl instance) =>
+Map<String, dynamic> _$CommuneModelToJson(_CommuneModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name_ar': instance.nameAr,

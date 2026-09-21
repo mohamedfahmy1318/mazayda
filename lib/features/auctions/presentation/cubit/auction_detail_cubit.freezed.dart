@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'auction_detail_cubit.dart';
@@ -9,743 +9,383 @@ part of 'auction_detail_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$AuctionDetailState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )
-    loaded,
-    required TResult Function(String message) error,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult? Function(String message)? error,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuctionDetailInitial value) initial,
-    required TResult Function(AuctionDetailLoading value) loading,
-    required TResult Function(AuctionDetailLoaded value) loaded,
-    required TResult Function(AuctionDetailError value) error,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AuctionDetailInitial value)? initial,
-    TResult? Function(AuctionDetailLoading value)? loading,
-    TResult? Function(AuctionDetailLoaded value)? loaded,
-    TResult? Function(AuctionDetailError value)? error,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuctionDetailInitial value)? initial,
-    TResult Function(AuctionDetailLoading value)? loading,
-    TResult Function(AuctionDetailLoaded value)? loaded,
-    TResult Function(AuctionDetailError value)? error,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionDetailState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+    return 'AuctionDetailState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AuctionDetailStateCopyWith<$Res> {
-  factory $AuctionDetailStateCopyWith(
-    AuctionDetailState value,
-    $Res Function(AuctionDetailState) then,
-  ) = _$AuctionDetailStateCopyWithImpl<$Res, AuctionDetailState>;
+class $AuctionDetailStateCopyWith<$Res>  {
+$AuctionDetailStateCopyWith(AuctionDetailState _, $Res Function(AuctionDetailState) __);
+}
+
+
+/// Adds pattern-matching-related methods to [AuctionDetailState].
+extension AuctionDetailStatePatterns on AuctionDetailState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuctionDetailInitial value)?  initial,TResult Function( AuctionDetailLoading value)?  loading,TResult Function( AuctionDetailLoaded value)?  loaded,TResult Function( AuctionDetailError value)?  error,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case AuctionDetailInitial() when initial != null:
+return initial(_that);case AuctionDetailLoading() when loading != null:
+return loading(_that);case AuctionDetailLoaded() when loaded != null:
+return loaded(_that);case AuctionDetailError() when error != null:
+return error(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuctionDetailInitial value)  initial,required TResult Function( AuctionDetailLoading value)  loading,required TResult Function( AuctionDetailLoaded value)  loaded,required TResult Function( AuctionDetailError value)  error,}){
+final _that = this;
+switch (_that) {
+case AuctionDetailInitial():
+return initial(_that);case AuctionDetailLoading():
+return loading(_that);case AuctionDetailLoaded():
+return loaded(_that);case AuctionDetailError():
+return error(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuctionDetailInitial value)?  initial,TResult? Function( AuctionDetailLoading value)?  loading,TResult? Function( AuctionDetailLoaded value)?  loaded,TResult? Function( AuctionDetailError value)?  error,}){
+final _that = this;
+switch (_that) {
+case AuctionDetailInitial() when initial != null:
+return initial(_that);case AuctionDetailLoading() when loading != null:
+return loading(_that);case AuctionDetailLoaded() when loaded != null:
+return loaded(_that);case AuctionDetailError() when error != null:
+return error(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( AuctionDetail detail,  bool isAuthenticated,  ViewerAccountFlags? account)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case AuctionDetailInitial() when initial != null:
+return initial();case AuctionDetailLoading() when loading != null:
+return loading();case AuctionDetailLoaded() when loaded != null:
+return loaded(_that.detail,_that.isAuthenticated,_that.account);case AuctionDetailError() when error != null:
+return error(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( AuctionDetail detail,  bool isAuthenticated,  ViewerAccountFlags? account)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+switch (_that) {
+case AuctionDetailInitial():
+return initial();case AuctionDetailLoading():
+return loading();case AuctionDetailLoaded():
+return loaded(_that.detail,_that.isAuthenticated,_that.account);case AuctionDetailError():
+return error(_that.message);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( AuctionDetail detail,  bool isAuthenticated,  ViewerAccountFlags? account)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+switch (_that) {
+case AuctionDetailInitial() when initial != null:
+return initial();case AuctionDetailLoading() when loading != null:
+return loading();case AuctionDetailLoaded() when loaded != null:
+return loaded(_that.detail,_that.isAuthenticated,_that.account);case AuctionDetailError() when error != null:
+return error(_that.message);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-class _$AuctionDetailStateCopyWithImpl<$Res, $Val extends AuctionDetailState>
-    implements $AuctionDetailStateCopyWith<$Res> {
-  _$AuctionDetailStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
 
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
+class AuctionDetailInitial implements AuctionDetailState {
+  const AuctionDetailInitial();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionDetailInitial);
 }
 
-/// @nodoc
-abstract class _$$AuctionDetailInitialImplCopyWith<$Res> {
-  factory _$$AuctionDetailInitialImplCopyWith(
-    _$AuctionDetailInitialImpl value,
-    $Res Function(_$AuctionDetailInitialImpl) then,
-  ) = __$$AuctionDetailInitialImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$AuctionDetailInitialImplCopyWithImpl<$Res>
-    extends _$AuctionDetailStateCopyWithImpl<$Res, _$AuctionDetailInitialImpl>
-    implements _$$AuctionDetailInitialImplCopyWith<$Res> {
-  __$$AuctionDetailInitialImplCopyWithImpl(
-    _$AuctionDetailInitialImpl _value,
-    $Res Function(_$AuctionDetailInitialImpl) _then,
-  ) : super(_value, _then);
+@override
+int get hashCode => runtimeType.hashCode;
 
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$AuctionDetailInitialImpl implements AuctionDetailInitial {
-  const _$AuctionDetailInitialImpl();
-
-  @override
-  String toString() {
+@override
+String toString() {
     return 'AuctionDetailState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionDetailInitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )
-    loaded,
-    required TResult Function(String message) error,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuctionDetailInitial value) initial,
-    required TResult Function(AuctionDetailLoading value) loading,
-    required TResult Function(AuctionDetailLoaded value) loaded,
-    required TResult Function(AuctionDetailError value) error,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AuctionDetailInitial value)? initial,
-    TResult? Function(AuctionDetailLoading value)? loading,
-    TResult? Function(AuctionDetailLoaded value)? loaded,
-    TResult? Function(AuctionDetailError value)? error,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuctionDetailInitial value)? initial,
-    TResult Function(AuctionDetailLoading value)? loading,
-    TResult Function(AuctionDetailLoaded value)? loaded,
-    TResult Function(AuctionDetailError value)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class AuctionDetailInitial implements AuctionDetailState {
-  const factory AuctionDetailInitial() = _$AuctionDetailInitialImpl;
+
 }
 
-/// @nodoc
-abstract class _$$AuctionDetailLoadingImplCopyWith<$Res> {
-  factory _$$AuctionDetailLoadingImplCopyWith(
-    _$AuctionDetailLoadingImpl value,
-    $Res Function(_$AuctionDetailLoadingImpl) then,
-  ) = __$$AuctionDetailLoadingImplCopyWithImpl<$Res>;
-}
 
-/// @nodoc
-class __$$AuctionDetailLoadingImplCopyWithImpl<$Res>
-    extends _$AuctionDetailStateCopyWithImpl<$Res, _$AuctionDetailLoadingImpl>
-    implements _$$AuctionDetailLoadingImplCopyWith<$Res> {
-  __$$AuctionDetailLoadingImplCopyWithImpl(
-    _$AuctionDetailLoadingImpl _value,
-    $Res Function(_$AuctionDetailLoadingImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-}
 
 /// @nodoc
 
-class _$AuctionDetailLoadingImpl implements AuctionDetailLoading {
-  const _$AuctionDetailLoadingImpl();
 
-  @override
-  String toString() {
+class AuctionDetailLoading implements AuctionDetailState {
+  const AuctionDetailLoading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionDetailLoading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
     return 'AuctionDetailState.loading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionDetailLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )
-    loaded,
-    required TResult Function(String message) error,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuctionDetailInitial value) initial,
-    required TResult Function(AuctionDetailLoading value) loading,
-    required TResult Function(AuctionDetailLoaded value) loaded,
-    required TResult Function(AuctionDetailError value) error,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AuctionDetailInitial value)? initial,
-    TResult? Function(AuctionDetailLoading value)? loading,
-    TResult? Function(AuctionDetailLoaded value)? loaded,
-    TResult? Function(AuctionDetailError value)? error,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuctionDetailInitial value)? initial,
-    TResult Function(AuctionDetailLoading value)? loading,
-    TResult Function(AuctionDetailLoaded value)? loaded,
-    TResult Function(AuctionDetailError value)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class AuctionDetailLoading implements AuctionDetailState {
-  const factory AuctionDetailLoading() = _$AuctionDetailLoadingImpl;
+
 }
 
-/// @nodoc
-abstract class _$$AuctionDetailLoadedImplCopyWith<$Res> {
-  factory _$$AuctionDetailLoadedImplCopyWith(
-    _$AuctionDetailLoadedImpl value,
-    $Res Function(_$AuctionDetailLoadedImpl) then,
-  ) = __$$AuctionDetailLoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({
-    AuctionDetail detail,
-    bool isAuthenticated,
-    ViewerAccountFlags? account,
-  });
-}
 
-/// @nodoc
-class __$$AuctionDetailLoadedImplCopyWithImpl<$Res>
-    extends _$AuctionDetailStateCopyWithImpl<$Res, _$AuctionDetailLoadedImpl>
-    implements _$$AuctionDetailLoadedImplCopyWith<$Res> {
-  __$$AuctionDetailLoadedImplCopyWithImpl(
-    _$AuctionDetailLoadedImpl _value,
-    $Res Function(_$AuctionDetailLoadedImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? detail = null,
-    Object? isAuthenticated = null,
-    Object? account = freezed,
-  }) {
-    return _then(
-      _$AuctionDetailLoadedImpl(
-        null == detail
-            ? _value.detail
-            : detail // ignore: cast_nullable_to_non_nullable
-                  as AuctionDetail,
-        isAuthenticated: null == isAuthenticated
-            ? _value.isAuthenticated
-            : isAuthenticated // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        account: freezed == account
-            ? _value.account
-            : account // ignore: cast_nullable_to_non_nullable
-                  as ViewerAccountFlags?,
-      ),
-    );
-  }
-}
 
 /// @nodoc
 
-class _$AuctionDetailLoadedImpl implements AuctionDetailLoaded {
-  const _$AuctionDetailLoadedImpl(
-    this.detail, {
-    this.isAuthenticated = false,
-    this.account,
-  });
 
-  @override
-  final AuctionDetail detail;
-  @override
-  @JsonKey()
-  final bool isAuthenticated;
-  @override
-  final ViewerAccountFlags? account;
+class AuctionDetailLoaded implements AuctionDetailState {
+  const AuctionDetailLoaded(this.detail, {this.isAuthenticated = false, this.account});
+  
 
-  @override
-  String toString() {
+ final  AuctionDetail detail;
+@JsonKey() final  bool isAuthenticated;
+ final  ViewerAccountFlags? account;
+
+/// Create a copy of AuctionDetailState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuctionDetailLoadedCopyWith<AuctionDetailLoaded> get copyWith => _$AuctionDetailLoadedCopyWithImpl<AuctionDetailLoaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionDetailLoaded&&(identical(other.detail, detail) || other.detail == detail)&&(identical(other.isAuthenticated, isAuthenticated) || other.isAuthenticated == isAuthenticated)&&(identical(other.account, account) || other.account == account));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,detail,isAuthenticated,account);
+}
+
+@override
+String toString() {
     return 'AuctionDetailState.loaded(detail: $detail, isAuthenticated: $isAuthenticated, account: $account)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionDetailLoadedImpl &&
-            (identical(other.detail, detail) || other.detail == detail) &&
-            (identical(other.isAuthenticated, isAuthenticated) ||
-                other.isAuthenticated == isAuthenticated) &&
-            (identical(other.account, account) || other.account == account));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, detail, isAuthenticated, account);
-
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuctionDetailLoadedImplCopyWith<_$AuctionDetailLoadedImpl> get copyWith =>
-      __$$AuctionDetailLoadedImplCopyWithImpl<_$AuctionDetailLoadedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )
-    loaded,
-    required TResult Function(String message) error,
-  }) {
-    return loaded(detail, isAuthenticated, account);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return loaded?.call(detail, isAuthenticated, account);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(detail, isAuthenticated, account);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuctionDetailInitial value) initial,
-    required TResult Function(AuctionDetailLoading value) loading,
-    required TResult Function(AuctionDetailLoaded value) loaded,
-    required TResult Function(AuctionDetailError value) error,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AuctionDetailInitial value)? initial,
-    TResult? Function(AuctionDetailLoading value)? loading,
-    TResult? Function(AuctionDetailLoaded value)? loaded,
-    TResult? Function(AuctionDetailError value)? error,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuctionDetailInitial value)? initial,
-    TResult Function(AuctionDetailLoading value)? loading,
-    TResult Function(AuctionDetailLoaded value)? loaded,
-    TResult Function(AuctionDetailError value)? error,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class AuctionDetailLoaded implements AuctionDetailState {
-  const factory AuctionDetailLoaded(
-    final AuctionDetail detail, {
-    final bool isAuthenticated,
-    final ViewerAccountFlags? account,
-  }) = _$AuctionDetailLoadedImpl;
 
-  AuctionDetail get detail;
-  bool get isAuthenticated;
-  ViewerAccountFlags? get account;
-
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuctionDetailLoadedImplCopyWith<_$AuctionDetailLoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AuctionDetailErrorImplCopyWith<$Res> {
-  factory _$$AuctionDetailErrorImplCopyWith(
-    _$AuctionDetailErrorImpl value,
-    $Res Function(_$AuctionDetailErrorImpl) then,
-  ) = __$$AuctionDetailErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class $AuctionDetailLoadedCopyWith<$Res> implements $AuctionDetailStateCopyWith<$Res> {
+  factory $AuctionDetailLoadedCopyWith(AuctionDetailLoaded value, $Res Function(AuctionDetailLoaded) _then) = _$AuctionDetailLoadedCopyWithImpl;
+@useResult
+$Res call({
+ AuctionDetail detail, bool isAuthenticated, ViewerAccountFlags? account
+});
+
+
+
+
+}
+/// @nodoc
+class _$AuctionDetailLoadedCopyWithImpl<$Res>
+    implements $AuctionDetailLoadedCopyWith<$Res> {
+  _$AuctionDetailLoadedCopyWithImpl(this._self, this._then);
+
+  final AuctionDetailLoaded _self;
+  final $Res Function(AuctionDetailLoaded) _then;
+
+/// Create a copy of AuctionDetailState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? detail = null,Object? isAuthenticated = null,Object? account = freezed,}) {
+  return _then(AuctionDetailLoaded(
+null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
+as AuctionDetail,isAuthenticated: null == isAuthenticated ? _self.isAuthenticated : isAuthenticated // ignore: cast_nullable_to_non_nullable
+as bool,account: freezed == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
+as ViewerAccountFlags?,
+  ));
 }
 
-/// @nodoc
-class __$$AuctionDetailErrorImplCopyWithImpl<$Res>
-    extends _$AuctionDetailStateCopyWithImpl<$Res, _$AuctionDetailErrorImpl>
-    implements _$$AuctionDetailErrorImplCopyWith<$Res> {
-  __$$AuctionDetailErrorImplCopyWithImpl(
-    _$AuctionDetailErrorImpl _value,
-    $Res Function(_$AuctionDetailErrorImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$AuctionDetailErrorImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$AuctionDetailErrorImpl implements AuctionDetailError {
-  const _$AuctionDetailErrorImpl(this.message);
 
-  @override
-  final String message;
+class AuctionDetailError implements AuctionDetailState {
+  const AuctionDetailError(this.message);
+  
 
-  @override
-  String toString() {
+ final  String message;
+
+/// Create a copy of AuctionDetailState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuctionDetailErrorCopyWith<AuctionDetailError> get copyWith => _$AuctionDetailErrorCopyWithImpl<AuctionDetailError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionDetailError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,message);
+}
+
+@override
+String toString() {
     return 'AuctionDetailState.error(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuctionDetailErrorImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuctionDetailErrorImplCopyWith<_$AuctionDetailErrorImpl> get copyWith =>
-      __$$AuctionDetailErrorImplCopyWithImpl<_$AuctionDetailErrorImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )
-    loaded,
-    required TResult Function(String message) error,
-  }) {
-    return error(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return error?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(
-      AuctionDetail detail,
-      bool isAuthenticated,
-      ViewerAccountFlags? account,
-    )?
-    loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuctionDetailInitial value) initial,
-    required TResult Function(AuctionDetailLoading value) loading,
-    required TResult Function(AuctionDetailLoaded value) loaded,
-    required TResult Function(AuctionDetailError value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AuctionDetailInitial value)? initial,
-    TResult? Function(AuctionDetailLoading value)? loading,
-    TResult? Function(AuctionDetailLoaded value)? loaded,
-    TResult? Function(AuctionDetailError value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuctionDetailInitial value)? initial,
-    TResult Function(AuctionDetailLoading value)? loading,
-    TResult Function(AuctionDetailLoaded value)? loaded,
-    TResult Function(AuctionDetailError value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class AuctionDetailError implements AuctionDetailState {
-  const factory AuctionDetailError(final String message) =
-      _$AuctionDetailErrorImpl;
 
-  String get message;
-
-  /// Create a copy of AuctionDetailState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuctionDetailErrorImplCopyWith<_$AuctionDetailErrorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class $AuctionDetailErrorCopyWith<$Res> implements $AuctionDetailStateCopyWith<$Res> {
+  factory $AuctionDetailErrorCopyWith(AuctionDetailError value, $Res Function(AuctionDetailError) _then) = _$AuctionDetailErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$AuctionDetailErrorCopyWithImpl<$Res>
+    implements $AuctionDetailErrorCopyWith<$Res> {
+  _$AuctionDetailErrorCopyWithImpl(this._self, this._then);
+
+  final AuctionDetailError _self;
+  final $Res Function(AuctionDetailError) _then;
+
+/// Create a copy of AuctionDetailState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(AuctionDetailError(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

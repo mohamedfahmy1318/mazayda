@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'kyc_usecases.dart';
@@ -9,161 +9,274 @@ part of 'kyc_usecases.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$UploadDocParams {
-  KycDocType get type => throw _privateConstructorUsedError;
-  String get filePath => throw _privateConstructorUsedError;
 
-  /// Create a copy of UploadDocParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UploadDocParamsCopyWith<UploadDocParams> get copyWith =>
-      throw _privateConstructorUsedError;
+ KycDocType get type; String get filePath;
+/// Create a copy of UploadDocParams
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UploadDocParamsCopyWith<UploadDocParams> get copyWith => _$UploadDocParamsCopyWithImpl<UploadDocParams>(this as UploadDocParams, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as UploadDocParams;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UploadDocParams&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.filePath, _this.filePath) || other.filePath == _this.filePath));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as UploadDocParams;
+  return Object.hash(runtimeType,_this.type,_this.filePath);
+}
+
+@override
+String toString() {
+  final _this = this as UploadDocParams;
+  return 'UploadDocParams(type: ${_this.type}, filePath: ${_this.filePath})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $UploadDocParamsCopyWith<$Res> {
-  factory $UploadDocParamsCopyWith(
-    UploadDocParams value,
-    $Res Function(UploadDocParams) then,
-  ) = _$UploadDocParamsCopyWithImpl<$Res, UploadDocParams>;
-  @useResult
-  $Res call({KycDocType type, String filePath});
-}
+abstract mixin class $UploadDocParamsCopyWith<$Res>  {
+  factory $UploadDocParamsCopyWith(UploadDocParams value, $Res Function(UploadDocParams) _then) = _$UploadDocParamsCopyWithImpl;
+@useResult
+$Res call({
+ KycDocType type, String filePath
+});
 
+
+
+
+}
 /// @nodoc
-class _$UploadDocParamsCopyWithImpl<$Res, $Val extends UploadDocParams>
+class _$UploadDocParamsCopyWithImpl<$Res>
     implements $UploadDocParamsCopyWith<$Res> {
-  _$UploadDocParamsCopyWithImpl(this._value, this._then);
+  _$UploadDocParamsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UploadDocParams _self;
+  final $Res Function(UploadDocParams) _then;
 
-  /// Create a copy of UploadDocParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? type = null, Object? filePath = null}) {
-    return _then(
-      _value.copyWith(
-            type: null == type
-                ? _value.type
-                : type // ignore: cast_nullable_to_non_nullable
-                      as KycDocType,
-            filePath: null == filePath
-                ? _value.filePath
-                : filePath // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of UploadDocParams
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? filePath = null,}) {
+  return _then(UploadDocParams(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as KycDocType,filePath: null == filePath ? _self.filePath : filePath // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [UploadDocParams].
+extension UploadDocParamsPatterns on UploadDocParams {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UploadDocParams value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UploadDocParams() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UploadDocParams value)  $default,){
+final _that = this;
+switch (_that) {
+case _UploadDocParams():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UploadDocParams value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UploadDocParams() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( KycDocType type,  String filePath)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UploadDocParams() when $default != null:
+return $default(_that.type,_that.filePath);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( KycDocType type,  String filePath)  $default,) {final _that = this;
+switch (_that) {
+case _UploadDocParams():
+return $default(_that.type,_that.filePath);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( KycDocType type,  String filePath)?  $default,) {final _that = this;
+switch (_that) {
+case _UploadDocParams() when $default != null:
+return $default(_that.type,_that.filePath);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$UploadDocParamsImplCopyWith<$Res>
-    implements $UploadDocParamsCopyWith<$Res> {
-  factory _$$UploadDocParamsImplCopyWith(
-    _$UploadDocParamsImpl value,
-    $Res Function(_$UploadDocParamsImpl) then,
-  ) = __$$UploadDocParamsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({KycDocType type, String filePath});
+
+
+class _UploadDocParams implements UploadDocParams {
+  const _UploadDocParams({required this.type, required this.filePath});
+  
+
+@override final  KycDocType type;
+@override final  String filePath;
+
+/// Create a copy of UploadDocParams
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UploadDocParamsCopyWith<_UploadDocParams> get copyWith => __$UploadDocParamsCopyWithImpl<_UploadDocParams>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UploadDocParams&&(identical(other.type, type) || other.type == type)&&(identical(other.filePath, filePath) || other.filePath == filePath));
 }
 
-/// @nodoc
-class __$$UploadDocParamsImplCopyWithImpl<$Res>
-    extends _$UploadDocParamsCopyWithImpl<$Res, _$UploadDocParamsImpl>
-    implements _$$UploadDocParamsImplCopyWith<$Res> {
-  __$$UploadDocParamsImplCopyWithImpl(
-    _$UploadDocParamsImpl _value,
-    $Res Function(_$UploadDocParamsImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of UploadDocParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? type = null, Object? filePath = null}) {
-    return _then(
-      _$UploadDocParamsImpl(
-        type: null == type
-            ? _value.type
-            : type // ignore: cast_nullable_to_non_nullable
-                  as KycDocType,
-        filePath: null == filePath
-            ? _value.filePath
-            : filePath // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
+@override
+int get hashCode {
+    return Object.hash(runtimeType,type,filePath);
 }
 
-/// @nodoc
-
-class _$UploadDocParamsImpl implements _UploadDocParams {
-  const _$UploadDocParamsImpl({required this.type, required this.filePath});
-
-  @override
-  final KycDocType type;
-  @override
-  final String filePath;
-
-  @override
-  String toString() {
+@override
+String toString() {
     return 'UploadDocParams(type: $type, filePath: $filePath)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UploadDocParamsImpl &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.filePath, filePath) ||
-                other.filePath == filePath));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, type, filePath);
-
-  /// Create a copy of UploadDocParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UploadDocParamsImplCopyWith<_$UploadDocParamsImpl> get copyWith =>
-      __$$UploadDocParamsImplCopyWithImpl<_$UploadDocParamsImpl>(
-        this,
-        _$identity,
-      );
 }
 
-abstract class _UploadDocParams implements UploadDocParams {
-  const factory _UploadDocParams({
-    required final KycDocType type,
-    required final String filePath,
-  }) = _$UploadDocParamsImpl;
 
-  @override
-  KycDocType get type;
-  @override
-  String get filePath;
-
-  /// Create a copy of UploadDocParams
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UploadDocParamsImplCopyWith<_$UploadDocParamsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$UploadDocParamsCopyWith<$Res> implements $UploadDocParamsCopyWith<$Res> {
+  factory _$UploadDocParamsCopyWith(_UploadDocParams value, $Res Function(_UploadDocParams) _then) = __$UploadDocParamsCopyWithImpl;
+@override @useResult
+$Res call({
+ KycDocType type, String filePath
+});
+
+
+
+
+}
+/// @nodoc
+class __$UploadDocParamsCopyWithImpl<$Res>
+    implements _$UploadDocParamsCopyWith<$Res> {
+  __$UploadDocParamsCopyWithImpl(this._self, this._then);
+
+  final _UploadDocParams _self;
+  final $Res Function(_UploadDocParams) _then;
+
+/// Create a copy of UploadDocParams
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? filePath = null,}) {
+  return _then(_UploadDocParams(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as KycDocType,filePath: null == filePath ? _self.filePath : filePath // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

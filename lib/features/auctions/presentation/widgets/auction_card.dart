@@ -152,6 +152,32 @@ class _AuctionImage extends StatelessWidget {
               isLive: isLive,
             ),
           ),
+          // وسوم الركن المقابل: «مميّزة» للنشر بأولوية (تعديل 15)، ورقم
+          // الجلسة لو المزايدة اتعاد جدولتها (تعديل 7). الاتنين بيختفوا
+          // لو الباك مابعتش الحقول.
+          if (auction.isFeatured || auction.isRescheduled)
+            PositionedDirectional(
+              top: 11.h,
+              end: 11.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (auction.isFeatured)
+                    _CornerTag(
+                      icon: Icons.star_rounded,
+                      text: t.auctionFeatured,
+                      color: AppColors.gold,
+                    ),
+                  if (auction.isFeatured && auction.isRescheduled) Gap(6.h),
+                  if (auction.isRescheduled)
+                    _CornerTag(
+                      icon: Icons.event_repeat_rounded,
+                      text: t.sessionRound(auction.sessionRound!),
+                      color: AppColors.warning,
+                    ),
+                ],
+              ),
+            ),
           if (auction.category?.name.isNotEmpty == true)
             PositionedDirectional(
               bottom: 10.h,
@@ -166,6 +192,45 @@ class _AuctionImage extends StatelessWidget {
                 ],
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+/// وسم صغير في ركن الصورة — «مميّزة» أو «الجلسة رقم ٢».
+class _CornerTag extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final Color color;
+
+  const _CornerTag({
+    required this.icon,
+    required this.text,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(9.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 12.sp, color: AppColors.white),
+          Gap(4.w),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.white,
+            ),
+          ),
         ],
       ),
     );

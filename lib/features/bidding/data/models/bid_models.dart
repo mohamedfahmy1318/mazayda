@@ -8,7 +8,7 @@ part 'bid_models.g.dart';
 
 /// عنصر مزايدة — يطابق {amount:{...}, bidder_alias, bid_time}.
 @freezed
-class BidEntryModel with _$BidEntryModel {
+abstract class BidEntryModel with _$BidEntryModel {
   const BidEntryModel._();
 
   const factory BidEntryModel({
@@ -29,7 +29,7 @@ class BidEntryModel with _$BidEntryModel {
 
 /// لقطة السعر — يطابق ردّ /price.
 @freezed
-class PriceSnapshotModel with _$PriceSnapshotModel {
+abstract class PriceSnapshotModel with _$PriceSnapshotModel {
   const PriceSnapshotModel._();
 
   const factory PriceSnapshotModel({
@@ -42,6 +42,10 @@ class PriceSnapshotModel with _$PriceSnapshotModel {
     @JsonKey(name: 'end_time') String? endTime,
     @JsonKey(name: 'is_biddable') @Default(false) bool isBiddable,
     @JsonKey(name: 'has_ended') @Default(false) bool hasEnded,
+    // الحد الأدنى للمزايدة حسب القطاع (تعديلات 11 · 12) — بيغيب لو الباك
+    // لسه مانزّلهوش، وساعتها بنرجع لقاعدة «أي زيادة فوق السعر الحالي».
+    @JsonKey(name: 'min_bid') MoneyModel? minBid,
+    @JsonKey(name: 'min_increment_percent') dynamic minIncrementPercent,
   }) = _PriceSnapshotModel;
 
   factory PriceSnapshotModel.fromJson(Map<String, dynamic> json) =>
@@ -55,5 +59,14 @@ class PriceSnapshotModel with _$PriceSnapshotModel {
     isBiddable: isBiddable,
     hasEnded: hasEnded,
     endTime: DateTime.tryParse(endTime ?? ''),
+    minBid: minBid?.amount,
+    minBidFormatted: minBid == null
+        ? null
+        : bidiSafeNumber(minBid!.toEntity().formatted),
+    minIncrementPercent: switch (minIncrementPercent) {
+      final num n => n.toDouble(),
+      final String v => double.tryParse(v),
+      _ => null,
+    },
   );
 }

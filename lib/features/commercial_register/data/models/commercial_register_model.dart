@@ -7,7 +7,7 @@ part 'commercial_register_model.g.dart';
 /// `documents` — أعلام وجود كل مستند.
 /// ⚠️ المفتاح `tax-card` فيه **شرطة**، فالـ JsonKey إجباري هنا.
 @freezed
-class CrDocumentsModel with _$CrDocumentsModel {
+abstract class CrDocumentsModel with _$CrDocumentsModel {
   const factory CrDocumentsModel({
     @Default(false) bool register,
     @JsonKey(name: 'tax-card') @Default(false) bool taxCard,
@@ -20,7 +20,7 @@ class CrDocumentsModel with _$CrDocumentsModel {
 /// يطابق ردّ `GET /commercial-register` (12 مفتاح).
 /// ملاحظة: `start_date` بيرجع بصيغة `Y-m-d` (toDateString) مش ISO8601.
 @freezed
-class CommercialRegisterModel with _$CommercialRegisterModel {
+abstract class CommercialRegisterModel with _$CommercialRegisterModel {
   const CommercialRegisterModel._();
 
   const factory CommercialRegisterModel({

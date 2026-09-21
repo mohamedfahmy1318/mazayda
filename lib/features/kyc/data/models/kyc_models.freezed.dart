@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'kyc_models.dart';
@@ -9,741 +9,856 @@ part of 'kyc_models.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-KycStatusModel _$KycStatusModelFromJson(Map<String, dynamic> json) {
-  return _KycStatusModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$KycStatusModel {
-  String? get status =>
-      throw _privateConstructorUsedError; // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
-  @JsonKey(name: 'documents_on_file')
-  List<String> get documentsOnFile => throw _privateConstructorUsedError;
-  @JsonKey(name: 'documents')
-  Map<String, dynamic> get documents => throw _privateConstructorUsedError;
-  @JsonKey(name: 'can_submit')
-  bool get canSubmit => throw _privateConstructorUsedError;
+
+ String? get status;@JsonKey(name: 'documents_on_file') List<String> get documentsOnFile;@JsonKey(name: 'documents') Map<String, dynamic> get documents;@JsonKey(name: 'can_submit') bool get canSubmit;
+/// Create a copy of KycStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$KycStatusModelCopyWith<KycStatusModel> get copyWith => _$KycStatusModelCopyWithImpl<KycStatusModel>(this as KycStatusModel, _$identity);
 
   /// Serializes this KycStatusModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of KycStatusModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $KycStatusModelCopyWith<KycStatusModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as KycStatusModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KycStatusModel&&(identical(other.status, _this.status) || other.status == _this.status)&&const DeepCollectionEquality().equals(other.documentsOnFile, _this.documentsOnFile)&&const DeepCollectionEquality().equals(other.documents, _this.documents)&&(identical(other.canSubmit, _this.canSubmit) || other.canSubmit == _this.canSubmit));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as KycStatusModel;
+  return Object.hash(runtimeType,_this.status,const DeepCollectionEquality().hash(_this.documentsOnFile),const DeepCollectionEquality().hash(_this.documents),_this.canSubmit);
+}
+
+@override
+String toString() {
+  final _this = this as KycStatusModel;
+  return 'KycStatusModel(status: ${_this.status}, documentsOnFile: ${_this.documentsOnFile}, documents: ${_this.documents}, canSubmit: ${_this.canSubmit})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $KycStatusModelCopyWith<$Res> {
-  factory $KycStatusModelCopyWith(
-    KycStatusModel value,
-    $Res Function(KycStatusModel) then,
-  ) = _$KycStatusModelCopyWithImpl<$Res, KycStatusModel>;
-  @useResult
-  $Res call({
-    String? status,
-    @JsonKey(name: 'documents_on_file') List<String> documentsOnFile,
-    @JsonKey(name: 'documents') Map<String, dynamic> documents,
-    @JsonKey(name: 'can_submit') bool canSubmit,
-  });
-}
+abstract mixin class $KycStatusModelCopyWith<$Res>  {
+  factory $KycStatusModelCopyWith(KycStatusModel value, $Res Function(KycStatusModel) _then) = _$KycStatusModelCopyWithImpl;
+@useResult
+$Res call({
+ String? status,@JsonKey(name: 'documents_on_file') List<String> documentsOnFile,@JsonKey(name: 'documents') Map<String, dynamic> documents,@JsonKey(name: 'can_submit') bool canSubmit
+});
 
+
+
+
+}
 /// @nodoc
-class _$KycStatusModelCopyWithImpl<$Res, $Val extends KycStatusModel>
+class _$KycStatusModelCopyWithImpl<$Res>
     implements $KycStatusModelCopyWith<$Res> {
-  _$KycStatusModelCopyWithImpl(this._value, this._then);
+  _$KycStatusModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final KycStatusModel _self;
+  final $Res Function(KycStatusModel) _then;
 
-  /// Create a copy of KycStatusModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? documentsOnFile = null,
-    Object? documents = null,
-    Object? canSubmit = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            status: freezed == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            documentsOnFile: null == documentsOnFile
-                ? _value.documentsOnFile
-                : documentsOnFile // ignore: cast_nullable_to_non_nullable
-                      as List<String>,
-            documents: null == documents
-                ? _value.documents
-                : documents // ignore: cast_nullable_to_non_nullable
-                      as Map<String, dynamic>,
-            canSubmit: null == canSubmit
-                ? _value.canSubmit
-                : canSubmit // ignore: cast_nullable_to_non_nullable
-                      as bool,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of KycStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? documentsOnFile = null,Object? documents = null,Object? canSubmit = null,}) {
+  return _then(KycStatusModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,documentsOnFile: null == documentsOnFile ? _self.documentsOnFile : documentsOnFile // ignore: cast_nullable_to_non_nullable
+as List<String>,documents: null == documents ? _self.documents : documents // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,canSubmit: null == canSubmit ? _self.canSubmit : canSubmit // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-/// @nodoc
-abstract class _$$KycStatusModelImplCopyWith<$Res>
-    implements $KycStatusModelCopyWith<$Res> {
-  factory _$$KycStatusModelImplCopyWith(
-    _$KycStatusModelImpl value,
-    $Res Function(_$KycStatusModelImpl) then,
-  ) = __$$KycStatusModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String? status,
-    @JsonKey(name: 'documents_on_file') List<String> documentsOnFile,
-    @JsonKey(name: 'documents') Map<String, dynamic> documents,
-    @JsonKey(name: 'can_submit') bool canSubmit,
-  });
 }
 
-/// @nodoc
-class __$$KycStatusModelImplCopyWithImpl<$Res>
-    extends _$KycStatusModelCopyWithImpl<$Res, _$KycStatusModelImpl>
-    implements _$$KycStatusModelImplCopyWith<$Res> {
-  __$$KycStatusModelImplCopyWithImpl(
-    _$KycStatusModelImpl _value,
-    $Res Function(_$KycStatusModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of KycStatusModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? documentsOnFile = null,
-    Object? documents = null,
-    Object? canSubmit = null,
-  }) {
-    return _then(
-      _$KycStatusModelImpl(
-        status: freezed == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        documentsOnFile: null == documentsOnFile
-            ? _value._documentsOnFile
-            : documentsOnFile // ignore: cast_nullable_to_non_nullable
-                  as List<String>,
-        documents: null == documents
-            ? _value._documents
-            : documents // ignore: cast_nullable_to_non_nullable
-                  as Map<String, dynamic>,
-        canSubmit: null == canSubmit
-            ? _value.canSubmit
-            : canSubmit // ignore: cast_nullable_to_non_nullable
-                  as bool,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [KycStatusModel].
+extension KycStatusModelPatterns on KycStatusModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _KycStatusModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _KycStatusModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _KycStatusModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _KycStatusModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _KycStatusModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _KycStatusModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? status, @JsonKey(name: 'documents_on_file')  List<String> documentsOnFile, @JsonKey(name: 'documents')  Map<String, dynamic> documents, @JsonKey(name: 'can_submit')  bool canSubmit)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _KycStatusModel() when $default != null:
+return $default(_that.status,_that.documentsOnFile,_that.documents,_that.canSubmit);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? status, @JsonKey(name: 'documents_on_file')  List<String> documentsOnFile, @JsonKey(name: 'documents')  Map<String, dynamic> documents, @JsonKey(name: 'can_submit')  bool canSubmit)  $default,) {final _that = this;
+switch (_that) {
+case _KycStatusModel():
+return $default(_that.status,_that.documentsOnFile,_that.documents,_that.canSubmit);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? status, @JsonKey(name: 'documents_on_file')  List<String> documentsOnFile, @JsonKey(name: 'documents')  Map<String, dynamic> documents, @JsonKey(name: 'can_submit')  bool canSubmit)?  $default,) {final _that = this;
+switch (_that) {
+case _KycStatusModel() when $default != null:
+return $default(_that.status,_that.documentsOnFile,_that.documents,_that.canSubmit);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$KycStatusModelImpl extends _KycStatusModel {
-  const _$KycStatusModelImpl({
-    this.status,
-    @JsonKey(name: 'documents_on_file')
-    final List<String> documentsOnFile = const <String>[],
-    @JsonKey(name: 'documents')
-    final Map<String, dynamic> documents = const <String, dynamic>{},
-    @JsonKey(name: 'can_submit') this.canSubmit = false,
-  }) : _documentsOnFile = documentsOnFile,
-       _documents = documents,
-       super._();
 
-  factory _$KycStatusModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$KycStatusModelImplFromJson(json);
+class _KycStatusModel extends KycStatusModel {
+  const _KycStatusModel({this.status, @JsonKey(name: 'documents_on_file')  List<String> documentsOnFile = const <String>[], @JsonKey(name: 'documents')  Map<String, dynamic> documents = const <String, dynamic>{}, @JsonKey(name: 'can_submit') this.canSubmit = false}): _documentsOnFile = documentsOnFile,_documents = documents,super._();
+  factory _KycStatusModel.fromJson(Map<String, dynamic> json) => _$KycStatusModelFromJson(json);
 
-  @override
-  final String? status;
-  // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
-  final List<String> _documentsOnFile;
-  // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
-  @override
-  @JsonKey(name: 'documents_on_file')
-  List<String> get documentsOnFile {
-    if (_documentsOnFile is EqualUnmodifiableListView) return _documentsOnFile;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_documentsOnFile);
-  }
+@override final  String? status;
+ final  List<String> _documentsOnFile;
+@override@JsonKey(name: 'documents_on_file') List<String> get documentsOnFile {
+  if (_documentsOnFile is EqualUnmodifiableListView) return _documentsOnFile;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_documentsOnFile);
+}
 
-  final Map<String, dynamic> _documents;
-  @override
-  @JsonKey(name: 'documents')
-  Map<String, dynamic> get documents {
-    if (_documents is EqualUnmodifiableMapView) return _documents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_documents);
-  }
+ final  Map<String, dynamic> _documents;
+@override@JsonKey(name: 'documents') Map<String, dynamic> get documents {
+  if (_documents is EqualUnmodifiableMapView) return _documents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_documents);
+}
 
-  @override
-  @JsonKey(name: 'can_submit')
-  final bool canSubmit;
+@override@JsonKey(name: 'can_submit') final  bool canSubmit;
 
-  @override
-  String toString() {
+/// Create a copy of KycStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$KycStatusModelCopyWith<_KycStatusModel> get copyWith => __$KycStatusModelCopyWithImpl<_KycStatusModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$KycStatusModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KycStatusModel&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.documentsOnFile, _documentsOnFile)&&const DeepCollectionEquality().equals(other.documents, _documents)&&(identical(other.canSubmit, canSubmit) || other.canSubmit == canSubmit));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_documentsOnFile),const DeepCollectionEquality().hash(_documents),canSubmit);
+}
+
+@override
+String toString() {
     return 'KycStatusModel(status: $status, documentsOnFile: $documentsOnFile, documents: $documents, canSubmit: $canSubmit)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$KycStatusModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(
-              other._documentsOnFile,
-              _documentsOnFile,
-            ) &&
-            const DeepCollectionEquality().equals(
-              other._documents,
-              _documents,
-            ) &&
-            (identical(other.canSubmit, canSubmit) ||
-                other.canSubmit == canSubmit));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    status,
-    const DeepCollectionEquality().hash(_documentsOnFile),
-    const DeepCollectionEquality().hash(_documents),
-    canSubmit,
-  );
-
-  /// Create a copy of KycStatusModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$KycStatusModelImplCopyWith<_$KycStatusModelImpl> get copyWith =>
-      __$$KycStatusModelImplCopyWithImpl<_$KycStatusModelImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$KycStatusModelImplToJson(this);
-  }
 }
 
-abstract class _KycStatusModel extends KycStatusModel {
-  const factory _KycStatusModel({
-    final String? status,
-    @JsonKey(name: 'documents_on_file') final List<String> documentsOnFile,
-    @JsonKey(name: 'documents') final Map<String, dynamic> documents,
-    @JsonKey(name: 'can_submit') final bool canSubmit,
-  }) = _$KycStatusModelImpl;
-  const _KycStatusModel._() : super._();
 
-  factory _KycStatusModel.fromJson(Map<String, dynamic> json) =
-      _$KycStatusModelImpl.fromJson;
-
-  @override
-  String? get status; // قد يرجع الـ API المستندات كـ array قديمًا، أو كـ map {id-front: true, ...} حاليًا.
-  @override
-  @JsonKey(name: 'documents_on_file')
-  List<String> get documentsOnFile;
-  @override
-  @JsonKey(name: 'documents')
-  Map<String, dynamic> get documents;
-  @override
-  @JsonKey(name: 'can_submit')
-  bool get canSubmit;
-
-  /// Create a copy of KycStatusModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$KycStatusModelImplCopyWith<_$KycStatusModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
-WilayaModel _$WilayaModelFromJson(Map<String, dynamic> json) {
-  return _WilayaModel.fromJson(json);
+/// @nodoc
+abstract mixin class _$KycStatusModelCopyWith<$Res> implements $KycStatusModelCopyWith<$Res> {
+  factory _$KycStatusModelCopyWith(_KycStatusModel value, $Res Function(_KycStatusModel) _then) = __$KycStatusModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String? status,@JsonKey(name: 'documents_on_file') List<String> documentsOnFile,@JsonKey(name: 'documents') Map<String, dynamic> documents,@JsonKey(name: 'can_submit') bool canSubmit
+});
+
+
+
+
 }
+/// @nodoc
+class __$KycStatusModelCopyWithImpl<$Res>
+    implements _$KycStatusModelCopyWith<$Res> {
+  __$KycStatusModelCopyWithImpl(this._self, this._then);
+
+  final _KycStatusModel _self;
+  final $Res Function(_KycStatusModel) _then;
+
+/// Create a copy of KycStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? documentsOnFile = null,Object? documents = null,Object? canSubmit = null,}) {
+  return _then(_KycStatusModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,documentsOnFile: null == documentsOnFile ? _self._documentsOnFile : documentsOnFile // ignore: cast_nullable_to_non_nullable
+as List<String>,documents: null == documents ? _self._documents : documents // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,canSubmit: null == canSubmit ? _self.canSubmit : canSubmit // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$WilayaModel {
-  int get id => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_ar')
-  String? get nameAr => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_fr')
-  String? get nameFr => throw _privateConstructorUsedError;
+
+ int get id; String get code;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_fr') String? get nameFr;
+/// Create a copy of WilayaModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WilayaModelCopyWith<WilayaModel> get copyWith => _$WilayaModelCopyWithImpl<WilayaModel>(this as WilayaModel, _$identity);
 
   /// Serializes this WilayaModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of WilayaModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $WilayaModelCopyWith<WilayaModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as WilayaModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WilayaModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.nameAr, _this.nameAr) || other.nameAr == _this.nameAr)&&(identical(other.nameFr, _this.nameFr) || other.nameFr == _this.nameFr));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as WilayaModel;
+  return Object.hash(runtimeType,_this.id,_this.code,_this.nameAr,_this.nameFr);
+}
+
+@override
+String toString() {
+  final _this = this as WilayaModel;
+  return 'WilayaModel(id: ${_this.id}, code: ${_this.code}, nameAr: ${_this.nameAr}, nameFr: ${_this.nameFr})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $WilayaModelCopyWith<$Res> {
-  factory $WilayaModelCopyWith(
-    WilayaModel value,
-    $Res Function(WilayaModel) then,
-  ) = _$WilayaModelCopyWithImpl<$Res, WilayaModel>;
-  @useResult
-  $Res call({
-    int id,
-    String code,
-    @JsonKey(name: 'name_ar') String? nameAr,
-    @JsonKey(name: 'name_fr') String? nameFr,
-  });
-}
+abstract mixin class $WilayaModelCopyWith<$Res>  {
+  factory $WilayaModelCopyWith(WilayaModel value, $Res Function(WilayaModel) _then) = _$WilayaModelCopyWithImpl;
+@useResult
+$Res call({
+ int id, String code,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_fr') String? nameFr
+});
 
+
+
+
+}
 /// @nodoc
-class _$WilayaModelCopyWithImpl<$Res, $Val extends WilayaModel>
+class _$WilayaModelCopyWithImpl<$Res>
     implements $WilayaModelCopyWith<$Res> {
-  _$WilayaModelCopyWithImpl(this._value, this._then);
+  _$WilayaModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final WilayaModel _self;
+  final $Res Function(WilayaModel) _then;
 
-  /// Create a copy of WilayaModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? code = null,
-    Object? nameAr = freezed,
-    Object? nameFr = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            code: null == code
-                ? _value.code
-                : code // ignore: cast_nullable_to_non_nullable
-                      as String,
-            nameAr: freezed == nameAr
-                ? _value.nameAr
-                : nameAr // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            nameFr: freezed == nameFr
-                ? _value.nameFr
-                : nameFr // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of WilayaModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? code = null,Object? nameAr = freezed,Object? nameFr = freezed,}) {
+  return _then(WilayaModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameFr: freezed == nameFr ? _self.nameFr : nameFr // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$WilayaModelImplCopyWith<$Res>
-    implements $WilayaModelCopyWith<$Res> {
-  factory _$$WilayaModelImplCopyWith(
-    _$WilayaModelImpl value,
-    $Res Function(_$WilayaModelImpl) then,
-  ) = __$$WilayaModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    int id,
-    String code,
-    @JsonKey(name: 'name_ar') String? nameAr,
-    @JsonKey(name: 'name_fr') String? nameFr,
-  });
 }
 
-/// @nodoc
-class __$$WilayaModelImplCopyWithImpl<$Res>
-    extends _$WilayaModelCopyWithImpl<$Res, _$WilayaModelImpl>
-    implements _$$WilayaModelImplCopyWith<$Res> {
-  __$$WilayaModelImplCopyWithImpl(
-    _$WilayaModelImpl _value,
-    $Res Function(_$WilayaModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of WilayaModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? code = null,
-    Object? nameAr = freezed,
-    Object? nameFr = freezed,
-  }) {
-    return _then(
-      _$WilayaModelImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        code: null == code
-            ? _value.code
-            : code // ignore: cast_nullable_to_non_nullable
-                  as String,
-        nameAr: freezed == nameAr
-            ? _value.nameAr
-            : nameAr // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        nameFr: freezed == nameFr
-            ? _value.nameFr
-            : nameFr // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [WilayaModel].
+extension WilayaModelPatterns on WilayaModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WilayaModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WilayaModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WilayaModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _WilayaModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WilayaModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WilayaModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String code, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WilayaModel() when $default != null:
+return $default(_that.id,_that.code,_that.nameAr,_that.nameFr);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String code, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr)  $default,) {final _that = this;
+switch (_that) {
+case _WilayaModel():
+return $default(_that.id,_that.code,_that.nameAr,_that.nameFr);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String code, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr)?  $default,) {final _that = this;
+switch (_that) {
+case _WilayaModel() when $default != null:
+return $default(_that.id,_that.code,_that.nameAr,_that.nameFr);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WilayaModelImpl extends _WilayaModel {
-  const _$WilayaModelImpl({
-    required this.id,
-    this.code = '',
-    @JsonKey(name: 'name_ar') this.nameAr,
-    @JsonKey(name: 'name_fr') this.nameFr,
-  }) : super._();
 
-  factory _$WilayaModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WilayaModelImplFromJson(json);
+class _WilayaModel extends WilayaModel {
+  const _WilayaModel({required this.id, this.code = '', @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_fr') this.nameFr}): super._();
+  factory _WilayaModel.fromJson(Map<String, dynamic> json) => _$WilayaModelFromJson(json);
 
-  @override
-  final int id;
-  @override
-  @JsonKey()
-  final String code;
-  @override
-  @JsonKey(name: 'name_ar')
-  final String? nameAr;
-  @override
-  @JsonKey(name: 'name_fr')
-  final String? nameFr;
+@override final  int id;
+@override@JsonKey() final  String code;
+@override@JsonKey(name: 'name_ar') final  String? nameAr;
+@override@JsonKey(name: 'name_fr') final  String? nameFr;
 
-  @override
-  String toString() {
+/// Create a copy of WilayaModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WilayaModelCopyWith<_WilayaModel> get copyWith => __$WilayaModelCopyWithImpl<_WilayaModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WilayaModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WilayaModel&&(identical(other.id, id) || other.id == id)&&(identical(other.code, code) || other.code == code)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameFr, nameFr) || other.nameFr == nameFr));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,id,code,nameAr,nameFr);
+}
+
+@override
+String toString() {
     return 'WilayaModel(id: $id, code: $code, nameAr: $nameAr, nameFr: $nameFr)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WilayaModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.nameAr, nameAr) || other.nameAr == nameAr) &&
-            (identical(other.nameFr, nameFr) || other.nameFr == nameFr));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, code, nameAr, nameFr);
-
-  /// Create a copy of WilayaModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WilayaModelImplCopyWith<_$WilayaModelImpl> get copyWith =>
-      __$$WilayaModelImplCopyWithImpl<_$WilayaModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WilayaModelImplToJson(this);
-  }
 }
 
-abstract class _WilayaModel extends WilayaModel {
-  const factory _WilayaModel({
-    required final int id,
-    final String code,
-    @JsonKey(name: 'name_ar') final String? nameAr,
-    @JsonKey(name: 'name_fr') final String? nameFr,
-  }) = _$WilayaModelImpl;
-  const _WilayaModel._() : super._();
 
-  factory _WilayaModel.fromJson(Map<String, dynamic> json) =
-      _$WilayaModelImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  String get code;
-  @override
-  @JsonKey(name: 'name_ar')
-  String? get nameAr;
-  @override
-  @JsonKey(name: 'name_fr')
-  String? get nameFr;
-
-  /// Create a copy of WilayaModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WilayaModelImplCopyWith<_$WilayaModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
-CommuneModel _$CommuneModelFromJson(Map<String, dynamic> json) {
-  return _CommuneModel.fromJson(json);
+/// @nodoc
+abstract mixin class _$WilayaModelCopyWith<$Res> implements $WilayaModelCopyWith<$Res> {
+  factory _$WilayaModelCopyWith(_WilayaModel value, $Res Function(_WilayaModel) _then) = __$WilayaModelCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String code,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_fr') String? nameFr
+});
+
+
+
+
 }
+/// @nodoc
+class __$WilayaModelCopyWithImpl<$Res>
+    implements _$WilayaModelCopyWith<$Res> {
+  __$WilayaModelCopyWithImpl(this._self, this._then);
+
+  final _WilayaModel _self;
+  final $Res Function(_WilayaModel) _then;
+
+/// Create a copy of WilayaModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? code = null,Object? nameAr = freezed,Object? nameFr = freezed,}) {
+  return _then(_WilayaModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameFr: freezed == nameFr ? _self.nameFr : nameFr // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$CommuneModel {
-  int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_ar')
-  String? get nameAr => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name_fr')
-  String? get nameFr => throw _privateConstructorUsedError;
-  @JsonKey(name: 'postal_code')
-  String? get postalCode => throw _privateConstructorUsedError;
+
+ int get id;@JsonKey(name: 'name_ar') String? get nameAr;@JsonKey(name: 'name_fr') String? get nameFr;@JsonKey(name: 'postal_code') String? get postalCode;
+/// Create a copy of CommuneModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CommuneModelCopyWith<CommuneModel> get copyWith => _$CommuneModelCopyWithImpl<CommuneModel>(this as CommuneModel, _$identity);
 
   /// Serializes this CommuneModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of CommuneModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CommuneModelCopyWith<CommuneModel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  final _this = this as CommuneModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CommuneModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.nameAr, _this.nameAr) || other.nameAr == _this.nameAr)&&(identical(other.nameFr, _this.nameFr) || other.nameFr == _this.nameFr)&&(identical(other.postalCode, _this.postalCode) || other.postalCode == _this.postalCode));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+  final _this = this as CommuneModel;
+  return Object.hash(runtimeType,_this.id,_this.nameAr,_this.nameFr,_this.postalCode);
+}
+
+@override
+String toString() {
+  final _this = this as CommuneModel;
+  return 'CommuneModel(id: ${_this.id}, nameAr: ${_this.nameAr}, nameFr: ${_this.nameFr}, postalCode: ${_this.postalCode})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CommuneModelCopyWith<$Res> {
-  factory $CommuneModelCopyWith(
-    CommuneModel value,
-    $Res Function(CommuneModel) then,
-  ) = _$CommuneModelCopyWithImpl<$Res, CommuneModel>;
-  @useResult
-  $Res call({
-    int id,
-    @JsonKey(name: 'name_ar') String? nameAr,
-    @JsonKey(name: 'name_fr') String? nameFr,
-    @JsonKey(name: 'postal_code') String? postalCode,
-  });
-}
+abstract mixin class $CommuneModelCopyWith<$Res>  {
+  factory $CommuneModelCopyWith(CommuneModel value, $Res Function(CommuneModel) _then) = _$CommuneModelCopyWithImpl;
+@useResult
+$Res call({
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_fr') String? nameFr,@JsonKey(name: 'postal_code') String? postalCode
+});
 
+
+
+
+}
 /// @nodoc
-class _$CommuneModelCopyWithImpl<$Res, $Val extends CommuneModel>
+class _$CommuneModelCopyWithImpl<$Res>
     implements $CommuneModelCopyWith<$Res> {
-  _$CommuneModelCopyWithImpl(this._value, this._then);
+  _$CommuneModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CommuneModel _self;
+  final $Res Function(CommuneModel) _then;
 
-  /// Create a copy of CommuneModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? nameAr = freezed,
-    Object? nameFr = freezed,
-    Object? postalCode = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            nameAr: freezed == nameAr
-                ? _value.nameAr
-                : nameAr // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            nameFr: freezed == nameFr
-                ? _value.nameFr
-                : nameFr // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            postalCode: freezed == postalCode
-                ? _value.postalCode
-                : postalCode // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of CommuneModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nameAr = freezed,Object? nameFr = freezed,Object? postalCode = freezed,}) {
+  return _then(CommuneModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameFr: freezed == nameFr ? _self.nameFr : nameFr // ignore: cast_nullable_to_non_nullable
+as String?,postalCode: freezed == postalCode ? _self.postalCode : postalCode // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$CommuneModelImplCopyWith<$Res>
-    implements $CommuneModelCopyWith<$Res> {
-  factory _$$CommuneModelImplCopyWith(
-    _$CommuneModelImpl value,
-    $Res Function(_$CommuneModelImpl) then,
-  ) = __$$CommuneModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    int id,
-    @JsonKey(name: 'name_ar') String? nameAr,
-    @JsonKey(name: 'name_fr') String? nameFr,
-    @JsonKey(name: 'postal_code') String? postalCode,
-  });
 }
 
-/// @nodoc
-class __$$CommuneModelImplCopyWithImpl<$Res>
-    extends _$CommuneModelCopyWithImpl<$Res, _$CommuneModelImpl>
-    implements _$$CommuneModelImplCopyWith<$Res> {
-  __$$CommuneModelImplCopyWithImpl(
-    _$CommuneModelImpl _value,
-    $Res Function(_$CommuneModelImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of CommuneModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? nameAr = freezed,
-    Object? nameFr = freezed,
-    Object? postalCode = freezed,
-  }) {
-    return _then(
-      _$CommuneModelImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        nameAr: freezed == nameAr
-            ? _value.nameAr
-            : nameAr // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        nameFr: freezed == nameFr
-            ? _value.nameFr
-            : nameFr // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        postalCode: freezed == postalCode
-            ? _value.postalCode
-            : postalCode // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [CommuneModel].
+extension CommuneModelPatterns on CommuneModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CommuneModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CommuneModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CommuneModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _CommuneModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CommuneModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CommuneModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr, @JsonKey(name: 'postal_code')  String? postalCode)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CommuneModel() when $default != null:
+return $default(_that.id,_that.nameAr,_that.nameFr,_that.postalCode);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr, @JsonKey(name: 'postal_code')  String? postalCode)  $default,) {final _that = this;
+switch (_that) {
+case _CommuneModel():
+return $default(_that.id,_that.nameAr,_that.nameFr,_that.postalCode);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'name_ar')  String? nameAr, @JsonKey(name: 'name_fr')  String? nameFr, @JsonKey(name: 'postal_code')  String? postalCode)?  $default,) {final _that = this;
+switch (_that) {
+case _CommuneModel() when $default != null:
+return $default(_that.id,_that.nameAr,_that.nameFr,_that.postalCode);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CommuneModelImpl extends _CommuneModel {
-  const _$CommuneModelImpl({
-    required this.id,
-    @JsonKey(name: 'name_ar') this.nameAr,
-    @JsonKey(name: 'name_fr') this.nameFr,
-    @JsonKey(name: 'postal_code') this.postalCode,
-  }) : super._();
 
-  factory _$CommuneModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CommuneModelImplFromJson(json);
+class _CommuneModel extends CommuneModel {
+  const _CommuneModel({required this.id, @JsonKey(name: 'name_ar') this.nameAr, @JsonKey(name: 'name_fr') this.nameFr, @JsonKey(name: 'postal_code') this.postalCode}): super._();
+  factory _CommuneModel.fromJson(Map<String, dynamic> json) => _$CommuneModelFromJson(json);
 
-  @override
-  final int id;
-  @override
-  @JsonKey(name: 'name_ar')
-  final String? nameAr;
-  @override
-  @JsonKey(name: 'name_fr')
-  final String? nameFr;
-  @override
-  @JsonKey(name: 'postal_code')
-  final String? postalCode;
+@override final  int id;
+@override@JsonKey(name: 'name_ar') final  String? nameAr;
+@override@JsonKey(name: 'name_fr') final  String? nameFr;
+@override@JsonKey(name: 'postal_code') final  String? postalCode;
 
-  @override
-  String toString() {
+/// Create a copy of CommuneModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CommuneModelCopyWith<_CommuneModel> get copyWith => __$CommuneModelCopyWithImpl<_CommuneModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CommuneModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CommuneModel&&(identical(other.id, id) || other.id == id)&&(identical(other.nameAr, nameAr) || other.nameAr == nameAr)&&(identical(other.nameFr, nameFr) || other.nameFr == nameFr)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode {
+    return Object.hash(runtimeType,id,nameAr,nameFr,postalCode);
+}
+
+@override
+String toString() {
     return 'CommuneModel(id: $id, nameAr: $nameAr, nameFr: $nameFr, postalCode: $postalCode)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CommuneModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.nameAr, nameAr) || other.nameAr == nameAr) &&
-            (identical(other.nameFr, nameFr) || other.nameFr == nameFr) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, nameAr, nameFr, postalCode);
-
-  /// Create a copy of CommuneModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CommuneModelImplCopyWith<_$CommuneModelImpl> get copyWith =>
-      __$$CommuneModelImplCopyWithImpl<_$CommuneModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CommuneModelImplToJson(this);
-  }
 }
 
-abstract class _CommuneModel extends CommuneModel {
-  const factory _CommuneModel({
-    required final int id,
-    @JsonKey(name: 'name_ar') final String? nameAr,
-    @JsonKey(name: 'name_fr') final String? nameFr,
-    @JsonKey(name: 'postal_code') final String? postalCode,
-  }) = _$CommuneModelImpl;
-  const _CommuneModel._() : super._();
 
-  factory _CommuneModel.fromJson(Map<String, dynamic> json) =
-      _$CommuneModelImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  @JsonKey(name: 'name_ar')
-  String? get nameAr;
-  @override
-  @JsonKey(name: 'name_fr')
-  String? get nameFr;
-  @override
-  @JsonKey(name: 'postal_code')
-  String? get postalCode;
-
-  /// Create a copy of CommuneModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CommuneModelImplCopyWith<_$CommuneModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$CommuneModelCopyWith<$Res> implements $CommuneModelCopyWith<$Res> {
+  factory _$CommuneModelCopyWith(_CommuneModel value, $Res Function(_CommuneModel) _then) = __$CommuneModelCopyWithImpl;
+@override @useResult
+$Res call({
+ int id,@JsonKey(name: 'name_ar') String? nameAr,@JsonKey(name: 'name_fr') String? nameFr,@JsonKey(name: 'postal_code') String? postalCode
+});
+
+
+
+
+}
+/// @nodoc
+class __$CommuneModelCopyWithImpl<$Res>
+    implements _$CommuneModelCopyWith<$Res> {
+  __$CommuneModelCopyWithImpl(this._self, this._then);
+
+  final _CommuneModel _self;
+  final $Res Function(_CommuneModel) _then;
+
+/// Create a copy of CommuneModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nameAr = freezed,Object? nameFr = freezed,Object? postalCode = freezed,}) {
+  return _then(_CommuneModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,nameAr: freezed == nameAr ? _self.nameAr : nameAr // ignore: cast_nullable_to_non_nullable
+as String?,nameFr: freezed == nameFr ? _self.nameFr : nameFr // ignore: cast_nullable_to_non_nullable
+as String?,postalCode: freezed == postalCode ? _self.postalCode : postalCode // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -56,7 +56,7 @@ class DownloadDocument implements UseCase<String, DownloadDocumentParams> {
 }
 
 @freezed
-class DownloadDocumentParams with _$DownloadDocumentParams {
+abstract class DownloadDocumentParams with _$DownloadDocumentParams {
   const factory DownloadDocumentParams({
     required String id,
     required String title,
@@ -64,7 +64,7 @@ class DownloadDocumentParams with _$DownloadDocumentParams {
 }
 
 @freezed
-class GetDocumentsParams with _$GetDocumentsParams {
+abstract class GetDocumentsParams with _$GetDocumentsParams {
   const factory GetDocumentsParams({
     @Default(DocumentFilters()) DocumentFilters filters,
     @Default(1) int page,

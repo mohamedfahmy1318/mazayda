@@ -26,7 +26,7 @@ class UpdateProfile implements UseCase<Profile, UpdateProfileParams> {
 }
 
 @freezed
-class UpdateProfileParams with _$UpdateProfileParams {
+abstract class UpdateProfileParams with _$UpdateProfileParams {
   const factory UpdateProfileParams({
     String? phone,
     String? email,

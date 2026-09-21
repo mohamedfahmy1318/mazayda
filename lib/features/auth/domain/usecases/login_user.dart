@@ -24,7 +24,7 @@ class LoginUser implements UseCase<LoginResult, LoginParams> {
 }
 
 @freezed
-class LoginParams with _$LoginParams {
+abstract class LoginParams with _$LoginParams {
   const factory LoginParams({
     required String ninOrEmail,
     required String password,

@@ -6,16 +6,16 @@
 /// وبعض أسباب الرفض دي **مش أعطال**: معناها إن الخطوة متعمّلة بالفعل
 /// والمفروض نكمّل للي بعدها بدل ما نوقف المستخدم.
 enum PaymentRejectionCode {
-  /// اشترى الكراسة بالفعل → كمّل للتسجيل.
+  /// اشترى دفتر الشروط بالفعل → كمّل للتسجيل.
   alreadyBoughtBook,
 
-  /// الكراسة مجانية → كمّل للتسجيل.
+  /// دفتر الشروط مجاني → كمّل للتسجيل.
   bookFree,
 
   /// مسجّل بالفعل → يقدر يزايد.
   alreadyRegistered,
 
-  /// لازم يشتري الكراسة الأول → ارجع لخطوة الكراسة.
+  /// لازم يشتري دفتر الشروط الأول → ارجع لخطوة الدفتر.
   mustPurchaseBook,
 
   /// غير مؤهّل → وجّه للتوثيق.
@@ -66,10 +66,16 @@ class PaymentRejection {
   PaymentRejection._();
 
   /// `payments.already_bought_book` + `payments.book_free`
+  ///
+  /// المصطلح العربي اتغيّر من «كراسة الشروط» لـ«دفتر الشروط» (تعديل العميل
+  /// رقم 20)، فالصيغتين موجودتين هنا: القديمة لحد ما الباك ينزّل التغيير،
+  /// والجديدة بعده. الشبكة دي fallback أصلًا — الـ `code` هو المرجع.
   static const _bookStepSatisfied = <String>{
+    'لقد اشتريت دفتر الشروط بالفعل.',
     'لقد اشتريت كراسة الشروط بالفعل.',
     'Vous avez déjà acheté le cahier des charges.',
     'You have already bought the condition book.',
+    'دفتر الشروط متاح مجاناً لهذه المزايدة.',
     'كراسة الشروط متاحة مجاناً لهذه المزايدة.',
     'Le cahier des charges est gratuit pour cette enchère.',
     'The condition book is free for this auction.',
@@ -84,7 +90,7 @@ class PaymentRejection {
 
   static String _norm(String? m) => (m ?? '').trim();
 
-  /// خطوة شراء الكراسة متحقّقة بالفعل → نكمّل للتسجيل.
+  /// خطوة شراء دفتر الشروط متحقّقة بالفعل → نكمّل للتسجيل.
   static bool isBookStepSatisfied(String? message, {String? code}) {
     final parsed = PaymentRejectionCodeX.fromApi(code);
     if (parsed != PaymentRejectionCode.unknown) {

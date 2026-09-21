@@ -12,7 +12,7 @@ import '../../domain/usecases/documents_usecases.dart';
 part 'documents_cubit.freezed.dart';
 
 @freezed
-class DocumentsState with _$DocumentsState {
+abstract class DocumentsState with _$DocumentsState {
   const DocumentsState._();
 
   const factory DocumentsState({

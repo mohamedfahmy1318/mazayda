@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/exceptions_mapper.dart';
 import '../../../../core/errors/failures.dart';
+import '../../../../core/session/account_cache.dart';
 import '../../domain/entities/profile.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/profile_remote_data_source.dart';
@@ -10,11 +11,18 @@ import '../datasources/profile_remote_data_source.dart';
 @LazySingleton(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remote;
-  ProfileRepositoryImpl(this.remote);
+  final AccountCache accountCache;
+  ProfileRepositoryImpl(this.remote, this.accountCache);
 
   @override
   Future<Either<Failure, Profile>> getProfile() {
-    return _guard(() async => (await remote.getProfile()).toEntity());
+    return _guard(() async {
+      final profile = (await remote.getProfile()).toEntity();
+      // المكان الوحيد اللي `Profile` بيتبني فيه من الشبكة — فهو المكان
+      // الطبيعي لتسخين كاش الأعلام اللي الواجهات التانية بتقراه.
+      await accountCache.save(role: profile.role, isPremium: profile.isPremium);
+      return profile;
+    });
   }
 
   @override

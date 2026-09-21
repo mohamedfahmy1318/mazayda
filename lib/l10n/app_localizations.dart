@@ -1069,7 +1069,7 @@ abstract class AppLocalizations {
   /// No description provided for @paymentBookNotConfirmed.
   ///
   /// In ar, this message translates to:
-  /// **'لم يصلنا تأكيد شراء كراسة الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.'**
+  /// **'لم يصلنا تأكيد شراء دفتر الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.'**
   String get paymentBookNotConfirmed;
 
   /// No description provided for @securePayment.
@@ -1279,7 +1279,7 @@ abstract class AppLocalizations {
   /// No description provided for @ctaBuyBook.
   ///
   /// In ar, this message translates to:
-  /// **'شراء كراس الشروط'**
+  /// **'شراء دفتر الشروط'**
   String get ctaBuyBook;
 
   /// No description provided for @ctaFinalPayment.
@@ -1675,7 +1675,7 @@ abstract class AppLocalizations {
   /// No description provided for @adBookPrice.
   ///
   /// In ar, this message translates to:
-  /// **'كراسة شروط'**
+  /// **'دفتر شروط'**
   String get adBookPrice;
 
   /// No description provided for @adAssetInfo.
@@ -1921,7 +1921,7 @@ abstract class AppLocalizations {
   /// No description provided for @docsBooks.
   ///
   /// In ar, this message translates to:
-  /// **'كراسات'**
+  /// **'دفاتر'**
   String get docsBooks;
 
   /// No description provided for @docsAwards.
@@ -1987,7 +1987,7 @@ abstract class AppLocalizations {
   /// No description provided for @docTypeConditionBook.
   ///
   /// In ar, this message translates to:
-  /// **'كراسة الشروط'**
+  /// **'دفتر الشروط'**
   String get docTypeConditionBook;
 
   /// No description provided for @docTypeAward.
@@ -2277,6 +2277,564 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'أُغلق باب المزايدة'**
   String get biddingClosed;
+
+  /// No description provided for @ackTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التسجيل في المزاد'**
+  String get ackTitle;
+
+  /// No description provided for @ackSubtitleHasBook.
+  ///
+  /// In ar, this message translates to:
+  /// **'أقرّ بشروط المشاركة لبدء التسجيل عبر بوابة الدفع الآمنة'**
+  String get ackSubtitleHasBook;
+
+  /// No description provided for @ackSubtitleNeedsBook.
+  ///
+  /// In ar, this message translates to:
+  /// **'شراء دفتر الشروط شرط للتسجيل — ستُفتح بوابتا دفع متتاليتان: الدفتر ثم التسجيل'**
+  String get ackSubtitleNeedsBook;
+
+  /// No description provided for @ackDepositRow.
+  ///
+  /// In ar, this message translates to:
+  /// **'الكفالة (قابلة للاسترداد)'**
+  String get ackDepositRow;
+
+  /// No description provided for @ackBookRow.
+  ///
+  /// In ar, this message translates to:
+  /// **'دفتر الشروط (غير مسترد)'**
+  String get ackBookRow;
+
+  /// No description provided for @ackAgree.
+  ///
+  /// In ar, this message translates to:
+  /// **'أقرّ بأنني قرأت دفتر الشروط وأوافق على شروط المشاركة'**
+  String get ackAgree;
+
+  /// No description provided for @ackContinue.
+  ///
+  /// In ar, this message translates to:
+  /// **'المتابعة للدفع'**
+  String get ackContinue;
+
+  /// No description provided for @ackGatewayNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيتم فتح بوابة الدفع الآمنة (CIBWeb)'**
+  String get ackGatewayNote;
+
+  /// No description provided for @minBidSectorHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحد الأدنى للمزايدة {amount} (نسبة القطاع {percent}٪)'**
+  String minBidSectorHint(String amount, String percent);
+
+  /// No description provided for @bidBelowSectorMinimum.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يمكن تقديم عرض أقل من {amount} — نسبة الزيادة المحددة لهذا القطاع {percent}٪'**
+  String bidBelowSectorMinimum(String amount, String percent);
+
+  /// No description provided for @adSession.
+  ///
+  /// In ar, this message translates to:
+  /// **'جلسة المزايدة'**
+  String get adSession;
+
+  /// No description provided for @adSessionNumber.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الجلسة'**
+  String get adSessionNumber;
+
+  /// No description provided for @sessionRound.
+  ///
+  /// In ar, this message translates to:
+  /// **'الجلسة رقم {round}'**
+  String sessionRound(int round);
+
+  /// No description provided for @adSessionCode.
+  ///
+  /// In ar, this message translates to:
+  /// **'المرجع'**
+  String get adSessionCode;
+
+  /// No description provided for @adRescheduleCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرات إعادة الجدولة'**
+  String get adRescheduleCount;
+
+  /// No description provided for @adReduction.
+  ///
+  /// In ar, this message translates to:
+  /// **'الخفض المطبّق على السعر الافتتاحي'**
+  String get adReduction;
+
+  /// No description provided for @percentValue.
+  ///
+  /// In ar, this message translates to:
+  /// **'{percent}٪'**
+  String percentValue(String percent);
+
+  /// No description provided for @adOriginalOpeningPrice.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر الافتتاحي الأصلي'**
+  String get adOriginalOpeningPrice;
+
+  /// No description provided for @adSessionHistory.
+  ///
+  /// In ar, this message translates to:
+  /// **'سجل الجلسات السابقة'**
+  String get adSessionHistory;
+
+  /// No description provided for @adSector.
+  ///
+  /// In ar, this message translates to:
+  /// **'القطاع'**
+  String get adSector;
+
+  /// No description provided for @adSectorIncrement.
+  ///
+  /// In ar, this message translates to:
+  /// **'أقل نسبة زيادة للقطاع'**
+  String get adSectorIncrement;
+
+  /// No description provided for @adMinBid.
+  ///
+  /// In ar, this message translates to:
+  /// **'أقل مزايدة مقبولة'**
+  String get adMinBid;
+
+  /// No description provided for @auctionFeatured.
+  ///
+  /// In ar, this message translates to:
+  /// **'مميّزة'**
+  String get auctionFeatured;
+
+  /// No description provided for @sessionRescheduledBanner.
+  ///
+  /// In ar, this message translates to:
+  /// **'أُعيدت جدولة هذه المزايدة {count, plural, =1{مرة واحدة} =2{مرتين} other{{count} مرات}} — السعر الافتتاحي الحالي بعد الخفض'**
+  String sessionRescheduledBanner(int count);
+
+  /// No description provided for @lostEmailLink.
+  ///
+  /// In ar, this message translates to:
+  /// **'فقدت بريدك الإلكتروني؟'**
+  String get lostEmailLink;
+
+  /// No description provided for @lostEmailTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'استرجاع البريد الإلكتروني'**
+  String get lostEmailTitle;
+
+  /// No description provided for @lostEmailHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'إن فقدت الوصول إلى بريدك الإلكتروني، أدخل بياناتك وأرفق صورة سيلفي وأنت تحمل بطاقة الهوية. تراجع الجهة المختصة الطلب وتعتمد البريد الجديد.'**
+  String get lostEmailHint;
+
+  /// No description provided for @lostEmailNewEmail.
+  ///
+  /// In ar, this message translates to:
+  /// **'البريد الإلكتروني الجديد'**
+  String get lostEmailNewEmail;
+
+  /// No description provided for @lostEmailSelfie.
+  ///
+  /// In ar, this message translates to:
+  /// **'صورة سيلفي مع بطاقة الهوية'**
+  String get lostEmailSelfie;
+
+  /// No description provided for @lostEmailSelfieHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'أمسك بطاقة الهوية بجوار وجهك، واحرص على وضوح الصورة والبيانات'**
+  String get lostEmailSelfieHint;
+
+  /// No description provided for @lostEmailRetake.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة التقاط الصورة'**
+  String get lostEmailRetake;
+
+  /// No description provided for @lostEmailSubmit.
+  ///
+  /// In ar, this message translates to:
+  /// **'إرسال الطلب للمراجعة'**
+  String get lostEmailSubmit;
+
+  /// No description provided for @lostEmailSubmittedTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إرسال طلبك'**
+  String get lostEmailSubmittedTitle;
+
+  /// No description provided for @lostEmailSubmittedBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'طلبك قيد المراجعة لدى الجهة المختصة. ستتمكن من تسجيل الدخول بالبريد الجديد فور اعتماده.'**
+  String get lostEmailSubmittedBody;
+
+  /// No description provided for @lostEmailApprovedBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم اعتماد بريدك الجديد. يمكنك الآن تسجيل الدخول به.'**
+  String get lostEmailApprovedBody;
+
+  /// No description provided for @lostEmailRejectedBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم رفض الطلب. راجع السبب أدناه وأعد الإرسال بعد تصحيح البيانات.'**
+  String get lostEmailRejectedBody;
+
+  /// No description provided for @lostEmailRejectionReason.
+  ///
+  /// In ar, this message translates to:
+  /// **'سبب الرفض'**
+  String get lostEmailRejectionReason;
+
+  /// No description provided for @lostEmailRefreshStatus.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديث الحالة'**
+  String get lostEmailRefreshStatus;
+
+  /// No description provided for @lostEmailResubmit.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل الطلب وإعادة الإرسال'**
+  String get lostEmailResubmit;
+
+  /// No description provided for @lostEmailRequestRef.
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الطلب'**
+  String get lostEmailRequestRef;
+
+  /// No description provided for @lostEmailSubmittedAt.
+  ///
+  /// In ar, this message translates to:
+  /// **'تاريخ التقديم'**
+  String get lostEmailSubmittedAt;
+
+  /// No description provided for @lostEmailSelfieRequired.
+  ///
+  /// In ar, this message translates to:
+  /// **'صورة السيلفي مع بطاقة الهوية مطلوبة'**
+  String get lostEmailSelfieRequired;
+
+  /// No description provided for @lostEmailImageTooLarge.
+  ///
+  /// In ar, this message translates to:
+  /// **'حجم الصورة يتجاوز {max} كيلوبايت — التقط صورة أصغر'**
+  String lostEmailImageTooLarge(int max);
+
+  /// No description provided for @docTypeParticipationReceipt.
+  ///
+  /// In ar, this message translates to:
+  /// **'وصل المشاركة'**
+  String get docTypeParticipationReceipt;
+
+  /// No description provided for @docTypeAuctionResult.
+  ///
+  /// In ar, this message translates to:
+  /// **'وصل نتيجة المزايدة'**
+  String get docTypeAuctionResult;
+
+  /// No description provided for @adDocuments.
+  ///
+  /// In ar, this message translates to:
+  /// **'وثائق المزايدة'**
+  String get adDocuments;
+
+  /// No description provided for @adDownloadParticipationReceipt.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحميل وصل المشاركة'**
+  String get adDownloadParticipationReceipt;
+
+  /// No description provided for @adDownloadResult.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحميل وصل النتيجة'**
+  String get adDownloadResult;
+
+  /// No description provided for @adDownloadConditionBook.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحميل دفتر الشروط'**
+  String get adDownloadConditionBook;
+
+  /// No description provided for @adReceiptHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'يمكنك طباعة الوصل أو حفظه بعد التحميل'**
+  String get adReceiptHint;
+
+  /// No description provided for @premiumTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'العضوية المميّزة'**
+  String get premiumTitle;
+
+  /// No description provided for @premiumTagline.
+  ///
+  /// In ar, this message translates to:
+  /// **'اعرف بالمزايدات الجديدة قبل غيرك'**
+  String get premiumTagline;
+
+  /// No description provided for @premiumActive.
+  ///
+  /// In ar, this message translates to:
+  /// **'اشتراكك فعّال'**
+  String get premiumActive;
+
+  /// No description provided for @premiumInactive.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يوجد اشتراك فعّال'**
+  String get premiumInactive;
+
+  /// No description provided for @premiumPlanLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقة'**
+  String get premiumPlanLabel;
+
+  /// No description provided for @premiumStatus.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحالة'**
+  String get premiumStatus;
+
+  /// No description provided for @premiumStartedAt.
+  ///
+  /// In ar, this message translates to:
+  /// **'تاريخ البداية'**
+  String get premiumStartedAt;
+
+  /// No description provided for @premiumExpiresAt.
+  ///
+  /// In ar, this message translates to:
+  /// **'تاريخ الانتهاء'**
+  String get premiumExpiresAt;
+
+  /// No description provided for @premiumAutoRenew.
+  ///
+  /// In ar, this message translates to:
+  /// **'التجديد التلقائي'**
+  String get premiumAutoRenew;
+
+  /// No description provided for @premiumAutoRenewOn.
+  ///
+  /// In ar, this message translates to:
+  /// **'مفعّل'**
+  String get premiumAutoRenewOn;
+
+  /// No description provided for @premiumAutoRenewOff.
+  ///
+  /// In ar, this message translates to:
+  /// **'متوقف'**
+  String get premiumAutoRenewOff;
+
+  /// No description provided for @premiumStopAutoRenew.
+  ///
+  /// In ar, this message translates to:
+  /// **'إيقاف التجديد التلقائي'**
+  String get premiumStopAutoRenew;
+
+  /// No description provided for @premiumStopAutoRenewConfirm.
+  ///
+  /// In ar, this message translates to:
+  /// **'سيستمر اشتراكك حتى تاريخ الانتهاء، ولن يُجدَّد بعدها تلقائيًا. هل تريد المتابعة؟'**
+  String get premiumStopAutoRenewConfirm;
+
+  /// No description provided for @premiumDaysRemaining.
+  ///
+  /// In ar, this message translates to:
+  /// **'{days, plural, =1{يوم واحد متبقٍ} =2{يومان متبقيان} other{{days} أيام متبقية}}'**
+  String premiumDaysRemaining(int days);
+
+  /// No description provided for @premiumExpiringSoon.
+  ///
+  /// In ar, this message translates to:
+  /// **'اشتراكك على وشك الانتهاء — جدّده حتى لا تفوتك التنبيهات'**
+  String get premiumExpiringSoon;
+
+  /// No description provided for @premiumChoosePlan.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختر باقتك'**
+  String get premiumChoosePlan;
+
+  /// No description provided for @premiumSubscribe.
+  ///
+  /// In ar, this message translates to:
+  /// **'اشترك الآن'**
+  String get premiumSubscribe;
+
+  /// No description provided for @premiumRenew.
+  ///
+  /// In ar, this message translates to:
+  /// **'تجديد الاشتراك'**
+  String get premiumRenew;
+
+  /// No description provided for @premiumRecommended.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأفضل قيمة'**
+  String get premiumRecommended;
+
+  /// No description provided for @premiumPeriodMonthly.
+  ///
+  /// In ar, this message translates to:
+  /// **'شهريًا'**
+  String get premiumPeriodMonthly;
+
+  /// No description provided for @premiumPeriodYearly.
+  ///
+  /// In ar, this message translates to:
+  /// **'سنويًا'**
+  String get premiumPeriodYearly;
+
+  /// No description provided for @premiumNoPlans.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد باقات متاحة حاليًا'**
+  String get premiumNoPlans;
+
+  /// No description provided for @premiumPaymentDone.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تفعيل اشتراكك'**
+  String get premiumPaymentDone;
+
+  /// No description provided for @cancel.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلغاء'**
+  String get cancel;
+
+  /// No description provided for @prefsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تفضيلات الإشعارات'**
+  String get prefsTitle;
+
+  /// No description provided for @prefsChannelsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'طرق الاستقبال'**
+  String get prefsChannelsTitle;
+
+  /// No description provided for @prefsChannelPush.
+  ///
+  /// In ar, this message translates to:
+  /// **'إشعارات التطبيق'**
+  String get prefsChannelPush;
+
+  /// No description provided for @prefsChannelPushHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصلك على هاتفك فور حدوث الأمر'**
+  String get prefsChannelPushHint;
+
+  /// No description provided for @prefsChannelEmail.
+  ///
+  /// In ar, this message translates to:
+  /// **'البريد الإلكتروني'**
+  String get prefsChannelEmail;
+
+  /// No description provided for @prefsChannelEmailHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ملخّص بالمزايدات الجديدة المطابقة لاهتماماتك'**
+  String get prefsChannelEmailHint;
+
+  /// No description provided for @prefsChannelEmailPremiumOnly.
+  ///
+  /// In ar, this message translates to:
+  /// **'متاح لأصحاب العضوية المميّزة'**
+  String get prefsChannelEmailPremiumOnly;
+
+  /// No description provided for @prefsChannelSms.
+  ///
+  /// In ar, this message translates to:
+  /// **'رسائل SMS'**
+  String get prefsChannelSms;
+
+  /// No description provided for @prefsNewAuctionAlerts.
+  ///
+  /// In ar, this message translates to:
+  /// **'تنبيهات المزايدات الجديدة'**
+  String get prefsNewAuctionAlerts;
+
+  /// No description provided for @prefsNewAuctionAlertsHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'نُعلمك فور إضافة مزايدة من الأنواع التي تهتم بها'**
+  String get prefsNewAuctionAlertsHint;
+
+  /// No description provided for @prefsCategoriesTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنواع المزايدات التي تهمّك'**
+  String get prefsCategoriesTitle;
+
+  /// No description provided for @prefsCategoriesHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختر نوعًا أو أكثر. بدون اختيار ستصلك تنبيهات كل الأنواع.'**
+  String get prefsCategoriesHint;
+
+  /// No description provided for @prefsCategoriesAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل الأنواع'**
+  String get prefsCategoriesAll;
+
+  /// No description provided for @prefsNoCategories.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد أنواع متاحة حاليًا'**
+  String get prefsNoCategories;
+
+  /// No description provided for @prefsSave.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ التفضيلات'**
+  String get prefsSave;
+
+  /// No description provided for @prefsSaved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ تفضيلاتك'**
+  String get prefsSaved;
+
+  /// No description provided for @prefsDiscardChanges.
+  ///
+  /// In ar, this message translates to:
+  /// **'لديك تعديلات غير محفوظة. هل تريد الخروج دون حفظ؟'**
+  String get prefsDiscardChanges;
+
+  /// No description provided for @prefsLeave.
+  ///
+  /// In ar, this message translates to:
+  /// **'خروج'**
+  String get prefsLeave;
+
+  /// No description provided for @prefsGoPremium.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاشتراك في العضوية المميّزة'**
+  String get prefsGoPremium;
 }
 
 class _AppLocalizationsDelegate

@@ -6,7 +6,7 @@ part 'appeal_model.g.dart';
 
 /// مرجع المزاد المتداخل داخل الاعتراض — `auction: {id, title}`.
 @freezed
-class AppealAuctionRefModel with _$AppealAuctionRefModel {
+abstract class AppealAuctionRefModel with _$AppealAuctionRefModel {
   const AppealAuctionRefModel._();
 
   const factory AppealAuctionRefModel({String? id, String? title}) =
@@ -23,7 +23,7 @@ class AppealAuctionRefModel with _$AppealAuctionRefModel {
 /// {id, subject, reason, status, status_label, admin_response, entity_response,
 ///  auction:{id,title}?, created_at, forwarded_at, entity_decided_at, resolved_at}
 @freezed
-class AppealModel with _$AppealModel {
+abstract class AppealModel with _$AppealModel {
   const AppealModel._();
 
   const factory AppealModel({

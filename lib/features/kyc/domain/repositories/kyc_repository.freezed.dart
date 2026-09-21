@@ -1,6 +1,6 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
+// coverage:ignore-file
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'kyc_repository.dart';
@@ -9,422 +9,307 @@ part of 'kyc_repository.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$KycSubmitParams {
-  String get firstNameFr => throw _privateConstructorUsedError;
-  String get lastNameFr => throw _privateConstructorUsedError;
-  String get fatherName => throw _privateConstructorUsedError;
-  String get motherName => throw _privateConstructorUsedError;
-  String get motherSurname => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
-  int get wilayaId => throw _privateConstructorUsedError;
-  int get communeId => throw _privateConstructorUsedError;
-  String get postalCode => throw _privateConstructorUsedError;
-  String get profession => throw _privateConstructorUsedError;
-  int get expectedIncome => throw _privateConstructorUsedError;
-  String get idType => throw _privateConstructorUsedError;
-  String get idNumber => throw _privateConstructorUsedError;
 
-  /// Create a copy of KycSubmitParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $KycSubmitParamsCopyWith<KycSubmitParams> get copyWith =>
-      throw _privateConstructorUsedError;
+ String get firstNameFr; String get lastNameFr; String get fatherName; String get motherName; String get motherSurname; String get address; int get wilayaId; int get communeId; String get postalCode; String get profession; int get expectedIncome; String get idType; String get idNumber;
+/// Create a copy of KycSubmitParams
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$KycSubmitParamsCopyWith<KycSubmitParams> get copyWith => _$KycSubmitParamsCopyWithImpl<KycSubmitParams>(this as KycSubmitParams, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as KycSubmitParams;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is KycSubmitParams&&(identical(other.firstNameFr, _this.firstNameFr) || other.firstNameFr == _this.firstNameFr)&&(identical(other.lastNameFr, _this.lastNameFr) || other.lastNameFr == _this.lastNameFr)&&(identical(other.fatherName, _this.fatherName) || other.fatherName == _this.fatherName)&&(identical(other.motherName, _this.motherName) || other.motherName == _this.motherName)&&(identical(other.motherSurname, _this.motherSurname) || other.motherSurname == _this.motherSurname)&&(identical(other.address, _this.address) || other.address == _this.address)&&(identical(other.wilayaId, _this.wilayaId) || other.wilayaId == _this.wilayaId)&&(identical(other.communeId, _this.communeId) || other.communeId == _this.communeId)&&(identical(other.postalCode, _this.postalCode) || other.postalCode == _this.postalCode)&&(identical(other.profession, _this.profession) || other.profession == _this.profession)&&(identical(other.expectedIncome, _this.expectedIncome) || other.expectedIncome == _this.expectedIncome)&&(identical(other.idType, _this.idType) || other.idType == _this.idType)&&(identical(other.idNumber, _this.idNumber) || other.idNumber == _this.idNumber));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as KycSubmitParams;
+  return Object.hash(runtimeType,_this.firstNameFr,_this.lastNameFr,_this.fatherName,_this.motherName,_this.motherSurname,_this.address,_this.wilayaId,_this.communeId,_this.postalCode,_this.profession,_this.expectedIncome,_this.idType,_this.idNumber);
+}
+
+@override
+String toString() {
+  final _this = this as KycSubmitParams;
+  return 'KycSubmitParams(firstNameFr: ${_this.firstNameFr}, lastNameFr: ${_this.lastNameFr}, fatherName: ${_this.fatherName}, motherName: ${_this.motherName}, motherSurname: ${_this.motherSurname}, address: ${_this.address}, wilayaId: ${_this.wilayaId}, communeId: ${_this.communeId}, postalCode: ${_this.postalCode}, profession: ${_this.profession}, expectedIncome: ${_this.expectedIncome}, idType: ${_this.idType}, idNumber: ${_this.idNumber})';
+}
+
+
 }
 
 /// @nodoc
-abstract class $KycSubmitParamsCopyWith<$Res> {
-  factory $KycSubmitParamsCopyWith(
-    KycSubmitParams value,
-    $Res Function(KycSubmitParams) then,
-  ) = _$KycSubmitParamsCopyWithImpl<$Res, KycSubmitParams>;
-  @useResult
-  $Res call({
-    String firstNameFr,
-    String lastNameFr,
-    String fatherName,
-    String motherName,
-    String motherSurname,
-    String address,
-    int wilayaId,
-    int communeId,
-    String postalCode,
-    String profession,
-    int expectedIncome,
-    String idType,
-    String idNumber,
-  });
-}
+abstract mixin class $KycSubmitParamsCopyWith<$Res>  {
+  factory $KycSubmitParamsCopyWith(KycSubmitParams value, $Res Function(KycSubmitParams) _then) = _$KycSubmitParamsCopyWithImpl;
+@useResult
+$Res call({
+ String firstNameFr, String lastNameFr, String fatherName, String motherName, String motherSurname, String address, int wilayaId, int communeId, String postalCode, String profession, int expectedIncome, String idType, String idNumber
+});
 
+
+
+
+}
 /// @nodoc
-class _$KycSubmitParamsCopyWithImpl<$Res, $Val extends KycSubmitParams>
+class _$KycSubmitParamsCopyWithImpl<$Res>
     implements $KycSubmitParamsCopyWith<$Res> {
-  _$KycSubmitParamsCopyWithImpl(this._value, this._then);
+  _$KycSubmitParamsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final KycSubmitParams _self;
+  final $Res Function(KycSubmitParams) _then;
 
-  /// Create a copy of KycSubmitParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? firstNameFr = null,
-    Object? lastNameFr = null,
-    Object? fatherName = null,
-    Object? motherName = null,
-    Object? motherSurname = null,
-    Object? address = null,
-    Object? wilayaId = null,
-    Object? communeId = null,
-    Object? postalCode = null,
-    Object? profession = null,
-    Object? expectedIncome = null,
-    Object? idType = null,
-    Object? idNumber = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            firstNameFr: null == firstNameFr
-                ? _value.firstNameFr
-                : firstNameFr // ignore: cast_nullable_to_non_nullable
-                      as String,
-            lastNameFr: null == lastNameFr
-                ? _value.lastNameFr
-                : lastNameFr // ignore: cast_nullable_to_non_nullable
-                      as String,
-            fatherName: null == fatherName
-                ? _value.fatherName
-                : fatherName // ignore: cast_nullable_to_non_nullable
-                      as String,
-            motherName: null == motherName
-                ? _value.motherName
-                : motherName // ignore: cast_nullable_to_non_nullable
-                      as String,
-            motherSurname: null == motherSurname
-                ? _value.motherSurname
-                : motherSurname // ignore: cast_nullable_to_non_nullable
-                      as String,
-            address: null == address
-                ? _value.address
-                : address // ignore: cast_nullable_to_non_nullable
-                      as String,
-            wilayaId: null == wilayaId
-                ? _value.wilayaId
-                : wilayaId // ignore: cast_nullable_to_non_nullable
-                      as int,
-            communeId: null == communeId
-                ? _value.communeId
-                : communeId // ignore: cast_nullable_to_non_nullable
-                      as int,
-            postalCode: null == postalCode
-                ? _value.postalCode
-                : postalCode // ignore: cast_nullable_to_non_nullable
-                      as String,
-            profession: null == profession
-                ? _value.profession
-                : profession // ignore: cast_nullable_to_non_nullable
-                      as String,
-            expectedIncome: null == expectedIncome
-                ? _value.expectedIncome
-                : expectedIncome // ignore: cast_nullable_to_non_nullable
-                      as int,
-            idType: null == idType
-                ? _value.idType
-                : idType // ignore: cast_nullable_to_non_nullable
-                      as String,
-            idNumber: null == idNumber
-                ? _value.idNumber
-                : idNumber // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of KycSubmitParams
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? firstNameFr = null,Object? lastNameFr = null,Object? fatherName = null,Object? motherName = null,Object? motherSurname = null,Object? address = null,Object? wilayaId = null,Object? communeId = null,Object? postalCode = null,Object? profession = null,Object? expectedIncome = null,Object? idType = null,Object? idNumber = null,}) {
+  return _then(KycSubmitParams(
+firstNameFr: null == firstNameFr ? _self.firstNameFr : firstNameFr // ignore: cast_nullable_to_non_nullable
+as String,lastNameFr: null == lastNameFr ? _self.lastNameFr : lastNameFr // ignore: cast_nullable_to_non_nullable
+as String,fatherName: null == fatherName ? _self.fatherName : fatherName // ignore: cast_nullable_to_non_nullable
+as String,motherName: null == motherName ? _self.motherName : motherName // ignore: cast_nullable_to_non_nullable
+as String,motherSurname: null == motherSurname ? _self.motherSurname : motherSurname // ignore: cast_nullable_to_non_nullable
+as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String,wilayaId: null == wilayaId ? _self.wilayaId : wilayaId // ignore: cast_nullable_to_non_nullable
+as int,communeId: null == communeId ? _self.communeId : communeId // ignore: cast_nullable_to_non_nullable
+as int,postalCode: null == postalCode ? _self.postalCode : postalCode // ignore: cast_nullable_to_non_nullable
+as String,profession: null == profession ? _self.profession : profession // ignore: cast_nullable_to_non_nullable
+as String,expectedIncome: null == expectedIncome ? _self.expectedIncome : expectedIncome // ignore: cast_nullable_to_non_nullable
+as int,idType: null == idType ? _self.idType : idType // ignore: cast_nullable_to_non_nullable
+as String,idNumber: null == idNumber ? _self.idNumber : idNumber // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$KycSubmitParamsImplCopyWith<$Res>
-    implements $KycSubmitParamsCopyWith<$Res> {
-  factory _$$KycSubmitParamsImplCopyWith(
-    _$KycSubmitParamsImpl value,
-    $Res Function(_$KycSubmitParamsImpl) then,
-  ) = __$$KycSubmitParamsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String firstNameFr,
-    String lastNameFr,
-    String fatherName,
-    String motherName,
-    String motherSurname,
-    String address,
-    int wilayaId,
-    int communeId,
-    String postalCode,
-    String profession,
-    int expectedIncome,
-    String idType,
-    String idNumber,
-  });
 }
 
-/// @nodoc
-class __$$KycSubmitParamsImplCopyWithImpl<$Res>
-    extends _$KycSubmitParamsCopyWithImpl<$Res, _$KycSubmitParamsImpl>
-    implements _$$KycSubmitParamsImplCopyWith<$Res> {
-  __$$KycSubmitParamsImplCopyWithImpl(
-    _$KycSubmitParamsImpl _value,
-    $Res Function(_$KycSubmitParamsImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of KycSubmitParams
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? firstNameFr = null,
-    Object? lastNameFr = null,
-    Object? fatherName = null,
-    Object? motherName = null,
-    Object? motherSurname = null,
-    Object? address = null,
-    Object? wilayaId = null,
-    Object? communeId = null,
-    Object? postalCode = null,
-    Object? profession = null,
-    Object? expectedIncome = null,
-    Object? idType = null,
-    Object? idNumber = null,
-  }) {
-    return _then(
-      _$KycSubmitParamsImpl(
-        firstNameFr: null == firstNameFr
-            ? _value.firstNameFr
-            : firstNameFr // ignore: cast_nullable_to_non_nullable
-                  as String,
-        lastNameFr: null == lastNameFr
-            ? _value.lastNameFr
-            : lastNameFr // ignore: cast_nullable_to_non_nullable
-                  as String,
-        fatherName: null == fatherName
-            ? _value.fatherName
-            : fatherName // ignore: cast_nullable_to_non_nullable
-                  as String,
-        motherName: null == motherName
-            ? _value.motherName
-            : motherName // ignore: cast_nullable_to_non_nullable
-                  as String,
-        motherSurname: null == motherSurname
-            ? _value.motherSurname
-            : motherSurname // ignore: cast_nullable_to_non_nullable
-                  as String,
-        address: null == address
-            ? _value.address
-            : address // ignore: cast_nullable_to_non_nullable
-                  as String,
-        wilayaId: null == wilayaId
-            ? _value.wilayaId
-            : wilayaId // ignore: cast_nullable_to_non_nullable
-                  as int,
-        communeId: null == communeId
-            ? _value.communeId
-            : communeId // ignore: cast_nullable_to_non_nullable
-                  as int,
-        postalCode: null == postalCode
-            ? _value.postalCode
-            : postalCode // ignore: cast_nullable_to_non_nullable
-                  as String,
-        profession: null == profession
-            ? _value.profession
-            : profession // ignore: cast_nullable_to_non_nullable
-                  as String,
-        expectedIncome: null == expectedIncome
-            ? _value.expectedIncome
-            : expectedIncome // ignore: cast_nullable_to_non_nullable
-                  as int,
-        idType: null == idType
-            ? _value.idType
-            : idType // ignore: cast_nullable_to_non_nullable
-                  as String,
-        idNumber: null == idNumber
-            ? _value.idNumber
-            : idNumber // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [KycSubmitParams].
+extension KycSubmitParamsPatterns on KycSubmitParams {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _KycSubmitParams value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _KycSubmitParams() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _KycSubmitParams value)  $default,){
+final _that = this;
+switch (_that) {
+case _KycSubmitParams():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _KycSubmitParams value)?  $default,){
+final _that = this;
+switch (_that) {
+case _KycSubmitParams() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstNameFr,  String lastNameFr,  String fatherName,  String motherName,  String motherSurname,  String address,  int wilayaId,  int communeId,  String postalCode,  String profession,  int expectedIncome,  String idType,  String idNumber)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _KycSubmitParams() when $default != null:
+return $default(_that.firstNameFr,_that.lastNameFr,_that.fatherName,_that.motherName,_that.motherSurname,_that.address,_that.wilayaId,_that.communeId,_that.postalCode,_that.profession,_that.expectedIncome,_that.idType,_that.idNumber);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstNameFr,  String lastNameFr,  String fatherName,  String motherName,  String motherSurname,  String address,  int wilayaId,  int communeId,  String postalCode,  String profession,  int expectedIncome,  String idType,  String idNumber)  $default,) {final _that = this;
+switch (_that) {
+case _KycSubmitParams():
+return $default(_that.firstNameFr,_that.lastNameFr,_that.fatherName,_that.motherName,_that.motherSurname,_that.address,_that.wilayaId,_that.communeId,_that.postalCode,_that.profession,_that.expectedIncome,_that.idType,_that.idNumber);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstNameFr,  String lastNameFr,  String fatherName,  String motherName,  String motherSurname,  String address,  int wilayaId,  int communeId,  String postalCode,  String profession,  int expectedIncome,  String idType,  String idNumber)?  $default,) {final _that = this;
+switch (_that) {
+case _KycSubmitParams() when $default != null:
+return $default(_that.firstNameFr,_that.lastNameFr,_that.fatherName,_that.motherName,_that.motherSurname,_that.address,_that.wilayaId,_that.communeId,_that.postalCode,_that.profession,_that.expectedIncome,_that.idType,_that.idNumber);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
-class _$KycSubmitParamsImpl implements _KycSubmitParams {
-  const _$KycSubmitParamsImpl({
-    required this.firstNameFr,
-    required this.lastNameFr,
-    required this.fatherName,
-    required this.motherName,
-    required this.motherSurname,
-    required this.address,
-    required this.wilayaId,
-    required this.communeId,
-    required this.postalCode,
-    required this.profession,
-    required this.expectedIncome,
-    this.idType = 'ID_CARD',
-    required this.idNumber,
-  });
 
-  @override
-  final String firstNameFr;
-  @override
-  final String lastNameFr;
-  @override
-  final String fatherName;
-  @override
-  final String motherName;
-  @override
-  final String motherSurname;
-  @override
-  final String address;
-  @override
-  final int wilayaId;
-  @override
-  final int communeId;
-  @override
-  final String postalCode;
-  @override
-  final String profession;
-  @override
-  final int expectedIncome;
-  @override
-  @JsonKey()
-  final String idType;
-  @override
-  final String idNumber;
+class _KycSubmitParams implements KycSubmitParams {
+  const _KycSubmitParams({required this.firstNameFr, required this.lastNameFr, required this.fatherName, required this.motherName, required this.motherSurname, required this.address, required this.wilayaId, required this.communeId, required this.postalCode, required this.profession, required this.expectedIncome, this.idType = 'ID_CARD', required this.idNumber});
+  
 
-  @override
-  String toString() {
+@override final  String firstNameFr;
+@override final  String lastNameFr;
+@override final  String fatherName;
+@override final  String motherName;
+@override final  String motherSurname;
+@override final  String address;
+@override final  int wilayaId;
+@override final  int communeId;
+@override final  String postalCode;
+@override final  String profession;
+@override final  int expectedIncome;
+@override@JsonKey() final  String idType;
+@override final  String idNumber;
+
+/// Create a copy of KycSubmitParams
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$KycSubmitParamsCopyWith<_KycSubmitParams> get copyWith => __$KycSubmitParamsCopyWithImpl<_KycSubmitParams>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _KycSubmitParams&&(identical(other.firstNameFr, firstNameFr) || other.firstNameFr == firstNameFr)&&(identical(other.lastNameFr, lastNameFr) || other.lastNameFr == lastNameFr)&&(identical(other.fatherName, fatherName) || other.fatherName == fatherName)&&(identical(other.motherName, motherName) || other.motherName == motherName)&&(identical(other.motherSurname, motherSurname) || other.motherSurname == motherSurname)&&(identical(other.address, address) || other.address == address)&&(identical(other.wilayaId, wilayaId) || other.wilayaId == wilayaId)&&(identical(other.communeId, communeId) || other.communeId == communeId)&&(identical(other.postalCode, postalCode) || other.postalCode == postalCode)&&(identical(other.profession, profession) || other.profession == profession)&&(identical(other.expectedIncome, expectedIncome) || other.expectedIncome == expectedIncome)&&(identical(other.idType, idType) || other.idType == idType)&&(identical(other.idNumber, idNumber) || other.idNumber == idNumber));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,firstNameFr,lastNameFr,fatherName,motherName,motherSurname,address,wilayaId,communeId,postalCode,profession,expectedIncome,idType,idNumber);
+}
+
+@override
+String toString() {
     return 'KycSubmitParams(firstNameFr: $firstNameFr, lastNameFr: $lastNameFr, fatherName: $fatherName, motherName: $motherName, motherSurname: $motherSurname, address: $address, wilayaId: $wilayaId, communeId: $communeId, postalCode: $postalCode, profession: $profession, expectedIncome: $expectedIncome, idType: $idType, idNumber: $idNumber)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$KycSubmitParamsImpl &&
-            (identical(other.firstNameFr, firstNameFr) ||
-                other.firstNameFr == firstNameFr) &&
-            (identical(other.lastNameFr, lastNameFr) ||
-                other.lastNameFr == lastNameFr) &&
-            (identical(other.fatherName, fatherName) ||
-                other.fatherName == fatherName) &&
-            (identical(other.motherName, motherName) ||
-                other.motherName == motherName) &&
-            (identical(other.motherSurname, motherSurname) ||
-                other.motherSurname == motherSurname) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.wilayaId, wilayaId) ||
-                other.wilayaId == wilayaId) &&
-            (identical(other.communeId, communeId) ||
-                other.communeId == communeId) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode) &&
-            (identical(other.profession, profession) ||
-                other.profession == profession) &&
-            (identical(other.expectedIncome, expectedIncome) ||
-                other.expectedIncome == expectedIncome) &&
-            (identical(other.idType, idType) || other.idType == idType) &&
-            (identical(other.idNumber, idNumber) ||
-                other.idNumber == idNumber));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    firstNameFr,
-    lastNameFr,
-    fatherName,
-    motherName,
-    motherSurname,
-    address,
-    wilayaId,
-    communeId,
-    postalCode,
-    profession,
-    expectedIncome,
-    idType,
-    idNumber,
-  );
-
-  /// Create a copy of KycSubmitParams
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$KycSubmitParamsImplCopyWith<_$KycSubmitParamsImpl> get copyWith =>
-      __$$KycSubmitParamsImplCopyWithImpl<_$KycSubmitParamsImpl>(
-        this,
-        _$identity,
-      );
 }
 
-abstract class _KycSubmitParams implements KycSubmitParams {
-  const factory _KycSubmitParams({
-    required final String firstNameFr,
-    required final String lastNameFr,
-    required final String fatherName,
-    required final String motherName,
-    required final String motherSurname,
-    required final String address,
-    required final int wilayaId,
-    required final int communeId,
-    required final String postalCode,
-    required final String profession,
-    required final int expectedIncome,
-    final String idType,
-    required final String idNumber,
-  }) = _$KycSubmitParamsImpl;
 
-  @override
-  String get firstNameFr;
-  @override
-  String get lastNameFr;
-  @override
-  String get fatherName;
-  @override
-  String get motherName;
-  @override
-  String get motherSurname;
-  @override
-  String get address;
-  @override
-  int get wilayaId;
-  @override
-  int get communeId;
-  @override
-  String get postalCode;
-  @override
-  String get profession;
-  @override
-  int get expectedIncome;
-  @override
-  String get idType;
-  @override
-  String get idNumber;
-
-  /// Create a copy of KycSubmitParams
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$KycSubmitParamsImplCopyWith<_$KycSubmitParamsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+abstract mixin class _$KycSubmitParamsCopyWith<$Res> implements $KycSubmitParamsCopyWith<$Res> {
+  factory _$KycSubmitParamsCopyWith(_KycSubmitParams value, $Res Function(_KycSubmitParams) _then) = __$KycSubmitParamsCopyWithImpl;
+@override @useResult
+$Res call({
+ String firstNameFr, String lastNameFr, String fatherName, String motherName, String motherSurname, String address, int wilayaId, int communeId, String postalCode, String profession, int expectedIncome, String idType, String idNumber
+});
+
+
+
+
+}
+/// @nodoc
+class __$KycSubmitParamsCopyWithImpl<$Res>
+    implements _$KycSubmitParamsCopyWith<$Res> {
+  __$KycSubmitParamsCopyWithImpl(this._self, this._then);
+
+  final _KycSubmitParams _self;
+  final $Res Function(_KycSubmitParams) _then;
+
+/// Create a copy of KycSubmitParams
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? firstNameFr = null,Object? lastNameFr = null,Object? fatherName = null,Object? motherName = null,Object? motherSurname = null,Object? address = null,Object? wilayaId = null,Object? communeId = null,Object? postalCode = null,Object? profession = null,Object? expectedIncome = null,Object? idType = null,Object? idNumber = null,}) {
+  return _then(_KycSubmitParams(
+firstNameFr: null == firstNameFr ? _self.firstNameFr : firstNameFr // ignore: cast_nullable_to_non_nullable
+as String,lastNameFr: null == lastNameFr ? _self.lastNameFr : lastNameFr // ignore: cast_nullable_to_non_nullable
+as String,fatherName: null == fatherName ? _self.fatherName : fatherName // ignore: cast_nullable_to_non_nullable
+as String,motherName: null == motherName ? _self.motherName : motherName // ignore: cast_nullable_to_non_nullable
+as String,motherSurname: null == motherSurname ? _self.motherSurname : motherSurname // ignore: cast_nullable_to_non_nullable
+as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String,wilayaId: null == wilayaId ? _self.wilayaId : wilayaId // ignore: cast_nullable_to_non_nullable
+as int,communeId: null == communeId ? _self.communeId : communeId // ignore: cast_nullable_to_non_nullable
+as int,postalCode: null == postalCode ? _self.postalCode : postalCode // ignore: cast_nullable_to_non_nullable
+as String,profession: null == profession ? _self.profession : profession // ignore: cast_nullable_to_non_nullable
+as String,expectedIncome: null == expectedIncome ? _self.expectedIncome : expectedIncome // ignore: cast_nullable_to_non_nullable
+as int,idType: null == idType ? _self.idType : idType // ignore: cast_nullable_to_non_nullable
+as String,idNumber: null == idNumber ? _self.idNumber : idNumber // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

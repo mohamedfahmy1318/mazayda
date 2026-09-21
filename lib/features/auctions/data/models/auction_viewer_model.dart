@@ -6,7 +6,7 @@ part 'auction_viewer_model.g.dart';
 
 /// يطابق `meta.viewer.existing_appeal`.
 @freezed
-class ViewerAppealRefModel with _$ViewerAppealRefModel {
+abstract class ViewerAppealRefModel with _$ViewerAppealRefModel {
   const ViewerAppealRefModel._();
 
   const factory ViewerAppealRefModel({
@@ -28,7 +28,7 @@ class ViewerAppealRefModel with _$ViewerAppealRefModel {
 /// يطابق `meta.viewer` من `GET /auctions/{id}` — 11 علم.
 /// كل الأعلام لها قيمة افتراضية `false` عشان أي حقل جديد/غايب ما يكسرش الـ parsing.
 @freezed
-class AuctionViewerModel with _$AuctionViewerModel {
+abstract class AuctionViewerModel with _$AuctionViewerModel {
   const AuctionViewerModel._();
 
   const factory AuctionViewerModel({

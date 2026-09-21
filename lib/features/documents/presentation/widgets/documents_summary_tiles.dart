@@ -5,7 +5,7 @@ import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/document.dart';
 
-/// بطاقات إحصاء المكتبة — إجمالي / كراسات / ترسيات / إيصالات.
+/// بطاقات إحصاء المكتبة — إجمالي / دفاتر / ترسيات / إيصالات.
 class DocumentsSummaryTiles extends StatelessWidget {
   final DocumentsSummary summary;
   const DocumentsSummaryTiles({super.key, required this.summary});

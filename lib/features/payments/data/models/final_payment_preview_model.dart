@@ -8,7 +8,7 @@ part 'final_payment_preview_model.g.dart';
 /// بند رسوم — `{key, label, amount, formatted}` بشكل **مسطّح**
 /// (مش الكائن المتداخل المستخدم في باقي المبالغ).
 @freezed
-class FeeLineModel with _$FeeLineModel {
+abstract class FeeLineModel with _$FeeLineModel {
   const FeeLineModel._();
 
   const factory FeeLineModel({
@@ -32,7 +32,7 @@ class FeeLineModel with _$FeeLineModel {
 /// يطابق ردّ `GET /auctions/{id}/final-payment/preview`.
 /// كل المبالغ **بالدينار** (الباك بيمرّرها على `dinars()` اللي بترجع int).
 @freezed
-class FinalPaymentPreviewModel with _$FinalPaymentPreviewModel {
+abstract class FinalPaymentPreviewModel with _$FinalPaymentPreviewModel {
   const FinalPaymentPreviewModel._();
 
   const factory FinalPaymentPreviewModel({

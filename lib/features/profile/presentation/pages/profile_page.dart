@@ -89,6 +89,38 @@ class _ProfileContent extends StatelessWidget {
       ),
       _ProfileActionsCard(
         children: [
+          // العضوية المميّزة أول صف: هي المدخل الوحيد للاشتراك وإدارته
+          // (تعديلات العميل 24 · 25)، وبتحمل شارة الحالة الحالية.
+          _ProfileNavRow(
+            icon: Icons.workspace_premium_outlined,
+            label: t.premiumTitle,
+            trailing: profile.isPremium
+                ? Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 2.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.gold,
+                      borderRadius: BorderRadius.circular(7.r),
+                    ),
+                    child: Text(
+                      t.premiumActive,
+                      style: TextStyle(
+                        fontSize: 9.5.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  )
+                : null,
+            onTap: () => context.push(Routes.premium),
+          ),
+          _ProfileNavRow(
+            icon: Icons.notifications_active_outlined,
+            label: t.prefsTitle,
+            onTap: () => context.push(Routes.notificationPreferences),
+          ),
           _ProfileNavRow(
             icon: Icons.folder_copy_outlined,
             label: t.docsTitle,

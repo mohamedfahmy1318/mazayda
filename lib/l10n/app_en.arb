@@ -480,5 +480,153 @@
   "minBidHint": "Minimum bid: {amount}",
   "submitYourBid": "Place your bid",
   "bidBelowMinimum": "Amount is below the minimum bid",
-  "biddingClosed": "Bidding is closed"
+  "biddingClosed": "Bidding is closed",
+  "ackTitle": "Auction registration",
+  "ackSubtitleHasBook": "Accept the participation terms to start registration through the secure payment gateway",
+  "ackSubtitleNeedsBook": "Buying the condition book is required to register — two payments will open in sequence: the book, then the registration",
+  "ackDepositRow": "Deposit (refundable)",
+  "ackBookRow": "Condition book (non-refundable)",
+  "ackAgree": "I confirm I have read the condition book and accept the participation terms",
+  "ackContinue": "Continue to payment",
+  "ackGatewayNote": "The secure payment gateway (CIBWeb) will open",
+  "minBidSectorHint": "Minimum bid {amount} (sector rate {percent}%)",
+  "@minBidSectorHint": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "bidBelowSectorMinimum": "You cannot bid below {amount} — the increment set for this sector is {percent}%",
+  "@bidBelowSectorMinimum": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "adSession": "Auction session",
+  "adSessionNumber": "Session number",
+  "sessionRound": "Session no. {round}",
+  "@sessionRound": {
+    "placeholders": {
+      "round": {
+        "type": "int"
+      }
+    }
+  },
+  "adSessionCode": "Reference",
+  "adRescheduleCount": "Times rescheduled",
+  "adReduction": "Reduction applied to the opening price",
+  "percentValue": "{percent}%",
+  "@percentValue": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "adOriginalOpeningPrice": "Original opening price",
+  "adSessionHistory": "Previous sessions",
+  "adSector": "Sector",
+  "adSectorIncrement": "Sector minimum increment",
+  "adMinBid": "Minimum accepted bid",
+  "auctionFeatured": "Featured",
+  "sessionRescheduledBanner": "This auction has been rescheduled {count, plural, =1{once} other{{count} times}} — the opening price shown includes the reduction",
+  "@sessionRescheduledBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lostEmailLink": "Lost your email?",
+  "lostEmailTitle": "Email recovery",
+  "lostEmailHint": "If you have lost access to your email, enter your details and attach a selfie holding your ID card. The relevant department will review the request and approve the new address.",
+  "lostEmailNewEmail": "New email address",
+  "lostEmailSelfie": "Selfie with ID card",
+  "lostEmailSelfieHint": "Hold the ID card next to your face; keep the photo and its details clearly readable",
+  "lostEmailRetake": "Retake the photo",
+  "lostEmailSubmit": "Submit for review",
+  "lostEmailSubmittedTitle": "Request submitted",
+  "lostEmailSubmittedBody": "Your request is under review by the relevant department. You will be able to sign in with the new address once it is approved.",
+  "lostEmailApprovedBody": "Your new address has been approved. You can now sign in with it.",
+  "lostEmailRejectedBody": "The request was rejected. Review the reason below and resubmit after correcting your details.",
+  "lostEmailRejectionReason": "Rejection reason",
+  "lostEmailRefreshStatus": "Refresh status",
+  "lostEmailResubmit": "Edit and resubmit",
+  "lostEmailRequestRef": "Request number",
+  "lostEmailSubmittedAt": "Submitted on",
+  "lostEmailSelfieRequired": "The selfie with your ID card is required",
+  "lostEmailImageTooLarge": "The image exceeds {max} KB — take a smaller photo",
+  "@lostEmailImageTooLarge": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "docTypeParticipationReceipt": "Participation receipt",
+  "docTypeAuctionResult": "Auction result receipt",
+  "adDocuments": "Auction documents",
+  "adDownloadParticipationReceipt": "Download participation receipt",
+  "adDownloadResult": "Download result receipt",
+  "adDownloadConditionBook": "Download the condition book",
+  "adReceiptHint": "You can print or save the receipt after downloading",
+  "premiumTitle": "Premium membership",
+  "premiumTagline": "Hear about new auctions before anyone else",
+  "premiumActive": "Your subscription is active",
+  "premiumInactive": "No active subscription",
+  "premiumPlanLabel": "Plan",
+  "premiumStatus": "Status",
+  "premiumStartedAt": "Start date",
+  "premiumExpiresAt": "Expiry date",
+  "premiumAutoRenew": "Auto-renewal",
+  "premiumAutoRenewOn": "On",
+  "premiumAutoRenewOff": "Off",
+  "premiumStopAutoRenew": "Turn off auto-renewal",
+  "premiumStopAutoRenewConfirm": "Your subscription stays active until its expiry date and will not renew after that. Continue?",
+  "premiumDaysRemaining": "{days, plural, =1{1 day left} other{{days} days left}}",
+  "@premiumDaysRemaining": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "premiumExpiringSoon": "Your subscription is about to expire — renew it so you keep the alerts",
+  "premiumChoosePlan": "Choose your plan",
+  "premiumSubscribe": "Subscribe now",
+  "premiumRenew": "Renew subscription",
+  "premiumRecommended": "Best value",
+  "premiumPeriodMonthly": "per month",
+  "premiumPeriodYearly": "per year",
+  "premiumNoPlans": "No plans are available right now",
+  "premiumPaymentDone": "Your subscription is now active",
+  "cancel": "Cancel",
+  "prefsTitle": "Notification preferences",
+  "prefsChannelsTitle": "Delivery channels",
+  "prefsChannelPush": "App notifications",
+  "prefsChannelPushHint": "Delivered to your phone as things happen",
+  "prefsChannelEmail": "Email",
+  "prefsChannelEmailHint": "A summary of new auctions matching your interests",
+  "prefsChannelEmailPremiumOnly": "Available to Premium members",
+  "prefsChannelSms": "SMS",
+  "prefsNewAuctionAlerts": "New auction alerts",
+  "prefsNewAuctionAlertsHint": "We alert you as soon as an auction in your chosen categories is published",
+  "prefsCategoriesTitle": "Categories you care about",
+  "prefsCategoriesHint": "Pick one or more. With none selected you get alerts for every category.",
+  "prefsCategoriesAll": "All categories",
+  "prefsNoCategories": "No categories are available",
+  "prefsSave": "Save preferences",
+  "prefsSaved": "Your preferences were saved",
+  "prefsDiscardChanges": "You have unsaved changes. Leave without saving?",
+  "prefsLeave": "Leave",
+  "prefsGoPremium": "Get Premium"
 }

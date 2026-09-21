@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/network/token_storage.dart';
+import '../../../../core/session/account_cache.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../profile/domain/usecases/get_profile.dart';
 import '../../domain/entities/auction_viewer.dart';
@@ -32,9 +33,14 @@ class AuctionDetailCubit extends Cubit<AuctionDetailState> {
   final GetAuctionById _getAuctionById;
   final GetProfile _getProfile;
   final TokenStorage _tokenStorage;
+  final AccountCache _accountCache;
 
-  AuctionDetailCubit(this._getAuctionById, this._getProfile, this._tokenStorage)
-    : super(const AuctionDetailState.initial());
+  AuctionDetailCubit(
+    this._getAuctionById,
+    this._getProfile,
+    this._tokenStorage,
+    this._accountCache,
+  ) : super(const AuctionDetailState.initial());
 
   Future<void> load(String id) async {
     emit(const AuctionDetailState.loading());
@@ -64,8 +70,18 @@ class AuctionDetailCubit extends Cubit<AuctionDetailState> {
               isKycComplete: p.isKycComplete,
               hasCommerceRegister: p.hasCommerceRegister,
               isBlacklisted: p.isBlacklisted,
+              isStaff: AccountRoles.isStaff(p.role),
             ),
           );
+        } else if (isAuthed) {
+          // الـ viewer موجود فمش محتاجين نداء بروفايل، بس لسه محتاجين نعرف
+          // إن كان الحساب موظّف — `meta.viewer` مافيهوش الدور. الكاش
+          // بيتملا من أي قراءة بروفايل سابقة (تعديل العميل رقم 4).
+          if (await _accountCache.isStaff) {
+            if (isClosed) return;
+            account = const ViewerAccountFlags(isStaff: true);
+          }
+          if (isClosed) return;
         }
 
         emit(

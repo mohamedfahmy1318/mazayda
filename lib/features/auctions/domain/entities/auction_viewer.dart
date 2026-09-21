@@ -32,7 +32,7 @@ class AuctionViewer extends Equatable {
   final bool hasCommerceRegister;
 
   /// المزاد بيتطلّب سجل تجاري والمستخدم مالوش — بيمنع **أي** دفع على المزاد
-  /// ده، بما فيه شراء كراس الشروط (مش بس الكفالة).
+  /// ده، بما فيه شراء دفتر الشروط (مش بس الكفالة).
   final bool commerceRegisterBlocked;
 
   final bool hasBookAccess;
@@ -114,11 +114,15 @@ class ViewerAccountFlags {
   final bool hasCommerceRegister;
   final bool isBlacklisted;
 
+  /// حساب موظّف (إدارة / جهة) مش مواطن — المشاركة كلها متخصّه.
+  final bool isStaff;
+
   const ViewerAccountFlags({
     this.canBid = false,
     this.isKycComplete = false,
     this.hasCommerceRegister = false,
     this.isBlacklisted = false,
+    this.isStaff = false,
   });
 }
 
@@ -138,7 +142,13 @@ AuctionCta ctaFor(
 }) {
   if (!isAuthenticated) return AuctionCta.login;
 
-  final ended = auction.hasEnded || auction.status == AuctionStatus.closed;
+  // شراء دفتر الشروط والمشاركة عمومًا **للمواطن بس** — حساب الإدارة أو
+  // الجهة بيتفرّج ومابيشاركش (تعديل العميل رقم 4).
+  if (account?.isStaff ?? false) return AuctionCta.none;
+
+  // `isEndedNow` مش `hasEnded`: بيحسب عدّاد الإقفال كمان فالزرار بيتقفل
+  // لحظة انتهاء الوقت مش عند إعادة التحميل الجاية (تعديل العميل رقم 3).
+  final ended = auction.isEndedNow;
 
   // ===== سياق المستخدم متاح: السلّم الكامل والدقيق =====
   if (viewer != null) {
@@ -166,7 +176,7 @@ AuctionCta ctaFor(
 
   // ===== وضع محدود: مسجّل دخول بس من غير سياق للمزاد =====
   // بنطبّق بوابات الحساب اللي نعرفها من البروفايل، والباقي (هل شارك؟ هل
-  // اشترى الكراس؟) بيفرضه السيرفر عند أول محاولة.
+  // اشترى دفتر الشروط؟) بيفرضه السيرفر عند أول محاولة.
   if (account != null) {
     if (account.isBlacklisted || !account.canBid) return AuctionCta.needsKyc;
     if (auction.requiresCommerceRegister && !account.hasCommerceRegister) {

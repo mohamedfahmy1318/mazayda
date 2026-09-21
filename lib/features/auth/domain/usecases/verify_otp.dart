@@ -24,7 +24,7 @@ class VerifyOtp implements UseCase<AuthTokens, VerifyOtpParams> {
 }
 
 @freezed
-class VerifyOtpParams with _$VerifyOtpParams {
+abstract class VerifyOtpParams with _$VerifyOtpParams {
   const factory VerifyOtpParams({
     required String userId,
     required String otp,

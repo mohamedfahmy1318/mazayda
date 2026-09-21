@@ -6,15 +6,15 @@ part of 'question_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$QuestionModelImpl _$$QuestionModelImplFromJson(Map<String, dynamic> json) =>
-    _$QuestionModelImpl(
+_QuestionModel _$QuestionModelFromJson(Map<String, dynamic> json) =>
+    _QuestionModel(
       id: json['id'] as String,
       question: json['question'] as String?,
       answer: json['answer'] as String?,
       createdAt: json['created_at'] as String?,
     );
 
-Map<String, dynamic> _$$QuestionModelImplToJson(_$QuestionModelImpl instance) =>
+Map<String, dynamic> _$QuestionModelToJson(_QuestionModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'question': instance.question,

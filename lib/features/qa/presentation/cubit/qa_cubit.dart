@@ -8,7 +8,7 @@ import '../../domain/repositories/qa_repository.dart';
 part 'qa_cubit.freezed.dart';
 
 @freezed
-class QaState with _$QaState {
+abstract class QaState with _$QaState {
   const factory QaState({
     @Default(true) bool loading,
     @Default(<AuctionQuestion>[]) List<AuctionQuestion> items,

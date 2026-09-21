@@ -44,6 +44,13 @@ enum NotificationEvent {
   commercialRegisterApproved,
   commercialRegisterRejected,
 
+  /// مزايدة جديدة من نوع المواطن المفضّل (تعديلات العميل 26 · 27 · 28)،
+  /// وتنبيهات الاشتراك نفسه (تعديل 25).
+  newAuctionMatch,
+  subscriptionActivated,
+  subscriptionExpiring,
+  subscriptionExpired,
+
   /// صف قديم من غير `event`، أو نوع جديد مش معروف للإصدار ده.
   unknown,
 }
@@ -69,6 +76,10 @@ extension NotificationEventX on NotificationEvent {
       NotificationEvent.commercialRegisterApproved,
     'commercial_register_rejected' =>
       NotificationEvent.commercialRegisterRejected,
+    'new_auction_match' => NotificationEvent.newAuctionMatch,
+    'subscription_activated' => NotificationEvent.subscriptionActivated,
+    'subscription_expiring' => NotificationEvent.subscriptionExpiring,
+    'subscription_expired' => NotificationEvent.subscriptionExpired,
     _ => NotificationEvent.unknown,
   };
 }
@@ -93,6 +104,12 @@ enum NotificationKind {
 
   /// قرار توثيق مرفوض/موقوف.
   verificationRejected,
+
+  /// مزايدة جديدة مطابقة لاهتمامات المواطن (تعديلات 26 · 28).
+  newAuction,
+
+  /// حدث خاص بالاشتراك المميّز (تعديل 25).
+  subscription,
 }
 
 /// إشعار واحد في الصندوق — يطابق NotificationResource:
@@ -145,6 +162,13 @@ class AppNotification extends Equatable {
       event == NotificationEvent.kycSuspended ||
       (actionUrl ?? '').contains('/kyc');
 
+  /// إشعار خاص بالاشتراك — بيروح لشاشة العضوية المميّزة (تعديل 25).
+  bool get pointsToPremium =>
+      event == NotificationEvent.subscriptionActivated ||
+      event == NotificationEvent.subscriptionExpiring ||
+      event == NotificationEvent.subscriptionExpired ||
+      (actionUrl ?? '').contains('/subscription');
+
   /// قرار السجل التجاري — الباك بيوجّه لـ `citizen.commercial-register`.
   bool get pointsToCommercialRegister =>
       event == NotificationEvent.commercialRegisterApproved ||
@@ -168,6 +192,12 @@ class AppNotification extends Equatable {
       case NotificationEvent.paymentFailed:
       case NotificationEvent.finalPaymentDue:
         return NotificationKind.payment;
+      case NotificationEvent.newAuctionMatch:
+        return NotificationKind.newAuction;
+      case NotificationEvent.subscriptionActivated:
+      case NotificationEvent.subscriptionExpiring:
+      case NotificationEvent.subscriptionExpired:
+        return NotificationKind.subscription;
       case NotificationEvent.conditionBookPublished:
       case NotificationEvent.inspectionAnswered:
       case NotificationEvent.deliveryUpdate:
@@ -197,7 +227,8 @@ class AppNotification extends Equatable {
       auctionId != null ||
       pointsToAppeals ||
       pointsToKyc ||
-      pointsToCommercialRegister;
+      pointsToCommercialRegister ||
+      pointsToPremium;
 
   AppNotification copyWith({bool? isRead}) => AppNotification(
     id: id,

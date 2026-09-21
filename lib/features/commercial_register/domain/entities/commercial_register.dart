@@ -36,7 +36,7 @@ extension CrDocumentTypeX on CrDocumentType {
 /// مستقل تمامًا عن الـ KYC: المستخدم ممكن يكون عنده واحد أو الاتنين أو ولا واحد.
 /// السجل المعتمد بس هو اللي بيفكّ المشاركة في المزادات المعلّمة
 /// `requires_commerce_register` — وده بيمنع **أي** دفع على المزاد ده، بما فيه
-/// شراء كراس الشروط مش الكفالة بس.
+/// شراء دفتر الشروط مش الكفالة بس.
 class CommercialRegister extends Equatable {
   final CommercialRegisterStatus status;
   final String? companyName;

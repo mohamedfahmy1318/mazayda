@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'auction.dart';
+import 'auction_session.dart';
 import 'money.dart';
 
 /// عنصر مزاد في القوائم — يطابق `AuctionListResource` (21 مفتاح).
@@ -63,7 +64,7 @@ class AuctionListItem extends Equatable {
   /// دفع الكفالة.
   final bool? depositPaid;
 
-  /// اشترى كراسة الشروط.
+  /// اشترى دفتر الشروط.
   final bool? bookPurchased;
 
   /// لحظة التسجيل في المزاد.
@@ -72,6 +73,13 @@ class AuctionListItem extends Equatable {
   /// حالة الدفع النهائي للفائز — PENDING | CONFIRMED | FAILED …
   /// `null` = مبدأش دفع نهائي.
   final String? finalPaymentStatus;
+
+  /// رقم الجلسة الحالية (تعديل العميل رقم 7) — بيتعرض كوسم على البطاقة لو
+  /// المزايدة اتعاد جدولتها. `null` أو 1 = جلسة أصلية، مافيش وسم.
+  final int? sessionRound;
+
+  /// مستوى النشر — بيحدد وسم «مميّزة» (تعديل العميل رقم 15).
+  final PublicationPriority publicationPriority;
 
   const AuctionListItem({
     required this.id,
@@ -101,7 +109,15 @@ class AuctionListItem extends Equatable {
     this.bookPurchased,
     this.registeredAt,
     this.finalPaymentStatus,
+    this.sessionRound,
+    this.publicationPriority = PublicationPriority.unknown,
   });
+
+  /// الجلسة دي ناتجة عن إعادة جدولة — تستحق وسم على البطاقة.
+  bool get isRescheduled => (sessionRound ?? 1) > 1;
+
+  /// مزايدة منشورة بأولوية — وسم «مميّزة».
+  bool get isFeatured => publicationPriority.isFeatured;
 
   String? get wilayaName => wilaya?.name;
 

@@ -5,7 +5,7 @@ part 'question_model.freezed.dart';
 part 'question_model.g.dart';
 
 @freezed
-class QuestionModel with _$QuestionModel {
+abstract class QuestionModel with _$QuestionModel {
   const QuestionModel._();
 
   const factory QuestionModel({

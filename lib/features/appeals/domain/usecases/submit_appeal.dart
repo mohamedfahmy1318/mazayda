@@ -23,7 +23,7 @@ class SubmitAppeal implements UseCase<Unit, SubmitAppealParams> {
 }
 
 @freezed
-class SubmitAppealParams with _$SubmitAppealParams {
+abstract class SubmitAppealParams with _$SubmitAppealParams {
   const factory SubmitAppealParams({
     required String auctionId, // مطلوب — الطعن دايمًا على مزاد
     required String subject,

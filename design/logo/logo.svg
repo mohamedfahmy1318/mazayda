@@ -1,0 +1,19 @@
+<!--
+  شعار مزايدة — المصدر الرسمي، منقول حرفيًا من مشروع الويب
+  (resources/views/layouts/{citizen,auth}.blade.php).
+
+  أي تعديل على الشعار يتعمل هنا الأول، وبعدين:
+      python3 tool/generate_logo_assets.py
+  عشان يولّد ملفات الـPNG اللي التطبيق وأيقونة النظام بيستخدموها.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+  <rect width="36" height="36" rx="8" fill="url(#brandGrad)"/>
+  <path d="M10 26L18 10L22 18H26L18 26H10Z" fill="white" opacity="0.9"/>
+  <path d="M12 24L18 12L21 18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B4D3E"/>
+      <stop offset="1" stop-color="#2D6A4F"/>
+    </linearGradient>
+  </defs>
+</svg>

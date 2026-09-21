@@ -9,6 +9,7 @@ import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/cubit/password_recovery_cubit.dart';
 import '../../features/auth/presentation/pages/password_recovery_page.dart';
+import '../../features/auth/presentation/pages/email_recovery_page.dart';
 import '../../features/auctions/presentation/pages/auctions_page.dart';
 import '../../features/auctions/presentation/pages/auction_detail_page.dart';
 import '../../features/bidding/presentation/pages/live_bidding_page.dart';
@@ -20,6 +21,8 @@ import '../../features/appeals/presentation/pages/appeals_page.dart';
 import '../../features/commercial_register/presentation/pages/commercial_register_page.dart';
 import '../../features/documents/presentation/pages/documents_page.dart';
 import '../../features/qa/presentation/pages/qa_page.dart';
+import '../../features/premium/presentation/pages/premium_page.dart';
+import '../../features/notifications/presentation/pages/notification_preferences_page.dart';
 
 /// أسماء المسارات — مركزية لتجنّب الأخطاء الإملائية.
 class Routes {
@@ -30,6 +33,8 @@ class Routes {
   static const otp = '/otp';
   static const forgotPassword = '/forgot-password';
   static const recoverAccount = '/recover-account';
+  /// استرجاع البريد الإلكتروني المفقود (تعديل العميل رقم 1) — خارج الجلسة.
+  static const recoverEmail = '/recover-email';
   // تبويبات الـ Bottom Navigation
   static const home = '/home';
   static const myAuctions = '/my-auctions';
@@ -43,6 +48,10 @@ class Routes {
   static const documents = '/documents';
   static const appeals = '/appeals';
   static const qa = '/qa'; // /qa/:id
+  /// العضوية المميّزة — الاشتراك وإدارته (تعديلات العميل 24 · 25).
+  static const premium = '/premium';
+  /// تفضيلات الإشعارات وأنواع المزايدات المفضّلة (تعديلات 27 · 28 · 30).
+  static const notificationPreferences = '/notification-preferences';
 }
 
 // مفاتيح الـ navigators: جذر + فرع لكل تبويب
@@ -61,7 +70,16 @@ GoRouter createRouter(SessionManager session) {
     initialLocation: Routes.splash,
     refreshListenable: GoRouterRefreshStream(session.onSessionExpired),
     redirect: (context, state) {
-      final authPaths = {Routes.login, Routes.register, Routes.splash};
+      final authPaths = {
+        Routes.login,
+        Routes.register,
+        Routes.splash,
+        Routes.forgotPassword,
+        Routes.recoverAccount,
+        // استرجاع البريد مسار خارج الجلسة — لو الجلسة انتهت والمستخدم
+        // فاتحه، ما ينفعش نرميه على login وهو في نص الطلب.
+        Routes.recoverEmail,
+      };
       final inAuthFlow = authPaths.contains(state.matchedLocation) ||
           state.matchedLocation.startsWith(Routes.otp);
       if (session.isExpired && !inAuthFlow) {
@@ -91,6 +109,10 @@ GoRouter createRouter(SessionManager session) {
             const PasswordRecoveryPage(mode: RecoveryMode.secretQuestion),
       ),
       GoRoute(
+        path: Routes.recoverEmail,
+        builder: (_, _) => const EmailRecoveryPage(),
+      ),
+      GoRoute(
         path: Routes.register,
         builder: (_, _) => const RegisterPage(),
       ),
@@ -106,6 +128,16 @@ GoRouter createRouter(SessionManager session) {
         path: '${Routes.auctionDetail}/:id',
         builder: (_, state) =>
             AuctionDetailPage(auctionId: state.pathParameters['id'] ?? ''),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.premium,
+        builder: (_, _) => const PremiumPage(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.notificationPreferences,
+        builder: (_, _) => const NotificationPreferencesPage(),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,

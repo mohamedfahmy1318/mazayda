@@ -1,7 +1,7 @@
 part of 'auctions_cubit.dart';
 
 @freezed
-class AuctionsState with _$AuctionsState {
+abstract class AuctionsState with _$AuctionsState {
   const factory AuctionsState({
     @Default(false) bool loading,
     @Default(<AuctionListItem>[]) List<AuctionListItem> auctions,

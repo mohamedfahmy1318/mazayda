@@ -7,7 +7,7 @@ part 'payment_models.g.dart';
 
 /// نتيجة بدء الدفع — {redirect_url, ref}.
 @freezed
-class PaymentInitModel with _$PaymentInitModel {
+abstract class PaymentInitModel with _$PaymentInitModel {
   const PaymentInitModel._();
 
   const factory PaymentInitModel({
@@ -26,7 +26,7 @@ class PaymentInitModel with _$PaymentInitModel {
 /// {id, type, amount:{amount,formatted}, status, gateway_ref, due_at,
 ///  confirmed_at, created_at}
 @freezed
-class PaymentStatusModel with _$PaymentStatusModel {
+abstract class PaymentStatusModel with _$PaymentStatusModel {
   const PaymentStatusModel._();
 
   const factory PaymentStatusModel({
@@ -58,7 +58,7 @@ class PaymentStatusModel with _$PaymentStatusModel {
 /// ردّ GET /payments/{ref}/status —
 /// `{ ref, gateway_ref, confirmed, payments[] }` (object مش list).
 @freezed
-class PaymentStatusResponseModel with _$PaymentStatusResponseModel {
+abstract class PaymentStatusResponseModel with _$PaymentStatusResponseModel {
   const PaymentStatusResponseModel._();
 
   const factory PaymentStatusResponseModel({

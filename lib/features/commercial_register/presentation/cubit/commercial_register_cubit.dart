@@ -30,7 +30,7 @@ enum CrFieldError {
 enum CrFormField { companyName, registerNumber, taxNumber, activityType, startDate }
 
 @freezed
-class CommercialRegisterState with _$CommercialRegisterState {
+abstract class CommercialRegisterState with _$CommercialRegisterState {
   const CommercialRegisterState._();
 
   const factory CommercialRegisterState({

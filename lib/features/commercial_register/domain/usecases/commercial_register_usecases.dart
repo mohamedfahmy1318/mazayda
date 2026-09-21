@@ -40,7 +40,7 @@ class SubmitCommercialRegister
 }
 
 @freezed
-class SubmitCommercialRegisterParams with _$SubmitCommercialRegisterParams {
+abstract class SubmitCommercialRegisterParams with _$SubmitCommercialRegisterParams {
   const factory SubmitCommercialRegisterParams({
     required String companyName,
     required String registerNumber,

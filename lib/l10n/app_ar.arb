@@ -231,7 +231,7 @@
   "paymentCancelled": "تم إلغاء الدفع",
   "paymentAlreadyDone": "أنت مسجّل بالفعل في هذا المزاد — يمكنك المزايدة",
   "paymentNotConfirmed": "لم يصلنا تأكيد الدفع بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.",
-  "paymentBookNotConfirmed": "لم يصلنا تأكيد شراء كراسة الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.",
+  "paymentBookNotConfirmed": "لم يصلنا تأكيد شراء دفتر الشروط بعد. إن كنت قد دفعت، انتظر قليلًا ثم أعد المحاولة.",
   "securePayment": "الدفع الآمن",
   "paymentPageFailed": "تعذّر فتح صفحة الدفع",
   "valRequired": "هذا الحقل مطلوب",
@@ -266,7 +266,7 @@
   "ctaNeedsKyc": "أكمل توثيق حسابك",
   "ctaNeedsCommerceRegister": "يتطلب سجلاً تجاريًا",
   "ctaCommerceRegisterHint": "هذا المزاد يتطلب سجلاً تجاريًا ساريًا قبل أي دفع. أضِفه من المنصّة ثم عُد للتطبيق.",
-  "ctaBuyBook": "شراء كراس الشروط",
+  "ctaBuyBook": "شراء دفتر الشروط",
   "ctaFinalPayment": "إتمام الدفع النهائي",
   "ctaFinalPaymentDone": "تم الدفع النهائي",
   "ctaAppeal": "تقديم طعن",
@@ -359,7 +359,7 @@
   "auctionTypeLease": "إيجار",
   "adSpecifications": "المواصفات",
   "adPricing": "الأسعار والرسوم",
-  "adBookPrice": "كراسة شروط",
+  "adBookPrice": "دفتر شروط",
   "adAssetInfo": "بيانات الأصل",
   "adAuctionType": "نوع المزاد",
   "adAssetClass": "صنف الأصل",
@@ -414,7 +414,7 @@
   "docsTitle": "وثائقي",
   "docsSearchHint": "ابحث باسم المزاد أو الوثيقة",
   "docsTotal": "الإجمالي",
-  "docsBooks": "كراسات",
+  "docsBooks": "دفاتر",
   "docsAwards": "ترسيات",
   "docsReceipts": "إيصالات",
   "docsFilters": "تصفية الوثائق",
@@ -425,7 +425,7 @@
   "docsSort": "الترتيب",
   "docsApply": "تطبيق",
   "docsClearFilters": "مسح الكل",
-  "docTypeConditionBook": "كراسة الشروط",
+  "docTypeConditionBook": "دفتر الشروط",
   "docTypeAward": "وثيقة الترسية",
   "docTypeReceipt": "إيصال دفع",
   "docTypeDelivery": "محضر تسليم",
@@ -501,5 +501,153 @@
   },
   "submitYourBid": "قدّم عرضك",
   "bidBelowMinimum": "المبلغ أقل من الحد الأدنى للمزايدة",
-  "biddingClosed": "أُغلق باب المزايدة"
+  "biddingClosed": "أُغلق باب المزايدة",
+  "ackTitle": "التسجيل في المزاد",
+  "ackSubtitleHasBook": "أقرّ بشروط المشاركة لبدء التسجيل عبر بوابة الدفع الآمنة",
+  "ackSubtitleNeedsBook": "شراء دفتر الشروط شرط للتسجيل — ستُفتح بوابتا دفع متتاليتان: الدفتر ثم التسجيل",
+  "ackDepositRow": "الكفالة (قابلة للاسترداد)",
+  "ackBookRow": "دفتر الشروط (غير مسترد)",
+  "ackAgree": "أقرّ بأنني قرأت دفتر الشروط وأوافق على شروط المشاركة",
+  "ackContinue": "المتابعة للدفع",
+  "ackGatewayNote": "سيتم فتح بوابة الدفع الآمنة (CIBWeb)",
+  "minBidSectorHint": "الحد الأدنى للمزايدة {amount} (نسبة القطاع {percent}٪)",
+  "@minBidSectorHint": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "bidBelowSectorMinimum": "لا يمكن تقديم عرض أقل من {amount} — نسبة الزيادة المحددة لهذا القطاع {percent}٪",
+  "@bidBelowSectorMinimum": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "adSession": "جلسة المزايدة",
+  "adSessionNumber": "رقم الجلسة",
+  "sessionRound": "الجلسة رقم {round}",
+  "@sessionRound": {
+    "placeholders": {
+      "round": {
+        "type": "int"
+      }
+    }
+  },
+  "adSessionCode": "المرجع",
+  "adRescheduleCount": "مرات إعادة الجدولة",
+  "adReduction": "الخفض المطبّق على السعر الافتتاحي",
+  "percentValue": "{percent}٪",
+  "@percentValue": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "adOriginalOpeningPrice": "السعر الافتتاحي الأصلي",
+  "adSessionHistory": "سجل الجلسات السابقة",
+  "adSector": "القطاع",
+  "adSectorIncrement": "أقل نسبة زيادة للقطاع",
+  "adMinBid": "أقل مزايدة مقبولة",
+  "auctionFeatured": "مميّزة",
+  "sessionRescheduledBanner": "أُعيدت جدولة هذه المزايدة {count, plural, =1{مرة واحدة} =2{مرتين} other{{count} مرات}} — السعر الافتتاحي الحالي بعد الخفض",
+  "@sessionRescheduledBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lostEmailLink": "فقدت بريدك الإلكتروني؟",
+  "lostEmailTitle": "استرجاع البريد الإلكتروني",
+  "lostEmailHint": "إن فقدت الوصول إلى بريدك الإلكتروني، أدخل بياناتك وأرفق صورة سيلفي وأنت تحمل بطاقة الهوية. تراجع الجهة المختصة الطلب وتعتمد البريد الجديد.",
+  "lostEmailNewEmail": "البريد الإلكتروني الجديد",
+  "lostEmailSelfie": "صورة سيلفي مع بطاقة الهوية",
+  "lostEmailSelfieHint": "أمسك بطاقة الهوية بجوار وجهك، واحرص على وضوح الصورة والبيانات",
+  "lostEmailRetake": "إعادة التقاط الصورة",
+  "lostEmailSubmit": "إرسال الطلب للمراجعة",
+  "lostEmailSubmittedTitle": "تم إرسال طلبك",
+  "lostEmailSubmittedBody": "طلبك قيد المراجعة لدى الجهة المختصة. ستتمكن من تسجيل الدخول بالبريد الجديد فور اعتماده.",
+  "lostEmailApprovedBody": "تم اعتماد بريدك الجديد. يمكنك الآن تسجيل الدخول به.",
+  "lostEmailRejectedBody": "تم رفض الطلب. راجع السبب أدناه وأعد الإرسال بعد تصحيح البيانات.",
+  "lostEmailRejectionReason": "سبب الرفض",
+  "lostEmailRefreshStatus": "تحديث الحالة",
+  "lostEmailResubmit": "تعديل الطلب وإعادة الإرسال",
+  "lostEmailRequestRef": "رقم الطلب",
+  "lostEmailSubmittedAt": "تاريخ التقديم",
+  "lostEmailSelfieRequired": "صورة السيلفي مع بطاقة الهوية مطلوبة",
+  "lostEmailImageTooLarge": "حجم الصورة يتجاوز {max} كيلوبايت — التقط صورة أصغر",
+  "@lostEmailImageTooLarge": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "docTypeParticipationReceipt": "وصل المشاركة",
+  "docTypeAuctionResult": "وصل نتيجة المزايدة",
+  "adDocuments": "وثائق المزايدة",
+  "adDownloadParticipationReceipt": "تحميل وصل المشاركة",
+  "adDownloadResult": "تحميل وصل النتيجة",
+  "adDownloadConditionBook": "تحميل دفتر الشروط",
+  "adReceiptHint": "يمكنك طباعة الوصل أو حفظه بعد التحميل",
+  "premiumTitle": "العضوية المميّزة",
+  "premiumTagline": "اعرف بالمزايدات الجديدة قبل غيرك",
+  "premiumActive": "اشتراكك فعّال",
+  "premiumInactive": "لا يوجد اشتراك فعّال",
+  "premiumPlanLabel": "الباقة",
+  "premiumStatus": "الحالة",
+  "premiumStartedAt": "تاريخ البداية",
+  "premiumExpiresAt": "تاريخ الانتهاء",
+  "premiumAutoRenew": "التجديد التلقائي",
+  "premiumAutoRenewOn": "مفعّل",
+  "premiumAutoRenewOff": "متوقف",
+  "premiumStopAutoRenew": "إيقاف التجديد التلقائي",
+  "premiumStopAutoRenewConfirm": "سيستمر اشتراكك حتى تاريخ الانتهاء، ولن يُجدَّد بعدها تلقائيًا. هل تريد المتابعة؟",
+  "premiumDaysRemaining": "{days, plural, =1{يوم واحد متبقٍ} =2{يومان متبقيان} other{{days} أيام متبقية}}",
+  "@premiumDaysRemaining": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "premiumExpiringSoon": "اشتراكك على وشك الانتهاء — جدّده حتى لا تفوتك التنبيهات",
+  "premiumChoosePlan": "اختر باقتك",
+  "premiumSubscribe": "اشترك الآن",
+  "premiumRenew": "تجديد الاشتراك",
+  "premiumRecommended": "الأفضل قيمة",
+  "premiumPeriodMonthly": "شهريًا",
+  "premiumPeriodYearly": "سنويًا",
+  "premiumNoPlans": "لا توجد باقات متاحة حاليًا",
+  "premiumPaymentDone": "تم تفعيل اشتراكك",
+  "cancel": "إلغاء",
+  "prefsTitle": "تفضيلات الإشعارات",
+  "prefsChannelsTitle": "طرق الاستقبال",
+  "prefsChannelPush": "إشعارات التطبيق",
+  "prefsChannelPushHint": "تصلك على هاتفك فور حدوث الأمر",
+  "prefsChannelEmail": "البريد الإلكتروني",
+  "prefsChannelEmailHint": "ملخّص بالمزايدات الجديدة المطابقة لاهتماماتك",
+  "prefsChannelEmailPremiumOnly": "متاح لأصحاب العضوية المميّزة",
+  "prefsChannelSms": "رسائل SMS",
+  "prefsNewAuctionAlerts": "تنبيهات المزايدات الجديدة",
+  "prefsNewAuctionAlertsHint": "نُعلمك فور إضافة مزايدة من الأنواع التي تهتم بها",
+  "prefsCategoriesTitle": "أنواع المزايدات التي تهمّك",
+  "prefsCategoriesHint": "اختر نوعًا أو أكثر. بدون اختيار ستصلك تنبيهات كل الأنواع.",
+  "prefsCategoriesAll": "كل الأنواع",
+  "prefsNoCategories": "لا توجد أنواع متاحة حاليًا",
+  "prefsSave": "حفظ التفضيلات",
+  "prefsSaved": "تم حفظ تفضيلاتك",
+  "prefsDiscardChanges": "لديك تعديلات غير محفوظة. هل تريد الخروج دون حفظ؟",
+  "prefsLeave": "خروج",
+  "prefsGoPremium": "الاشتراك في العضوية المميّزة"
 }

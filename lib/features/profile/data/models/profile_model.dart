@@ -6,7 +6,7 @@ part 'profile_model.g.dart';
 
 /// جهة المستخدم — `entity: {id, name}` (whenLoaded، فالمفتاح ممكن يغيب تمامًا).
 @freezed
-class ProfileEntityRefModel with _$ProfileEntityRefModel {
+abstract class ProfileEntityRefModel with _$ProfileEntityRefModel {
   const ProfileEntityRefModel._();
 
   const factory ProfileEntityRefModel({String? id, String? name}) =
@@ -26,7 +26,7 @@ class ProfileEntityRefModel with _$ProfileEntityRefModel {
 /// نفس الـ Resource بيرجع من `/profile` و`/auth/me` و`/auth/login`، فحقول
 /// التعبئة المسبقة (BE-8) متاحة في التلاتة.
 @freezed
-class ProfileModel with _$ProfileModel {
+abstract class ProfileModel with _$ProfileModel {
   const ProfileModel._();
 
   const factory ProfileModel({

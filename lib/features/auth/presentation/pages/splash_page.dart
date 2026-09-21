@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/brand_mark.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../domain/usecases/check_session.dart';
@@ -189,19 +190,14 @@ class _BrandMark extends StatelessWidget {
                 ),
               ],
             ),
-            child: Center(
-              child: Container(
-                width: 76.w,
-                height: 76.w,
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(24.r),
-                ),
-                child: Icon(
-                  Icons.gavel_rounded,
-                  size: 39.sp,
-                  color: AppColors.primary,
-                ),
+            child: const Center(
+              // لوحة بيضا صريحة زي التصميم الأصلي، والنسخة الملوّنة من
+              // الشعار هي المناسبة فوقها.
+              child: BrandMark(
+                size: 76,
+                radius: 24,
+                onDarkSurface: false,
+                background: AppColors.white,
               ),
             ),
           ),
