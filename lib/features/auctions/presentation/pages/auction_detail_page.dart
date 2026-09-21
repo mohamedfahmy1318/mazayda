@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
@@ -162,7 +163,6 @@ class _DetailHeaderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final photos = auction.photos;
 
     return Stack(
@@ -182,19 +182,17 @@ class _DetailHeaderImage extends StatelessWidget {
               fallbackIcon: Icons.gavel,
             ),
           ),
-        Positioned(
+        PositionedDirectional(
           // ننزل الزر أسفل شريط الحالة حتى لا يكون جزء منه خلفه (غير قابل للمس)
           top: MediaQuery.of(context).padding.top + 8.h,
-          right: 14.w,
+          // `start` مش `right`: الرجوع بيقعد في أول الشاشة — يمين في
+          // العربي وشمال في الفرنسي/الإنجليزي.
+          start: 14.w,
           child: CircleAvatar(
             backgroundColor: AppColors.white,
             child: IconButton(
-              // زر رجوع — يشير "للخلف" حسب اتجاه اللغة
-              // (RTL: لليمين/forward، LTR: لليسار/back).
-              icon: Icon(
-                isRtl ? Icons.arrow_forward : Icons.arrow_back,
-                color: AppColors.primary,
-              ),
+              // Flutter بيقلب السهم لوحده حسب الاتجاه — شوف AppIcons.
+              icon: const Icon(AppIcons.back, color: AppColors.primary),
               onPressed: () {
                 if (context.canPop()) {
                   context.pop();

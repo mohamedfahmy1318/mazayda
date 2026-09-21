@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/app_icons.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/utils/money_format.dart';
 import '../../../../documents/presentation/widgets/document_download_button.dart';
@@ -286,7 +287,7 @@ class _SessionHistoryRow extends StatelessWidget {
               if (id != null) ...[
                 Gap(4.w),
                 Icon(
-                  Icons.chevron_left_rounded,
+                  AppIcons.chevronForward,
                   size: 16.sp,
                   color: AppColors.textHint,
                 ),

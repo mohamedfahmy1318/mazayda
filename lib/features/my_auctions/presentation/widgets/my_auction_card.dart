@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../../auctions/domain/entities/auction_list_item.dart';
 import '../../domain/entities/my_auctions_result.dart';
@@ -112,7 +113,6 @@ class _CardSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +197,7 @@ class _CardSummary extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Icon(
-            isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+            AppIcons.openDetails,
             size: 17.sp,
             color: AppColors.primary,
           ),

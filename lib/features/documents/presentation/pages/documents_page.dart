@@ -203,9 +203,11 @@ class _FilterButton extends StatelessWidget {
           icon: const Icon(Icons.tune),
         ),
         if (count > 0)
-          Positioned(
+          PositionedDirectional(
             top: 8.h,
-            right: 6.w,
+            // عدّاد الفلاتر بيقعد في الركن الخارجي للأيقونة — شمال في
+            // العربي ويمين في اللاتيني، مش مثبّت على اليمين.
+            end: 6.w,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
               decoration: BoxDecoration(

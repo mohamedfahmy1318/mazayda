@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../domain/entities/auction_list_item.dart';
 import 'auction_status_label.dart';
@@ -449,7 +450,6 @@ class _BiddersChip extends StatelessWidget {
 class _OpenAuctionIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Container(
       width: 34.w,
       height: 34.w,
@@ -466,7 +466,7 @@ class _OpenAuctionIndicator extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: Icon(
-        isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+        AppIcons.openDetails,
         size: 18.sp,
         color: AppColors.white,
       ),

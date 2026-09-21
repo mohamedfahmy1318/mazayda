@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/arabic_numerals.dart';
@@ -90,9 +91,8 @@ class _BackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return IconButton(
-      icon: Icon(isRtl ? Icons.arrow_forward : Icons.arrow_back),
+      icon: const Icon(AppIcons.back),
       onPressed: () =>
           context.canPop() ? context.pop() : context.go(Routes.login),
     );

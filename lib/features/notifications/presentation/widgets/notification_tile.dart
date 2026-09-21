@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../domain/entities/app_notification.dart';
 import 'notification_labels.dart';
 
@@ -31,7 +32,6 @@ class _NotificationTileState extends State<NotificationTile> {
     final t = AppLocalizations.of(context);
     final unread = !notification.isRead;
     final style = notification.kind.style;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return AnimatedScale(
       scale: _pressed ? 0.985 : 1,
@@ -189,9 +189,7 @@ class _NotificationTileState extends State<NotificationTile> {
                                       borderRadius: BorderRadius.circular(9.r),
                                     ),
                                     child: Icon(
-                                      isRtl
-                                          ? Icons.arrow_back_rounded
-                                          : Icons.arrow_forward_rounded,
+                                      AppIcons.openDetails,
                                       size: 15.sp,
                                       color: style.fg,
                                     ),

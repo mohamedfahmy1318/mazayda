@@ -62,49 +62,56 @@ class _SplashPageState extends State<SplashPage> {
           child: Stack(
             children: [
               _SplashOrnaments(reduceMotion: reduceMotion),
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 28.w),
-                  child: Column(
-                    children: [
-                      const Spacer(flex: 4),
-                      _BrandMark(reduceMotion: reduceMotion),
-                      Gap(27.h),
-                      _AnimatedSplashChild(
-                        reduceMotion: reduceMotion,
-                        delay: 260.ms,
-                        child: Text(
-                          t.appName,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 32.sp,
-                            height: 1.15,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: -0.5,
-                            color: AppColors.white,
+              // `Positioned.fill` مش SafeArea لوحدها: الـ`Stack` بيدّي
+              // العناصر غير الموضوعة قيودًا مرنة، فالعمود كان بيتقلّص على
+              // عرض أعرض عنصر جوّاه وبعدين يترصّ في أول الشاشة
+              // (`AlignmentDirectional.topStart` = **يمين** في العربي).
+              // بالملء بقى العمود بعرض الشاشة والتوسيط بيشتغل صح.
+              Positioned.fill(
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 28.w),
+                    child: Column(
+                      children: [
+                        const Spacer(flex: 4),
+                        _BrandMark(reduceMotion: reduceMotion),
+                        Gap(27.h),
+                        _AnimatedSplashChild(
+                          reduceMotion: reduceMotion,
+                          delay: 260.ms,
+                          child: Text(
+                            t.appName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 32.sp,
+                              height: 1.15,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.5,
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      Gap(9.h),
-                      _AnimatedSplashChild(
-                        reduceMotion: reduceMotion,
-                        delay: 420.ms,
-                        slideBegin: 0.12,
-                        child: Text(
-                          t.splashTagline,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 12.5.sp,
-                            height: 1.65,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.white.withValues(alpha: 0.68),
+                        Gap(9.h),
+                        _AnimatedSplashChild(
+                          reduceMotion: reduceMotion,
+                          delay: 420.ms,
+                          slideBegin: 0.12,
+                          child: Text(
+                            t.splashTagline,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.5.sp,
+                              height: 1.65,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.white.withValues(alpha: 0.68),
+                            ),
                           ),
                         ),
-                      ),
-                      const Spacer(flex: 5),
-                      _SplashLoader(reduceMotion: reduceMotion),
-                      Gap(22.h),
-                    ],
+                        const Spacer(flex: 5),
+                        _SplashLoader(reduceMotion: reduceMotion),
+                        Gap(22.h),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -56,11 +56,10 @@ class _LoginView extends StatelessWidget {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding: EdgeInsets.fromLTRB(18.w, 22.h, 18.w, 24.h),
               children: [
-                AuthFormSectionTitle(
-                  text: t.login,
-                  icon: Icons.lock_open_rounded,
-                ),
-                Gap(18.h),
+                // مفيش عنوان قسم هنا: الرأس فوق مكتوب فيه «تسجيل الدخول»
+                // بالظبط، فكان بيتكرر مرتين على بعد أقل من شاشة. باقي
+                // الشاشات عناوين أقسامها مختلفة عن عنوان الصفحة.
+                Gap(4.h),
                 AppTextField(
                   label: t.ninOrEmail,
                   hint: t.ninOrEmail,

@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/brand_mark.dart';
 import '../../../../core/router/app_router.dart';
 
@@ -32,8 +33,10 @@ class AuthPageShell extends StatelessWidget {
     final topInset = MediaQuery.paddingOf(context).top;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
-    final hero = SizedBox(
-      height: topInset + 190.h,
+    // ارتفاع الرأس بيتحدد بمحتواه، مش برقم ثابت: الثابت القديم
+    // (`topInset + 190.h`) مع `Spacer` كان بيسيب شريط أخضر فاضي كبير بين
+    // اسم المنصة وعنوان الصفحة.
+    final hero = IntrinsicHeight(
       child: Stack(
         children: [
           PositionedDirectional(
@@ -64,7 +67,7 @@ class AuthPageShell extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(18.w, topInset + 10.h, 18.w, 17.h),
+            padding: EdgeInsets.fromLTRB(18.w, topInset + 12.h, 18.w, 22.h),
             child: Column(
               children: [
                 Row(
@@ -95,28 +98,35 @@ class AuthPageShell extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
+                Gap(24.h),
+                // عنوان الصفحة على نفس حافة صفّ العلامة اللي فوقه — قبل
+                // كده كان فيه `Gap(13.w)` زيادة بيزحلقه لجوّه لوحده.
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(13.w),
+                    // أيقونة الصفحة: كانت بتتبعت من كل شاشة وماتتعرضش
+                    // خالص. هنا بقت الفرق البصري بين «دخول» و«إنشاء
+                    // حساب» و«تأكيد البريد».
+
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             title,
-                            maxLines: 1,
+                            // سطرين: فيه عناوين أطول («استرجاع البريد
+                            // الإلكتروني») كانت بتتقص بسطر واحد.
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: AppColors.white,
-                              fontSize: 22.sp,
-                              height: 1.3,
+                              fontSize: 21.sp,
+                              height: 1.25,
                               fontWeight: FontWeight.w800,
                               letterSpacing: -0.25,
                             ),
                           ),
-                          Gap(4.h),
+                          Gap(3.h),
                           Text(
                             subtitle,
                             maxLines: 2,
@@ -220,7 +230,6 @@ class _BackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Material(
       color: AppColors.white.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(13.r),
@@ -230,11 +239,7 @@ class _BackButton extends StatelessWidget {
         child: SizedBox(
           width: 40.w,
           height: 40.w,
-          child: Icon(
-            isRtl ? Icons.arrow_forward_rounded : Icons.arrow_back_rounded,
-            size: 20.sp,
-            color: AppColors.white,
-          ),
+          child: Icon(AppIcons.back, size: 20.sp, color: AppColors.white),
         ),
       ),
     );

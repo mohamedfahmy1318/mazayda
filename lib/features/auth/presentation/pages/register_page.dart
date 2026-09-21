@@ -13,6 +13,7 @@ import '../cubit/register_cubit.dart';
 import '../formz/auth_input_errors.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/auth_page_shell.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -173,9 +174,7 @@ class _RegisterView extends StatelessWidget {
                 ),
                 PrimaryButton(
                   label: t.nextVerify,
-                  icon: Directionality.of(context) == TextDirection.rtl
-                      ? Icons.arrow_back_rounded
-                      : Icons.arrow_forward_rounded,
+                  icon: AppIcons.forward,
                   isLoading: submitting,
                   onPressed: state.canSubmit ? cubit.submit : null,
                 ),

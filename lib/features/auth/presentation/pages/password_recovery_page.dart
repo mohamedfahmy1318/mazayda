@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/arabic_numerals.dart';
@@ -76,11 +77,7 @@ class _RecoveryView extends StatelessWidget {
             title: Text(isOtp ? t.forgotPasswordTitle : t.recoverAccountTitle),
             leading: state.step == RecoveryStep.complete
                 ? IconButton(
-                    icon: Icon(
-                      Directionality.of(context) == TextDirection.rtl
-                          ? Icons.arrow_forward
-                          : Icons.arrow_back,
-                    ),
+                    icon: const Icon(AppIcons.back),
                     onPressed:
                         context.read<PasswordRecoveryCubit>().backToIdentify,
                   )

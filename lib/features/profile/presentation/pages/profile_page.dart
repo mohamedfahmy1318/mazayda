@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/list_entrance_animation.dart';
@@ -260,7 +261,6 @@ class _ProfileNavRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -292,9 +292,7 @@ class _ProfileNavRow extends StatelessWidget {
               ),
               if (trailing != null) ...[trailing!, Gap(7.w)],
               Icon(
-                isRtl
-                    ? Icons.arrow_back_ios_new_rounded
-                    : Icons.arrow_forward_ios_rounded,
+                AppIcons.chevronForwardIos,
                 size: 13.sp,
                 color: AppColors.textHint,
               ),
