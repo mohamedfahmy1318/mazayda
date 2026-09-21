@@ -40,6 +40,9 @@ _AuctionViewerModel _$AuctionViewerModelFromJson(Map<String, dynamic> json) =>
               json['existing_appeal'] as Map<String, dynamic>,
             ),
       hasFinalPayment: json['has_final_payment'] as bool? ?? false,
+      isStaff: json['is_staff'] as bool? ?? false,
+      role: json['role'] as String?,
+      isPremium: json['is_premium'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$AuctionViewerModelToJson(_AuctionViewerModel instance) =>
@@ -55,4 +58,7 @@ Map<String, dynamic> _$AuctionViewerModelToJson(_AuctionViewerModel instance) =>
       'can_appeal': instance.canAppeal,
       'existing_appeal': instance.existingAppeal,
       'has_final_payment': instance.hasFinalPayment,
+      'is_staff': instance.isStaff,
+      'role': instance.role,
+      'is_premium': instance.isPremium,
     };

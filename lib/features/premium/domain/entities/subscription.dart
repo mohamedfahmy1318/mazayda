@@ -36,6 +36,14 @@ class SubscriptionPlan extends Equatable {
   final SubscriptionPeriod period;
   final Money price;
 
+  /// اسم الدورة زي ما السيرفر كتبه.
+  ///
+  /// بنستخدمه **بس** لو [period] طلعت `unknown` (الباك ضاف دورة جديدة
+  /// والإصدار ده مايعرفهاش) — عشان السعر مايبانش من غير وحدة. في الحالات
+  /// المعروفة بنفضّل ترجمة التطبيق، لأن الـ API بتتنده دايمًا بـ`ar`
+  /// فالنص ده عربي حتى لو المستخدم مشغّل الواجهة بالفرنسية.
+  final String? periodLabel;
+
   /// مميزات الباقة — نصوص **مترجمة من السيرفر**، فإضافة ميزة جديدة
   /// مابتحتاجش إصدار تطبيق جديد.
   final List<String> features;
@@ -49,6 +57,7 @@ class SubscriptionPlan extends Equatable {
     this.description,
     required this.period,
     required this.price,
+    this.periodLabel,
     this.features = const [],
     this.isRecommended = false,
   });

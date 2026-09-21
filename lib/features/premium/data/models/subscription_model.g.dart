@@ -13,6 +13,7 @@ _SubscriptionPlanModel _$SubscriptionPlanModelFromJson(
   name: json['name'] as String?,
   description: json['description'] as String?,
   period: json['period'] as String?,
+  periodLabel: json['period_label'] as String?,
   price: json['price'] == null
       ? null
       : MoneyModel.fromJson(json['price'] as Map<String, dynamic>),
@@ -29,6 +30,7 @@ Map<String, dynamic> _$SubscriptionPlanModelToJson(
   'name': instance.name,
   'description': instance.description,
   'period': instance.period,
+  'period_label': instance.periodLabel,
   'price': instance.price,
   'features': instance.features,
   'is_recommended': instance.isRecommended,

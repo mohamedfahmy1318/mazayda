@@ -58,6 +58,13 @@ class NotificationPreferences extends Equatable {
   /// المواطن مشترك دلوقتي — بيتقرا من نفس الردّ.
   final bool isPremium;
 
+  /// المنصّة عندها مزوّد رسائل نصية شغّال.
+  ///
+  /// لحد ما يتربط مزوّد، السيرفر بيرفض تشغيل الـ SMS وبيرجّعه `false` حتى
+  /// لو بعتناه `true`. فبنخفي الخيار بدل ما نسيب المستخدم يشغّله ويلاقيه
+  /// رجع مقفول من غير سبب. (عكس البريد: البريد ليه طريق — يشترك.)
+  final bool smsAvailable;
+
   const NotificationPreferences({
     this.channels = const NotificationChannels(),
     this.categoryIds = const [],
@@ -65,6 +72,7 @@ class NotificationPreferences extends Equatable {
     this.availableCategories = const [],
     this.emailRequiresPremium = false,
     this.isPremium = false,
+    this.smsAvailable = false,
   });
 
   /// خيار البريد مقفول عليه — مشترك مطلوب وهو مش مشترك.
@@ -81,6 +89,7 @@ class NotificationPreferences extends Equatable {
     availableCategories: availableCategories,
     emailRequiresPremium: emailRequiresPremium,
     isPremium: isPremium,
+    smsAvailable: smsAvailable,
   );
 
   @override

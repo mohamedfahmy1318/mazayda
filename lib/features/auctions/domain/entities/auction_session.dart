@@ -10,6 +10,12 @@ import 'money.dart';
 /// الأرقام دي بتيجي جاهزة من السيرفر — التطبيق مابيحسبش الترقيم ولا الخفض،
 /// بس بيعرضهم.
 class AuctionSession extends Equatable {
+  /// رقم المزايدة اللي بتمثّل الجلسة دي — بيخلّي صفوف السجل قابلة للفتح.
+  ///
+  /// السيرفر بيبعته على الجلسات السابقة بس، لأن الجلسة الحالية هي الصفحة
+  /// اللي المستخدم واقف عليها أصلًا.
+  final String? id;
+
   /// تسلسل الجلسة على مستوى المزايدة: 1 للأولى، 2 لأول إعادة… (تعديل 7).
   final int round;
 
@@ -36,6 +42,7 @@ class AuctionSession extends Equatable {
 
   const AuctionSession({
     required this.round,
+    this.id,
     this.code,
     this.startTime,
     this.endTime,

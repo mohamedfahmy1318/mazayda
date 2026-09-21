@@ -8,10 +8,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mazayada/core/session/account_cache.dart';
+import 'package:mazayada/core/widgets/brand_mark.dart';
 import 'package:mazayada/features/auctions/domain/entities/auction.dart';
 import 'package:mazayada/features/auctions/domain/entities/auction_viewer.dart';
 import 'package:mazayada/features/auctions/domain/entities/money.dart';
 import 'package:mazayada/features/bidding/presentation/widgets/bid_controls.dart';
+import 'package:mazayada/features/payments/domain/entities/payment_rejection.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 
 const _zero = Money(amount: 0, formatted: '0 دج');
@@ -119,6 +121,19 @@ void main() {
       );
     });
 
+    test('علم الموظّف بييجي من meta.viewer مباشرة', () {
+      // الباك بقى بيبعت `is_staff` مع كل رد تفاصيل، فمش محتاجين كاش
+      // البروفايل: لو الدور اتغيّر، الرد الجاي بيعكسه فورًا.
+      expect(
+        ctaFor(
+          _auction(endTime: DateTime.now().add(const Duration(hours: 1))),
+          const AuctionViewer(canBid: true, isStaff: true),
+          isAuthenticated: true,
+        ),
+        AuctionCta.none,
+      );
+    });
+
     test('تصنيف الأدوار مطابق لـ UserRole::isStaff', () {
       expect(AccountRoles.isStaff('CITIZEN'), isFalse);
       expect(AccountRoles.isStaff('PREMIUM_CITIZEN'), isFalse);
@@ -127,6 +142,87 @@ void main() {
       // دور غير معروف = نتعامل معاه كموظّف (الأأمن)، وnull = مش معروف.
       expect(AccountRoles.isStaff('SOMETHING_NEW'), isTrue);
       expect(AccountRoles.isStaff(null), isFalse);
+    });
+  });
+
+  group('تعديل 3 — السيرفر هو اللي بيقفل بيع دفتر الشروط', () {
+    test('book_purchase_open=false بيقفل البيع حتى والوقت لسه فاضل', () {
+      // المزاد الملغي: الوقت لسه جاي و`has_ended` false، فالعدّاد عندنا
+      // مش هيلاحظ حاجة — السيرفر بس هو اللي يعرف.
+      const cancelled = Auction(
+        id: 'a1',
+        title: 'مزايدة',
+        status: AuctionStatus.active,
+        auctionType: 'SALE',
+        openingPrice: _zero,
+        currentPrice: _zero,
+        depositAmount: _zero,
+        bookPurchaseOpen: false,
+      );
+      expect(cancelled.isEndedNow, isFalse);
+      expect(cancelled.isBookPurchaseClosed, isTrue);
+
+      expect(
+        ctaFor(cancelled, _citizen, isAuthenticated: true),
+        AuctionCta.none,
+      );
+    });
+
+    test('من غير الحقل بنفضل معتمدين على العدّاد', () {
+      final live = _auction(
+        endTime: DateTime.now().add(const Duration(hours: 1)),
+      );
+      expect(live.bookPurchaseOpen, isNull);
+      expect(live.isBookPurchaseClosed, isFalse);
+      expect(
+        ctaFor(live, _citizen, isAuthenticated: true),
+        AuctionCta.buyBook,
+      );
+    });
+  });
+
+  group('أكواد الرفض الجديدة', () {
+    test('الأكواد التلاتة بتتعرف مش بتقع في unknown', () {
+      expect(
+        PaymentRejectionCodeX.fromApi('book_sales_closed'),
+        PaymentRejectionCode.bookSalesClosed,
+      );
+      expect(
+        PaymentRejectionCodeX.fromApi('staff_not_allowed'),
+        PaymentRejectionCode.staffNotAllowed,
+      );
+      expect(
+        PaymentRejectionCodeX.fromApi('plan_unavailable'),
+        PaymentRejectionCode.planUnavailable,
+      );
+    });
+
+    test('مش بتتحسب «خطوة متعمّلة خلاص»', () {
+      // لو اتحسبت كده، الـ flow هيكمّل للتسجيل على مزاد مقفول.
+      expect(
+        PaymentRejection.isBookStepSatisfied(null, code: 'book_sales_closed'),
+        isFalse,
+      );
+      expect(
+        PaymentRejection.isRegistrationSatisfied(
+          null,
+          code: 'staff_not_allowed',
+        ),
+        isFalse,
+      );
+    });
+  });
+
+  group('تعديل 18 — شعار المنصة', () {
+    testWidgets('الشعار الحقيقي بيتحمّل مش الأيقونة البديلة', (tester) async {
+      // `BrandMark` عنده `errorBuilder` بيرسم أيقونة مطرقة لو الأصل ضاع.
+      // الاختبار ده بيمسك لو حد شال الملف من `assets/logo/` أو من إعلان
+      // الأصول في pubspec — ساعتها الشاشة هتفضل شغّالة بهدوء بشكل غلط.
+      await tester.pumpWidget(_host(const BrandMark()));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Image), findsOneWidget);
+      expect(find.byIcon(Icons.gavel_rounded), findsNothing);
     });
   });
 

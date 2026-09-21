@@ -14,7 +14,14 @@ class PaymentInit extends Equatable {
 }
 
 /// أنواع الدفع — مطابقة لـ app/Enums/PaymentType.php.
-enum PaymentType { deposit, entryFee, bookPurchase, finalPayment, unknown }
+enum PaymentType {
+  deposit,
+  entryFee,
+  bookPurchase,
+  finalPayment,
+  subscription,
+  unknown,
+}
 
 extension PaymentTypeX on PaymentType {
   static PaymentType fromApi(String? v) => switch (v) {
@@ -22,17 +29,18 @@ extension PaymentTypeX on PaymentType {
         'ENTRY_FEE' => PaymentType.entryFee,
         'BOOK_PURCHASE' => PaymentType.bookPurchase,
         'FINAL_PAYMENT' => PaymentType.finalPayment,
+        'SUBSCRIPTION' => PaymentType.subscription,
         _ => PaymentType.unknown,
       };
 
-  /// النصوص منقولة حرفيًا من lang/ar/enums.php في الباك — ما عدا
-  /// `bookPurchase` اللي اتغيّر للمصطلح الجديد «دفتر شروط» (تعديل العميل
-  /// رقم 20). لازم الباك يغيّر `lang/*/enums.php` بنفس المصطلح.
+  /// النصوص منقولة حرفيًا من `lang/ar/enums.php` في الباك — بما فيها
+  /// «دفتر شروط» بعد تغيير المصطلح (تعديل العميل رقم 20).
   String get labelAr => switch (this) {
         PaymentType.deposit => 'كفالة',
         PaymentType.entryFee => 'رسوم دخول',
         PaymentType.bookPurchase => 'دفتر شروط',
         PaymentType.finalPayment => 'دفع نهائي',
+        PaymentType.subscription => 'اشتراك العضوية المميزة',
         PaymentType.unknown => 'دفعة',
       };
 }

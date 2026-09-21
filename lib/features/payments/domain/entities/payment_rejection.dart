@@ -36,6 +36,16 @@ enum PaymentRejectionCode {
   /// البوّابة نفسها فشلت — قابل لإعادة المحاولة.
   gatewayError,
 
+  /// بيع دفتر الشروط اتقفل (انتهى وقت المزايدة أو اتلغت) — تعديل 3.
+  /// حالة المزاد اتغيّرت عن اللي الشاشة شايفاه، فالمفروض نعيد التحميل.
+  bookSalesClosed,
+
+  /// حساب موظّف حاول يشارك أو يشترك — تعديل 4. مالوش طريق، مش خطوة ناقصة.
+  staffNotAllowed,
+
+  /// باقة الاشتراك مش متاحة (اتوقفت أو الكود قديم) — تعديل 24.
+  planUnavailable,
+
   /// رفض من غير كود، أو كود جديد مش معروف للإصدار ده.
   unknown,
 }
@@ -53,6 +63,9 @@ extension PaymentRejectionCodeX on PaymentRejectionCode {
     'not_winner' => PaymentRejectionCode.notWinner,
     'final_already_paid' => PaymentRejectionCode.finalAlreadyPaid,
     'gateway_error' => PaymentRejectionCode.gatewayError,
+    'book_sales_closed' => PaymentRejectionCode.bookSalesClosed,
+    'staff_not_allowed' => PaymentRejectionCode.staffNotAllowed,
+    'plan_unavailable' => PaymentRejectionCode.planUnavailable,
     _ => PaymentRejectionCode.unknown,
   };
 }
@@ -68,8 +81,9 @@ class PaymentRejection {
   /// `payments.already_bought_book` + `payments.book_free`
   ///
   /// المصطلح العربي اتغيّر من «كراسة الشروط» لـ«دفتر الشروط» (تعديل العميل
-  /// رقم 20)، فالصيغتين موجودتين هنا: القديمة لحد ما الباك ينزّل التغيير،
-  /// والجديدة بعده. الشبكة دي fallback أصلًا — الـ `code` هو المرجع.
+  /// رقم 20) والباك نزّله بالفعل. الصيغة القديمة باقية هنا عشان سيرفر
+  /// لسه ما اتحدّثش أو رد متخزّن قديم — والشبكة دي fallback أصلًا،
+  /// الـ `code` هو المرجع.
   static const _bookStepSatisfied = <String>{
     'لقد اشتريت دفتر الشروط بالفعل.',
     'لقد اشتريت كراسة الشروط بالفعل.',

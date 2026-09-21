@@ -43,6 +43,18 @@ class AuctionViewer extends Equatable {
   final ViewerAppealRef? existingAppeal;
   final bool hasFinalPayment;
 
+  /// حساب موظّف (إدارة أو جهة) — المشاركة كلها متخصّه (تعديل العميل رقم 4).
+  ///
+  /// بيجي مع كل رد تفاصيل، فهو أدقّ من [ViewerAccountFlags.isStaff] اللي
+  /// بيتقرا من كاش البروفايل: لو دور الحساب اتغيّر، الرد الجاي بيعكسه فورًا.
+  final bool isStaff;
+
+  /// دور الحساب زي ما السيرفر بيسمّيه (`CITIZEN`، `SUPER_ADMIN`…).
+  final String? role;
+
+  /// مشترك في العضوية المميّزة (تعديلات 24–29).
+  final bool isPremium;
+
   const AuctionViewer({
     this.canBid = false,
     this.isParticipant = false,
@@ -55,6 +67,9 @@ class AuctionViewer extends Equatable {
     this.canAppeal = false,
     this.existingAppeal,
     this.hasFinalPayment = false,
+    this.isStaff = false,
+    this.role,
+    this.isPremium = false,
   });
 
   @override
@@ -63,10 +78,12 @@ class AuctionViewer extends Equatable {
     isParticipant,
     commerceRegisterBlocked,
     hasBookAccess,
-    isParticipant,
     isWinner,
     canAppeal,
     hasFinalPayment,
+    isStaff,
+    role,
+    isPremium,
   ];
 }
 
@@ -144,7 +161,12 @@ AuctionCta ctaFor(
 
   // شراء دفتر الشروط والمشاركة عمومًا **للمواطن بس** — حساب الإدارة أو
   // الجهة بيتفرّج ومابيشاركش (تعديل العميل رقم 4).
-  if (account?.isStaff ?? false) return AuctionCta.none;
+  //
+  // `viewer.isStaff` بيجي مع الرد نفسه فهو الأحدث؛ `account` احتياطي لما
+  // الـ viewer يغيب أصلًا.
+  if ((viewer?.isStaff ?? false) || (account?.isStaff ?? false)) {
+    return AuctionCta.none;
+  }
 
   // `isEndedNow` مش `hasEnded`: بيحسب عدّاد الإقفال كمان فالزرار بيتقفل
   // لحظة انتهاء الوقت مش عند إعادة التحميل الجاية (تعديل العميل رقم 3).
@@ -168,7 +190,13 @@ AuctionCta ctaFor(
       return AuctionCta.none;
     }
 
-    if (!viewer.hasBookAccess) return AuctionCta.buyBook;
+    // البيع مقفول (انتهى الوقت أو المزاد اتلغي) ومالوش دفتر → مفيش طريق
+    // للمشاركة خلاص، فمانعرضش زرار هيترفض بـ`book_sales_closed`.
+    if (!viewer.hasBookAccess) {
+      return auction.isBookPurchaseClosed
+          ? AuctionCta.none
+          : AuctionCta.buyBook;
+    }
     if (!viewer.isParticipant) return AuctionCta.register;
     if (auction.isBiddable) return AuctionCta.bid;
     return AuctionCta.none;

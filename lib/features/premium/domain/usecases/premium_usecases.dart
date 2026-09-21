@@ -30,11 +30,11 @@ class SubscribeToPlan implements UseCase<PaymentInit, String> {
 
 /// إيقاف التجديد التلقائي.
 @injectable
-class CancelAutoRenew implements UseCase<Subscription?, NoParams> {
+class CancelAutoRenew implements UseCase<PremiumOverview?, NoParams> {
   final PremiumRepository repository;
   CancelAutoRenew(this.repository);
 
   @override
-  Future<Either<Failure, Subscription?>> call(NoParams params) =>
+  Future<Either<Failure, PremiumOverview?>> call(NoParams params) =>
       repository.cancelAutoRenew();
 }

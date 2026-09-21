@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/errors/failures.dart';
 import '../../../../core/session/account_cache.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../payments/domain/entities/payment_entities.dart';
+import '../../../payments/domain/entities/payment_rejection.dart';
 import '../../domain/entities/subscription.dart';
 import '../../domain/usecases/premium_usecases.dart';
 
@@ -78,6 +80,13 @@ class PremiumCubit extends Cubit<PremiumState> {
     return res.fold(
       (f) {
         emit(state.copyWith(busyPlanCode: null, error: f.message));
+        // الباقة اتوقفت من الأدمن والشاشة لسه عارضاها — بنعيد القراءة عشان
+        // تختفي، وإلا المستخدم هيفضل يضغط على باقة مش موجودة.
+        final code = f is ServerFailure ? f.code : null;
+        if (PaymentRejectionCodeX.fromApi(code) ==
+            PaymentRejectionCode.planUnavailable) {
+          load();
+        }
         return null;
       },
       (init) {
@@ -96,20 +105,15 @@ class PremiumCubit extends Cubit<PremiumState> {
       (f) => emit(state.copyWith(cancelling: false, error: f.message)),
       (updated) {
         emit(state.copyWith(cancelling: false));
-        // السيرفر ممكن يرجّع الاشتراك بعد التعديل أو مايرجّعش — في الحالتين
-        // نعيد القراءة عشان الشاشة تعرض المصدر الوحيد للحقيقة.
+        // السيرفر بيرجّع اللقطة الكاملة بعد التعديل، فبنعرضها زي ما هي بدل
+        // ما نركّب واحدة من حالة قديمة. لو ما رجّعش جسم بنعيد القراءة.
         if (updated == null) {
           load();
         } else {
-          emit(
-            state.copyWith(
-              overview: PremiumOverview(
-                isPremium: state.isPremium,
-                subscription: updated,
-                plans: state.plans,
-              ),
-            ),
-          );
+          emit(state.copyWith(overview: updated));
+          // إيقاف التجديد مابيلغيش المدة المدفوعة، بس بناخد قيمة السيرفر
+          // بدل ما نفترض إنها ما اتغيرتش.
+          _accountCache.save(isPremium: updated.isPremium);
         }
       },
     );

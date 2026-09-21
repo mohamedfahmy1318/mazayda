@@ -54,6 +54,8 @@ abstract class NotificationPreferencesModel
     @Default(false)
     bool emailRequiresPremium,
     @JsonKey(name: 'is_premium') @Default(false) bool isPremium,
+    // مفيش مزوّد SMS لحد دلوقتي — الشاشة بتخفي الخيار لما يبقى false.
+    @JsonKey(name: 'sms_available') @Default(false) bool smsAvailable,
   }) = _NotificationPreferencesModel;
 
   factory NotificationPreferencesModel.fromJson(Map<String, dynamic> json) =>
@@ -69,5 +71,6 @@ abstract class NotificationPreferencesModel
         .toList(),
     emailRequiresPremium: emailRequiresPremium,
     isPremium: isPremium,
+    smsAvailable: smsAvailable,
   );
 }

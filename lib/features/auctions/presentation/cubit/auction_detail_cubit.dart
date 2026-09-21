@@ -74,14 +74,19 @@ class AuctionDetailCubit extends Cubit<AuctionDetailState> {
             ),
           );
         } else if (isAuthed) {
-          // الـ viewer موجود فمش محتاجين نداء بروفايل، بس لسه محتاجين نعرف
-          // إن كان الحساب موظّف — `meta.viewer` مافيهوش الدور. الكاش
-          // بيتملا من أي قراءة بروفايل سابقة (تعديل العميل رقم 4).
-          if (await _accountCache.isStaff) {
+          // `meta.viewer` بقى بيرجّع الدور نفسه، فـ`ctaFor` بيقرا
+          // `viewer.isStaff` مباشرة ومش محتاجين لا نداء بروفايل ولا الكاش.
+          //
+          // بنحدّث الكاش من الرد بدل ما نقرا منه: ده بيخلّي أي شاشة تانية
+          // لسه بتعتمد عليه تشوف الدور الحالي بدل نسخة قديمة.
+          final viewer = detail.viewer;
+          if (viewer?.role != null) {
+            await _accountCache.save(
+              role: viewer!.role,
+              isPremium: viewer.isPremium,
+            );
             if (isClosed) return;
-            account = const ViewerAccountFlags(isStaff: true);
           }
-          if (isClosed) return;
         }
 
         emit(

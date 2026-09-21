@@ -1,0 +1,143 @@
+{
+  "data": {
+    "id": "a2050443-68af-41f5-8080-20d4b878c6ca",
+    "title": "new one",
+    "titles": {
+      "ar": "new one",
+      "fr": "new one",
+      "en": null
+    },
+    "description": "new one\r\nnew one\r\nnew one\r\nnew one",
+    "descriptions": {
+      "ar": "new one\r\nnew one\r\nnew one\r\nnew one",
+      "fr": "new one\r\nnew one\r\nnew one\r\nnew one"
+    },
+    "specifications": [],
+    "status": "CLOSED",
+    "auction_type": "SALE",
+    "asset_class": "REAL_ESTATE",
+    "condition": "NEW",
+    "unit_count": 1,
+    "condition_terms": null,
+    "award_terms": null,
+    "category": {
+      "id": 2,
+      "name": "عقارات"
+    },
+    "sector": {
+      "id": "2",
+      "name": "عقارات",
+      "min_increment_percent": 0
+    },
+    "min_bid": {
+      "amount": 6100001,
+      "formatted": "6 100 001 دج"
+    },
+    "min_increment_percent": 0,
+    "wilaya": {
+      "id": 2,
+      "code": "02",
+      "name": "الشلف"
+    },
+    "commune": {
+      "id": 23,
+      "name": "بوقادير"
+    },
+    "entity": {
+      "id": "a1dc9d20-adb9-4238-9c3d-a600ccd3075e",
+      "name": "المجلس الشعبي البلدي لخنشلة"
+    },
+    "asset_location": "new site",
+    "latitude": null,
+    "longitude": null,
+    "mayor_name": "new name",
+    "photos": [
+      "http://localhost:8000/storage/auctions/a2050443-68af-41f5-8080-20d4b878c6ca/JHBtdQWhA4LOIjXbioJHCzgG8ovifXRrNtxAjLlz.jpg",
+      "http://localhost:8000/storage/auctions/a2050443-68af-41f5-8080-20d4b878c6ca/vLQTdRnwLwgvzRM53r87vWOePYcMCOHnTfVqeBJD.jpg",
+      "http://localhost:8000/storage/auctions/a2050443-68af-41f5-8080-20d4b878c6ca/JcshBU0KGcgYrwxQhkikA3vDcM4fhI2V8ZQGMxSB.jpg"
+    ],
+    "cover_photo_url": "http://localhost:8000/storage/auctions/a2050443-68af-41f5-8080-20d4b878c6ca/JHBtdQWhA4LOIjXbioJHCzgG8ovifXRrNtxAjLlz.jpg",
+    "video_url": "http://localhost:8000/storage/auctions/a2050443-68af-41f5-8080-20d4b878c6ca/video/knxMOt8C3yG3JwAnyiIPuKkDbHOWVAVTPa0mrGpD.mp4",
+    "opening_price": {
+      "amount": 1000000,
+      "formatted": "1 000 000 دج"
+    },
+    "current_price": {
+      "amount": 6100000,
+      "formatted": "6 100 000 دج"
+    },
+    "deposit_amount": {
+      "amount": 200,
+      "formatted": "200 دج"
+    },
+    "deposit_percent": 10,
+    "book_price": {
+      "amount": 200,
+      "formatted": "200 دج"
+    },
+    "has_book_access": false,
+    "bid_count": 15,
+    "start_time": "2026-06-14T11:10:00+01:00",
+    "end_time": "2026-06-14T12:00:00+01:00",
+    "seconds_remaining": 0,
+    "is_live": false,
+    "is_biddable": false,
+    "has_ended": false,
+    "extension_count": 0,
+    "max_extensions": 10,
+    "inspection": {
+      "start": "2026-06-14T11:03:00+01:00",
+      "end": "2026-06-20T11:03:00+01:00",
+      "location": "new site",
+      "is_open": false
+    },
+    "appeal_window": {
+      "days": 8,
+      "is_open": false,
+      "deadline": "2026-06-23T19:27:21+01:00"
+    },
+    "requires_commerce_register": false,
+    "requires_newspaper_announcement": true,
+    "winner_alias": "Bold_Falcon_197",
+    "final_price": {
+      "amount": 6100000,
+      "formatted": "6 100 000 دج"
+    },
+    "condition_book": {
+      "id": "f5cea43f-df52-4942-89bf-716077671467",
+      "type": "CONDITION_BOOK",
+      "type_label": "دفتر الشروط",
+      "title": "كراسة شروط — new one",
+      "is_public": false,
+      "file_size": 56144,
+      "file_size_human": "54.8 KB",
+      "issued_at": "2026-06-14T08:05:04+01:00",
+      "download_url": "http://mazayada.findosystem.com/api/v1/documents/f5cea43f-df52-4942-89bf-716077671467/download",
+      "verify_url": "http://mazayada.findosystem.com/verify?doc=f5cea43f-df52-4942-89bf-716077671467&sig=8a080d731cbc88a58981e64e0cb855eeafb200d24fa8e9caecddfdec8c02bd8c"
+    },
+    "award_document": null,
+    "book_purchase_open": false,
+    "publication_priority": "NORMAL",
+    "session": {
+      "round": 1,
+      "code": "SES-2026-0001",
+      "start_time": "2026-06-14T11:10:00+01:00",
+      "end_time": "2026-06-14T12:00:00+01:00",
+      "opening_price": {
+        "amount": 1000000,
+        "formatted": "1 000 000 دج"
+      },
+      "reduction_percent": 0,
+      "reschedule_count": 0,
+      "original_opening_price": {
+        "amount": 1000000,
+        "formatted": "1 000 000 دج"
+      },
+      "history": []
+    }
+  },
+  "message": null,
+  "meta": {
+    "viewer": null
+  }
+}

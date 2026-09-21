@@ -292,7 +292,7 @@ as String?,
 /// @nodoc
 mixin _$AuctionViewerModel {
 
-@JsonKey(name: 'can_bid') bool get canBid;@JsonKey(name: 'is_participant') bool get isParticipant;@JsonKey(name: 'has_commerce_register') bool get hasCommerceRegister;@JsonKey(name: 'commerce_register_blocked') bool get commerceRegisterBlocked;@JsonKey(name: 'has_book_access') bool get hasBookAccess;@JsonKey(name: 'book_purchased') bool get bookPurchased;@JsonKey(name: 'deposit_paid') bool get depositPaid;@JsonKey(name: 'is_winner') bool get isWinner;@JsonKey(name: 'can_appeal') bool get canAppeal;@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? get existingAppeal;@JsonKey(name: 'has_final_payment') bool get hasFinalPayment;
+@JsonKey(name: 'can_bid') bool get canBid;@JsonKey(name: 'is_participant') bool get isParticipant;@JsonKey(name: 'has_commerce_register') bool get hasCommerceRegister;@JsonKey(name: 'commerce_register_blocked') bool get commerceRegisterBlocked;@JsonKey(name: 'has_book_access') bool get hasBookAccess;@JsonKey(name: 'book_purchased') bool get bookPurchased;@JsonKey(name: 'deposit_paid') bool get depositPaid;@JsonKey(name: 'is_winner') bool get isWinner;@JsonKey(name: 'can_appeal') bool get canAppeal;@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? get existingAppeal;@JsonKey(name: 'has_final_payment') bool get hasFinalPayment;@JsonKey(name: 'is_staff') bool get isStaff; String? get role;@JsonKey(name: 'is_premium') bool get isPremium;
 /// Create a copy of AuctionViewerModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,20 +306,20 @@ $AuctionViewerModelCopyWith<AuctionViewerModel> get copyWith => _$AuctionViewerM
 @override
 bool operator ==(Object other) {
   final _this = this as AuctionViewerModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionViewerModel&&(identical(other.canBid, _this.canBid) || other.canBid == _this.canBid)&&(identical(other.isParticipant, _this.isParticipant) || other.isParticipant == _this.isParticipant)&&(identical(other.hasCommerceRegister, _this.hasCommerceRegister) || other.hasCommerceRegister == _this.hasCommerceRegister)&&(identical(other.commerceRegisterBlocked, _this.commerceRegisterBlocked) || other.commerceRegisterBlocked == _this.commerceRegisterBlocked)&&(identical(other.hasBookAccess, _this.hasBookAccess) || other.hasBookAccess == _this.hasBookAccess)&&(identical(other.bookPurchased, _this.bookPurchased) || other.bookPurchased == _this.bookPurchased)&&(identical(other.depositPaid, _this.depositPaid) || other.depositPaid == _this.depositPaid)&&(identical(other.isWinner, _this.isWinner) || other.isWinner == _this.isWinner)&&(identical(other.canAppeal, _this.canAppeal) || other.canAppeal == _this.canAppeal)&&(identical(other.existingAppeal, _this.existingAppeal) || other.existingAppeal == _this.existingAppeal)&&(identical(other.hasFinalPayment, _this.hasFinalPayment) || other.hasFinalPayment == _this.hasFinalPayment));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuctionViewerModel&&(identical(other.canBid, _this.canBid) || other.canBid == _this.canBid)&&(identical(other.isParticipant, _this.isParticipant) || other.isParticipant == _this.isParticipant)&&(identical(other.hasCommerceRegister, _this.hasCommerceRegister) || other.hasCommerceRegister == _this.hasCommerceRegister)&&(identical(other.commerceRegisterBlocked, _this.commerceRegisterBlocked) || other.commerceRegisterBlocked == _this.commerceRegisterBlocked)&&(identical(other.hasBookAccess, _this.hasBookAccess) || other.hasBookAccess == _this.hasBookAccess)&&(identical(other.bookPurchased, _this.bookPurchased) || other.bookPurchased == _this.bookPurchased)&&(identical(other.depositPaid, _this.depositPaid) || other.depositPaid == _this.depositPaid)&&(identical(other.isWinner, _this.isWinner) || other.isWinner == _this.isWinner)&&(identical(other.canAppeal, _this.canAppeal) || other.canAppeal == _this.canAppeal)&&(identical(other.existingAppeal, _this.existingAppeal) || other.existingAppeal == _this.existingAppeal)&&(identical(other.hasFinalPayment, _this.hasFinalPayment) || other.hasFinalPayment == _this.hasFinalPayment)&&(identical(other.isStaff, _this.isStaff) || other.isStaff == _this.isStaff)&&(identical(other.role, _this.role) || other.role == _this.role)&&(identical(other.isPremium, _this.isPremium) || other.isPremium == _this.isPremium));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as AuctionViewerModel;
-  return Object.hash(runtimeType,_this.canBid,_this.isParticipant,_this.hasCommerceRegister,_this.commerceRegisterBlocked,_this.hasBookAccess,_this.bookPurchased,_this.depositPaid,_this.isWinner,_this.canAppeal,_this.existingAppeal,_this.hasFinalPayment);
+  return Object.hash(runtimeType,_this.canBid,_this.isParticipant,_this.hasCommerceRegister,_this.commerceRegisterBlocked,_this.hasBookAccess,_this.bookPurchased,_this.depositPaid,_this.isWinner,_this.canAppeal,_this.existingAppeal,_this.hasFinalPayment,_this.isStaff,_this.role,_this.isPremium);
 }
 
 @override
 String toString() {
   final _this = this as AuctionViewerModel;
-  return 'AuctionViewerModel(canBid: ${_this.canBid}, isParticipant: ${_this.isParticipant}, hasCommerceRegister: ${_this.hasCommerceRegister}, commerceRegisterBlocked: ${_this.commerceRegisterBlocked}, hasBookAccess: ${_this.hasBookAccess}, bookPurchased: ${_this.bookPurchased}, depositPaid: ${_this.depositPaid}, isWinner: ${_this.isWinner}, canAppeal: ${_this.canAppeal}, existingAppeal: ${_this.existingAppeal}, hasFinalPayment: ${_this.hasFinalPayment})';
+  return 'AuctionViewerModel(canBid: ${_this.canBid}, isParticipant: ${_this.isParticipant}, hasCommerceRegister: ${_this.hasCommerceRegister}, commerceRegisterBlocked: ${_this.commerceRegisterBlocked}, hasBookAccess: ${_this.hasBookAccess}, bookPurchased: ${_this.bookPurchased}, depositPaid: ${_this.depositPaid}, isWinner: ${_this.isWinner}, canAppeal: ${_this.canAppeal}, existingAppeal: ${_this.existingAppeal}, hasFinalPayment: ${_this.hasFinalPayment}, isStaff: ${_this.isStaff}, role: ${_this.role}, isPremium: ${_this.isPremium})';
 }
 
 
@@ -330,7 +330,7 @@ abstract mixin class $AuctionViewerModelCopyWith<$Res>  {
   factory $AuctionViewerModelCopyWith(AuctionViewerModel value, $Res Function(AuctionViewerModel) _then) = _$AuctionViewerModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'can_bid') bool canBid,@JsonKey(name: 'is_participant') bool isParticipant,@JsonKey(name: 'has_commerce_register') bool hasCommerceRegister,@JsonKey(name: 'commerce_register_blocked') bool commerceRegisterBlocked,@JsonKey(name: 'has_book_access') bool hasBookAccess,@JsonKey(name: 'book_purchased') bool bookPurchased,@JsonKey(name: 'deposit_paid') bool depositPaid,@JsonKey(name: 'is_winner') bool isWinner,@JsonKey(name: 'can_appeal') bool canAppeal,@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? existingAppeal,@JsonKey(name: 'has_final_payment') bool hasFinalPayment
+@JsonKey(name: 'can_bid') bool canBid,@JsonKey(name: 'is_participant') bool isParticipant,@JsonKey(name: 'has_commerce_register') bool hasCommerceRegister,@JsonKey(name: 'commerce_register_blocked') bool commerceRegisterBlocked,@JsonKey(name: 'has_book_access') bool hasBookAccess,@JsonKey(name: 'book_purchased') bool bookPurchased,@JsonKey(name: 'deposit_paid') bool depositPaid,@JsonKey(name: 'is_winner') bool isWinner,@JsonKey(name: 'can_appeal') bool canAppeal,@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? existingAppeal,@JsonKey(name: 'has_final_payment') bool hasFinalPayment,@JsonKey(name: 'is_staff') bool isStaff, String? role,@JsonKey(name: 'is_premium') bool isPremium
 });
 
 
@@ -347,7 +347,7 @@ class _$AuctionViewerModelCopyWithImpl<$Res>
 
 /// Create a copy of AuctionViewerModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? canBid = null,Object? isParticipant = null,Object? hasCommerceRegister = null,Object? commerceRegisterBlocked = null,Object? hasBookAccess = null,Object? bookPurchased = null,Object? depositPaid = null,Object? isWinner = null,Object? canAppeal = null,Object? existingAppeal = freezed,Object? hasFinalPayment = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? canBid = null,Object? isParticipant = null,Object? hasCommerceRegister = null,Object? commerceRegisterBlocked = null,Object? hasBookAccess = null,Object? bookPurchased = null,Object? depositPaid = null,Object? isWinner = null,Object? canAppeal = null,Object? existingAppeal = freezed,Object? hasFinalPayment = null,Object? isStaff = null,Object? role = freezed,Object? isPremium = null,}) {
   return _then(AuctionViewerModel(
 canBid: null == canBid ? _self.canBid : canBid // ignore: cast_nullable_to_non_nullable
 as bool,isParticipant: null == isParticipant ? _self.isParticipant : isParticipant // ignore: cast_nullable_to_non_nullable
@@ -360,6 +360,9 @@ as bool,isWinner: null == isWinner ? _self.isWinner : isWinner // ignore: cast_n
 as bool,canAppeal: null == canAppeal ? _self.canAppeal : canAppeal // ignore: cast_nullable_to_non_nullable
 as bool,existingAppeal: freezed == existingAppeal ? _self.existingAppeal : existingAppeal // ignore: cast_nullable_to_non_nullable
 as ViewerAppealRefModel?,hasFinalPayment: null == hasFinalPayment ? _self.hasFinalPayment : hasFinalPayment // ignore: cast_nullable_to_non_nullable
+as bool,isStaff: null == isStaff ? _self.isStaff : isStaff // ignore: cast_nullable_to_non_nullable
+as bool,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String?,isPremium: null == isPremium ? _self.isPremium : isPremium // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -457,10 +460,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment, @JsonKey(name: 'is_staff')  bool isStaff,  String? role, @JsonKey(name: 'is_premium')  bool isPremium)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuctionViewerModel() when $default != null:
-return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment);case _:
+return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment,_that.isStaff,_that.role,_that.isPremium);case _:
   return orElse();
 
 }
@@ -478,10 +481,10 @@ return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment, @JsonKey(name: 'is_staff')  bool isStaff,  String? role, @JsonKey(name: 'is_premium')  bool isPremium)  $default,) {final _that = this;
 switch (_that) {
 case _AuctionViewerModel():
-return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment);case _:
+return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment,_that.isStaff,_that.role,_that.isPremium);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -498,10 +501,10 @@ return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'can_bid')  bool canBid, @JsonKey(name: 'is_participant')  bool isParticipant, @JsonKey(name: 'has_commerce_register')  bool hasCommerceRegister, @JsonKey(name: 'commerce_register_blocked')  bool commerceRegisterBlocked, @JsonKey(name: 'has_book_access')  bool hasBookAccess, @JsonKey(name: 'book_purchased')  bool bookPurchased, @JsonKey(name: 'deposit_paid')  bool depositPaid, @JsonKey(name: 'is_winner')  bool isWinner, @JsonKey(name: 'can_appeal')  bool canAppeal, @JsonKey(name: 'existing_appeal')  ViewerAppealRefModel? existingAppeal, @JsonKey(name: 'has_final_payment')  bool hasFinalPayment, @JsonKey(name: 'is_staff')  bool isStaff,  String? role, @JsonKey(name: 'is_premium')  bool isPremium)?  $default,) {final _that = this;
 switch (_that) {
 case _AuctionViewerModel() when $default != null:
-return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment);case _:
+return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that.commerceRegisterBlocked,_that.hasBookAccess,_that.bookPurchased,_that.depositPaid,_that.isWinner,_that.canAppeal,_that.existingAppeal,_that.hasFinalPayment,_that.isStaff,_that.role,_that.isPremium);case _:
   return null;
 
 }
@@ -513,7 +516,7 @@ return $default(_that.canBid,_that.isParticipant,_that.hasCommerceRegister,_that
 @JsonSerializable()
 
 class _AuctionViewerModel extends AuctionViewerModel {
-  const _AuctionViewerModel({@JsonKey(name: 'can_bid') this.canBid = false, @JsonKey(name: 'is_participant') this.isParticipant = false, @JsonKey(name: 'has_commerce_register') this.hasCommerceRegister = false, @JsonKey(name: 'commerce_register_blocked') this.commerceRegisterBlocked = false, @JsonKey(name: 'has_book_access') this.hasBookAccess = false, @JsonKey(name: 'book_purchased') this.bookPurchased = false, @JsonKey(name: 'deposit_paid') this.depositPaid = false, @JsonKey(name: 'is_winner') this.isWinner = false, @JsonKey(name: 'can_appeal') this.canAppeal = false, @JsonKey(name: 'existing_appeal') this.existingAppeal, @JsonKey(name: 'has_final_payment') this.hasFinalPayment = false}): super._();
+  const _AuctionViewerModel({@JsonKey(name: 'can_bid') this.canBid = false, @JsonKey(name: 'is_participant') this.isParticipant = false, @JsonKey(name: 'has_commerce_register') this.hasCommerceRegister = false, @JsonKey(name: 'commerce_register_blocked') this.commerceRegisterBlocked = false, @JsonKey(name: 'has_book_access') this.hasBookAccess = false, @JsonKey(name: 'book_purchased') this.bookPurchased = false, @JsonKey(name: 'deposit_paid') this.depositPaid = false, @JsonKey(name: 'is_winner') this.isWinner = false, @JsonKey(name: 'can_appeal') this.canAppeal = false, @JsonKey(name: 'existing_appeal') this.existingAppeal, @JsonKey(name: 'has_final_payment') this.hasFinalPayment = false, @JsonKey(name: 'is_staff') this.isStaff = false, this.role, @JsonKey(name: 'is_premium') this.isPremium = false}): super._();
   factory _AuctionViewerModel.fromJson(Map<String, dynamic> json) => _$AuctionViewerModelFromJson(json);
 
 @override@JsonKey(name: 'can_bid') final  bool canBid;
@@ -527,6 +530,9 @@ class _AuctionViewerModel extends AuctionViewerModel {
 @override@JsonKey(name: 'can_appeal') final  bool canAppeal;
 @override@JsonKey(name: 'existing_appeal') final  ViewerAppealRefModel? existingAppeal;
 @override@JsonKey(name: 'has_final_payment') final  bool hasFinalPayment;
+@override@JsonKey(name: 'is_staff') final  bool isStaff;
+@override final  String? role;
+@override@JsonKey(name: 'is_premium') final  bool isPremium;
 
 /// Create a copy of AuctionViewerModel
 /// with the given fields replaced by the non-null parameter values.
@@ -541,18 +547,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuctionViewerModel&&(identical(other.canBid, canBid) || other.canBid == canBid)&&(identical(other.isParticipant, isParticipant) || other.isParticipant == isParticipant)&&(identical(other.hasCommerceRegister, hasCommerceRegister) || other.hasCommerceRegister == hasCommerceRegister)&&(identical(other.commerceRegisterBlocked, commerceRegisterBlocked) || other.commerceRegisterBlocked == commerceRegisterBlocked)&&(identical(other.hasBookAccess, hasBookAccess) || other.hasBookAccess == hasBookAccess)&&(identical(other.bookPurchased, bookPurchased) || other.bookPurchased == bookPurchased)&&(identical(other.depositPaid, depositPaid) || other.depositPaid == depositPaid)&&(identical(other.isWinner, isWinner) || other.isWinner == isWinner)&&(identical(other.canAppeal, canAppeal) || other.canAppeal == canAppeal)&&(identical(other.existingAppeal, existingAppeal) || other.existingAppeal == existingAppeal)&&(identical(other.hasFinalPayment, hasFinalPayment) || other.hasFinalPayment == hasFinalPayment));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuctionViewerModel&&(identical(other.canBid, canBid) || other.canBid == canBid)&&(identical(other.isParticipant, isParticipant) || other.isParticipant == isParticipant)&&(identical(other.hasCommerceRegister, hasCommerceRegister) || other.hasCommerceRegister == hasCommerceRegister)&&(identical(other.commerceRegisterBlocked, commerceRegisterBlocked) || other.commerceRegisterBlocked == commerceRegisterBlocked)&&(identical(other.hasBookAccess, hasBookAccess) || other.hasBookAccess == hasBookAccess)&&(identical(other.bookPurchased, bookPurchased) || other.bookPurchased == bookPurchased)&&(identical(other.depositPaid, depositPaid) || other.depositPaid == depositPaid)&&(identical(other.isWinner, isWinner) || other.isWinner == isWinner)&&(identical(other.canAppeal, canAppeal) || other.canAppeal == canAppeal)&&(identical(other.existingAppeal, existingAppeal) || other.existingAppeal == existingAppeal)&&(identical(other.hasFinalPayment, hasFinalPayment) || other.hasFinalPayment == hasFinalPayment)&&(identical(other.isStaff, isStaff) || other.isStaff == isStaff)&&(identical(other.role, role) || other.role == role)&&(identical(other.isPremium, isPremium) || other.isPremium == isPremium));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,canBid,isParticipant,hasCommerceRegister,commerceRegisterBlocked,hasBookAccess,bookPurchased,depositPaid,isWinner,canAppeal,existingAppeal,hasFinalPayment);
+    return Object.hash(runtimeType,canBid,isParticipant,hasCommerceRegister,commerceRegisterBlocked,hasBookAccess,bookPurchased,depositPaid,isWinner,canAppeal,existingAppeal,hasFinalPayment,isStaff,role,isPremium);
 }
 
 @override
 String toString() {
-    return 'AuctionViewerModel(canBid: $canBid, isParticipant: $isParticipant, hasCommerceRegister: $hasCommerceRegister, commerceRegisterBlocked: $commerceRegisterBlocked, hasBookAccess: $hasBookAccess, bookPurchased: $bookPurchased, depositPaid: $depositPaid, isWinner: $isWinner, canAppeal: $canAppeal, existingAppeal: $existingAppeal, hasFinalPayment: $hasFinalPayment)';
+    return 'AuctionViewerModel(canBid: $canBid, isParticipant: $isParticipant, hasCommerceRegister: $hasCommerceRegister, commerceRegisterBlocked: $commerceRegisterBlocked, hasBookAccess: $hasBookAccess, bookPurchased: $bookPurchased, depositPaid: $depositPaid, isWinner: $isWinner, canAppeal: $canAppeal, existingAppeal: $existingAppeal, hasFinalPayment: $hasFinalPayment, isStaff: $isStaff, role: $role, isPremium: $isPremium)';
 }
 
 
@@ -563,7 +569,7 @@ abstract mixin class _$AuctionViewerModelCopyWith<$Res> implements $AuctionViewe
   factory _$AuctionViewerModelCopyWith(_AuctionViewerModel value, $Res Function(_AuctionViewerModel) _then) = __$AuctionViewerModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'can_bid') bool canBid,@JsonKey(name: 'is_participant') bool isParticipant,@JsonKey(name: 'has_commerce_register') bool hasCommerceRegister,@JsonKey(name: 'commerce_register_blocked') bool commerceRegisterBlocked,@JsonKey(name: 'has_book_access') bool hasBookAccess,@JsonKey(name: 'book_purchased') bool bookPurchased,@JsonKey(name: 'deposit_paid') bool depositPaid,@JsonKey(name: 'is_winner') bool isWinner,@JsonKey(name: 'can_appeal') bool canAppeal,@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? existingAppeal,@JsonKey(name: 'has_final_payment') bool hasFinalPayment
+@JsonKey(name: 'can_bid') bool canBid,@JsonKey(name: 'is_participant') bool isParticipant,@JsonKey(name: 'has_commerce_register') bool hasCommerceRegister,@JsonKey(name: 'commerce_register_blocked') bool commerceRegisterBlocked,@JsonKey(name: 'has_book_access') bool hasBookAccess,@JsonKey(name: 'book_purchased') bool bookPurchased,@JsonKey(name: 'deposit_paid') bool depositPaid,@JsonKey(name: 'is_winner') bool isWinner,@JsonKey(name: 'can_appeal') bool canAppeal,@JsonKey(name: 'existing_appeal') ViewerAppealRefModel? existingAppeal,@JsonKey(name: 'has_final_payment') bool hasFinalPayment,@JsonKey(name: 'is_staff') bool isStaff, String? role,@JsonKey(name: 'is_premium') bool isPremium
 });
 
 
@@ -580,7 +586,7 @@ class __$AuctionViewerModelCopyWithImpl<$Res>
 
 /// Create a copy of AuctionViewerModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? canBid = null,Object? isParticipant = null,Object? hasCommerceRegister = null,Object? commerceRegisterBlocked = null,Object? hasBookAccess = null,Object? bookPurchased = null,Object? depositPaid = null,Object? isWinner = null,Object? canAppeal = null,Object? existingAppeal = freezed,Object? hasFinalPayment = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? canBid = null,Object? isParticipant = null,Object? hasCommerceRegister = null,Object? commerceRegisterBlocked = null,Object? hasBookAccess = null,Object? bookPurchased = null,Object? depositPaid = null,Object? isWinner = null,Object? canAppeal = null,Object? existingAppeal = freezed,Object? hasFinalPayment = null,Object? isStaff = null,Object? role = freezed,Object? isPremium = null,}) {
   return _then(_AuctionViewerModel(
 canBid: null == canBid ? _self.canBid : canBid // ignore: cast_nullable_to_non_nullable
 as bool,isParticipant: null == isParticipant ? _self.isParticipant : isParticipant // ignore: cast_nullable_to_non_nullable
@@ -593,6 +599,9 @@ as bool,isWinner: null == isWinner ? _self.isWinner : isWinner // ignore: cast_n
 as bool,canAppeal: null == canAppeal ? _self.canAppeal : canAppeal // ignore: cast_nullable_to_non_nullable
 as bool,existingAppeal: freezed == existingAppeal ? _self.existingAppeal : existingAppeal // ignore: cast_nullable_to_non_nullable
 as ViewerAppealRefModel?,hasFinalPayment: null == hasFinalPayment ? _self.hasFinalPayment : hasFinalPayment // ignore: cast_nullable_to_non_nullable
+as bool,isStaff: null == isStaff ? _self.isStaff : isStaff // ignore: cast_nullable_to_non_nullable
+as bool,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String?,isPremium: null == isPremium ? _self.isPremium : isPremium // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

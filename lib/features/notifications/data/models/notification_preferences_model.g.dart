@@ -47,6 +47,7 @@ _NotificationPreferencesModel _$NotificationPreferencesModelFromJson(
       const <CategoryOptionModel>[],
   emailRequiresPremium: json['email_requires_premium'] as bool? ?? false,
   isPremium: json['is_premium'] as bool? ?? false,
+  smsAvailable: json['sms_available'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$NotificationPreferencesModelToJson(
@@ -58,4 +59,5 @@ Map<String, dynamic> _$NotificationPreferencesModelToJson(
   'available_categories': instance.availableCategories,
   'email_requires_premium': instance.emailRequiresPremium,
   'is_premium': instance.isPremium,
+  'sms_available': instance.smsAvailable,
 };

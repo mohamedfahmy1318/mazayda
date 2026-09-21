@@ -108,6 +108,9 @@ abstract class AuctionSessionModel with _$AuctionSessionModel {
   const AuctionSessionModel._();
 
   const factory AuctionSessionModel({
+    // رقم المزايدة القديمة — بنستخدمه نفتح صفحتها من سجل الجلسات.
+    // بيغيب على الجلسة الحالية لأنها هي اللي إحنا فيها أصلًا.
+    String? id,
     @Default(1) int round,
     String? code,
     @JsonKey(name: 'start_time') String? startTime,
@@ -122,6 +125,7 @@ abstract class AuctionSessionModel with _$AuctionSessionModel {
       _$AuctionSessionModelFromJson(json);
 
   AuctionSession toEntity() => AuctionSession(
+    id: id,
     round: round,
     code: code,
     startTime: DateTime.tryParse(startTime ?? ''),
@@ -255,6 +259,10 @@ abstract class AuctionModel with _$AuctionModel {
     AuctionSessionInfoModel? session,
     AuctionSectorModel? sector,
     @JsonKey(name: 'min_bid') MoneyModel? minBid,
+    // نسبة القطاع على الجذر — بتفضل موجودة حتى لو `sector` غاب.
+    @JsonKey(name: 'min_increment_percent') dynamic minIncrementPercent,
+    // تعديل 3 — السيرفر هو اللي بيقرر إن البيع اتقفل.
+    @JsonKey(name: 'book_purchase_open') bool? bookPurchaseOpen,
     @JsonKey(name: 'publication_priority') String? publicationPriority,
   }) = _AuctionModel;
 
@@ -316,6 +324,9 @@ abstract class AuctionModel with _$AuctionModel {
     session: session?.toEntity(),
     sector: sector?.toEntity(),
     minBid: minBid?.toEntity(),
+    minIncrementPercent:
+        _toDouble(minIncrementPercent) ?? sector?.toEntity().minIncrementPercent,
+    bookPurchaseOpen: bookPurchaseOpen,
     publicationPriority: PublicationPriorityX.fromApi(publicationPriority),
   );
 }

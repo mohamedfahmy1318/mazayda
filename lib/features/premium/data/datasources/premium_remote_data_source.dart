@@ -11,7 +11,10 @@ abstract class PremiumRemoteDataSource {
   Future<PaymentInitModel> subscribe(String planCode);
 
   /// بيوقف التجديد التلقائي — المدة المدفوعة بتفضل شغّالة لحد ما تنتهي.
-  Future<SubscriptionModel?> cancelAutoRenew();
+  ///
+  /// الرد **نفس شكل الـ GET** (الاشتراك + الباقات + `is_premium`) مش
+  /// الاشتراك لوحده، فبنقراه كلقطة كاملة.
+  Future<PremiumOverviewModel?> cancelAutoRenew();
 }
 
 @LazySingleton(as: PremiumRemoteDataSource)
@@ -35,9 +38,9 @@ class PremiumRemoteDataSourceImpl implements PremiumRemoteDataSource {
   }
 
   @override
-  Future<SubscriptionModel?> cancelAutoRenew() async {
+  Future<PremiumOverviewModel?> cancelAutoRenew() async {
     final data = await client.delete(ApiConstants.subscription);
     if (data == null) return null;
-    return SubscriptionModel.fromJson(data as Map<String, dynamic>);
+    return PremiumOverviewModel.fromJson(data as Map<String, dynamic>);
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mazayada/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/router/app_router.dart';
 import '../../../../../core/utils/money_format.dart';
 import '../../../../documents/presentation/widgets/document_download_button.dart';
 import '../../../domain/entities/auction.dart';
@@ -97,11 +99,13 @@ class AuctionPricingSection extends StatelessWidget {
         // القطاع ونسبته والحد الأدنى المحسوب — تعديلات العميل 11 و12.
         if (auction.sector != null)
           DetailFactRow(label: t.adSector, value: auction.sector!.name),
-        if ((auction.sector?.minIncrementPercent ?? 0) > 0)
+        // النسبة من جذر الرد مش من `sector`: `sector` بيغيب لو الفئة مش
+        // محمّلة، والنسبة نفسها بتفضل موجودة.
+        if ((auction.minIncrementPercent ?? 0) > 0)
           DetailFactRow(
             label: t.adSectorIncrement,
             value: t.percentValue(
-              formatPercent(auction.sector!.minIncrementPercent!),
+              formatPercent(auction.minIncrementPercent!),
             ),
           ),
         if (auction.minBid != null && !auction.isEndedNow)
@@ -249,7 +253,11 @@ class _SessionHistoryRow extends StatelessWidget {
       if (session.endTime != null) _date(session.endTime!),
     ].join(' ← ');
 
-    return Padding(
+    // الجلسة القديمة لها صفحتها الخاصة (بمزايداتها وسعرها النهائي)، فلو
+    // السيرفر بعت رقمها بنخلّي الصف يفتحها. من غيره يفضل نص بس.
+    final id = session.id;
+
+    final row = Padding(
       padding: EdgeInsets.symmetric(vertical: 5.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,6 +283,14 @@ class _SessionHistoryRow extends StatelessWidget {
                     color: AppColors.primary,
                   ),
                 ),
+              if (id != null) ...[
+                Gap(4.w),
+                Icon(
+                  Icons.chevron_left_rounded,
+                  size: 16.sp,
+                  color: AppColors.textHint,
+                ),
+              ],
             ],
           ),
           if (range.isNotEmpty)
@@ -292,6 +308,12 @@ class _SessionHistoryRow extends StatelessWidget {
             ),
         ],
       ),
+    );
+
+    if (id == null) return row;
+    return InkWell(
+      onTap: () => context.push('${Routes.auctionDetail}/$id'),
+      child: row,
     );
   }
 }

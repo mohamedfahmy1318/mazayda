@@ -11,7 +11,9 @@ abstract class PremiumRepository {
   /// بدء دفع اشتراك — بيرجّع بيانات بوابة الدفع زي باقي المدفوعات.
   Future<Either<Failure, PaymentInit>> subscribe({required String planCode});
 
-  /// إيقاف التجديد التلقائي. بيرجّع الاشتراك بعد التعديل، أو `null` لو
-  /// السيرفر ما رجّعش جسم.
-  Future<Either<Failure, Subscription?>> cancelAutoRenew();
+  /// إيقاف التجديد التلقائي.
+  ///
+  /// بيرجّع **اللقطة الكاملة** بعد التعديل (نفس شكل [getOverview])، أو
+  /// `null` لو السيرفر ما رجّعش جسم.
+  Future<Either<Failure, PremiumOverview?>> cancelAutoRenew();
 }

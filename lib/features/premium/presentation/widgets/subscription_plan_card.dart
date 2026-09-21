@@ -94,7 +94,7 @@ class SubscriptionPlanCard extends StatelessWidget {
               ),
               Gap(5.w),
               Text(
-                _periodLabel(plan.period, t),
+                _periodLabel(plan, t),
                 style: TextStyle(
                   fontSize: 11.sp,
                   color: AppColors.textSecondary,
@@ -154,11 +154,14 @@ class SubscriptionPlanCard extends StatelessWidget {
     );
   }
 
-  /// نص الدورة — بنرجع لاسم الباقة لو السيرفر بعت دورة مش معروفة للإصدار ده.
-  String _periodLabel(SubscriptionPeriod period, AppLocalizations t) =>
-      switch (period) {
+  /// نص الدورة.
+  ///
+  /// دورة مش معروفة للإصدار ده بناخد اسمها من السيرفر بدل ما نسيب السعر
+  /// من غير وحدة («12 000 دج» لوحدها مابتقولش شهري ولا سنوي).
+  String _periodLabel(SubscriptionPlan plan, AppLocalizations t) =>
+      switch (plan.period) {
         SubscriptionPeriod.monthly => t.premiumPeriodMonthly,
         SubscriptionPeriod.yearly => t.premiumPeriodYearly,
-        SubscriptionPeriod.unknown => '',
+        SubscriptionPeriod.unknown => plan.periodLabel ?? '',
       };
 }

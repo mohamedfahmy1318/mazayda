@@ -64,6 +64,7 @@ Map<String, dynamic> _$LeaseModelToJson(_LeaseModel instance) =>
 
 _AuctionSessionModel _$AuctionSessionModelFromJson(Map<String, dynamic> json) =>
     _AuctionSessionModel(
+      id: json['id'] as String?,
       round: (json['round'] as num?)?.toInt() ?? 1,
       code: json['code'] as String?,
       startTime: json['start_time'] as String?,
@@ -79,6 +80,7 @@ _AuctionSessionModel _$AuctionSessionModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AuctionSessionModelToJson(
   _AuctionSessionModel instance,
 ) => <String, dynamic>{
+  'id': instance.id,
   'round': instance.round,
   'code': instance.code,
   'start_time': instance.startTime,
@@ -253,6 +255,8 @@ _AuctionModel _$AuctionModelFromJson(
   minBid: json['min_bid'] == null
       ? null
       : MoneyModel.fromJson(json['min_bid'] as Map<String, dynamic>),
+  minIncrementPercent: json['min_increment_percent'],
+  bookPurchaseOpen: json['book_purchase_open'] as bool?,
   publicationPriority: json['publication_priority'] as String?,
 );
 
@@ -309,6 +313,8 @@ Map<String, dynamic> _$AuctionModelToJson(_AuctionModel instance) =>
       'session': instance.session,
       'sector': instance.sector,
       'min_bid': instance.minBid,
+      'min_increment_percent': instance.minIncrementPercent,
+      'book_purchase_open': instance.bookPurchaseOpen,
       'publication_priority': instance.publicationPriority,
     };
 

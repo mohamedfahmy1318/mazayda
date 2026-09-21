@@ -123,9 +123,12 @@ class PaymentFlow {
             _snack(context, _t(context).paymentAlreadyDone, AppColors.info);
           }
           if (!done.isCompleted) done.complete();
-        case PaymentFailed(:final message):
+        case PaymentFailed(:final message, :final stale):
           // رسالة السيرفر مترجمة أصلًا من الباك.
           hideLoader();
+          // الرفض نفسه قال إن حالة المزاد اتغيّرت — نطلب إعادة التحميل زي
+          // ما بنعمل بعد دفعة ناجحة، عشان الزرار المرفوض يختفي.
+          if (stale) changed = true;
           if (context.mounted) _snack(context, message, AppColors.danger);
           if (!done.isCompleted) done.complete();
         case PaymentNeedsAction(:final target, :final message):

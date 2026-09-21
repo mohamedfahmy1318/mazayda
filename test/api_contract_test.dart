@@ -12,13 +12,17 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mazayada/features/auctions/data/models/auction_list_model.dart';
+import 'package:mazayada/features/auctions/data/models/auction_model.dart';
 import 'package:mazayada/features/auctions/data/models/auction_viewer_model.dart';
 import 'package:mazayada/features/auctions/domain/entities/auction.dart';
+import 'package:mazayada/features/auctions/domain/entities/auction_session.dart';
 import 'package:mazayada/features/documents/data/models/document_filter_options_model.dart';
 import 'package:mazayada/features/my_auctions/domain/entities/my_auctions_result.dart';
 import 'package:mazayada/features/notifications/data/models/notification_model.dart';
 import 'package:mazayada/features/notifications/domain/entities/app_notification.dart';
 import 'package:mazayada/features/payments/data/models/payment_models.dart';
+import 'package:mazayada/features/premium/data/models/subscription_model.dart';
+import 'package:mazayada/features/premium/domain/entities/subscription.dart';
 import 'package:mazayada/features/profile/data/models/profile_model.dart';
 
 Map<String, dynamic> _fixture(String name) {
@@ -306,6 +310,130 @@ void main() {
       final series = json['series'] as Map<String, dynamic>;
       expect(series['unit'], 'DZD');
       expect(series['data'], isA<List>());
+    });
+  });
+
+  // تعديلات العميل — الردود دي متولّدة من الباك نفسه (Scribe) بعد ما نزّل
+  // التعديلات، مش مكتوبة بإيدينا، فبتقيس العقد الحقيقي مش فهمنا له.
+  group('تعديلات العميل · الشكل الجديد لتفاصيل المزاد', () {
+    test('session بترجع دايمًا، حتى للجلسة الأولى', () {
+      final auction = AuctionModel.fromJson(
+        _fixture('auction_detail_sessions')['data'] as Map<String, dynamic>,
+      ).toEntity();
+
+      final session = auction.session;
+      expect(session, isNotNull);
+      expect(session!.current.round, 1);
+      expect(session.current.code, startsWith('SES-'));
+      expect(session.rescheduleCount, 0);
+      // مفيش إعادة جدولة لسه → مفيش سجل يتعرض.
+      expect(session.history, isEmpty);
+      expect(session.hasHistory, isFalse);
+      // السعر الأصلي بيرجع حتى من غير خفض، فبنقدر نقارن من غير فرضيات.
+      expect(session.originalOpeningPrice?.amount, isNotNull);
+    });
+
+    test('sector و min_bid كائنات مش أرقام خام', () {
+      final auction = AuctionModel.fromJson(
+        _fixture('auction_detail_sessions')['data'] as Map<String, dynamic>,
+      ).toEntity();
+
+      // معرّف القطاع نص في الرد («2») مع إنه رقم في القاعدة.
+      expect(auction.sector?.id, isA<String>());
+      expect(auction.sector?.name, isNotEmpty);
+      expect(auction.minBid?.formatted, isNotEmpty);
+      expect(auction.minBidAmount, auction.minBid?.amount);
+      // نسبة القطاع موجودة على الجذر كمان مش جوّه sector بس.
+      expect(auction.minIncrementPercent, isNotNull);
+    });
+
+    test('publication_priority بترجع دايمًا بقيمة معروفة', () {
+      final auction = AuctionModel.fromJson(
+        _fixture('auction_detail_sessions')['data'] as Map<String, dynamic>,
+      ).toEntity();
+
+      expect(auction.publicationPriority, isNot(PublicationPriority.unknown));
+    });
+
+    test('book_purchase_open بيمسك الإقفال اللي has_ended بيفوّته', () {
+      final data =
+          _fixture('auction_detail_sessions')['data'] as Map<String, dynamic>;
+
+      // الرد ده بالظبط هو الحالة اللي خلّتنا نضيف الحقل: المزاد CLOSED
+      // بس `has_ended` لسه false، فلو اعتمدنا عليه لوحده كنا هنعرض زرار
+      // شراء دفتر الشروط على مزاد مقفول.
+      expect(data['status'], 'CLOSED');
+      expect(data['has_ended'], isFalse);
+      expect(data['book_purchase_open'], isFalse);
+
+      final auction = AuctionModel.fromJson(data).toEntity();
+      expect(auction.isBookPurchaseClosed, isTrue);
+    });
+
+    test('/price بيرجّع نفس الحد الأدنى بنفس الشكل', () {
+      final price = _fixture('auction_price')['data'] as Map<String, dynamic>;
+
+      expect(price['min_bid'], isA<Map>());
+      expect((price['min_bid'] as Map)['amount'], isA<int>());
+      expect((price['min_bid'] as Map)['formatted'], isA<String>());
+      expect(price['min_increment_percent'], isA<num>());
+    });
+  });
+
+  group('تعديلات العميل · Premium', () {
+    // الباك بيرجّع نفس شكل الـ GET على DELETE كمان (الاشتراك + الباقات).
+    // قبل كده كنا بنقراه كاشتراك لوحده — وده ما كانش بيرمي، كان بيدّي
+    // اشتراك فاضي بهدوء والكارت يبان من غير بيانات.
+    const deleteBody = {
+      'is_premium': true,
+      'subscription': {
+        'id': '5c1d',
+        'status': 'ACTIVE',
+        'status_label': 'فعّال',
+        'auto_renew': false,
+        'days_remaining': 108,
+        'plan': {
+          'code': 'YEARLY',
+          'name': 'الباقة السنوية',
+          'period': 'YEARLY',
+          'period_label': 'سنوي',
+          'price': {'amount': 12000, 'formatted': '12 000 دج'},
+        },
+      },
+      'plans': [
+        {
+          'code': 'YEARLY',
+          'name': 'الباقة السنوية',
+          'period': 'YEARLY',
+          'price': {'amount': 12000, 'formatted': '12 000 دج'},
+          'is_recommended': true,
+        },
+      ],
+    };
+
+    test('رد إيقاف التجديد بيتقرا كلقطة كاملة', () {
+      final overview = PremiumOverviewModel.fromJson(deleteBody).toEntity();
+
+      expect(overview.isPremium, isTrue);
+      expect(overview.plans, hasLength(1));
+      expect(overview.subscription?.autoRenew, isFalse);
+      // البيانات لسه موجودة بعد الإيقاف — المدة المدفوعة ما بتضيعش.
+      expect(overview.subscription?.daysRemaining, 108);
+      expect(overview.subscription?.plan?.name, isNotEmpty);
+    });
+
+    test('دورة مش معروفة للإصدار ده بتحتفظ باسمها من السيرفر', () {
+      final plan = SubscriptionPlanModel.fromJson({
+        'code': 'QUARTERLY',
+        'name': 'الباقة الفصلية',
+        'period': 'QUARTERLY',
+        'period_label': 'ربع سنوي',
+        'price': {'amount': 4000, 'formatted': '4 000 دج'},
+      }).toEntity();
+
+      expect(plan.period, SubscriptionPeriod.unknown);
+      // من غير ده السعر كان هيتعرض من غير وحدة.
+      expect(plan.periodLabel, 'ربع سنوي');
     });
   });
 }

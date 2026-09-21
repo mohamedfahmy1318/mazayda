@@ -22,7 +22,7 @@ class PremiumRepositoryImpl implements PremiumRepository {
       _guard(() async => (await remote.subscribe(planCode)).toEntity());
 
   @override
-  Future<Either<Failure, Subscription?>> cancelAutoRenew() =>
+  Future<Either<Failure, PremiumOverview?>> cancelAutoRenew() =>
       _guard(() async => (await remote.cancelAutoRenew())?.toEntity());
 
   Future<Either<Failure, T>> _guard<T>(Future<T> Function() action) async {

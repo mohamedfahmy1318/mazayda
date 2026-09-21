@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SubscriptionPlanModel {
 
- String? get code; String? get name; String? get description; String? get period; MoneyModel? get price; List<String> get features;@JsonKey(name: 'is_recommended') bool get isRecommended;
+ String? get code; String? get name; String? get description; String? get period;@JsonKey(name: 'period_label') String? get periodLabel; MoneyModel? get price; List<String> get features;@JsonKey(name: 'is_recommended') bool get isRecommended;
 /// Create a copy of SubscriptionPlanModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $SubscriptionPlanModelCopyWith<SubscriptionPlanModel> get copyWith => _$Subscrip
 @override
 bool operator ==(Object other) {
   final _this = this as SubscriptionPlanModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionPlanModel&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.period, _this.period) || other.period == _this.period)&&(identical(other.price, _this.price) || other.price == _this.price)&&const DeepCollectionEquality().equals(other.features, _this.features)&&(identical(other.isRecommended, _this.isRecommended) || other.isRecommended == _this.isRecommended));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionPlanModel&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.period, _this.period) || other.period == _this.period)&&(identical(other.periodLabel, _this.periodLabel) || other.periodLabel == _this.periodLabel)&&(identical(other.price, _this.price) || other.price == _this.price)&&const DeepCollectionEquality().equals(other.features, _this.features)&&(identical(other.isRecommended, _this.isRecommended) || other.isRecommended == _this.isRecommended));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as SubscriptionPlanModel;
-  return Object.hash(runtimeType,_this.code,_this.name,_this.description,_this.period,_this.price,const DeepCollectionEquality().hash(_this.features),_this.isRecommended);
+  return Object.hash(runtimeType,_this.code,_this.name,_this.description,_this.period,_this.periodLabel,_this.price,const DeepCollectionEquality().hash(_this.features),_this.isRecommended);
 }
 
 @override
 String toString() {
   final _this = this as SubscriptionPlanModel;
-  return 'SubscriptionPlanModel(code: ${_this.code}, name: ${_this.name}, description: ${_this.description}, period: ${_this.period}, price: ${_this.price}, features: ${_this.features}, isRecommended: ${_this.isRecommended})';
+  return 'SubscriptionPlanModel(code: ${_this.code}, name: ${_this.name}, description: ${_this.description}, period: ${_this.period}, periodLabel: ${_this.periodLabel}, price: ${_this.price}, features: ${_this.features}, isRecommended: ${_this.isRecommended})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $SubscriptionPlanModelCopyWith<$Res>  {
   factory $SubscriptionPlanModelCopyWith(SubscriptionPlanModel value, $Res Function(SubscriptionPlanModel) _then) = _$SubscriptionPlanModelCopyWithImpl;
 @useResult
 $Res call({
- String? code, String? name, String? description, String? period, MoneyModel? price, List<String> features,@JsonKey(name: 'is_recommended') bool isRecommended
+ String? code, String? name, String? description, String? period,@JsonKey(name: 'period_label') String? periodLabel, MoneyModel? price, List<String> features,@JsonKey(name: 'is_recommended') bool isRecommended
 });
 
 
@@ -71,12 +71,13 @@ class _$SubscriptionPlanModelCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionPlanModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? code = freezed,Object? name = freezed,Object? description = freezed,Object? period = freezed,Object? price = freezed,Object? features = null,Object? isRecommended = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? code = freezed,Object? name = freezed,Object? description = freezed,Object? period = freezed,Object? periodLabel = freezed,Object? price = freezed,Object? features = null,Object? isRecommended = null,}) {
   return _then(SubscriptionPlanModel(
 code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,period: freezed == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
+as String?,periodLabel: freezed == periodLabel ? _self.periodLabel : periodLabel // ignore: cast_nullable_to_non_nullable
 as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as MoneyModel?,features: null == features ? _self.features : features // ignore: cast_nullable_to_non_nullable
 as List<String>,isRecommended: null == isRecommended ? _self.isRecommended : isRecommended // ignore: cast_nullable_to_non_nullable
@@ -177,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? code,  String? name,  String? description,  String? period,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? code,  String? name,  String? description,  String? period, @JsonKey(name: 'period_label')  String? periodLabel,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SubscriptionPlanModel() when $default != null:
-return $default(_that.code,_that.name,_that.description,_that.period,_that.price,_that.features,_that.isRecommended);case _:
+return $default(_that.code,_that.name,_that.description,_that.period,_that.periodLabel,_that.price,_that.features,_that.isRecommended);case _:
   return orElse();
 
 }
@@ -198,10 +199,10 @@ return $default(_that.code,_that.name,_that.description,_that.period,_that.price
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? code,  String? name,  String? description,  String? period,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? code,  String? name,  String? description,  String? period, @JsonKey(name: 'period_label')  String? periodLabel,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionPlanModel():
-return $default(_that.code,_that.name,_that.description,_that.period,_that.price,_that.features,_that.isRecommended);case _:
+return $default(_that.code,_that.name,_that.description,_that.period,_that.periodLabel,_that.price,_that.features,_that.isRecommended);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -218,10 +219,10 @@ return $default(_that.code,_that.name,_that.description,_that.period,_that.price
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? code,  String? name,  String? description,  String? period,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? code,  String? name,  String? description,  String? period, @JsonKey(name: 'period_label')  String? periodLabel,  MoneyModel? price,  List<String> features, @JsonKey(name: 'is_recommended')  bool isRecommended)?  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionPlanModel() when $default != null:
-return $default(_that.code,_that.name,_that.description,_that.period,_that.price,_that.features,_that.isRecommended);case _:
+return $default(_that.code,_that.name,_that.description,_that.period,_that.periodLabel,_that.price,_that.features,_that.isRecommended);case _:
   return null;
 
 }
@@ -233,13 +234,14 @@ return $default(_that.code,_that.name,_that.description,_that.period,_that.price
 @JsonSerializable()
 
 class _SubscriptionPlanModel extends SubscriptionPlanModel {
-  const _SubscriptionPlanModel({this.code, this.name, this.description, this.period, this.price,  List<String> features = const <String>[], @JsonKey(name: 'is_recommended') this.isRecommended = false}): _features = features,super._();
+  const _SubscriptionPlanModel({this.code, this.name, this.description, this.period, @JsonKey(name: 'period_label') this.periodLabel, this.price,  List<String> features = const <String>[], @JsonKey(name: 'is_recommended') this.isRecommended = false}): _features = features,super._();
   factory _SubscriptionPlanModel.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanModelFromJson(json);
 
 @override final  String? code;
 @override final  String? name;
 @override final  String? description;
 @override final  String? period;
+@override@JsonKey(name: 'period_label') final  String? periodLabel;
 @override final  MoneyModel? price;
  final  List<String> _features;
 @override@JsonKey() List<String> get features {
@@ -263,18 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionPlanModel&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.period, period) || other.period == period)&&(identical(other.price, price) || other.price == price)&&const DeepCollectionEquality().equals(other.features, _features)&&(identical(other.isRecommended, isRecommended) || other.isRecommended == isRecommended));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionPlanModel&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.period, period) || other.period == period)&&(identical(other.periodLabel, periodLabel) || other.periodLabel == periodLabel)&&(identical(other.price, price) || other.price == price)&&const DeepCollectionEquality().equals(other.features, _features)&&(identical(other.isRecommended, isRecommended) || other.isRecommended == isRecommended));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,code,name,description,period,price,const DeepCollectionEquality().hash(_features),isRecommended);
+    return Object.hash(runtimeType,code,name,description,period,periodLabel,price,const DeepCollectionEquality().hash(_features),isRecommended);
 }
 
 @override
 String toString() {
-    return 'SubscriptionPlanModel(code: $code, name: $name, description: $description, period: $period, price: $price, features: $features, isRecommended: $isRecommended)';
+    return 'SubscriptionPlanModel(code: $code, name: $name, description: $description, period: $period, periodLabel: $periodLabel, price: $price, features: $features, isRecommended: $isRecommended)';
 }
 
 
@@ -285,7 +287,7 @@ abstract mixin class _$SubscriptionPlanModelCopyWith<$Res> implements $Subscript
   factory _$SubscriptionPlanModelCopyWith(_SubscriptionPlanModel value, $Res Function(_SubscriptionPlanModel) _then) = __$SubscriptionPlanModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? code, String? name, String? description, String? period, MoneyModel? price, List<String> features,@JsonKey(name: 'is_recommended') bool isRecommended
+ String? code, String? name, String? description, String? period,@JsonKey(name: 'period_label') String? periodLabel, MoneyModel? price, List<String> features,@JsonKey(name: 'is_recommended') bool isRecommended
 });
 
 
@@ -302,12 +304,13 @@ class __$SubscriptionPlanModelCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionPlanModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? code = freezed,Object? name = freezed,Object? description = freezed,Object? period = freezed,Object? price = freezed,Object? features = null,Object? isRecommended = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? code = freezed,Object? name = freezed,Object? description = freezed,Object? period = freezed,Object? periodLabel = freezed,Object? price = freezed,Object? features = null,Object? isRecommended = null,}) {
   return _then(_SubscriptionPlanModel(
 code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,period: freezed == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
+as String?,periodLabel: freezed == periodLabel ? _self.periodLabel : periodLabel // ignore: cast_nullable_to_non_nullable
 as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as MoneyModel?,features: null == features ? _self._features : features // ignore: cast_nullable_to_non_nullable
 as List<String>,isRecommended: null == isRecommended ? _self.isRecommended : isRecommended // ignore: cast_nullable_to_non_nullable

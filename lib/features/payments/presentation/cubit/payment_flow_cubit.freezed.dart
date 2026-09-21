@@ -141,7 +141,7 @@ return issue(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  preparing,TResult Function( String url,  String ref)?  openGateway,TResult Function()?  polling,TResult Function()?  confirmed,TResult Function()?  alreadySettled,TResult Function( String message)?  failed,TResult Function( PaymentRedirect target,  String message)?  needsAction,TResult Function( PaymentFlowIssue issue)?  issue,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  preparing,TResult Function( String url,  String ref)?  openGateway,TResult Function()?  polling,TResult Function()?  confirmed,TResult Function()?  alreadySettled,TResult Function( String message,  bool stale)?  failed,TResult Function( PaymentRedirect target,  String message)?  needsAction,TResult Function( PaymentFlowIssue issue)?  issue,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case PaymentIdle() when idle != null:
 return idle();case PaymentPreparing() when preparing != null:
@@ -150,7 +150,7 @@ return openGateway(_that.url,_that.ref);case PaymentPolling() when polling != nu
 return polling();case PaymentConfirmed() when confirmed != null:
 return confirmed();case PaymentAlreadySettled() when alreadySettled != null:
 return alreadySettled();case PaymentFailed() when failed != null:
-return failed(_that.message);case PaymentNeedsAction() when needsAction != null:
+return failed(_that.message,_that.stale);case PaymentNeedsAction() when needsAction != null:
 return needsAction(_that.target,_that.message);case PaymentIssue() when issue != null:
 return issue(_that.issue);case _:
   return orElse();
@@ -170,7 +170,7 @@ return issue(_that.issue);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  preparing,required TResult Function( String url,  String ref)  openGateway,required TResult Function()  polling,required TResult Function()  confirmed,required TResult Function()  alreadySettled,required TResult Function( String message)  failed,required TResult Function( PaymentRedirect target,  String message)  needsAction,required TResult Function( PaymentFlowIssue issue)  issue,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  preparing,required TResult Function( String url,  String ref)  openGateway,required TResult Function()  polling,required TResult Function()  confirmed,required TResult Function()  alreadySettled,required TResult Function( String message,  bool stale)  failed,required TResult Function( PaymentRedirect target,  String message)  needsAction,required TResult Function( PaymentFlowIssue issue)  issue,}) {final _that = this;
 switch (_that) {
 case PaymentIdle():
 return idle();case PaymentPreparing():
@@ -179,7 +179,7 @@ return openGateway(_that.url,_that.ref);case PaymentPolling():
 return polling();case PaymentConfirmed():
 return confirmed();case PaymentAlreadySettled():
 return alreadySettled();case PaymentFailed():
-return failed(_that.message);case PaymentNeedsAction():
+return failed(_that.message,_that.stale);case PaymentNeedsAction():
 return needsAction(_that.target,_that.message);case PaymentIssue():
 return issue(_that.issue);}
 }
@@ -195,7 +195,7 @@ return issue(_that.issue);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  preparing,TResult? Function( String url,  String ref)?  openGateway,TResult? Function()?  polling,TResult? Function()?  confirmed,TResult? Function()?  alreadySettled,TResult? Function( String message)?  failed,TResult? Function( PaymentRedirect target,  String message)?  needsAction,TResult? Function( PaymentFlowIssue issue)?  issue,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  preparing,TResult? Function( String url,  String ref)?  openGateway,TResult? Function()?  polling,TResult? Function()?  confirmed,TResult? Function()?  alreadySettled,TResult? Function( String message,  bool stale)?  failed,TResult? Function( PaymentRedirect target,  String message)?  needsAction,TResult? Function( PaymentFlowIssue issue)?  issue,}) {final _that = this;
 switch (_that) {
 case PaymentIdle() when idle != null:
 return idle();case PaymentPreparing() when preparing != null:
@@ -204,7 +204,7 @@ return openGateway(_that.url,_that.ref);case PaymentPolling() when polling != nu
 return polling();case PaymentConfirmed() when confirmed != null:
 return confirmed();case PaymentAlreadySettled() when alreadySettled != null:
 return alreadySettled();case PaymentFailed() when failed != null:
-return failed(_that.message);case PaymentNeedsAction() when needsAction != null:
+return failed(_that.message,_that.stale);case PaymentNeedsAction() when needsAction != null:
 return needsAction(_that.target,_that.message);case PaymentIssue() when issue != null:
 return issue(_that.issue);case _:
   return null;
@@ -448,10 +448,11 @@ String toString() {
 
 
 class PaymentFailed implements PaymentFlowState {
-  const PaymentFailed(this.message);
+  const PaymentFailed(this.message, {this.stale = false});
   
 
  final  String message;
+@JsonKey() final  bool stale;
 
 /// Create a copy of PaymentFlowState
 /// with the given fields replaced by the non-null parameter values.
@@ -463,18 +464,18 @@ $PaymentFailedCopyWith<PaymentFailed> get copyWith => _$PaymentFailedCopyWithImp
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentFailed&&(identical(other.message, message) || other.message == message));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaymentFailed&&(identical(other.message, message) || other.message == message)&&(identical(other.stale, stale) || other.stale == stale));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,message);
+    return Object.hash(runtimeType,message,stale);
 }
 
 @override
 String toString() {
-    return 'PaymentFlowState.failed(message: $message)';
+    return 'PaymentFlowState.failed(message: $message, stale: $stale)';
 }
 
 
@@ -485,7 +486,7 @@ abstract mixin class $PaymentFailedCopyWith<$Res> implements $PaymentFlowStateCo
   factory $PaymentFailedCopyWith(PaymentFailed value, $Res Function(PaymentFailed) _then) = _$PaymentFailedCopyWithImpl;
 @useResult
 $Res call({
- String message
+ String message, bool stale
 });
 
 
@@ -502,10 +503,11 @@ class _$PaymentFailedCopyWithImpl<$Res>
 
 /// Create a copy of PaymentFlowState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? message = null,Object? stale = null,}) {
   return _then(PaymentFailed(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,
+as String,stale: null == stale ? _self.stale : stale // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

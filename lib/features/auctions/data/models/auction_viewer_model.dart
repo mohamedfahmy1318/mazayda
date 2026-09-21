@@ -47,6 +47,10 @@ abstract class AuctionViewerModel with _$AuctionViewerModel {
     @JsonKey(name: 'can_appeal') @Default(false) bool canAppeal,
     @JsonKey(name: 'existing_appeal') ViewerAppealRefModel? existingAppeal,
     @JsonKey(name: 'has_final_payment') @Default(false) bool hasFinalPayment,
+    // دور الحساب — بقى جزء من `meta.viewer` بدل ما يتجاب من `/profile`.
+    @JsonKey(name: 'is_staff') @Default(false) bool isStaff,
+    String? role,
+    @JsonKey(name: 'is_premium') @Default(false) bool isPremium,
   }) = _AuctionViewerModel;
 
   factory AuctionViewerModel.fromJson(Map<String, dynamic> json) =>
@@ -64,5 +68,8 @@ abstract class AuctionViewerModel with _$AuctionViewerModel {
     canAppeal: canAppeal,
     existingAppeal: existingAppeal?.toEntity(),
     hasFinalPayment: hasFinalPayment,
+    isStaff: isStaff,
+    role: role,
+    isPremium: isPremium,
   );
 }

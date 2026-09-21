@@ -175,11 +175,15 @@ class _PreferencesBody extends StatelessWidget {
                     )
                   : null,
             ),
-            _ToggleRow(
-              label: t.prefsChannelSms,
-              value: prefs.channels.sms,
-              onChanged: cubit.toggleSms,
-            ),
+            // الرسائل النصية بتظهر بس لما المنصّة تربط مزوّد — من غيره
+            // السيرفر بيرجّع الخيار مقفول مهما بعتنا، فعرضه هيبقى خيار
+            // بيرفض يفضل مفتوح من غير تفسير.
+            if (prefs.smsAvailable)
+              _ToggleRow(
+                label: t.prefsChannelSms,
+                value: prefs.channels.sms,
+                onChanged: cubit.toggleSms,
+              ),
           ],
         ),
         Gap(14.h),

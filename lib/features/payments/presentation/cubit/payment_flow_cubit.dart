@@ -27,7 +27,15 @@ sealed class PaymentFlowState with _$PaymentFlowState {
   const factory PaymentFlowState.alreadySettled() = PaymentAlreadySettled;
 
   /// فشل جاي **من السيرفر** — الرسالة مترجمة من الباك، بنعرضها زي ما هي.
-  const factory PaymentFlowState.failed(String message) = PaymentFailed;
+  ///
+  /// [stale] معناه إن الرفض نفسه بيقول إن حالة المزاد على السيرفر بقت غير
+  /// اللي الشاشة شايفاه (`book_sales_closed`: الوقت خلص والشاشة لسه فاتحة،
+  /// `staff_not_allowed`: الدور اتغيّر). الشاشة لازم تعيد التحميل بعدها،
+  /// وإلا الزرار اللي اترفض هيفضل مكانه ويترفض تاني.
+  const factory PaymentFlowState.failed(
+    String message, {
+    @Default(false) bool stale,
+  }) = PaymentFailed;
 
   /// السيرفر رفض لسبب المستخدم يقدر يحلّه بنفسه في شاشة تانية (BE-16):
   /// `not_eligible` → التوثيق، `commerce_register_required` → السجل التجاري.
@@ -277,7 +285,14 @@ class PaymentFlowCubit extends Cubit<PaymentFlowState> {
           return _StepOutcome.needsBookFirst;
         }
 
-        emit(PaymentFlowState.failed(_msg(f)));
+        // رفضين معناهم إن الشاشة نفسها بقت قديمة مش إن الخطوة فشلت.
+        final stale = switch (PaymentRejectionCodeX.fromApi(code)) {
+          PaymentRejectionCode.bookSalesClosed ||
+          PaymentRejectionCode.staffNotAllowed => true,
+          _ => false,
+        };
+
+        emit(PaymentFlowState.failed(_msg(f), stale: stale));
         return _StepOutcome.failed;
       },
       (init) {

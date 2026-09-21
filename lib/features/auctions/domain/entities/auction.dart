@@ -174,6 +174,18 @@ class Auction extends Equatable {
   /// ما جاش بنرجع لقاعدة «أي زيادة فوق السعر الحالي» زي الأول.
   final Money? minBid;
 
+  /// نسبة الزيادة الدنيا للقطاع، من جذر الرد.
+  ///
+  /// نفس قيمة `sector.minIncrementPercent`، بس `sector` نفسه بيغيب لو الفئة
+  /// مش محمّلة في الرد — والحقل ده بيفضل موجود، فهو المرجع الأضمن للعرض.
+  final double? minIncrementPercent;
+
+  /// `book_purchase_open` — هل السيرفر لسه بيبيع دفتر الشروط (تعديل 3).
+  ///
+  /// `null` = الرد ما فيهوش الحقل (نسخة باك أقدم)، وساعتها بنعتمد على
+  /// [isEndedNow] لوحده. استخدم [isBookPurchaseClosed] بدل ما تقرا الحقل.
+  final bool? bookPurchaseOpen;
+
   // ===== أولوية النشر (تعديلات العميل 13–17 — الجانب المرئي منها) =====
 
   /// مستوى النشر اللي دفعت الجهة مقابله — بيحدد وسم «مميّزة».
@@ -232,6 +244,8 @@ class Auction extends Equatable {
     this.session,
     this.sector,
     this.minBid,
+    this.minIncrementPercent,
+    this.bookPurchaseOpen,
     this.publicationPriority = PublicationPriority.unknown,
   });
 
@@ -241,6 +255,12 @@ class Auction extends Equatable {
   /// المزاد اتمدّ على الأقل مرة (يستحق عرض عدّاد التمديد).
   bool get wasExtended => extensionCount > 0;
 
+  /// أقل مبلغ مزايدة مقبول بالدينار.
+  ///
+  /// السيرفر هو المصدر (نسبة القطاع بتتحسب هناك). من غيره بنرجع لأضعف
+  /// قاعدة ممكنة — أي زيادة فوق السعر الحالي — والسيرفر بيرفض الباقي بـ422.
+  int get minBidAmount => minBid?.amount ?? (currentPrice.amount + 1);
+
   /// المزاد منتهي **دلوقتي** — علم السيرفر أو عدّاد الإقفال، أيهما أسبق.
   ///
   /// `hasEnded` بيتحسب في السيرفر لحظة الطلب، فبيقدم لو المستخدم فاضل
@@ -248,17 +268,19 @@ class Auction extends Equatable {
   /// الفجوة دي فورًا (تعديل العميل رقم 3 — تعطيل «شراء دفتر الشروط» بمجرد
   /// انتهاء وقت المزايدة)، والواجهة بتعيد القراءة من السيرفر عند نفس
   /// اللحظة فالحقيقة النهائية تفضل للباك.
-  /// أقل مبلغ مزايدة مقبول بالدينار.
-  ///
-  /// السيرفر هو المصدر (نسبة القطاع بتتحسب هناك). من غيره بنرجع لأضعف
-  /// قاعدة ممكنة — أي زيادة فوق السعر الحالي — والسيرفر بيرفض الباقي بـ422.
-  int get minBidAmount => minBid?.amount ?? (currentPrice.amount + 1);
-
   bool get isEndedNow {
     if (hasEnded || status == AuctionStatus.closed) return true;
     final end = endTime;
     return end != null && !end.isAfter(DateTime.now());
   }
+
+  /// شراء دفتر الشروط مقفول (تعديل العميل رقم 3).
+  ///
+  /// بنجمع المصدرين بدل ما نختار واحد، لأن كل واحد بيمسك حاجة التاني
+  /// مابيشوفهاش: [bookPurchaseOpen] بيعرف المزاد الملغي وبيتحسب بساعة
+  /// السيرفر (فمابيتأثرش لو ساعة الجهاز غلط)، و[isEndedNow] بيكمّل
+  /// بعدها والمستخدم قاعد على الصفحة.
+  bool get isBookPurchaseClosed => bookPurchaseOpen == false || isEndedNow;
 
   @override
   List<Object?> get props => [

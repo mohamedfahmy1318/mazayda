@@ -99,18 +99,6 @@ class AuthPageShell extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 56.w,
-                      height: 56.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withValues(alpha: 0.11),
-                        borderRadius: BorderRadius.circular(18.r),
-                        border: Border.all(
-                          color: AppColors.white.withValues(alpha: 0.15),
-                        ),
-                      ),
-                      child: Icon(icon, size: 27.sp, color: AppColors.gold),
-                    ),
                     Gap(13.w),
                     Expanded(
                       child: Column(

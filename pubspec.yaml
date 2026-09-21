@@ -104,17 +104,21 @@ flutter:
 
 # ===== أيقونة التطبيق (تعديل العميل رقم 19) =====
 #
-# حطّ الأيقونة الجديدة في `assets/logo/app_icon.png` (مربّعة، 1024×1024، PNG)
-# وشغّل `dart run flutter_launcher_icons` — بيولّد أيقونات Android و iOS كلها.
+# الأصول بتتولّد من شعار العميل بـ`python3 tool/generate_logo_assets.py`
+# (المصدر في `design/logo/`، منقول من الباك `public/images/brand/`).
+# بعدها `dart run flutter_launcher_icons` بيولّد أيقونات Android وiOS كلها.
 #
-# `adaptive_icon_foreground` لازم يكون الشعار **بهامش حواليه** (الرمز في نص
-# الصورة وحواليه مساحة فاضية ~25%)، لأن أندرويد بيقصّ الأطراف في الأيقونات
-# التكيفية على أشكال مختلفة حسب الجهاز.
+# `app_icon.png` **مربّع كامل ومعتم**: المنصّتين بيطبّقوا قناع الحواف
+# بتاعهم، و`remove_alpha_ios` بيحوّل أي شفافية لأبيض — فأي حواف دائرية
+# مخبّية في الصورة بتتقصّ مرتين وبتبان مثلثات بيضا في الأركان.
+#
+# `adaptive_icon_background` لازم يفضل نفس كحلي العلامة (`BRAND_NAVY` في
+# السكربت)، عشان طبقتي الأيقونة التكيفية يبقوا قطعة واحدة.
 flutter_launcher_icons:
   image_path: assets/logo/app_icon.png
   android: true
   ios: true
   remove_alpha_ios: true
   min_sdk_android: 21
-  adaptive_icon_background: "#215744"
+  adaptive_icon_background: "#01152E"
   adaptive_icon_foreground: assets/logo/app_icon_foreground.png

@@ -1,0 +1,18 @@
+{
+  "data": {
+    "current_price": 6100000,
+    "current_price_formatted": "6 100 000 دج",
+    "min_bid": {
+      "amount": 6100001,
+      "formatted": "6 100 001 دج"
+    },
+    "min_increment_percent": 0,
+    "bid_count": 15,
+    "status": "CLOSED",
+    "end_time": "2026-06-14T12:00:00+01:00",
+    "is_biddable": false,
+    "has_ended": false
+  },
+  "message": null,
+  "meta": {}
+}

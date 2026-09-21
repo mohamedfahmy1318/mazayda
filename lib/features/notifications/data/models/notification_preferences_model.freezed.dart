@@ -565,7 +565,7 @@ as bool,
 /// @nodoc
 mixin _$NotificationPreferencesModel {
 
- NotificationChannelsModel? get channels;@JsonKey(name: 'auction_categories') List<dynamic> get auctionCategories;@JsonKey(name: 'new_auction_alerts') bool get newAuctionAlerts;@JsonKey(name: 'available_categories') List<CategoryOptionModel> get availableCategories;@JsonKey(name: 'email_requires_premium') bool get emailRequiresPremium;@JsonKey(name: 'is_premium') bool get isPremium;
+ NotificationChannelsModel? get channels;@JsonKey(name: 'auction_categories') List<dynamic> get auctionCategories;@JsonKey(name: 'new_auction_alerts') bool get newAuctionAlerts;@JsonKey(name: 'available_categories') List<CategoryOptionModel> get availableCategories;@JsonKey(name: 'email_requires_premium') bool get emailRequiresPremium;@JsonKey(name: 'is_premium') bool get isPremium;@JsonKey(name: 'sms_available') bool get smsAvailable;
 /// Create a copy of NotificationPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -579,20 +579,20 @@ $NotificationPreferencesModelCopyWith<NotificationPreferencesModel> get copyWith
 @override
 bool operator ==(Object other) {
   final _this = this as NotificationPreferencesModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationPreferencesModel&&(identical(other.channels, _this.channels) || other.channels == _this.channels)&&const DeepCollectionEquality().equals(other.auctionCategories, _this.auctionCategories)&&(identical(other.newAuctionAlerts, _this.newAuctionAlerts) || other.newAuctionAlerts == _this.newAuctionAlerts)&&const DeepCollectionEquality().equals(other.availableCategories, _this.availableCategories)&&(identical(other.emailRequiresPremium, _this.emailRequiresPremium) || other.emailRequiresPremium == _this.emailRequiresPremium)&&(identical(other.isPremium, _this.isPremium) || other.isPremium == _this.isPremium));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationPreferencesModel&&(identical(other.channels, _this.channels) || other.channels == _this.channels)&&const DeepCollectionEquality().equals(other.auctionCategories, _this.auctionCategories)&&(identical(other.newAuctionAlerts, _this.newAuctionAlerts) || other.newAuctionAlerts == _this.newAuctionAlerts)&&const DeepCollectionEquality().equals(other.availableCategories, _this.availableCategories)&&(identical(other.emailRequiresPremium, _this.emailRequiresPremium) || other.emailRequiresPremium == _this.emailRequiresPremium)&&(identical(other.isPremium, _this.isPremium) || other.isPremium == _this.isPremium)&&(identical(other.smsAvailable, _this.smsAvailable) || other.smsAvailable == _this.smsAvailable));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as NotificationPreferencesModel;
-  return Object.hash(runtimeType,_this.channels,const DeepCollectionEquality().hash(_this.auctionCategories),_this.newAuctionAlerts,const DeepCollectionEquality().hash(_this.availableCategories),_this.emailRequiresPremium,_this.isPremium);
+  return Object.hash(runtimeType,_this.channels,const DeepCollectionEquality().hash(_this.auctionCategories),_this.newAuctionAlerts,const DeepCollectionEquality().hash(_this.availableCategories),_this.emailRequiresPremium,_this.isPremium,_this.smsAvailable);
 }
 
 @override
 String toString() {
   final _this = this as NotificationPreferencesModel;
-  return 'NotificationPreferencesModel(channels: ${_this.channels}, auctionCategories: ${_this.auctionCategories}, newAuctionAlerts: ${_this.newAuctionAlerts}, availableCategories: ${_this.availableCategories}, emailRequiresPremium: ${_this.emailRequiresPremium}, isPremium: ${_this.isPremium})';
+  return 'NotificationPreferencesModel(channels: ${_this.channels}, auctionCategories: ${_this.auctionCategories}, newAuctionAlerts: ${_this.newAuctionAlerts}, availableCategories: ${_this.availableCategories}, emailRequiresPremium: ${_this.emailRequiresPremium}, isPremium: ${_this.isPremium}, smsAvailable: ${_this.smsAvailable})';
 }
 
 
@@ -603,7 +603,7 @@ abstract mixin class $NotificationPreferencesModelCopyWith<$Res>  {
   factory $NotificationPreferencesModelCopyWith(NotificationPreferencesModel value, $Res Function(NotificationPreferencesModel) _then) = _$NotificationPreferencesModelCopyWithImpl;
 @useResult
 $Res call({
- NotificationChannelsModel? channels,@JsonKey(name: 'auction_categories') List<dynamic> auctionCategories,@JsonKey(name: 'new_auction_alerts') bool newAuctionAlerts,@JsonKey(name: 'available_categories') List<CategoryOptionModel> availableCategories,@JsonKey(name: 'email_requires_premium') bool emailRequiresPremium,@JsonKey(name: 'is_premium') bool isPremium
+ NotificationChannelsModel? channels,@JsonKey(name: 'auction_categories') List<dynamic> auctionCategories,@JsonKey(name: 'new_auction_alerts') bool newAuctionAlerts,@JsonKey(name: 'available_categories') List<CategoryOptionModel> availableCategories,@JsonKey(name: 'email_requires_premium') bool emailRequiresPremium,@JsonKey(name: 'is_premium') bool isPremium,@JsonKey(name: 'sms_available') bool smsAvailable
 });
 
 
@@ -620,7 +620,7 @@ class _$NotificationPreferencesModelCopyWithImpl<$Res>
 
 /// Create a copy of NotificationPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? channels = freezed,Object? auctionCategories = null,Object? newAuctionAlerts = null,Object? availableCategories = null,Object? emailRequiresPremium = null,Object? isPremium = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? channels = freezed,Object? auctionCategories = null,Object? newAuctionAlerts = null,Object? availableCategories = null,Object? emailRequiresPremium = null,Object? isPremium = null,Object? smsAvailable = null,}) {
   return _then(NotificationPreferencesModel(
 channels: freezed == channels ? _self.channels : channels // ignore: cast_nullable_to_non_nullable
 as NotificationChannelsModel?,auctionCategories: null == auctionCategories ? _self.auctionCategories : auctionCategories // ignore: cast_nullable_to_non_nullable
@@ -628,6 +628,7 @@ as List<dynamic>,newAuctionAlerts: null == newAuctionAlerts ? _self.newAuctionAl
 as bool,availableCategories: null == availableCategories ? _self.availableCategories : availableCategories // ignore: cast_nullable_to_non_nullable
 as List<CategoryOptionModel>,emailRequiresPremium: null == emailRequiresPremium ? _self.emailRequiresPremium : emailRequiresPremium // ignore: cast_nullable_to_non_nullable
 as bool,isPremium: null == isPremium ? _self.isPremium : isPremium // ignore: cast_nullable_to_non_nullable
+as bool,smsAvailable: null == smsAvailable ? _self.smsAvailable : smsAvailable // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -725,10 +726,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium, @JsonKey(name: 'sms_available')  bool smsAvailable)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NotificationPreferencesModel() when $default != null:
-return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium);case _:
+return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium,_that.smsAvailable);case _:
   return orElse();
 
 }
@@ -746,10 +747,10 @@ return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium, @JsonKey(name: 'sms_available')  bool smsAvailable)  $default,) {final _that = this;
 switch (_that) {
 case _NotificationPreferencesModel():
-return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium);case _:
+return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium,_that.smsAvailable);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -766,10 +767,10 @@ return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( NotificationChannelsModel? channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories, @JsonKey(name: 'new_auction_alerts')  bool newAuctionAlerts, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories, @JsonKey(name: 'email_requires_premium')  bool emailRequiresPremium, @JsonKey(name: 'is_premium')  bool isPremium, @JsonKey(name: 'sms_available')  bool smsAvailable)?  $default,) {final _that = this;
 switch (_that) {
 case _NotificationPreferencesModel() when $default != null:
-return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium);case _:
+return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_that.availableCategories,_that.emailRequiresPremium,_that.isPremium,_that.smsAvailable);case _:
   return null;
 
 }
@@ -781,7 +782,7 @@ return $default(_that.channels,_that.auctionCategories,_that.newAuctionAlerts,_t
 @JsonSerializable()
 
 class _NotificationPreferencesModel extends NotificationPreferencesModel {
-  const _NotificationPreferencesModel({this.channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories = const <dynamic>[], @JsonKey(name: 'new_auction_alerts') this.newAuctionAlerts = true, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories = const <CategoryOptionModel>[], @JsonKey(name: 'email_requires_premium') this.emailRequiresPremium = false, @JsonKey(name: 'is_premium') this.isPremium = false}): _auctionCategories = auctionCategories,_availableCategories = availableCategories,super._();
+  const _NotificationPreferencesModel({this.channels, @JsonKey(name: 'auction_categories')  List<dynamic> auctionCategories = const <dynamic>[], @JsonKey(name: 'new_auction_alerts') this.newAuctionAlerts = true, @JsonKey(name: 'available_categories')  List<CategoryOptionModel> availableCategories = const <CategoryOptionModel>[], @JsonKey(name: 'email_requires_premium') this.emailRequiresPremium = false, @JsonKey(name: 'is_premium') this.isPremium = false, @JsonKey(name: 'sms_available') this.smsAvailable = false}): _auctionCategories = auctionCategories,_availableCategories = availableCategories,super._();
   factory _NotificationPreferencesModel.fromJson(Map<String, dynamic> json) => _$NotificationPreferencesModelFromJson(json);
 
 @override final  NotificationChannelsModel? channels;
@@ -802,6 +803,7 @@ class _NotificationPreferencesModel extends NotificationPreferencesModel {
 
 @override@JsonKey(name: 'email_requires_premium') final  bool emailRequiresPremium;
 @override@JsonKey(name: 'is_premium') final  bool isPremium;
+@override@JsonKey(name: 'sms_available') final  bool smsAvailable;
 
 /// Create a copy of NotificationPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
@@ -816,18 +818,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationPreferencesModel&&(identical(other.channels, channels) || other.channels == channels)&&const DeepCollectionEquality().equals(other.auctionCategories, _auctionCategories)&&(identical(other.newAuctionAlerts, newAuctionAlerts) || other.newAuctionAlerts == newAuctionAlerts)&&const DeepCollectionEquality().equals(other.availableCategories, _availableCategories)&&(identical(other.emailRequiresPremium, emailRequiresPremium) || other.emailRequiresPremium == emailRequiresPremium)&&(identical(other.isPremium, isPremium) || other.isPremium == isPremium));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationPreferencesModel&&(identical(other.channels, channels) || other.channels == channels)&&const DeepCollectionEquality().equals(other.auctionCategories, _auctionCategories)&&(identical(other.newAuctionAlerts, newAuctionAlerts) || other.newAuctionAlerts == newAuctionAlerts)&&const DeepCollectionEquality().equals(other.availableCategories, _availableCategories)&&(identical(other.emailRequiresPremium, emailRequiresPremium) || other.emailRequiresPremium == emailRequiresPremium)&&(identical(other.isPremium, isPremium) || other.isPremium == isPremium)&&(identical(other.smsAvailable, smsAvailable) || other.smsAvailable == smsAvailable));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,channels,const DeepCollectionEquality().hash(_auctionCategories),newAuctionAlerts,const DeepCollectionEquality().hash(_availableCategories),emailRequiresPremium,isPremium);
+    return Object.hash(runtimeType,channels,const DeepCollectionEquality().hash(_auctionCategories),newAuctionAlerts,const DeepCollectionEquality().hash(_availableCategories),emailRequiresPremium,isPremium,smsAvailable);
 }
 
 @override
 String toString() {
-    return 'NotificationPreferencesModel(channels: $channels, auctionCategories: $auctionCategories, newAuctionAlerts: $newAuctionAlerts, availableCategories: $availableCategories, emailRequiresPremium: $emailRequiresPremium, isPremium: $isPremium)';
+    return 'NotificationPreferencesModel(channels: $channels, auctionCategories: $auctionCategories, newAuctionAlerts: $newAuctionAlerts, availableCategories: $availableCategories, emailRequiresPremium: $emailRequiresPremium, isPremium: $isPremium, smsAvailable: $smsAvailable)';
 }
 
 
@@ -838,7 +840,7 @@ abstract mixin class _$NotificationPreferencesModelCopyWith<$Res> implements $No
   factory _$NotificationPreferencesModelCopyWith(_NotificationPreferencesModel value, $Res Function(_NotificationPreferencesModel) _then) = __$NotificationPreferencesModelCopyWithImpl;
 @override @useResult
 $Res call({
- NotificationChannelsModel? channels,@JsonKey(name: 'auction_categories') List<dynamic> auctionCategories,@JsonKey(name: 'new_auction_alerts') bool newAuctionAlerts,@JsonKey(name: 'available_categories') List<CategoryOptionModel> availableCategories,@JsonKey(name: 'email_requires_premium') bool emailRequiresPremium,@JsonKey(name: 'is_premium') bool isPremium
+ NotificationChannelsModel? channels,@JsonKey(name: 'auction_categories') List<dynamic> auctionCategories,@JsonKey(name: 'new_auction_alerts') bool newAuctionAlerts,@JsonKey(name: 'available_categories') List<CategoryOptionModel> availableCategories,@JsonKey(name: 'email_requires_premium') bool emailRequiresPremium,@JsonKey(name: 'is_premium') bool isPremium,@JsonKey(name: 'sms_available') bool smsAvailable
 });
 
 
@@ -855,7 +857,7 @@ class __$NotificationPreferencesModelCopyWithImpl<$Res>
 
 /// Create a copy of NotificationPreferencesModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? channels = freezed,Object? auctionCategories = null,Object? newAuctionAlerts = null,Object? availableCategories = null,Object? emailRequiresPremium = null,Object? isPremium = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? channels = freezed,Object? auctionCategories = null,Object? newAuctionAlerts = null,Object? availableCategories = null,Object? emailRequiresPremium = null,Object? isPremium = null,Object? smsAvailable = null,}) {
   return _then(_NotificationPreferencesModel(
 channels: freezed == channels ? _self.channels : channels // ignore: cast_nullable_to_non_nullable
 as NotificationChannelsModel?,auctionCategories: null == auctionCategories ? _self._auctionCategories : auctionCategories // ignore: cast_nullable_to_non_nullable
@@ -863,6 +865,7 @@ as List<dynamic>,newAuctionAlerts: null == newAuctionAlerts ? _self.newAuctionAl
 as bool,availableCategories: null == availableCategories ? _self._availableCategories : availableCategories // ignore: cast_nullable_to_non_nullable
 as List<CategoryOptionModel>,emailRequiresPremium: null == emailRequiresPremium ? _self.emailRequiresPremium : emailRequiresPremium // ignore: cast_nullable_to_non_nullable
 as bool,isPremium: null == isPremium ? _self.isPremium : isPremium // ignore: cast_nullable_to_non_nullable
+as bool,smsAvailable: null == smsAvailable ? _self.smsAvailable : smsAvailable // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

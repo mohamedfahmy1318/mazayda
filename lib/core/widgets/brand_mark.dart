@@ -9,8 +9,8 @@ import '../constants/app_colors.dart';
 /// الرئيسية) بدل أيقونة مكررة في تلات ملفات. تغيير الشعار بقى **استبدال
 /// ملف** مش تعديل كود.
 ///
-/// لو ملف الشعار مش موجود بعد، بنرجع لأيقونة المطرقة — فالتطبيق مايكسرش
-/// والشكل يفضل زي ما هو لحد ما الملف يتحط في `assets/logo/`.
+/// الشعار نفسه بيتولّد من ملفات العلامة بـ`tool/generate_logo_assets.py`
+/// (شوف `design/logo/README.md`)، فتحديث العلامة استبدال ملفات مش تعديل كود.
 class BrandMark extends StatelessWidget {
   /// طول ضلع المربّع (قبل `.w`).
   final double size;
@@ -58,8 +58,8 @@ class BrandMark extends StatelessWidget {
         child: Image.asset(
           onDarkSurface ? AppAssets.logoWhite : AppAssets.logo,
           fit: BoxFit.contain,
-          // الشعار الجديد لسه ما اتسلّمش — الأيقونة دي هي اللي بتظهر لحد
-          // ما الملف يتحط، من غير ما الشاشة تكسر.
+          // شبكة أمان لو الأصل اتشال بالغلط من الـbundle — الشاشة تفضل
+          // شغّالة بدل ما ترمي مربّع رمادي.
           errorBuilder: (_, _, _) => Icon(
             Icons.gavel_rounded,
             size: side * 0.55,
