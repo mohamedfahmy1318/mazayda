@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.CAMERA"/>
+<!-- Android 13+: إذن عرض الإشعارات (بيتطلب وقت التشغيل) -->
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="mazayada"
         android:name="${applicationName}"
@@ -29,6 +31,17 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <!-- إشعارات FCM اللي النظام بيعرضها والتطبيق في الخلفية/مقفول:
+             نفس القناة والأيقونة واللون اللي PushNotificationService بيستخدمها. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="mazayada_high" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/notification_color" />
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

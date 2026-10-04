@@ -1,12 +1,24 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io' show Platform;
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import '../constants/app_colors.dart';
+
+/// حمولة `data` لإشعار Push — كل القيم نصوص (قيد FCM).
+typedef PushData = Map<String, dynamic>;
 
 /// يدير الـ Push notifications:
 /// - يطلب الإذن ويجلب الـ FCM token (نرسله للسيرفر لربطه بالمستخدم).
-/// - يعرض الإشعار محليًا والتطبيق مفتوح (foreground) عبر flutter_local_notifications.
+/// - العرض والتطبيق مفتوح (foreground): أندرويد عبر flutter_local_notifications،
+///   و iOS عبر عرض النظام نفسه (`setForegroundNotificationPresentationOptions`)
+///   عشان مايظهرش الإشعار مرتين.
+/// - الضغط على الإشعار في كل الحالات (مفتوح / خلفية / مقفول) → [onTap]
+///   أو [takeLaunchTap] لو هو اللي شغّل التطبيق.
 ///
 /// ⚠️ Firebase اختياري (شوف `_initFirebase` في main.dart): لو `google-services.json`
 /// ناقص، التطبيق يكمل بدون Push. عشان كده **ممنوع** نلمس
@@ -19,19 +31,42 @@ class PushNotificationService {
   final FlutterLocalNotificationsPlugin _local =
       FlutterLocalNotificationsPlugin();
 
+  final _taps = StreamController<PushData>.broadcast();
+  final _foreground = StreamController<RemoteMessage>.broadcast();
+
+  /// الإشعار اللي المستخدم ضغط عليه وهو اللي شغّل التطبيق من الصفر.
+  PushData? _launchTap;
+
   /// `Firebase.apps` آمنة للقراءة قبل التهيئة (ترجع قائمة فاضية).
   static bool get isAvailable => Firebase.apps.isNotEmpty;
 
   FirebaseMessaging? get _messaging =>
       isAvailable ? FirebaseMessaging.instance : null;
 
-  // قناة أندرويد للإشعارات المهمة (مزايدة/فوز/دفع)
+  // قناة أندرويد للإشعارات المهمة (مزايدة/فوز/دفع) — نفس الـ id المضبوط
+  // في AndroidManifest كقناة افتراضية لإشعارات FCM والتطبيق في الخلفية.
   static const _channel = AndroidNotificationChannel(
     'mazayada_high',
     'إشعارات مزايدة',
     description: 'إشعارات المزادات والمزايدات والمدفوعات',
     importance: Importance.high,
   );
+
+  /// أيقونة شريط الحالة (أبيض شفاف) — `res/drawable-*/ic_notification.png`.
+  static const _androidIcon = 'ic_notification';
+
+  /// ضغط على إشعار والتطبيق شغّال (مفتوح أو في الخلفية).
+  Stream<PushData> get onTap => _taps.stream;
+
+  /// رسالة وصلت والتطبيق مفتوح — للي عايز يحدّث بياناته (الصندوق مثلًا).
+  Stream<RemoteMessage> get onForegroundMessage => _foreground.stream;
+
+  /// الإشعار اللي شغّل التطبيق (لو فيه) — بيرجع مرة واحدة بس.
+  PushData? takeLaunchTap() {
+    final tap = _launchTap;
+    _launchTap = null;
+    return tap;
+  }
 
   /// تهيئة كاملة — تُستدعى مرة عند بدء التطبيق بعد Firebase.initializeApp.
   Future<void> init() async {
@@ -44,29 +79,73 @@ class PushNotificationService {
     // 1) طلب الإذن (iOS + Android 13+)
     await fcm.requestPermission(alert: true, badge: true, sound: true);
 
-    // 2) إعداد عرض الإشعارات المحلية
-    const androidInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosInit = DarwinInitializationSettings();
-    await _local.initialize(
-      const InitializationSettings(android: androidInit, iOS: iosInit),
+    // iOS: النظام يعرض الإشعار حتى والتطبيق مفتوح.
+    await fcm.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
     );
-    // إنشاء قناة الأندرويد
+
+    // 2) إعداد العرض المحلي (أندرويد foreground) + الضغط عليه
+    await _local.initialize(
+      const InitializationSettings(
+        android: AndroidInitializationSettings(_androidIcon),
+        // الإذن اتطلب فوق من FCM — مانطلبوش تاني هنا.
+        iOS: DarwinInitializationSettings(
+          requestAlertPermission: false,
+          requestBadgePermission: false,
+          requestSoundPermission: false,
+        ),
+      ),
+      onDidReceiveNotificationResponse: (r) {
+        final data = _decode(r.payload);
+        if (data != null) _taps.add(data);
+      },
+    );
     await _local
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(_channel);
 
-    // 3) استقبال الرسائل والتطبيق مفتوح → اعرضها محليًا
-    FirebaseMessaging.onMessage.listen(_showLocal);
+    // 3) الرسائل والتطبيق مفتوح
+    FirebaseMessaging.onMessage.listen((message) {
+      _foreground.add(message);
+      if (!Platform.isIOS) _showLocal(message);
+    });
+
+    // 4) الضغط والتطبيق في الخلفية
+    FirebaseMessaging.onMessageOpenedApp.listen((m) => _taps.add(m.data));
+
+    // 5) الضغط شغّل التطبيق من الصفر — إشعار FCM، أو إشعار محلي اتعرض
+    //    قبل ما التطبيق يتقفل.
+    final initial = await fcm.getInitialMessage();
+    if (initial != null) {
+      _launchTap = initial.data;
+    } else {
+      final details = await _local.getNotificationAppLaunchDetails();
+      if (details?.didNotificationLaunchApp ?? false) {
+        _launchTap = _decode(details!.notificationResponse?.payload);
+      }
+    }
   }
 
   /// الـ FCM token — أرسله لـ backend لربطه بحساب المستخدم.
-  /// يرجّع `null` لو Firebase مش مُهيّأ (DeviceRegistrar بيتعامل مع ده عادي).
+  /// يرجّع `null` لو Firebase مش مُهيّأ أو التوكن مش متاح لسه
+  /// (DeviceRegistrar بيتعامل مع ده عادي).
   Future<String?> getToken() async {
     final fcm = _messaging;
     if (fcm == null) return null;
-    return fcm.getToken();
+    try {
+      // iOS: FCM مايقدرش يطلّع توكن قبل ما APNs يدّي توكن الجهاز، وده بياخد
+      // لحظات بعد الإقلاع — من غير الانتظار `getToken` بيرمي
+      // `apns-token-not-set`. على المحاكي أو من غير إذن ممكن مايجيش خالص.
+      if (Platform.isIOS && !await _waitForApnsToken(fcm)) return null;
+      return await fcm.getToken();
+    } catch (e) {
+      debugPrint('⚠️ تعذّر جلب FCM token: $e');
+      return null;
+    }
   }
 
   /// FCM بيدوّر التوكن من نفسه (إعادة تثبيت، مسح بيانات، ترقية…).
@@ -75,12 +154,20 @@ class PushNotificationService {
   /// مع كل تدوير. `null` لو Firebase مش مُهيّأ.
   Stream<String>? get onTokenRefresh => _messaging?.onTokenRefresh;
 
-  /// عرض إشعار محلي من رسالة FCM واردة (foreground).
+  Future<bool> _waitForApnsToken(FirebaseMessaging fcm) async {
+    for (var i = 0; i < 10; i++) {
+      if (await fcm.getAPNSToken() != null) return true;
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+    }
+    return false;
+  }
+
+  /// عرض إشعار محلي من رسالة FCM واردة (أندرويد foreground).
   void _showLocal(RemoteMessage message) {
     final n = message.notification;
     if (n == null) return;
     _local.show(
-      n.hashCode,
+      (message.messageId ?? '${n.title}${n.body}').hashCode,
       n.title,
       n.body,
       NotificationDetails(
@@ -90,9 +177,23 @@ class PushNotificationService {
           channelDescription: _channel.description,
           importance: Importance.high,
           priority: Priority.high,
+          icon: _androidIcon,
+          color: AppColors.primary,
+          // النص الطويل يبان كامل لما الإشعار يتفتح.
+          styleInformation: BigTextStyleInformation(n.body ?? ''),
         ),
-        iOS: const DarwinNotificationDetails(),
       ),
+      payload: jsonEncode(message.data),
     );
+  }
+
+  static PushData? _decode(String? payload) {
+    if (payload == null || payload.isEmpty) return null;
+    try {
+      final v = jsonDecode(payload);
+      return v is Map ? Map<String, dynamic>.from(v) : null;
+    } catch (_) {
+      return null;
+    }
   }
 }

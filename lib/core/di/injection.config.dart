@@ -475,13 +475,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i141.AccountCache>(),
       ),
     );
-    gh.factory<_i405.NotificationsCubit>(
-      () => _i405.NotificationsCubit(
-        gh<_i460.GetNotifications>(),
-        gh<_i460.MarkNotificationRead>(),
-        gh<_i460.MarkAllNotificationsRead>(),
-      ),
-    );
     gh.factory<_i420.GetQuestions>(
       () => _i420.GetQuestions(gh<_i420.QaRepository>()),
     );
@@ -528,6 +521,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i689.GetAuctions>(
       () => _i689.GetAuctions(gh<_i793.AuctionRepository>()),
+    );
+    gh.factory<_i405.NotificationsCubit>(
+      () => _i405.NotificationsCubit(
+        gh<_i460.GetNotifications>(),
+        gh<_i460.MarkNotificationRead>(),
+        gh<_i460.MarkAllNotificationsRead>(),
+        gh<_i269.PushNotificationService>(),
+      ),
     );
     gh.factory<_i36.ProfileCubit>(
       () => _i36.ProfileCubit(

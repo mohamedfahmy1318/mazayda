@@ -25,6 +25,37 @@ abstract class NotificationModel with _$NotificationModel {
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       _$NotificationModelFromJson(json);
 
+  /// من حمولة `data` في إشعار Push (BE-11) — كل القيم فيها نصوص.
+  ///
+  /// `type` بنفس مفردات BE-2. باقي المفاتيح مش مثبّتة في العقد، فبنقرا
+  /// البدائل المحتملة عشان التوجيه يشتغل أيًا كان اسمها على الباك.
+  factory NotificationModel.fromPushData(
+    Map<String, dynamic> data, {
+    String? title,
+    String? body,
+  }) {
+    String? pick(List<String> keys) {
+      for (final k in keys) {
+        final v = data[k]?.toString();
+        if (v != null && v.isNotEmpty) return v;
+      }
+      return null;
+    }
+
+    final auctionId = pick(const ['auction_id']);
+    return NotificationModel(
+      id: pick(const ['notification_id', 'id']) ?? '',
+      title: title ?? pick(const ['title']),
+      body: body ?? pick(const ['body']),
+      channel: 'PUSH',
+      type: pick(const ['type', 'event']),
+      // من غير رابط بس فيه `auction_id` → نبني مسار بنفس شكل `action_url`.
+      actionUrl:
+          pick(const ['action_url', 'url', 'link']) ??
+          (auctionId != null ? '/auctions/$auctionId' : null),
+    );
+  }
+
   AppNotification toEntity() => AppNotification(
     id: id,
     title: title ?? '',

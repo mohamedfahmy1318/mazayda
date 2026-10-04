@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "98829638368",
+    "project_id": "mazayda-97d4c",
+    "storage_bucket": "mazayda-97d4c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98829638368:android:c7b80870deb53126b7ce85",
+        "android_client_info": {
+          "package_name": "com.findo.mazayda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM0JQ6s3zJciSSoNyMCU41I2pilQPH1QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

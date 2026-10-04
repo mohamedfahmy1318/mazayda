@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/notifications/push_notification_service.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/app_notification.dart';
 import '../../domain/usecases/notifications_usecases.dart';
@@ -23,14 +26,29 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   final MarkNotificationRead _markRead;
   final MarkAllNotificationsRead _markAll;
 
-  NotificationsCubit(this._getNotifications, this._markRead, this._markAll)
-    : super(const NotificationsState());
+  /// إشعار Push وصل والصفحة مفتوحة → نحدّث القائمة من غير مؤشّر تحميل.
+  StreamSubscription<void>? _pushSub;
 
-  Future<void> load() async {
-    emit(state.copyWith(loading: true, error: null));
+  NotificationsCubit(
+    this._getNotifications,
+    this._markRead,
+    this._markAll,
+    PushNotificationService push,
+  ) : super(const NotificationsState()) {
+    _pushSub = push.onForegroundMessage.listen((_) => load(silent: true));
+  }
+
+  /// [silent]: تحديث في الخلفية — القائمة الحالية تفضل ظاهرة لحد ما
+  /// الجديدة توصل.
+  Future<void> load({bool silent = false}) async {
+    if (!silent) emit(state.copyWith(loading: true, error: null));
     final result = await _getNotifications(const NoParams());
+    if (isClosed) return;
     result.fold(
-      (f) => emit(state.copyWith(loading: false, error: f.message)),
+      // فشل التحديث الصامت مايستاهلش يمسح قائمة شغّالة.
+      (f) => silent
+          ? null
+          : emit(state.copyWith(loading: false, error: f.message)),
       (res) => emit(
         state.copyWith(
           loading: false,
@@ -69,5 +87,11 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     );
     final res = await _markAll(const NoParams());
     res.fold((_) => load(), (_) {});
+  }
+
+  @override
+  Future<void> close() {
+    _pushSub?.cancel();
+    return super.close();
   }
 }

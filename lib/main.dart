@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,10 +11,12 @@ import 'core/connectivity/connectivity_cubit.dart';
 import 'core/connectivity/widgets/connectivity_banner.dart';
 import 'core/notifications/device_registrar.dart';
 import 'core/notifications/push_notification_service.dart';
+import 'core/notifications/push_tap_router.dart';
 import 'core/router/app_router.dart';
 import 'core/session/session_manager.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/locale_cubit.dart';
+import 'features/notifications/domain/usecases/notifications_usecases.dart';
 
 /// مقاس التصميم المرجعي لـ flutter_screenutil.
 const _designSize = Size(375, 812);
@@ -66,8 +70,10 @@ Future<void> _initPushNotifications() async {
   try {
     await getIt<PushNotificationService>().init();
 
+    // من غير await: على iOS التوكن بيستنى APNs لحظات، ومالوش لازمة يأخّر
+    // أول شاشة.
     final registrar = getIt<DeviceRegistrar>();
-    await registrar.registerIfAuthenticated();
+    unawaited(registrar.registerIfAuthenticated());
     registrar.watchTokenRefresh();
   } catch (e) {
     debugPrint('⚠️ تعذّر تهيئة خدمة الإشعارات: $e');
@@ -84,6 +90,25 @@ class MazayadaApp extends StatefulWidget {
 class _MazayadaAppState extends State<MazayadaApp> {
   // نبني الـ router مرة واحدة (مش في كل rebuild) مع SessionManager
   late final _router = createRouter(getIt<SessionManager>());
+
+  // الضغط على إشعار Push → الشاشة المناسبة (بعد ما الجلسة تجهز).
+  late final _pushTaps = PushTapRouter(
+    _router,
+    getIt<PushNotificationService>(),
+    getIt<MarkNotificationRead>(),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _pushTaps.start();
+  }
+
+  @override
+  void dispose() {
+    _pushTaps.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

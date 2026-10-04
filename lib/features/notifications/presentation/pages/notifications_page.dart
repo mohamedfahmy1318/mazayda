@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/injection.dart';
-import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/list_entrance_animation.dart';
 import '../../../../core/widgets/state_views.dart';
 import '../../domain/entities/app_notification.dart';
 import '../cubit/notifications_cubit.dart';
+import '../notification_destination.dart';
 import '../widgets/notification_tile.dart';
 import '../widgets/notifications_header.dart';
 import '../widgets/notifications_list_states.dart';
@@ -94,22 +94,9 @@ class _NotificationsBody extends StatelessWidget {
   }
 
   /// يفتح وجهة الإشعار **داخل التطبيق** (مش في المتصفح).
-  /// الـ action_url جاي من الباك كرابط ويب كامل، فبنستخرج منه المسار.
+  /// مفيش وجهة معروفة → نكتفي بتعليمه كمقروء.
   void _openDestination(BuildContext context, AppNotification n) {
-    final auctionId = n.auctionId;
-    if (auctionId != null) {
-      context.push('${Routes.auctionDetail}/$auctionId');
-    } else if (n.pointsToAppeals) {
-      context.push(Routes.appeals);
-    } else if (n.pointsToCommercialRegister) {
-      // قبل الـ KYC: رابط السجل التجاري مافيهوش المقطع `/kyc` فمافيش تعارض،
-      // بس بنتحقق منه الأول عشان الترتيب يفضل واضح.
-      context.push(Routes.commercialRegister);
-    } else if (n.pointsToKyc) {
-      context.push(Routes.kyc);
-    } else if (n.pointsToPremium) {
-      context.push(Routes.premium);
-    }
-    // مفيش وجهة معروفة → نكتفي بتعليمه كمقروء.
+    final destination = n.destination;
+    if (destination != null) context.push(destination);
   }
 }
