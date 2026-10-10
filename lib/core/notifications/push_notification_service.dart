@@ -20,6 +20,10 @@ typedef PushData = Map<String, dynamic>;
 /// - الضغط على الإشعار في كل الحالات (مفتوح / خلفية / مقفول) → [onTap]
 ///   أو [takeLaunchTap] لو هو اللي شغّل التطبيق.
 ///
+/// ⚠️ بتتهيّأ **بعد** `runApp` ومن غير await (شوف main.dart): أي حاجة هنا
+/// بتستنى المستخدم أو النظام (ديالوج الإذن، `getInitialMessage`) لو كانت
+/// قبل `runApp` الشاشة كانت بتفضل بيضا للأبد.
+///
 /// ⚠️ Firebase اختياري (شوف `_initFirebase` في main.dart): لو `google-services.json`
 /// ناقص، التطبيق يكمل بدون Push. عشان كده **ممنوع** نلمس
 /// `FirebaseMessaging.instance` في تعريف الحقول — الوصول له قبل
@@ -34,8 +38,10 @@ class PushNotificationService {
   final _taps = StreamController<PushData>.broadcast();
   final _foreground = StreamController<RemoteMessage>.broadcast();
 
-  /// الإشعار اللي المستخدم ضغط عليه وهو اللي شغّل التطبيق من الصفر.
-  PushData? _launchTap;
+  /// الإشعار اللي المستخدم ضغط عليه وهو اللي شغّل التطبيق من الصفر —
+  /// بيكتمل لما [init] يعرفه (أو `null`)، حتى لو [init] فشل أو اتخطّى.
+  final _launchTap = Completer<PushData?>();
+  bool _launchTapTaken = false;
 
   /// `Firebase.apps` آمنة للقراءة قبل التهيئة (ترجع قائمة فاضية).
   static bool get isAvailable => Firebase.apps.isNotEmpty;
@@ -61,25 +67,47 @@ class PushNotificationService {
   /// رسالة وصلت والتطبيق مفتوح — للي عايز يحدّث بياناته (الصندوق مثلًا).
   Stream<RemoteMessage> get onForegroundMessage => _foreground.stream;
 
-  /// الإشعار اللي شغّل التطبيق (لو فيه) — بيرجع مرة واحدة بس.
-  PushData? takeLaunchTap() {
-    final tap = _launchTap;
-    _launchTap = null;
-    return tap;
+  /// الإشعار اللي شغّل التطبيق (لو فيه) — بيرجع مرة واحدة بس، وبيستنى
+  /// [init] لو لسه ماخلصش.
+  Future<PushData?> takeLaunchTap() async {
+    if (_launchTapTaken) return null;
+    _launchTapTaken = true;
+    return _launchTap.future;
   }
 
-  /// تهيئة كاملة — تُستدعى مرة عند بدء التطبيق بعد Firebase.initializeApp.
+  /// تهيئة محلية سريعة (من غير أي ديالوج) — تُستدعى مرة عند بدء التطبيق
+  /// بعد Firebase.initializeApp. طلب الإذن منفصل في [requestPermission].
   Future<void> init() async {
+    PushData? launchTap;
+    try {
+      launchTap = await _init();
+    } finally {
+      if (!_launchTap.isCompleted) _launchTap.complete(launchTap);
+    }
+  }
+
+  /// طلب إذن الإشعارات (iOS + Android 13+) — بيستنى قرار المستخدم، فما
+  /// يتعملّوش await في مسار الإقلاع.
+  Future<void> requestPermission() async {
+    try {
+      await _messaging?.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    } catch (e) {
+      debugPrint('⚠️ تعذّر طلب إذن الإشعارات: $e');
+    }
+  }
+
+  Future<PushData?> _init() async {
     final fcm = _messaging;
     if (fcm == null) {
       debugPrint('⚠️ Firebase غير مُهيّأ — تم تخطّي تهيئة الإشعارات.');
-      return;
+      return null;
     }
 
-    // 1) طلب الإذن (iOS + Android 13+)
-    await fcm.requestPermission(alert: true, badge: true, sound: true);
-
-    // iOS: النظام يعرض الإشعار حتى والتطبيق مفتوح.
+    // 1) iOS: النظام يعرض الإشعار حتى والتطبيق مفتوح.
     await fcm.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
@@ -90,7 +118,7 @@ class PushNotificationService {
     await _local.initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings(_androidIcon),
-        // الإذن اتطلب فوق من FCM — مانطلبوش تاني هنا.
+        // الإذن بيتطلب من FCM في [requestPermission] — مانطلبوش هنا.
         iOS: DarwinInitializationSettings(
           requestAlertPermission: false,
           requestBadgePermission: false,
@@ -119,15 +147,18 @@ class PushNotificationService {
 
     // 5) الضغط شغّل التطبيق من الصفر — إشعار FCM، أو إشعار محلي اتعرض
     //    قبل ما التطبيق يتقفل.
-    final initial = await fcm.getInitialMessage();
-    if (initial != null) {
-      _launchTap = initial.data;
-    } else {
-      final details = await _local.getNotificationAppLaunchDetails();
-      if (details?.didNotificationLaunchApp ?? false) {
-        _launchTap = _decode(details!.notificationResponse?.payload);
-      }
+    //    مهلة احتياطية: على iOS مع UIScene كان `getInitialMessage` بيعلّق
+    //    للأبد (firebase_messaging < 16.1) — ماينفعش يوقّف باقي التهيئة.
+    final initial = await fcm.getInitialMessage().timeout(
+      const Duration(seconds: 3),
+      onTimeout: () => null,
+    );
+    if (initial != null) return initial.data;
+    final details = await _local.getNotificationAppLaunchDetails();
+    if (details?.didNotificationLaunchApp ?? false) {
+      return _decode(details!.notificationResponse?.payload);
     }
+    return null;
   }
 
   /// الـ FCM token — أرسله لـ backend لربطه بحساب المستخدم.

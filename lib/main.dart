@@ -40,10 +40,12 @@ Future<void> main() async {
   // حمّل اللغة المحفوظة قبل التشغيل
   await getIt<LocaleCubit>().loadSaved();
 
-  // الإشعارات تعتمد على Firebase — نهيّئها فقط لو جاهز
-  if (firebaseReady) await _initPushNotifications();
-
   runApp(const MazayadaApp());
+
+  // الإشعارات تعتمد على Firebase — نهيّئها فقط لو جاهز، و**بعد** runApp من
+  // غير await: طلب الإذن بيستنى المستخدم، و`getInitialMessage` كان بيعلّق
+  // للأبد على iOS مع UIScene — لما كانوا قبل runApp الشاشة كانت بتفضل بيضا.
+  if (firebaseReady) unawaited(_initPushNotifications());
 }
 
 /// تهيئة Firebase + معالج الخلفية.
@@ -68,13 +70,15 @@ Future<bool> _initFirebase() async {
 /// token اتدوّر والتطبيق مقفول.
 Future<void> _initPushNotifications() async {
   try {
-    await getIt<PushNotificationService>().init();
+    final push = getIt<PushNotificationService>();
+    await push.init();
 
-    // من غير await: على iOS التوكن بيستنى APNs لحظات، ومالوش لازمة يأخّر
-    // أول شاشة.
+    // من غير await: على iOS التوكن بيستنى APNs لحظات، والإذن بيستنى
+    // المستخدم — الاتنين مستقلين عن بعض (توكن APNs مش محتاج الإذن).
     final registrar = getIt<DeviceRegistrar>();
     unawaited(registrar.registerIfAuthenticated());
     registrar.watchTokenRefresh();
+    unawaited(push.requestPermission());
   } catch (e) {
     debugPrint('⚠️ تعذّر تهيئة خدمة الإشعارات: $e');
   }

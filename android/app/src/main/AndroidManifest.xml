@@ -1,10 +1,17 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.CAMERA"/>
 <!-- Android 13+: إذن عرض الإشعارات (بيتطلب وقت التشغيل) -->
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+<!-- open_filex بيضيفهم، بس إحنا بنفتح بيه PDF من مجلد التطبيق المؤقت بس
+     (مش محتاج إذن). اختيار الصور والملفات بيعدّي على منتقي النظام
+     (image_picker / file_picker). Google Play بيرفض READ_MEDIA_* من غير مبرّر. -->
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove"/>
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove"/>
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:node="remove"/>
     <application
-        android:label="mazayada"
+        android:label="مزايدة"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -23,6 +23,7 @@ class PushTapRouter {
 
   StreamSubscription<PushData>? _sub;
   PushData? _pending;
+  bool _disposed = false;
 
   PushTapRouter(this._router, this._push, this._markRead);
 
@@ -39,11 +40,15 @@ class PushTapRouter {
   void start() {
     _sub = _push.onTap.listen(_handle);
     _router.routerDelegate.addListener(_flushPending);
-    final launch = _push.takeLaunchTap();
-    if (launch != null) _handle(launch);
+    // الخدمة بتتهيّأ بعد runApp، فالضغط اللي شغّل التطبيق ممكن يوصل بعد
+    // أول frame — بيتحط في _pending لحد ما الجلسة تجهز.
+    _push.takeLaunchTap().then((launch) {
+      if (launch != null && !_disposed) _handle(launch);
+    });
   }
 
   void dispose() {
+    _disposed = true;
     _sub?.cancel();
     _router.routerDelegate.removeListener(_flushPending);
   }
